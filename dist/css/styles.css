@@ -1,0 +1,12 @@
+body {
+    margin: 0;
+    font-family: verdana,arial;
+    font-size: 13px;
+    color: #707070;
+    background: url('../assets/img/wood_pattern.png');
+    text-align: center;
+}
+* {margin: 0;padding: 0;}
+canvas{
+    margin: 0 auto;   
+}

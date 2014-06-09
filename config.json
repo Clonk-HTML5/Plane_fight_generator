@@ -1,0 +1,5 @@
+{
+  "projectName": "plane_fight",
+  "gameWidth": "window.innerWidth",
+  "gameHeight": "window.innerHeight"
+}
