@@ -157,6 +157,7 @@ Player.prototype.update = function() {
         bullet.kill();
 //        console.log(plane, bullet)
 //        gameInitializer.socket.emit("bullet hit player", {playerId: plane.name});
+        this.socket.socket.emit("bullet hit player", {playerId: this.name});
         plane.health --;
         if(plane.health < 1){
             plane.kill(); 
@@ -182,6 +183,7 @@ Player.prototype.update = function() {
                 this.game.physics.arcade.velocityFromRotation(this.rotation, 1000, bullet.body.velocity);
                 this.bulletTime = this.game.time.now + 250;
 //                gameInitializer.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.plane.angle});
+                this.socket.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
             }
         }
 
@@ -207,6 +209,7 @@ Player.prototype.update = function() {
         // Removes the star from the screen
         bird.kill();
 //        gameInitializer.socket.emit("bullet hit player", {playerId: plane.name});
+        this.socket.socket.emit("bullet hit player", {playerId: this.name});
         plane.health -= 1
         if(plane.health < 1){
             plane.kill();

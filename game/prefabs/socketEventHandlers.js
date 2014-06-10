@@ -2,7 +2,6 @@
 var socketPlayer,
     socketGame,
     socketInGlobalScope,
-    socketEnemies = [],
     SocketObject,
     SocketRemotePlayer = require('../prefabs/socketRemotePlayer');  
 
@@ -13,11 +12,13 @@ var SocketEventHandlers = function(game, player, io) {
         socketGame = game;
         socketPlayer = player;
         SocketObject = this;
+        this.enemies = [];
 //        this.socket = io.connect("http://localhost", {port: 8120, transports: ["websocket"]});
 //        this.socket = io.connect("http://localhost:8120");
 //        this.socket = io.connect("http://192.168.1.5:8120");
 //        this.socket = io.connect("http://neumic-asnort.codio.io:8120");
-         this.socket = io.connect("http://christian-dev.no-ip.biz:8120");
+        this.socket = io.connect("http://christian-dev.no-ip.biz:8120");
+        
         socketInGlobalScope = this.socket;
         this.setEventHandlers();
   
@@ -56,10 +57,9 @@ SocketEventHandlers.prototype = {
     onSocketConnected: function(socket) {
         console.log("Connected to socket server ");
         
-        
         var bullet = socketPlayer.bullets.getFirstExists(false)
         // Send local player data to the game server
-        socketInGlobalScope.emit("new player", {x: socketPlayer.x, y:socketPlayer.y, angle: socketPlayer.angle, bulletX: bullet.x, bulletY: bullet.y,bulletAngle: bullet.rotation});
+        socketInGlobalScope.emit("new player", {x: socketPlayer.x, y:socketPlayer.y, angle: socketPlayer.angle});
 //        this.socket.emit("new player");
     },
 
@@ -71,22 +71,20 @@ SocketEventHandlers.prototype = {
     
     // New player
     onNewPlayer: function(data) {
-        console.log("New player connected: "+data.id + " players " + socketEnemies.length);
+        console.log("New player connected: "+data.id + " players " + SocketObject.enemies.length);
 
-         var bullet = socketPlayer.bullets.getFirstExists(false);
         // Add new player to the remote players array data.x, data.y
-        socketEnemies.push(new SocketRemotePlayer(data.id, socketGame, socketPlayer, data.x, data.y, socketPlayer.angle, socketPlayer.bullets, bullet.x, bullet.y, bullet.rotation));
+        SocketObject.enemies.push(new SocketRemotePlayer(data.id, socketGame, socketPlayer, data.x, data.y, socketPlayer.angle));
         
-        console.log(" players " + socketEnemies.length)
-        
-//        this.enemies.push(new Player(this.game, data.id));
+        if(SocketObject.enemies[SocketObject.enemies.length-1])
+            socketGame.add.existing(SocketObject.enemies[SocketObject.enemies.length-1]);
     },
 
     // Move player
     onMovePlayer: function(data) {
         
         var movePlayer = SocketObject.playerById(data.id);
-
+        
         // Player not found
         if (!movePlayer) {
             console.log("Player not found: "+data.id);
@@ -122,7 +120,7 @@ SocketEventHandlers.prototype = {
             return;
         };
         
-       if (game.time.now > bulletTime)
+       if (socketGame.time.now > bulletTime)
         {
             var bullet = playerHowFired.bullets.getFirstExists(false);
             
@@ -135,9 +133,9 @@ SocketEventHandlers.prototype = {
 //                bullet.rotation = this.plane.rotation + this.game.math.degToRad(90);
                 bullet.lifespan = 2000;
                  bullet.rotation = data.bulletAngle;
-                bullet.body.velocity.copyFrom(game.physics.arcade.velocityFromAngle(data.angle, 1000))
+                bullet.body.velocity.copyFrom(socketGame.physics.arcade.velocityFromAngle(data.angle, 1000))
 //                game.physics.arcade.velocityFromRotation(data.angle, 1000, bullet.body.velocity);
-                bulletTime = game.time.now + 250;
+                bulletTime = socketGame.time.now + 250;
             }
         }
         
@@ -145,7 +143,7 @@ SocketEventHandlers.prototype = {
 //        playerHowFired.bullet.x = data.bulletX;
 //        playerHowFired.bullet.y = data.bulletY;
 //        playerHowFired.bullet.rotation = data.bulletAngle;
-//        playerHowFired.bullet.body.velocity.copyFrom(game.physics.arcade.velocityFromAngle(data.angle, 1000))
+//        playerHowFired.bullet.body.velocity.copyFrom(socketGame.physics.arcade.velocityFromAngle(data.angle, 1000))
 
     },
     // Player fires Bullet
@@ -155,9 +153,9 @@ SocketEventHandlers.prototype = {
         
         if(playerGetsHit){
             // an other player was shooted
-            playerGetsHit.player.health -= 1;
-            if(playerGetsHit.player.health < 1){
-                playerGetsHit.player.kill();
+            playerGetsHit.health -= 1;
+            if(playerGetsHit.health < 1){
+                playerGetsHit.kill();
             }
         }else{
             // i think me was shooted
@@ -188,18 +186,18 @@ SocketEventHandlers.prototype = {
             return;
         };
 
-        removePlayer.player.kill();
+        removePlayer.kill();
 
         // Remove player from array
-        socketEnemies.splice(socketEnemies.indexOf(removePlayer), 1);
+        SocketObject.enemies.splice(SocketObject.enemies.indexOf(removePlayer), 1);
 
     },
         // Find player by ID
         playerById: function(id) {
             var i;
-            for (i = 0; i < socketEnemies.length; i++) {
-                if (socketEnemies[i].name == id)
-                    return socketEnemies[i];
+            for (i = 0; i < SocketObject.enemies.length; i++) {
+                if (SocketObject.enemies[i].name == id)
+                    return SocketObject.enemies[i];
             };
 
             return false;

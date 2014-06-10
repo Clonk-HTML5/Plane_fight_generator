@@ -41,16 +41,15 @@
     update: function() {
       // state update code
         
-        this.game.physics.arcade.overlap(this.player.bullets, this.birdGroup, this.player.bulletHitsBird, null, this);
-        this.game.physics.arcade.overlap(this.player, this.birdGroup, this.player.playerHitsBird, null, this);
+        this.game.physics.arcade.overlap(this.player.bullets, this.birdGroup, this.player.bulletHitsBird, null, this.player);
+        this.game.physics.arcade.overlap(this.player, this.birdGroup, this.player.playerHitsBird, null, this.player);
 
-//        console.log(gameInitializer.enemies)
-//        if(gameInitializer.enemies.length){
-//            for(var i = 0; i < gameInitializer.enemies.length; i++){
-//                this.game.physics.arcade.overlap(gameInitializer.enemies[i].player, this.bullets, this.shootPlayer, null, this);
-//            }
-//        }
-        this.game.physics.arcade.collide(this.player, this.level.platforms, null, null, this);
+        if(this.player.socket.enemies.length){
+            for(var i = 0; i < this.player.socket.enemies.length; i++){
+                this.game.physics.arcade.overlap(this.player.socket.enemies[i], this.player.bullets, this.player.shootPlayer, null, this.player);
+            }
+        }
+        this.game.physics.arcade.collide(this.player, this.level.platforms, null, null, this.player);
     },
     pauseClick: function() {  
         // start the 'pause' state
