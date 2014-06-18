@@ -16,7 +16,7 @@ window.onload = function () {
 
   game.state.start('boot');
 };
-},{"./states/boot":12,"./states/gameover":13,"./states/menu":14,"./states/play":15,"./states/playMultiplayer":16,"./states/preload":17}],2:[function(require,module,exports){
+},{"./states/boot":13,"./states/gameover":14,"./states/menu":15,"./states/play":16,"./states/playMultiplayer":17,"./states/preload":18}],2:[function(require,module,exports){
 /**
  * Helpers 
  */
@@ -5393,6 +5393,101 @@ var io = ('undefined' === typeof module ? {} : module.exports);
 },{}],6:[function(require,module,exports){
 'use strict';
 
+var EnemyPlane = function(game, x, y, frame) {
+  Phaser.Sprite.call(this, game, x, y, 'plane3', frame);
+
+  // initialize your prefab here
+    
+        this.emitter = this.game.add.emitter(x, y, 400);
+
+        this.emitter.makeParticles( [ 'smoke' ] );
+
+        this.emitter.gravity = 50;
+        this.emitter.setAlpha(1, 0, 1000);
+        this.emitter.setScale(0.1, 0, 0.05, 0, 1000);
+
+        this.emitter.start(false, 3000, 5);
+        
+        //  Our bullet group
+        this.bullets = this.game.add.group();
+        this.bullets.enableBody = true;
+        this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
+        this.bullets.createMultiple(500, 'bullet2');
+        this.bullets.setAll('anchor.x', 0.5);
+        this.bullets.setAll('anchor.y', 1);
+        this.bullets.setAll('checkWorldBounds', true);
+        this.bullets.setAll('outOfBoundsKill', true);
+        this.bullets.setAll('scale.x', 0.5);
+        this.bullets.setAll('scale.y', 0.5);
+        this.bulletTime = 0;
+        
+        this.health = 5;
+        this.kills = 0;
+        this.angle = 0;
+        this.scale.setTo(0.6, 0.6);
+//        this.scale.x *= -1;
+        this.anchor.setTo(0.5, 0.5);
+//        this.scale.setTo(0.23, 0.23);
+        this.game.physics.enable(this, Phaser.Physics.ARCADE);
+//        this.body.collideWorldBounds = true;
+        //	Tell it we don't want physics to manage the rotation
+//        this.body.allowRotation = false;
+        this.body.gravity.y = 50;
+        this.body.velocity.setTo(300, 0)
+        this.body.maxVelocity.setTo(300, 300);
+//        this.bringToTop();
+    
+    
+    /*******************
+    * HUD'S
+    *******************/
+        
+      this.hud = Phaser.Plugin.HUDManager.create(this.game, this, 'gamehud');
+      this.healthHUD = this.hud.addBar(0,-50, this.width, 10, this.health, 'health', this, '#ffbd55', false);
+      this.healthHUD.bar.anchor.setTo(0.5, 0.5);
+      this.addChild(this.healthHUD.bar);
+    
+    this.randomXPointInWorld = this.game.world.randomX;
+    this.randomYPointInWorld = this.game.world.randomY - 300;
+    
+    console.log(this.randomXPointInWorld, this.randomYPointInWorld)
+  
+};
+
+EnemyPlane.prototype = Object.create(Phaser.Sprite.prototype);
+EnemyPlane.prototype.constructor = EnemyPlane;
+
+EnemyPlane.prototype.update = function() {
+  
+  // write your prefab's specific update code here
+    
+    if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
+        this.randomXPointInWorld = this.game.world.randomX;
+        this.randomYPointInWorld = this.game.world.randomY - 300;
+    }
+    
+    this.rotation = this.game.physics.arcade.moveToXY(this, this.randomXPointInWorld, this.randomYPointInWorld, 300, 2000)
+    this.game.physics.arcade.velocityFromAngle(this.angle, 300, this.body.velocity)
+    
+    var px = this.body.velocity.x;
+    var py = this.body.velocity.y;
+
+    px *= -1;
+    py *= -1;
+
+    this.emitter.minParticleSpeed.set(px, py);
+    this.emitter.maxParticleSpeed.set(px, py);
+
+    this.emitter.emitX = this.x;
+    this.emitter.emitY = this.y;
+  
+};
+
+module.exports = EnemyPlane;
+
+},{}],7:[function(require,module,exports){
+'use strict';
+
 var Level = function(game, parent) {
   Phaser.Group.call(this, game, parent);
 
@@ -5445,7 +5540,7 @@ Level.prototype.constructor = Level;
 
 module.exports = Level;
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
   var Hammer = require('../plugins/Hammer');   
@@ -5563,10 +5658,17 @@ Player.prototype.update = function() {
 //            this.body.rotateLeft(100);
             this.game.physics.arcade.velocityFromAngle(this.angle, 300, this.body.velocity);
             this.body.angularVelocity -= 100;
+            
+            // Invert scale.y to flip up/down
+//            if(this.scale.y > 0)
+//                this.scale.y *= -1;
         } else if (this.cursors.right.isDown) {
             this.game.physics.arcade.velocityFromAngle(this.angle, 300, this.body.velocity);
             this.body.angularVelocity += 100;
+            
 //            this.body.rotateRight(100);
+//            if(this.scale.y < 0)
+//                this.scale.y *= 1;
         }
         if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
         {
@@ -5591,7 +5693,8 @@ Player.prototype.update = function() {
         this.emitter.emitX = this.x;
         this.emitter.emitY = this.y;
 
-        this.socket.socket.emit("move player", {x: this.x, y:this.y, angle: this.angle});
+        if(this.socket)
+            this.socket.socket.emit("move player", {x: this.x, y:this.y, angle: this.angle});
   
 };
 
@@ -5603,15 +5706,8 @@ Player.prototype.update = function() {
     Player.prototype.shootPlayer = function (plane, bullet) {
         // Removes the star from the screen
         bullet.kill();
-//        console.log(plane, bullet)
-//        gameInitializer.socket.emit("bullet hit player", {playerId: plane.name});
-        this.socket.socket.emit("bullet hit player", {playerId: this.name});
-        plane.health --;
-        if(plane.health < 1){
-            plane.kill(); 
-            plane.emitter.kill();
-            plane.bullets.removeAll();
-        }
+
+        this.playerLoseHealth(plane);
     };
     
     Player.prototype.fireBullet = function() {
@@ -5631,7 +5727,8 @@ Player.prototype.update = function() {
                 this.game.physics.arcade.velocityFromRotation(this.rotation, 1000, bullet.body.velocity);
                 this.bulletTime = this.game.time.now + 250;
 //                gameInitializer.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.plane.angle});
-                this.socket.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
+                if(this.socket)
+                    this.socket.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
             }
         }
 
@@ -5656,10 +5753,27 @@ Player.prototype.update = function() {
     Player.prototype.playerHitsBird = function (plane, bird) {
         // Removes the star from the screen
         bird.kill();
+        
+        this.playerLoseHealth(plane);
+    };
+
+     /**
+     * player collides with enemy
+     * @param player player collides
+     */
+    Player.prototype.playerLoseHealth = function (plane) {
 //        gameInitializer.socket.emit("bullet hit player", {playerId: plane.name});
-        this.socket.socket.emit("bullet hit player", {playerId: this.name});
+        if(this.socket)
+            this.socket.socket.emit("bullet hit player", {playerId: this.name});
         plane.health -= 1
         if(plane.health < 1){
+            
+            //explode animation
+            var explosion = this.game.add.sprite(plane.x - plane.width/2, plane.y - plane.height/2, 'airplaneexplode');
+            explosion.animations.add('explode');
+            explosion.animations.play('explode', 10, false, true);
+//            explosion.animations.destroy('explode');
+            
             plane.kill();
             plane.emitter.kill();
             plane.bullets.removeAll();
@@ -5668,7 +5782,7 @@ Player.prototype.update = function() {
 
 module.exports = Player;
 
-},{"../plugins/Hammer":4}],8:[function(require,module,exports){
+},{"../plugins/Hammer":4}],9:[function(require,module,exports){
 'use strict';
 
 var Bird = function(game, x, y, frame) {
@@ -5726,7 +5840,7 @@ Bird.prototype.birdLeft = function() {
 
 module.exports = Bird;
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 var Bird = require('./bird');
@@ -5766,7 +5880,7 @@ BirdGroup.prototype.constructor = BirdGroup;
 //};
 
 module.exports = BirdGroup;
-},{"./bird":8}],10:[function(require,module,exports){
+},{"./bird":9}],11:[function(require,module,exports){
 'use strict';
 var socketPlayer,
     socketGame,
@@ -5975,7 +6089,7 @@ SocketEventHandlers.prototype = {
 
 module.exports = SocketEventHandlers;
 
-},{"../prefabs/socketRemotePlayer":11}],11:[function(require,module,exports){
+},{"../prefabs/socketRemotePlayer":12}],12:[function(require,module,exports){
 'use strict';
 
 var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle) {
@@ -6039,7 +6153,7 @@ SocketRemotePlayer.prototype.update = function() {
 
 module.exports = SocketRemotePlayer;
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 
 'use strict';
 
@@ -6058,7 +6172,7 @@ Boot.prototype = {
 
 module.exports = Boot;
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 
 'use strict';
 function GameOver() {}
@@ -6086,7 +6200,7 @@ GameOver.prototype = {
 };
 module.exports = GameOver;
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 
 'use strict';
 function Menu() {}
@@ -6126,11 +6240,12 @@ Menu.prototype = {
 
 module.exports = Menu;
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 
   'use strict';
   var BirdGroup = require('../prefabs/birdGroup');  
   var Player = require('../prefabs/Player');  
+  var EnemyPlane = require('../prefabs/EnemyPlane');  
   var Level = require('../prefabs/Level');  
   var GameController = require('../plugins/GameController');
   var HUDManager = require('../plugins/HUDManager');
@@ -6139,6 +6254,20 @@ module.exports = Menu;
   Play.prototype = {
     create: function() {
         
+//        this.worldScale = 0.8
+//        
+//        // set a minimum and maximum scale value
+//        this.worldScale = Phaser.Math.clamp(this.worldScale, 0.25, 2);
+//
+//        // set our world scale as needed
+//        this.game.world.scale.set(this.worldScale);
+//        
+//        // set our world size to be bigger than the window so we can move the camera
+//        this.game.world.setBounds(0, -200, 4000, 1000);
+//
+//        // move our camera half the size of the viewport back so the pivot point is in the center of our view
+//        this.game.camera.x = (this.game.width * -0.5);
+//        this.game.camera.y = (this.game.height * -0.5);
         
         // new Level Object
         this.level = new Level(this.game);
@@ -6150,6 +6279,10 @@ module.exports = Menu;
         this.player = new Player(this.game, 400, 400,0);
         this.game.add.existing(this.player);
         
+        // new Player Object
+        this.enemyPlane = new EnemyPlane(this.game, 1600, 400,0);
+        this.game.add.existing(this.enemyPlane);
+        
         // add our pause button with a callback
         this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'pause', this.pauseClick, this);
         this.pauseButton.fixedToCamera = true;
@@ -6157,8 +6290,8 @@ module.exports = Menu;
         this.pauseButton.scale.setTo(0.75,0.75);
     },
     update: function() {
-        this.game.physics.arcade.overlap(this.player.bullets, this.birdGroup, this.player.bulletHitsBird, null, this);
-        this.game.physics.arcade.overlap(this.player, this.birdGroup, this.player.playerHitsBird, null, this);
+        this.game.physics.arcade.overlap(this.player.bullets, this.birdGroup, this.player.bulletHitsBird, null, this.player);
+        this.game.physics.arcade.overlap(this.player, this.birdGroup, this.player.playerHitsBird, null, this.player);
 
 //        console.log(gameInitializer.enemies)
 //        if(gameInitializer.enemies.length){
@@ -6166,7 +6299,7 @@ module.exports = Menu;
 //                this.game.physics.arcade.overlap(gameInitializer.enemies[i].player, this.bullets, this.shootPlayer, null, this);
 //            }
 //        }
-        this.game.physics.arcade.collide(this.player, this.level.platforms, null, null, this);
+        this.game.physics.arcade.collide(this.player, this.level.platforms, this.player.playerLoseHealth, null, this.player);
     },
     pauseClick: function() {  
         // start the 'pause' state
@@ -6175,7 +6308,7 @@ module.exports = Menu;
   };
   
   module.exports = Play;
-},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../prefabs/Level":6,"../prefabs/Player":7,"../prefabs/birdGroup":9}],16:[function(require,module,exports){
+},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../prefabs/EnemyPlane":6,"../prefabs/Level":7,"../prefabs/Player":8,"../prefabs/birdGroup":10}],17:[function(require,module,exports){
 'use strict';
   var GameController = require('../plugins/GameController');
   var HUDManager = require('../plugins/HUDManager');  
@@ -6243,7 +6376,7 @@ module.exports = Menu;
   };
 module.exports = PlayMultiplayer;
 
-},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../plugins/socket.io":5,"../prefabs/Level":6,"../prefabs/Player":7,"../prefabs/birdGroup":9,"../prefabs/socketEventHandlers":10}],17:[function(require,module,exports){
+},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../plugins/socket.io":5,"../prefabs/Level":7,"../prefabs/Player":8,"../prefabs/birdGroup":10,"../prefabs/socketEventHandlers":11}],18:[function(require,module,exports){
 
 'use strict';
 function Preload() {
@@ -6274,7 +6407,9 @@ Preload.prototype = {
         this.load.image('smoke', 'assets/img/sprites/particles/pump_smoke_04.png');
         this.load.image('bullet', 'assets/img/sprites/bullet.png');
         this.load.image('bullet2', 'assets/img/sprites/bullet2.png');
-      
+        this.load.spritesheet('explode', 'assets/img/sprites/effects/explode.png', 64, 64, 16 );
+        this.load.spritesheet('bombexplode', 'assets/img/sprites/effects/bombexplosion.png', 128, 115, 8);
+        this.load.spritesheet('airplaneexplode', 'assets/img/sprites/effects/airplaneexplosion.png', 128, 115, 8);
     //LEVEL
         this.load.image('sky', 'assets/img/level/sky.png');
         this.load.image('sky_new', 'assets/img/level/sky_new.png');
@@ -6293,17 +6428,10 @@ Preload.prototype = {
         this.load.image('tree2', 'assets/img/level/trees/tree_coniferous_4.png');
         this.load.image('tree3', 'assets/img/level/trees/tree_coniferous_4.png');
         this.load.image('tree4', 'assets/img/level/trees/tree_deciduous3.png');
-        
-        
         this.load.image('mountains', 'assets/img/level/mountains.png');
-        
-        //	Load our physcs data exported from PhysicsEditor
-        // 	this.load.physics('terrainPD', 'assets/physics/terrain.json');
-//        this.load.physics('bigTerrain', 'assets/physics/bigTerrain.json');
-//        this.load.physics('bigTerrainSmaller', 'assets/physics/bigTerrainSmaller.json');
       
-    //BIRD
-    this.load.spritesheet('birdie', 'assets/img/sprites/bird.png', 189, 169, 3);
+        //BIRD
+        this.load.spritesheet('birdie', 'assets/img/sprites/bird.png', 189, 169, 3);
 
   },
   create: function() {

@@ -28,7 +28,9 @@ Preload.prototype = {
         this.load.image('smoke', 'assets/img/sprites/particles/pump_smoke_04.png');
         this.load.image('bullet', 'assets/img/sprites/bullet.png');
         this.load.image('bullet2', 'assets/img/sprites/bullet2.png');
-      
+        this.load.spritesheet('explode', 'assets/img/sprites/effects/explode.png', 64, 64, 16 );
+        this.load.spritesheet('bombexplode', 'assets/img/sprites/effects/bombexplosion.png', 128, 115, 8);
+        this.load.spritesheet('airplaneexplode', 'assets/img/sprites/effects/airplaneexplosion.png', 128, 115, 8);
     //LEVEL
         this.load.image('sky', 'assets/img/level/sky.png');
         this.load.image('sky_new', 'assets/img/level/sky_new.png');
@@ -47,17 +49,10 @@ Preload.prototype = {
         this.load.image('tree2', 'assets/img/level/trees/tree_coniferous_4.png');
         this.load.image('tree3', 'assets/img/level/trees/tree_coniferous_4.png');
         this.load.image('tree4', 'assets/img/level/trees/tree_deciduous3.png');
-        
-        
         this.load.image('mountains', 'assets/img/level/mountains.png');
-        
-        //	Load our physcs data exported from PhysicsEditor
-        // 	this.load.physics('terrainPD', 'assets/physics/terrain.json');
-//        this.load.physics('bigTerrain', 'assets/physics/bigTerrain.json');
-//        this.load.physics('bigTerrainSmaller', 'assets/physics/bigTerrainSmaller.json');
       
-    //BIRD
-    this.load.spritesheet('birdie', 'assets/img/sprites/bird.png', 189, 169, 3);
+        //BIRD
+        this.load.spritesheet('birdie', 'assets/img/sprites/bird.png', 189, 169, 3);
 
   },
   create: function() {

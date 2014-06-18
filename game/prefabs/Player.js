@@ -115,10 +115,17 @@ Player.prototype.update = function() {
 //            this.body.rotateLeft(100);
             this.game.physics.arcade.velocityFromAngle(this.angle, 300, this.body.velocity);
             this.body.angularVelocity -= 100;
+            
+            // Invert scale.y to flip up/down
+//            if(this.scale.y > 0)
+//                this.scale.y *= -1;
         } else if (this.cursors.right.isDown) {
             this.game.physics.arcade.velocityFromAngle(this.angle, 300, this.body.velocity);
             this.body.angularVelocity += 100;
+            
 //            this.body.rotateRight(100);
+//            if(this.scale.y < 0)
+//                this.scale.y *= 1;
         }
         if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
         {
@@ -143,7 +150,8 @@ Player.prototype.update = function() {
         this.emitter.emitX = this.x;
         this.emitter.emitY = this.y;
 
-        this.socket.socket.emit("move player", {x: this.x, y:this.y, angle: this.angle});
+        if(this.socket)
+            this.socket.socket.emit("move player", {x: this.x, y:this.y, angle: this.angle});
   
 };
 
@@ -155,15 +163,8 @@ Player.prototype.update = function() {
     Player.prototype.shootPlayer = function (plane, bullet) {
         // Removes the star from the screen
         bullet.kill();
-//        console.log(plane, bullet)
-//        gameInitializer.socket.emit("bullet hit player", {playerId: plane.name});
-        this.socket.socket.emit("bullet hit player", {playerId: this.name});
-        plane.health --;
-        if(plane.health < 1){
-            plane.kill(); 
-            plane.emitter.kill();
-            plane.bullets.removeAll();
-        }
+
+        this.playerLoseHealth(plane);
     };
     
     Player.prototype.fireBullet = function() {
@@ -183,7 +184,8 @@ Player.prototype.update = function() {
                 this.game.physics.arcade.velocityFromRotation(this.rotation, 1000, bullet.body.velocity);
                 this.bulletTime = this.game.time.now + 250;
 //                gameInitializer.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.plane.angle});
-                this.socket.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
+                if(this.socket)
+                    this.socket.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
             }
         }
 
@@ -208,10 +210,27 @@ Player.prototype.update = function() {
     Player.prototype.playerHitsBird = function (plane, bird) {
         // Removes the star from the screen
         bird.kill();
+        
+        this.playerLoseHealth(plane);
+    };
+
+     /**
+     * player collides with enemy
+     * @param player player collides
+     */
+    Player.prototype.playerLoseHealth = function (plane) {
 //        gameInitializer.socket.emit("bullet hit player", {playerId: plane.name});
-        this.socket.socket.emit("bullet hit player", {playerId: this.name});
+        if(this.socket)
+            this.socket.socket.emit("bullet hit player", {playerId: this.name});
         plane.health -= 1
         if(plane.health < 1){
+            
+            //explode animation
+            var explosion = this.game.add.sprite(plane.x - plane.width/2, plane.y - plane.height/2, 'airplaneexplode');
+            explosion.animations.add('explode');
+            explosion.animations.play('explode', 10, false, true);
+//            explosion.animations.destroy('explode');
+            
             plane.kill();
             plane.emitter.kill();
             plane.bullets.removeAll();
