@@ -42,7 +42,7 @@
       // state update code
         
         this.game.physics.arcade.overlap(this.player.bullets, this.birdGroup, this.player.bulletHitsBird, null, this.player);
-        this.game.physics.arcade.overlap(this.player, this.birdGroup, this.player.playerHitsBird, null, this.player);
+        this.game.physics.arcade.overlap(this.player, this.birdGroup, this.player.playerHitsSomething, null, this.player);
 
         if(this.player.socket.enemies.length){
             for(var i = 0; i < this.player.socket.enemies.length; i++){

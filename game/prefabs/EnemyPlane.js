@@ -1,9 +1,13 @@
 'use strict';
 
-var EnemyPlane = function(game, x, y, frame) {
+var EnemyPlane = function(game, x, y, frame, player, options) {
   Phaser.Sprite.call(this, game, x, y, 'plane3', frame);
 
   // initialize your prefab here
+    
+    this.options = options ? options : false;
+    
+    this.player = player;
     
         this.emitter = this.game.add.emitter(x, y, 400);
 
@@ -56,8 +60,6 @@ var EnemyPlane = function(game, x, y, frame) {
     
     this.randomXPointInWorld = this.game.world.randomX;
     this.randomYPointInWorld = this.game.world.randomY - 300;
-    
-    console.log(this.randomXPointInWorld, this.randomYPointInWorld)
   
 };
 
@@ -67,14 +69,29 @@ EnemyPlane.prototype.constructor = EnemyPlane;
 EnemyPlane.prototype.update = function() {
   
   // write your prefab's specific update code here
+    if(!this.options.menu){
+        this.game.physics.arcade.overlap(this, this.player.bullets, this.playerLoseHealth, null, this);
+        this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
+    }
     
     if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
+        this.body.rotation = this.game.physics.arcade.angleToXY(this, this.randomXPointInWorld, this.randomYPointInWorld);
         this.randomXPointInWorld = this.game.world.randomX;
         this.randomYPointInWorld = this.game.world.randomY - 300;
     }
     
     this.rotation = this.game.physics.arcade.moveToXY(this, this.randomXPointInWorld, this.randomYPointInWorld, 300, 2000)
     this.game.physics.arcade.velocityFromAngle(this.angle, 300, this.body.velocity)
+    
+    if(!this.options.menu){
+         if (this.game.physics.arcade.distanceBetween(this, this.player) < 300){
+             this.fireBullet();
+         }
+    }else{
+//         if (this.game.physics.arcade.distanceBetween(this, this.player) < 300){
+//             this.fireBullet();
+//         }
+    }
     
     var px = this.body.velocity.x;
     var py = this.body.velocity.y;
@@ -89,5 +106,52 @@ EnemyPlane.prototype.update = function() {
     this.emitter.emitY = this.y;
   
 };
+
+EnemyPlane.prototype.fireBullet = function() {
+
+    if (this.game.time.now > this.bulletTime)
+    {
+
+        var bullet = this.bullets.getFirstExists(false);
+
+        if (bullet)
+        {
+            bullet.reset(this.body.x + this.body.width/2, this.body.y + this.body.height/2);
+//                bullet.body.velocity.copyFrom(this.game.physics.arcade.velocityFromAngle(this.plane.angle, 1000))
+//                bullet.rotation = this.plane.rotation + this.game.math.degToRad(90);
+            bullet.lifespan = 2000;
+             bullet.rotation = this.rotation + this.game.math.degToRad(90);
+            this.game.physics.arcade.velocityFromRotation(this.rotation, 1000, bullet.body.velocity);
+            this.bulletTime = this.game.time.now + 250;
+//                gameInitializer.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.plane.angle});
+            if(this.socket)
+                this.socket.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
+        }
+    }
+
+};
+
+     /**
+     * player collides with enemy
+     * @param player player collides
+     */
+    EnemyPlane.prototype.playerLoseHealth = function (plane) {
+//        gameInitializer.socket.emit("bullet hit player", {playerId: plane.name});
+        if(this.socket)
+            this.socket.socket.emit("bullet hit player", {playerId: this.name});
+        plane.health -= 1
+        if(plane.health < 1){
+            
+            //explode animation
+            var explosion = this.game.add.sprite(plane.x - plane.width/2, plane.y - plane.height/2, 'airplaneexplode');
+            explosion.animations.add('explode');
+            explosion.animations.play('explode', 10, false, true);
+//            explosion.animations.destroy('explode');
+            
+            plane.kill();
+            plane.emitter.kill();
+            plane.bullets.removeAll();
+        }
+    };
 
 module.exports = EnemyPlane;

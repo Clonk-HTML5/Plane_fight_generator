@@ -22,15 +22,36 @@ var Level = function(game, parent) {
         tree,
         lastGroundYPos;
 
-    for(var i = 0; i < 25; i++){
+    for(var i = 0; i < 20; i++){
 
-        treeName = 'tree'+Math.round(Math.random() * 4);
+        treeName = 'tree'+Math.round(Math.random() * 3);
 
         var tree = this.game.add.sprite(Math.random() * this.game.world.width, 716, treeName);
         tree.scale.setTo(0.25, 0.25);
 
-        var clouds = this.game.add.sprite(Math.random() * this.game.world.width, Math.random() * this.game.world.height - 400, 'clouds1');
-        var clouds2 = this.game.add.sprite(Math.random() * this.game.world.width, Math.random() * this.game.world.height - 400, 'clouds2');
+        this.clouds = this.game.add.sprite(Math.random() * this.game.world.width, Math.random() * this.game.world.height - 400, 'clouds1');
+        
+        this.clouds.anchor.setTo(0.5, 0);
+        // Kill the cloud when out of bounds
+        this.clouds.checkWorldBounds = true;
+        this.clouds.outOfBoundsKill = true;
+
+        // Move clouds
+        this.game.physics.arcade.enableBody(this.clouds);
+        this.clouds.body.allowGravity = false;
+        this.clouds.body.velocity.x = -this.game.rnd.integerInRange(15, 30); 
+        
+        this.clouds2 = this.game.add.sprite(Math.random() * this.game.world.width, Math.random() * this.game.world.height - 400, 'clouds2');
+        
+        this.clouds2.anchor.setTo(0.5, 0);
+        // Kill the cloud when out of bounds
+        this.clouds2.checkWorldBounds = true;
+        this.clouds2.outOfBoundsKill = true;
+
+        // Move clouds
+        this.game.physics.arcade.enableBody(this.clouds2);
+        this.clouds2.body.allowGravity = false;
+        this.clouds2.body.velocity.x = -this.game.rnd.integerInRange(15, 30);
     }
 
     while (lastGroundYPos < this.game.world.width){
@@ -49,5 +70,8 @@ var Level = function(game, parent) {
 
 Level.prototype = Object.create(Phaser.Group.prototype);
 Level.prototype.constructor = Level;
+Level.prototype.update = function() {
+//   write your prefab's specific update code here
+};
 
 module.exports = Level;

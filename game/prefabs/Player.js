@@ -33,6 +33,9 @@ var Player = function(game, x, y, frame) {
         this.health = 5;
         this.kills = 0;
         this.angle = 0;
+        this.angleSpeed = 300;
+        this.angularVeloctitySpeed = 150;
+        
         this.scale.setTo(0.6, 0.6);
 //        this.scale.x *= -1;
         this.anchor.setTo(0.5, 0.5);
@@ -59,11 +62,10 @@ var Player = function(game, x, y, frame) {
       this.hud = Phaser.Plugin.HUDManager.create(this.game, this, 'gamehud');
       this.killsHUD = this.hud.addText(10, 10, 'Kills: ', style, 'kills', this);
       this.killsText.addChild(this.killsHUD.text);
-
+    
       this.healthHUD = this.hud.addBar(0,-50, this.width, 10, this.health, 'health', this, '#ffbd55', false);
       this.healthHUD.bar.anchor.setTo(0.5, 0.5);
-      this.addChild(this.healthHUD.bar);
-    
+      this.addChild(this.healthHUD.bar);    
     
         //Camera
         this.game.camera.follow(this);
@@ -76,23 +78,69 @@ var Player = function(game, x, y, frame) {
     /*******************
     * Hammertime
     *******************/
-        var element = document.getElementsByTagName('canvas')[0],
-        _this = this;
+//        var element = document.getElementsByTagName('canvas')[0],
+//        _this = this;
+//        
+//        var options = {
+//          preventDefault: true
+//        };
+//        if(typeof Hammer != "undefined"){
+//            var hammertime = new Hammer(element, options);
+//            hammertime.on("dragup swipeup", function(ev){ 
+//                _this.game.physics.arcade.velocityFromAngle(_this.angle, this.angleSpeed, _this.body.velocity);
+//                _this.body.angularVelocity -= 100;
+//            });        
+//            hammertime.on("dragdown swipedown", function(ev){ 
+//                _this.game.physics.arcade.velocityFromAngle(_this.angle, this.angleSpeed, _this.body.velocity);
+//                _this.body.angularVelocity += 100;
+//            });
+//        }
+    
         
-        var options = {
-          preventDefault: true
-        };
-        if(typeof Hammer != "undefined"){
-            var hammertime = new Hammer(element, options);
-            hammertime.on("dragup swipeup", function(ev){ 
-                _this.game.physics.arcade.velocityFromAngle(_this.angle, 300, _this.body.velocity);
-                _this.body.angularVelocity -= 100;
-            });        
-            hammertime.on("dragdown swipedown", function(ev){ 
-                _this.game.physics.arcade.velocityFromAngle(_this.angle, 300, _this.body.velocity);
-                _this.body.angularVelocity += 100;
-            });
-        }
+    /*******************
+    * PLAYER Controll Buttons If Device not Desktop
+    *******************/
+    if (!this.game.device.desktop){
+        // create our virtual game controller buttons 
+
+        this.buttonfire = this.game.add.button(this.game.width-194, this.game.height-94-50, 'buttonfire', null, this, 0, 1, 0, 1);
+        this.buttonfire.fixedToCamera = true;      
+        this.buttonfire.events.onInputOver.add(function(){this.fireBulletEventStarted=true;}, this);
+        this.buttonfire.events.onInputOut.add(function(){this.fireBulletEventStarted=false;}, this);
+        this.buttonfire.events.onInputDown.add(function(){this.fireBulletEventStarted=true;}, this);
+        this.buttonfire.events.onInputUp.add(function(){this.fireBulletEventStarted=false;}, this);
+
+//        this.buttonleft = this.game.add.button(0, this.game.height-94-64, 'buttonhorizontal', null, this, 0, 1, 0, 1);
+//        this.buttonleft.fixedToCamera = true;
+//        this.buttonleft.events.onInputOver.add(function(){this.planeUpEventStarted=true;}, this);
+//        this.buttonleft.events.onInputOut.add(function(){this.planeUpEventStarted=false;}, this);
+//        this.buttonleft.events.onInputDown.add(function(){this.planeUpEventStarted=true;}, this);
+//        this.buttonleft.events.onInputUp.add(function(){this.planeUpEventStarted=false;}, this);
+//
+//        this.buttonright = this.game.add.button(160, this.game.height-94-64, 'buttonhorizontal', null, this, 0, 1, 0, 1);
+//        this.buttonright.fixedToCamera = true;
+//        this.buttonright.events.onInputOver.add(function(){this.planeDownEventStarted=true;}, this);
+//        this.buttonright.events.onInputOut.add(function(){this.planeDownEventStarted=false;}, this);
+//        this.buttonright.events.onInputDown.add(function(){this.planeDownEventStarted=true;}, this);
+//        this.buttonright.events.onInputUp.add(function(){this.planeDownEventStarted=false;}, this);
+
+        this.buttonup = this.game.add.button(96, this.game.height-94-128, 'buttonvertical', null, this, 0, 1, 0, 1);
+        this.buttonup.fixedToCamera = true;
+        this.buttonup.events.onInputOver.add(function(){this.planeUpEventStarted=true;}, this);
+        this.buttonup.events.onInputOut.add(function(){this.planeUpEventStarted=false;}, this);
+        this.buttonup.events.onInputDown.add(function(){this.planeUpEventStarted=true;}, this);
+        this.buttonup.events.onInputUp.add(function(){this.planeUpEventStarted=false;}, this);
+        
+        this.buttondown = this.game.add.button(96, this.game.height-94, 'buttonvertical', null, this, 0, 1, 0, 1);
+        this.buttondown.fixedToCamera = true;
+        this.buttondown.events.onInputOver.add(function(){this.planeDownEventStarted=true;}, this);
+        this.buttondown.events.onInputOut.add(function(){this.planeDownEventStarted=false;}, this);
+        this.buttondown.events.onInputDown.add(function(){this.planeDownEventStarted=true;}, this);
+        this.buttondown.events.onInputUp.add(function(){this.planeDownEventStarted=false;}, this);
+
+    }
+    
+    
 };
 
 Player.prototype = Object.create(Phaser.Sprite.prototype);
@@ -105,38 +153,45 @@ Player.prototype.update = function() {
         /**
          * Cursor functions starts
          */
-        if (this.cursors.up.isDown) {
-            this.game.physics.arcade.velocityFromAngle(this.angle, 600, this.body.velocity);
-        } 
+//        if (this.cursors.up.isDown) {
+//            this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed+300, this.body.velocity);
+//        } 
 //        else if(this.cursors.down.isDown){
 //            this.body.velocity.setTo(0, 0)
 //        }
-        if (this.cursors.left.isDown) {
+        if (this.cursors.left.isDown || this.cursors.up.isDown || this.planeUpEventStarted) {
 //            this.body.rotateLeft(100);
-            this.game.physics.arcade.velocityFromAngle(this.angle, 300, this.body.velocity);
-            this.body.angularVelocity -= 100;
+            this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed, this.body.velocity);
+//            this.game.physics.arcade.accelerationFromRotation(this.rotation, this.angleSpeed, this.body.acceleration);
+            this.body.angularVelocity -= this.angularVeloctitySpeed;
             
             // Invert scale.y to flip up/down
 //            if(this.scale.y > 0)
 //                this.scale.y *= -1;
-        } else if (this.cursors.right.isDown) {
-            this.game.physics.arcade.velocityFromAngle(this.angle, 300, this.body.velocity);
-            this.body.angularVelocity += 100;
+        } else if (this.cursors.right.isDown || this.cursors.down.isDown || this.planeDownEventStarted) {
+            this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed, this.body.velocity);
+//            this.game.physics.arcade.accelerationFromRotation(this.rotation, this.angleSpeed, this.body.acceleration);
+            this.body.angularVelocity += this.angularVeloctitySpeed;
             
 //            this.body.rotateRight(100);
 //            if(this.scale.y < 0)
 //                this.scale.y *= 1;
         }
-        if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
-        {
+        if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) || this.fireBulletEventStarted){
             this.fireBullet();
         }
+    
         
-        
-//        if (this.game.input.mousePointer.isDown || this.game.input.pointer1.isDown) {
-//            this.rotation = this.game.physics.arcade.moveToPointer(this, 20, this.game.input.activePointer, 500);
-////            this.fireBullet();
-//        }
+        if(this.body.rotation > -130 && this.body.rotation < -80){
+//            this.body.gravity.y = 300;
+//            this.body.velocity.setTo(this.body.velocity.x, 100);
+            this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed-100, this.body.velocity);
+        }
+        if(this.body.rotation > 80 && this.body.rotation < 130){
+//            this.body.gravity.y = 50;
+//            this.body.velocity.setTo(this.body.velocity.x, 300);
+             this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed+100, this.body.velocity);
+        }
         
         var px = this.body.velocity.x;
         var py = this.body.velocity.y;
@@ -207,9 +262,9 @@ Player.prototype.update = function() {
      * @param enemy enemy collides
      * @param player player collides
      */
-    Player.prototype.playerHitsBird = function (plane, bird) {
+    Player.prototype.playerHitsSomething = function (plane, something) {
         // Removes the star from the screen
-        bird.kill();
+        something.kill();
         
         this.playerLoseHealth(plane);
     };
@@ -234,6 +289,9 @@ Player.prototype.update = function() {
             plane.kill();
             plane.emitter.kill();
             plane.bullets.removeAll();
+            
+//            this.game.gameoverTransition.to('gameover');
+            this.game.transitions.to('gameover');
         }
     };
 

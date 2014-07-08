@@ -8,6 +8,8 @@ window.onload = function () {
   game.state.add('boot', require('./states/boot'));
   game.state.add('gameover', require('./states/gameover'));
   game.state.add('menu', require('./states/menu'));
+  game.state.add('multiplayerRoomSelect', require('./states/multiplayerRoomSelect'));
+  game.state.add('multiplayerUserSignIn', require('./states/multiplayerUserSignIn'));
   game.state.add('play', require('./states/play'));
   game.state.add('playMultiplayer', require('./states/playMultiplayer'));
   game.state.add('preload', require('./states/preload'));
