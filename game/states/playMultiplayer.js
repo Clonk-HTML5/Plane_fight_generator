@@ -4,6 +4,7 @@
   var io = require('../plugins/socket.io');  
   var BirdGroup = require('../prefabs/birdGroup');  
   var Player = require('../prefabs/Player');  
+  var PausePanel = require('../prefabs/PausePanel');
   var Level = require('../prefabs/Level');  
   var SocketEventHandlers = require('../prefabs/socketEventHandlers');  
 
@@ -28,33 +29,72 @@
         this.player = new Player(this.game, 400, 400,0);
         this.game.add.existing(this.player); 
         
-        this.socketEventHandlers = new SocketEventHandlers(this.game, this.player, io);
-        
-        this.player.socket = this.socketEventHandlers;
+        this.socketEventHandlers = new SocketEventHandlers(this.game, io, this.player);
+
+        GlobalGame.Multiplayer.socket = this.socketEventHandlers;
         
         // add our pause button with a callback
-        this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'pause', this.pauseClick, this);
+        this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'btnpause', this.pauseGame, this);
         this.pauseButton.fixedToCamera = true;
+        this.pauseButton.inputEnabled = true;
 //        this.pauseButton.anchor.setTo(0.5,0.5);
         this.pauseButton.scale.setTo(0.75,0.75);
-    },
-    update: function() {
-      // state update code
         
-        this.game.physics.arcade.overlap(this.player.bullets, this.birdGroup, this.player.bulletHitsBird, null, this.player);
-        this.game.physics.arcade.overlap(this.player, this.birdGroup, this.player.playerHitsSomething, null, this.player);
-
-        if(this.player.socket.enemies.length){
-            for(var i = 0; i < this.player.socket.enemies.length; i++){
-                this.game.physics.arcade.overlap(this.player.socket.enemies[i], this.player.bullets, this.player.shootPlayer, null, this.player);
-            }
-        }
-        this.game.physics.arcade.collide(this.player, this.level.platforms, null, null, this.player);
+        // Let's build a pause panel
+        this.pausePanel = new PausePanel(this.game);
+        this.game.add.existing(this.pausePanel);
+        
+        // Add a input listener that can help us return from being paused
+        this.game.input.onDown.add(this.unpause, this);
     },
-    pauseClick: function() {  
-        // start the 'pause' state
-        this.game.state.start('menu');
-    },  
+   pauseGame: function(){
+			if(!this.game.paused){
+				// Enter pause
+                this.pausePanel.show(function(){
+                     this.game.paused = true;
+                     this.pauseButton.visible = false;
+                });
+			}
+		},
+
+		playGame: function(){
+			if(this.game.paused){
+                    // Leaving pause
+                    this.pausePanel.hide();
+                    this.game.paused =false;
+                    this.pauseButton.visible = true;
+			}
+		},
+        // And finally the method that handels the pause menu
+        unpause: function(event){
+            // Only act if paused
+            if(this.game.paused){
+                // Calculate the corners of the menu
+                var w = window.innerWidth,
+                    h = window.innerHeight,
+                    x1 = w/2 - 270/2, x2 = w/2 + 270/2,
+                    y1 = h/2 - 180/2, y2 = h/2 + 180/2;
+
+                // Check if the click was inside the menu
+                if(event.x > x1 && event.x < x2 && event.y > y1 && event.y < y2 ){
+                    // The choicemap is an array that will help us see which item was clicked
+                    var choisemap = ['one', 'two', 'three', 'four', 'five', 'six'];
+
+                    // Get menu local coordinates for the click
+                    var x = event.x - x1,
+                        y = event.y - y1;
+
+                    // Calculate the choice 
+                    var choise = Math.floor(x / 90) + 3*Math.floor(y / 90);
+
+                    // Display the choice
+                    console.log('You chose menu item: ' + choisemap[choise]);
+                }
+                else{
+                    this.playGame();
+                }
+            }
+        },
     render: function() {
       // Put render operations here.
     },

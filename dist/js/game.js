@@ -6,9 +6,11 @@ window.onload = function () {
   var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'plane_fight');
 
   // Game States
+  game.state.add('Level2', require('./states/Level2'));
   game.state.add('boot', require('./states/boot'));
   game.state.add('gameover', require('./states/gameover'));
   game.state.add('menu', require('./states/menu'));
+  game.state.add('multiplayerRoomDetailView', require('./states/multiplayerRoomDetailView'));
   game.state.add('multiplayerRoomSelect', require('./states/multiplayerRoomSelect'));
   game.state.add('multiplayerUserSignIn', require('./states/multiplayerUserSignIn'));
   game.state.add('play', require('./states/play'));
@@ -18,7 +20,7 @@ window.onload = function () {
 
   game.state.start('boot');
 };
-},{"./states/boot":16,"./states/gameover":17,"./states/menu":18,"./states/multiplayerRoomSelect":19,"./states/multiplayerUserSignIn":20,"./states/play":21,"./states/playMultiplayer":22,"./states/preload":23}],2:[function(require,module,exports){
+},{"./states/Level2":18,"./states/boot":19,"./states/gameover":20,"./states/menu":21,"./states/multiplayerRoomDetailView":22,"./states/multiplayerRoomSelect":23,"./states/multiplayerUserSignIn":24,"./states/play":25,"./states/playMultiplayer":26,"./states/preload":27}],2:[function(require,module,exports){
 /**
  * Helpers 
  */
@@ -5427,6 +5429,53 @@ var io = ('undefined' === typeof module ? {} : module.exports);
 },{}],7:[function(require,module,exports){
 'use strict';
 
+var BasicLayer = function(game, parent) {
+  Phaser.Group.call(this, game, parent);
+
+  // initialize your prefab here
+    
+   // Alpha Layer
+    this.b = this.game.add.bitmapData(this.game.width, this.game.height),
+    this.b.ctx.fillStyle = "#000", 
+    this.b.ctx.fillRect(0, 0,  this.game.width, this.game.height);
+    
+    this.c = this.game.add.sprite(0, 0, this.b);
+    this.c.alpha = .5;
+    this.add(this.c);
+    
+        var button1 = this.game.add.button(this.game.width/2,100, 'singleplayer', this.game.state.getCurrentState().createPlayers,this.game.state.getCurrentState(),0,0,1);
+        button1.anchor.setTo(0.5,0.5);
+        button1.scale.setTo(.5,.5);
+        var button2 = this.game.add.button(this.game.width/2,210, 'multiplayer', this.game.state.getCurrentState().createPlayers,this.game.state.getCurrentState(),0,0,1);
+        button2.anchor.setTo(0.5,0.5);
+        button2.scale.setTo(.5,.5);
+        var button3 = this.game.add.button(this.game.width/2,310, 'singleplayer', this.game.state.getCurrentState().createPlayers,this.game.state.getCurrentState(),0,0,1);
+        button3.anchor.setTo(0.5,0.5);
+        button3.scale.setTo(.5,.5);
+        this.add(button1);
+        this.add(button2);
+        this.add(button3);
+        this.y = -500;
+    
+         this.game.add.tween(this).to({y:0}, 2000, Phaser.Easing.Back.Out, true);
+//            basicLayerTween._lastChild.onComplete.add(function(){this.game.paused = true;}, this.game.state.getCurrentState());
+  
+};
+
+BasicLayer.prototype = Object.create(Phaser.Group.prototype);
+BasicLayer.prototype.constructor = BasicLayer;
+
+BasicLayer.prototype.update = function() {
+  
+  // write your prefab's specific update code here
+  
+};
+
+module.exports = BasicLayer;
+
+},{}],8:[function(require,module,exports){
+'use strict';
+
 var EnemyPlane = function(game, x, y, frame, player, options) {
   Phaser.Sprite.call(this, game, x, y, 'plane3', frame);
 
@@ -5436,6 +5485,7 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
     
     this.player = player;
     
+    if (this.game.device.desktop){
         this.emitter = this.game.add.emitter(x, y, 400);
 
         this.emitter.makeParticles( [ 'smoke' ] );
@@ -5445,6 +5495,7 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
         this.emitter.setScale(0.1, 0, 0.05, 0, 1000);
 
         this.emitter.start(false, 3000, 5);
+    }
         
         //  Our bullet group
         this.bullets = this.game.add.group();
@@ -5462,6 +5513,10 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
         this.health = 5;
         this.kills = 0;
         this.angle = 0;
+        this.PI2 = Math.PI * 2;
+        // Define constants that affect motion
+        this.SPEED = 200; // missile speed pixels/second
+        this.TURN_RATE = 3; // turn rate in degrees/frame
         this.scale.setTo(0.6, 0.6);
 //        this.scale.x *= -1;
         this.anchor.setTo(0.5, 0.5);
@@ -5501,36 +5556,67 @@ EnemyPlane.prototype.update = function() {
         this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
     }
     
-    if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
-        this.body.rotation = this.game.physics.arcade.angleToXY(this, this.randomXPointInWorld, this.randomYPointInWorld);
-        this.randomXPointInWorld = this.game.world.randomX;
-        this.randomYPointInWorld = this.game.world.randomY - 300;
-    }
+//    if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
+//        this.randomXPointInWorld = this.game.world.randomX;
+//        this.randomYPointInWorld = this.game.world.randomY - 300;
+//    }
     
-    this.rotation = this.game.physics.arcade.moveToXY(this, this.randomXPointInWorld, this.randomYPointInWorld, 300, 2000)
-    this.game.physics.arcade.velocityFromAngle(this.angle, 300, this.body.velocity)
+    this.rotation = this.game.physics.arcade.moveToObject(this, this.player, 500);
+    
+    // Calculate the angle from the missile to the mouse cursor game.input.x
+    // and game.input.y are the mouse position; substitute with whatever
+    // target coordinates you need.
+    var targetAngle = this.game.math.angleBetween(
+        this.x, this.y,
+        this.randomXPointInWorld, this.randomYPointInWorld
+    );
+
+    // Gradually (this.TURN_RATE) aim the missile towards the target angle
+    if (this.rotation !== targetAngle) {
+        // Calculate difference between the current angle and targetAngle
+        var delta = targetAngle - this.rotation;
+
+        // Keep it in range from -180 to 180 to make the most efficient turns.
+        if (delta > Math.PI) delta -= this.PI2;
+        if (delta < -Math.PI) delta += this.PI2;
+
+        if (delta > 0) {
+            // Turn clockwise
+            this.angle += this.TURN_RATE;
+        } else {
+            // Turn counter-clockwise
+            this.angle -= this.TURN_RATE;
+        }
+
+        // Just set angle to target angle if they are close
+        if (Math.abs(delta) < this.game.math.degToRad(this.TURN_RATE)) {
+            this.rotation = targetAngle;
+        }
+    }
+
+    // Calculate velocity vector based on this.rotation and this.SPEED
+    this.body.velocity.x = Math.cos(this.rotation) * this.SPEED;
+    this.body.velocity.y = Math.sin(this.rotation) * this.SPEED;
     
     if(!this.options.menu){
          if (this.game.physics.arcade.distanceBetween(this, this.player) < 300){
              this.fireBullet();
          }
-    }else{
-//         if (this.game.physics.arcade.distanceBetween(this, this.player) < 300){
-//             this.fireBullet();
-//         }
     }
     
-    var px = this.body.velocity.x;
-    var py = this.body.velocity.y;
+    if(this.game.device.desktop){
+        var px = this.body.velocity.x;
+        var py = this.body.velocity.y;
 
-    px *= -1;
-    py *= -1;
+        px *= -1;
+        py *= -1;
 
-    this.emitter.minParticleSpeed.set(px, py);
-    this.emitter.maxParticleSpeed.set(px, py);
+        this.emitter.minParticleSpeed.set(px, py);
+        this.emitter.maxParticleSpeed.set(px, py);
 
-    this.emitter.emitX = this.x;
-    this.emitter.emitY = this.y;
+        this.emitter.emitX = this.x;
+        this.emitter.emitY = this.y;
+    }
   
 };
 
@@ -5583,7 +5669,7 @@ EnemyPlane.prototype.fireBullet = function() {
 
 module.exports = EnemyPlane;
 
-},{}],8:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 var EnemyPlane = require('./EnemyPlane');
@@ -5591,51 +5677,52 @@ var EnemyPlane = require('./EnemyPlane');
 var EnemyPlaneGroup = function(game, player, options) {
   Phaser.Group.call(this, game);
     this.player = player;
-//    this = game.add.group();
-    // create single birds
-    for (var i = 0; i < 5; i++){
-        // new Player Object
-        this.enemyPlane = new EnemyPlane(this.game, Math.random() * game.world.width, Math.random() * (game.world.height - 250),0, player, options);
-        this.add(this.enemyPlane);
-    }
-    
-  // initialize your prefab here
-  
+    this.options = options;
 };
 
 EnemyPlaneGroup.prototype = Object.create(Phaser.Group.prototype);
 EnemyPlaneGroup.prototype.constructor = EnemyPlaneGroup;
 
-//BirdGroup.prototype.update = function() {
-//    
-//        //  Collide the Bird with the platforms
-////    this.forEach( function(bird) {
-////        //right
-////        bird.body.velocity.x = Math.random() * 100;
-////        bird.animations.play('fly', 8, true);
-////   }, this);
-//  
-//  // write your prefab's specific update code here
-//  
-//};
+/**
+* player collides with enemy
+* @param player player collides
+*/
+EnemyPlaneGroup.prototype.addEnemy = function () {
+    
+//    this.maxElements = 5;
+    //    for (var i = 0; i < maxElements; i++){
+        // new Player Object
+    this.enemyPlane = new EnemyPlane(this.game, Math.random() * this.game.world.width, Math.random() * (this.game.world.height - 250),0, this.player, this.options);
+    this.add(this.enemyPlane);
+    //    }
+};
 
 module.exports = EnemyPlaneGroup;
-},{"./EnemyPlane":7}],9:[function(require,module,exports){
+},{"./EnemyPlane":8}],10:[function(require,module,exports){
 'use strict';
 
-var Level = function(game, parent) {
-  Phaser.Group.call(this, game, parent);
+var Level = function(game, options) {
+  Phaser.Group.call(this, game);
 
+    this.options = options ? options : false;
+    
   // initialize your prefab here
-    this.game.world.setBounds(0, 0, 4000, 1000);
+    if(!this.options.menu){
+//        this.game.world.setBounds(0, 0, 4000, 1000);
+        this.game.world.setBounds(0, 0, 3000, 1000);
+    }else{
+        this.game.world.setBounds(0, 0, 1280, 1000);
+    }
     //fix background to camera
     this.background = this.game.add.sprite(0, 0, 'sky_new');
     this.background.fixedToCamera = true;
     this.background.cameraOffset.x = 0;
     this.background.cameraOffset.y = 0;
 
-    this.mountains = this.game.add.sprite(0, 482, 'mountains');
-    this.mountains2 = this.game.add.sprite(2560, 482, 'mountains');
+    this.mountains = this.game.add.image(0, 482, 'mountains');
+    if(!this.options.menu){
+        this.mountains2 = this.game.add.image(2560, 482, 'mountains');
+    }
   
   //  The platforms group contains the ground and the 2 ledges we can jump on
     this.platforms = this.game.add.group();
@@ -5643,38 +5730,44 @@ var Level = function(game, parent) {
     var lastGroundYPos = 0,
         treeName,
         tree,
+        maxElements = 20,
         lastGroundYPos;
 
-    for(var i = 0; i < 20; i++){
+    if(this.options.menu)
+        maxElements = 5;
+        
+    for(var i = 0; i < maxElements; i++){
 
         treeName = 'tree'+Math.round(Math.random() * 3);
 
-        var tree = this.game.add.sprite(Math.random() * this.game.world.width, 716, treeName);
+        var tree = this.game.add.image(Math.random() * this.game.world.width, 716, treeName);
         tree.scale.setTo(0.25, 0.25);
 
-        this.clouds = this.game.add.sprite(Math.random() * this.game.world.width, Math.random() * this.game.world.height - 400, 'clouds1');
-        
-        this.clouds.anchor.setTo(0.5, 0);
-        // Kill the cloud when out of bounds
-        this.clouds.checkWorldBounds = true;
-        this.clouds.outOfBoundsKill = true;
+        this.clouds = this.game.add.sprite(this.game.rnd.integerInRange(0, this.game.world.width), this.game.rnd.integerInRange(0, this.game.world.height - 400), 'clouds1');
+        if(this.game.device.desktop){
+            this.clouds.anchor.setTo(0.5, 0);
+            // Kill the cloud when out of bounds
+            this.clouds.checkWorldBounds = true;
+            this.clouds.outOfBoundsKill = true;
 
-        // Move clouds
-        this.game.physics.arcade.enableBody(this.clouds);
-        this.clouds.body.allowGravity = false;
-        this.clouds.body.velocity.x = -this.game.rnd.integerInRange(15, 30); 
+            // Move clouds
+            this.game.physics.arcade.enableBody(this.clouds);
+            this.clouds.body.allowGravity = false;
+            this.clouds.body.velocity.x = -this.game.rnd.integerInRange(15, 30); 
+         }
         
-        this.clouds2 = this.game.add.sprite(Math.random() * this.game.world.width, Math.random() * this.game.world.height - 400, 'clouds2');
-        
-        this.clouds2.anchor.setTo(0.5, 0);
-        // Kill the cloud when out of bounds
-        this.clouds2.checkWorldBounds = true;
-        this.clouds2.outOfBoundsKill = true;
+        this.clouds2 = this.game.add.sprite(this.game.rnd.integerInRange(0, this.game.world.width), this.game.rnd.integerInRange(0, this.game.world.height - 400), 'clouds2');
+         if(this.game.device.desktop){
+            this.clouds2.anchor.setTo(0.5, 0);
+            // Kill the cloud when out of bounds
+            this.clouds2.checkWorldBounds = true;
+            this.clouds2.outOfBoundsKill = true;
 
-        // Move clouds
-        this.game.physics.arcade.enableBody(this.clouds2);
-        this.clouds2.body.allowGravity = false;
-        this.clouds2.body.velocity.x = -this.game.rnd.integerInRange(15, 30);
+            // Move clouds
+            this.game.physics.arcade.enableBody(this.clouds2);
+            this.clouds2.body.allowGravity = false;
+            this.clouds2.body.velocity.x = -this.game.rnd.integerInRange(15, 30);
+         }
     }
 
     while (lastGroundYPos < this.game.world.width){
@@ -5699,7 +5792,48 @@ Level.prototype.update = function() {
 
 module.exports = Level;
 
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
+'use strict';
+
+var Level2 = function(game, parent) {
+   Phaser.Group.call(this, game, parent);
+
+    this.game.world.setBounds(0, 0, 8000, 2000);
+    //fix background to camera
+    this.background = this.game.add.sprite(0, 0, 'sky_new');
+    this.background.fixedToCamera = true;
+    this.background.cameraOffset.x = 0;
+    this.background.cameraOffset.y = 0;
+  
+    //  The platforms group contains the ground and the 2 ledges we can jump on
+    this.platforms = this.game.add.group();
+    var lastGroundYPos = 0
+    
+    while (lastGroundYPos < this.game.world.width){
+        // Here we create the ground.
+        var ground = this.platforms.create(lastGroundYPos, this.game.world.height - 132, 'ground');
+        ground.scale.setTo(1, 1);
+        ground.name = 'ground';
+        this.game.physics.enable(ground, Phaser.Physics.ARCADE);
+        //  This stops it from falling away when you jump on it
+        ground.body.immovable = true; 
+
+        lastGroundYPos += ground.width;
+    }
+};
+
+Level2.prototype = Object.create(Phaser.Group.prototype);
+Level2.prototype.constructor = Level2;
+
+Level2.prototype.update = function() {
+  
+  // write your prefab's specific update code here
+  
+};
+
+module.exports = Level2;
+
+},{}],12:[function(require,module,exports){
 'use strict';
 
 // Create our pause panel extending Phaser.Group
@@ -5747,7 +5881,7 @@ var PausePanel = function(game, parent){
 
 module.exports = PausePanel;
 
-},{}],11:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 'use strict';
 
   var Hammer = require('../plugins/Hammer');   
@@ -5756,7 +5890,7 @@ var Player = function(game, x, y, frame) {
   Phaser.Sprite.call(this, game, x, y, 'plane3', frame);
 
   // initialize your prefab here
-    
+    if (this.game.device.desktop){
         this.emitter = this.game.add.emitter(400, 400, 400);
 
         this.emitter.makeParticles( [ 'smoke' ] );
@@ -5766,6 +5900,7 @@ var Player = function(game, x, y, frame) {
         this.emitter.setScale(0.1, 0, 0.05, 0, 1000);
 
         this.emitter.start(false, 3000, 5);
+    }
         
         //  Our bullet group
         this.bullets = this.game.add.group();
@@ -5783,7 +5918,7 @@ var Player = function(game, x, y, frame) {
         this.health = 5;
         this.kills = 0;
         this.angle = 0;
-        this.angleSpeed = 300;
+        this.angleSpeed = 250;
         this.angularVeloctitySpeed = 150;
         
         this.scale.setTo(0.6, 0.6);
@@ -5795,8 +5930,8 @@ var Player = function(game, x, y, frame) {
         //	Tell it we don't want physics to manage the rotation
 //        this.body.allowRotation = false;
         this.body.gravity.y = 50;
-        this.body.velocity.setTo(300, 0)
-        this.body.maxVelocity.setTo(300, 300);
+        this.body.velocity.setTo(300, 0);
+        this.body.maxVelocity.setTo(400, 400);
 //        this.bringToTop();
     
     
@@ -5816,6 +5951,11 @@ var Player = function(game, x, y, frame) {
       this.healthHUD = this.hud.addBar(0,-50, this.width, 10, this.health, 'health', this, '#ffbd55', false);
       this.healthHUD.bar.anchor.setTo(0.5, 0.5);
       this.addChild(this.healthHUD.bar);    
+    
+    if(GlobalGame.Multiplayer.userName){
+        this.username = this.game.add.text(0, -100, GlobalGame.Multiplayer.userName, { fontSize: '22px', fill: '#000' });
+        this.addChild(this.username);
+    }
     
         //Camera
         this.game.camera.follow(this);
@@ -5898,6 +6038,17 @@ Player.prototype.constructor = Player;
 
 Player.prototype.update = function() {
     
+         this.game.physics.arcade.collide(this, this.game.state.getCurrentState().level.platforms, this.playerLoseHealth, null, this);
+    
+        if(GlobalGame.Multiplayer.socket !== null){
+            for(var i = 0; i < GlobalGame.Multiplayer.socket.enemies.length; i++){
+                this.game.physics.arcade.overlap(GlobalGame.Multiplayer.socket.enemies[i], this.bullets, this.shootPlayer, null, this);
+            }
+        }else{
+            this.game.physics.arcade.overlap(this.bullets, this.game.state.getCurrentState().birdGroup, this.bulletHitsBird, null, this);
+            this.game.physics.arcade.overlap(this, this.game.state.getCurrentState().birdGroup, this.playerHitsSomething, null, this);
+        }
+    
         this.body.angularVelocity = 0;
         
         /**
@@ -5931,7 +6082,9 @@ Player.prototype.update = function() {
             this.fireBullet();
         }
     
-        
+        //if plane falls rotatet right
+        this.rotation = Math.atan2(this.body.velocity.y, this.body.velocity.x);
+    
         if(this.body.rotation > -130 && this.body.rotation < -80){
 //            this.body.gravity.y = 300;
 //            this.body.velocity.setTo(this.body.velocity.x, 100);
@@ -5943,6 +6096,7 @@ Player.prototype.update = function() {
              this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed+100, this.body.velocity);
         }
         
+    if(this.game.device.desktop){
         var px = this.body.velocity.x;
         var py = this.body.velocity.y;
 
@@ -5954,9 +6108,10 @@ Player.prototype.update = function() {
         
         this.emitter.emitX = this.x;
         this.emitter.emitY = this.y;
+    }
 
-        if(this.socket)
-            this.socket.socket.emit("move player", {x: this.x, y:this.y, angle: this.angle});
+        if(GlobalGame.Multiplayer.socket)
+            GlobalGame.Multiplayer.socket.socket.emit("move player", {x: this.x, y:this.y, angle: this.angle});
   
 };
 
@@ -5989,8 +6144,8 @@ Player.prototype.update = function() {
                 this.game.physics.arcade.velocityFromRotation(this.rotation, 1000, bullet.body.velocity);
                 this.bulletTime = this.game.time.now + 250;
 //                gameInitializer.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.plane.angle});
-                if(this.socket)
-                    this.socket.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
+                if(GlobalGame.Multiplayer.socket)
+                    GlobalGame.Multiplayer.socket.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
             }
         }
 
@@ -6004,7 +6159,7 @@ Player.prototype.update = function() {
     Player.prototype.bulletHitsBird = function (bullet, bird) {
         // Removes the star from the screen
         bird.kill();
-        bullet.kill()
+        bullet.kill();
     };
     
             /**
@@ -6025,9 +6180,9 @@ Player.prototype.update = function() {
      */
     Player.prototype.playerLoseHealth = function (plane) {
 //        gameInitializer.socket.emit("bullet hit player", {playerId: plane.name});
-        if(this.socket)
-            this.socket.socket.emit("bullet hit player", {playerId: this.name});
-        plane.health -= 1
+        if(GlobalGame.Multiplayer.socket)
+            GlobalGame.Multiplayer.socket.socket.emit("bullet hit player", {playerId: this.name});
+        plane.health -= 1;
         if(plane.health < 1){
             
             //explode animation
@@ -6037,7 +6192,8 @@ Player.prototype.update = function() {
 //            explosion.animations.destroy('explode');
             
             plane.kill();
-            plane.emitter.kill();
+            if (this.game.device.desktop)
+                plane.emitter.kill();
             plane.bullets.removeAll();
             
 //            this.game.gameoverTransition.to('gameover');
@@ -6047,7 +6203,7 @@ Player.prototype.update = function() {
 
 module.exports = Player;
 
-},{"../plugins/Hammer":4}],12:[function(require,module,exports){
+},{"../plugins/Hammer":4}],14:[function(require,module,exports){
 'use strict';
 
 var Bird = function(game, x, y, frame) {
@@ -6105,7 +6261,7 @@ Bird.prototype.birdLeft = function() {
 
 module.exports = Bird;
 
-},{}],13:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 var Bird = require('./bird');
@@ -6145,15 +6301,14 @@ BirdGroup.prototype.constructor = BirdGroup;
 //};
 
 module.exports = BirdGroup;
-},{"./bird":12}],14:[function(require,module,exports){
+},{"./bird":14}],16:[function(require,module,exports){
 'use strict';
 var socketPlayer,
     socketGame,
-    socketInGlobalScope,
     SocketObject,
     SocketRemotePlayer = require('../prefabs/socketRemotePlayer');  
 
-var SocketEventHandlers = function(game, player, io) {
+var SocketEventHandlers = function(game, io, player) {
         // Start listening for events
             //  Create some baddies to waste :)
 //        this.enemies = [];
@@ -6163,11 +6318,11 @@ var SocketEventHandlers = function(game, player, io) {
         this.enemies = [];
 //        this.socket = io.connect("http://localhost", {port: 8120, transports: ["websocket"]});
 //        this.socket = io.connect("http://localhost:8120");
-//        this.socket = io.connect("http://192.168.1.5:8120");
+        this.socket = io.connect("http://192.168.1.5:8120");
 //        this.socket = io.connect("http://neumic-asnort.codio.io:8120");
-        this.socket = io.connect("http://christian-dev.no-ip.biz:8120");
-        
-        socketInGlobalScope = this.socket;
+//        this.socket = io.connect("http://christian-dev.no-ip.biz:8120");
+        GlobalGame.Multiplayer.socket = this.socket;
+    
         this.setEventHandlers();
   
 };
@@ -6179,25 +6334,25 @@ SocketEventHandlers.prototype = {
     setEventHandlers: function() {
         
         // Socket connection successful
-        socketInGlobalScope.on("connect", this.onSocketConnected);
+        GlobalGame.Multiplayer.socket.on("connect", this.onSocketConnected);
 
         // Socket disconnection
-        socketInGlobalScope.on("disconnect", this.onSocketDisconnect);
+        GlobalGame.Multiplayer.socket.on("disconnect", this.onSocketDisconnect);
 
         // New player message received
-        socketInGlobalScope.on("new player", this.onNewPlayer);
+        GlobalGame.Multiplayer.socket.on("new player", this.onNewPlayer);
 
         // Player move message received
-        socketInGlobalScope.on("move player", this.onMovePlayer);
+        GlobalGame.Multiplayer.socket.on("move player", this.onMovePlayer);
 
         // Player fires bullet message received
-        socketInGlobalScope.on("fire bullet", this.onFireBullet);
+        GlobalGame.Multiplayer.socket.on("fire bullet", this.onFireBullet);
 
         // Bullet hits Player message received
-        socketInGlobalScope.on("bullet hit player", this.onBulletHitPlayer);
+        GlobalGame.Multiplayer.socket.on("bullet hit player", this.onBulletHitPlayer);
 
         // Player removed message received
-        socketInGlobalScope.on("remove player", this.onRemovePlayer);
+        GlobalGame.Multiplayer.socket.on("remove player", this.onRemovePlayer);
 
     },
 
@@ -6205,15 +6360,16 @@ SocketEventHandlers.prototype = {
     onSocketConnected: function(socket) {
         console.log("Connected to socket server ");
         
-        var bullet = socketPlayer.bullets.getFirstExists(false)
+        GlobalGame.Multiplayer.connected = true;
         // Send local player data to the game server
-        socketInGlobalScope.emit("new player", {x: socketPlayer.x, y:socketPlayer.y, angle: socketPlayer.angle});
+//        GlobalGame.Multiplayer.socket.emit("new player", {x: socketPlayer.x, y:socketPlayer.y, angle: socketPlayer.angle});
 //        this.socket.emit("new player");
     },
 
     // Socket disconnected
     onSocketDisconnect: function() {
         console.log("Disconnected from socket server");
+        GlobalGame.Multiplayer.connected = false;
     },
 
     
@@ -6243,17 +6399,19 @@ SocketEventHandlers.prototype = {
         movePlayer.y = data.y;
         movePlayer.angle = data.angle;
         
-        var px = data.x;
-        var py = data.y;
+        if(!socketGame.device.desktop){
+            var px = data.x;
+            var py = data.y;
 
-        px *= -1;
-        py *= -1;
+            px *= -1;
+            py *= -1;
 
-//        movePlayer.emitter.minParticleSpeed.set(px, py);
-//        movePlayer.emitter.maxParticleSpeed.set(px, py);
-        
-        movePlayer.emitter.emitX = data.x;
-        movePlayer.emitter.emitY = data.y;
+    //        movePlayer.emitter.minParticleSpeed.set(px, py);
+    //        movePlayer.emitter.maxParticleSpeed.set(px, py);
+
+            movePlayer.emitter.emitX = data.x;
+            movePlayer.emitter.emitY = data.y;
+        }
 
     },
     // Player fires Bullet
@@ -6354,7 +6512,7 @@ SocketEventHandlers.prototype = {
 
 module.exports = SocketEventHandlers;
 
-},{"../prefabs/socketRemotePlayer":15}],15:[function(require,module,exports){
+},{"../prefabs/socketRemotePlayer":17}],17:[function(require,module,exports){
 'use strict';
 
 var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle) {
@@ -6399,6 +6557,11 @@ var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle) {
 //        this.plane.scale.setTo(0.23, 0.23);
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
 //    this.body.collideWorldBounds = true;
+    
+    if(GlobalGame.Multiplayer.userName){
+        this.username = this.game.add.text(0, -100, GlobalGame.Multiplayer.userName, { fontSize: '22px', fill: '#000' });
+        this.addChild(this.username);
+    }
 
       this.hud = Phaser.Plugin.HUDManager.create(this.game, this, 'gamehud');
       this.healthHUD = this.hud.addBar(0,-50, this.width, 10, this.health, 'health', this, '#ffbd55', false);
@@ -6418,8 +6581,42 @@ SocketRemotePlayer.prototype.update = function() {
 
 module.exports = SocketRemotePlayer;
 
-},{}],16:[function(require,module,exports){
-BasicGame = {
+},{}],18:[function(require,module,exports){
+'use strict';
+  function Level2() {}
+  Level2.prototype = {
+    preload: function() {
+      // Override this method to add some load operations. 
+      // If you need to use the loader, you may need to use them here.
+    },
+    create: function() {
+      // This method is called after the game engine successfully switches states. 
+        
+        this.game.world.setBounds(0, 0, 8000, 2000);
+        //fix background to camera
+        this.background = this.game.add.sprite(0, 0, 'sky_new');
+        this.background.fixedToCamera = true;
+        this.background.cameraOffset.x = 0;
+        this.background.cameraOffset.y = 0;
+    },
+    update: function() {
+      // state update code
+    },
+    paused: function() {
+      // This method will be called when game paused.
+    },
+    render: function() {
+      // Put render operations here.
+    },
+    shutdown: function() {
+      // This method will be called when the state is shut down 
+      // (i.e. you switch to another state from this one).
+    }
+  };
+module.exports = Level2;
+
+},{}],19:[function(require,module,exports){
+GlobalGame = {
 
     /* Here we've just got some global level vars that persist regardless of State swaps */
     score: 0,
@@ -6430,9 +6627,14 @@ BasicGame = {
     /* Your game can check BasicGame.orientated in internal loops to know if it should pause or not */
     orientated: false,
     
-    socket: null,
-    
-    userName: null
+    Multiplayer: {
+        
+        socket: null,
+
+        userName: null,
+        
+        connected: false
+    }
 
 };
 
@@ -6453,7 +6655,7 @@ Boot.prototype = {
 
 module.exports = Boot;
 
-},{}],17:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 
 'use strict';
 function GameOver() {}
@@ -6483,7 +6685,7 @@ GameOver.prototype = {
 };
 module.exports = GameOver;
 
-},{}],18:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 
 'use strict';
 
@@ -6506,10 +6708,10 @@ Menu.prototype = {
 //      this.background = this.game.add.sprite(0, 0, 'menu_bg');
       
           // new Level Object
-    this.level = new Level(this.game);
+//    this.level = new Level(this.game, {menu: true});
 
     // Create a new bird object
-    this.birdGroup = new BirdGroup(this.game);
+//    this.birdGroup = new BirdGroup(this.game);
 
     // Create a new bird object
 //    this.enemyPlaneGroup = new EnemyPlaneGroup(this.game, this.player, {menu: true});
@@ -6532,21 +6734,129 @@ Menu.prototype = {
   startClick: function() {  
     // start button click handler
     // start the 'play' state
-//    this.game.state.start('play');
-      this.game.transitions.to('play');
+    this.game.state.start('play');
+//      this.game.transitions.to('play');
   },  
   multiplayerStartClick: function() {  
     // start button click handler
     // start the 'play' state
+    this.game.state.start('multiplayerUserSignIn');
 //    this.game.state.start('playMultiplayer');
-      this.game.transitions.to('multiplayerUserSignIn');
+//      this.game.transitions.to('multiplayerUserSignIn');
 //      this.game.transitions.to('playMultiplayer');
   }
 };
 
 module.exports = Menu;
 
-},{"../prefabs/EnemyPlaneGroup":8,"../prefabs/Level":9,"../prefabs/birdGroup":13}],19:[function(require,module,exports){
+},{"../prefabs/EnemyPlaneGroup":9,"../prefabs/Level":10,"../prefabs/birdGroup":15}],22:[function(require,module,exports){
+'use strict';
+  function MultiplayerRoomDetailView() {}
+  MultiplayerRoomDetailView.prototype = {
+    create: function() {
+      // This method is called after the game engine successfully switches states. 
+      // Feel free to add any setup code here (do not load anything here, override preload() instead).
+        this.stage.backgroundColor = '#3498db';
+//        // Access the value with:
+        if(!navigator.isCocoonJS){
+            //create a form
+            var f = document.createElement("form");
+            f.id = "createRoomForm";
+            f.className = "create-room sign-up";
+            
+            //create h element
+            var h = document.createElement("h2");
+            h.className = "sign-up-title"; 
+            h.textContent = "Create Room";
+            
+            //create input element
+            var i = document.createElement("input");
+            i.type = "text";
+            i.name = "room_name";
+            i.id = "room_name";
+            i.className = "sign-up-input";
+            i.placeholder = "Roomname";
+
+            //create a button
+            var s = document.createElement("input");
+            s.type = "submit";
+            s.value = "Submit";
+            s.className = "sign-up-button";
+
+            // add all elements to the form
+            f.appendChild(h);
+            f.appendChild(i);
+            f.appendChild(s);
+            
+            //create a form
+            var rooms = document.createElement("div");
+            rooms.className = "room-overview sign-up";
+            
+            //create h element
+            var h2 = document.createElement("h2");
+            h2.className = "sign-up-title"; 
+            h2.textContent = "Room-Overview";
+            
+            //create ul element
+            var ul = document.createElement("ul");
+            ul.className = "room-list-ul";
+            
+            // array of rooms
+            var listData = [ 'Room1' , 'Room2' , 'Room3' , 'CustomRoom' , 'Quickplay'];
+
+            for( var i =  0 ; i < listData.length ; ++i){
+                var li = document.createElement("li");
+                li.className = "room-list-li";
+                li.innerHTML = listData[i];
+                
+                ul.appendChild(li);
+            }
+            
+            rooms.appendChild(h2);
+            rooms.appendChild(ul);
+            
+            var wrapper = document.createElement("div");
+            wrapper.className = "room-wrapper";
+            wrapper.appendChild(f);
+            wrapper.appendChild(rooms);
+
+            // add the form inside the body
+            document.getElementsByTagName('body')[0].appendChild(wrapper); //pure javascript
+            
+            f.addEventListener("submit", this.userSubmited.bind(this), false);
+        }
+    },
+    userSubmited: function(evt){
+        if (evt && evt.preventDefault) {
+            evt.preventDefault();
+        }
+        
+        if(document.getElementById('room_name').value != ''){
+            GlobalGame.Multiplayer.room = document.getElementById('room_name').value;
+            
+//           var elem=document.getElementById('createRoomForm')
+//            elem.parentNode.removeChild(elem);
+            this.game.transitions.to('playMultiplayer');
+        }
+        
+    },
+    update: function() {
+      // state update code
+    },
+    paused: function() {
+      // This method will be called when game paused.
+    },
+    render: function() {
+      // Put render operations here.
+    },
+    shutdown: function() {
+      // This method will be called when the state is shut down 
+      // (i.e. you switch to another state from this one).
+    }
+  };
+module.exports = MultiplayerRoomDetailView;
+
+},{}],23:[function(require,module,exports){
 'use strict';
 
   function MultiplayerRoomSelect() {}
@@ -6560,25 +6870,24 @@ module.exports = Menu;
       // Feel free to add any setup code here (do not load anything here, override preload() instead).
         this.stage.backgroundColor = '#3498db';
 //        // Access the value with:
-        console.log(BasicGame.userName);
         if(!navigator.isCocoonJS){
             //create a form
             var f = document.createElement("form");
-            f.id = "userNameForm";
-            f.className = "sign-up";
-
-            //create input element
-            var h = document.createElement("h1");
-            h.className = "sign-up-title"; 
-            h.textContent = "Playername";
+            f.id = "createRoomForm";
+            f.className = "create-room sign-up";
             
-//            //create input element
-//            var i = document.createElement("input");
-//            i.type = "text";
-//            i.name = "user_name";
-//            i.id = "user_name";
-//            i.className = "sign-up-input";
-//            i.placeholder = "What's your username?";
+            //create h element
+            var h = document.createElement("h2");
+            h.className = "sign-up-title"; 
+            h.textContent = "Create Room";
+            
+            //create input element
+            var i = document.createElement("input");
+            i.type = "text";
+            i.name = "room_name";
+            i.id = "room_name";
+            i.className = "sign-up-input";
+            i.placeholder = "Roomname";
 
             //create a button
             var s = document.createElement("input");
@@ -6588,23 +6897,68 @@ module.exports = Menu;
 
             // add all elements to the form
             f.appendChild(h);
-//            f.appendChild(i);
+            f.appendChild(i);
             f.appendChild(s);
+            
+            //create a form
+            var rooms = document.createElement("div");
+            rooms.className = "room-overview sign-up";
+            
+            //create h element
+            var h2 = document.createElement("h2");
+            h2.className = "sign-up-title"; 
+            h2.textContent = "Room-Overview";
+            
+            //create ul element
+            var ul = document.createElement("ul");
+            ul.className = "room-list-ul";
+            
+            GlobalGame.Multiplayer.socket.emit("get room list");
+            
+            // after the initialize, the server sends a list of
+              // all the active rooms
+              GlobalGame.Multiplayer.socket.on('roomslist', function(data){
+                  console.log(data)
+                  for(var i = 0, len = data.rooms.length; i < len; i++){
+                       // don't use default room
+                       if(data.rooms[i] != ''){
+                           var li = document.createElement("li");
+                            li.className = "room-list-li";
+                            li.innerHTML = data.rooms[i];
+                            ul.appendChild(li);
+                       }
+                  }
+              });
+            
+            rooms.appendChild(h2);
+            rooms.appendChild(ul);
+            
+            var wrapper = document.createElement("div");
+            wrapper.className = "room-wrapper";
+            wrapper.appendChild(f);
+            wrapper.appendChild(rooms);
 
             // add the form inside the body
-            document.getElementsByTagName('body')[0].appendChild(f); //pure javascript
+            document.getElementsByTagName('body')[0].appendChild(wrapper); //pure javascript
             
-            f.addEventListener("submit", this.userSubmited);
+            f.addEventListener("submit", this.userSubmited.bind(this), false);
         }
     },
     userSubmited: function(evt){
         if (evt && evt.preventDefault) {
             evt.preventDefault();
         }
-
-        if(document.getElementById('user_name').value != ''){
-            console.log(document.getElementById('user_name').value)
+        
+        if(document.getElementById('room_name').value != ''){
+            GlobalGame.Multiplayer.room = document.getElementById('room_name').value;
+            GlobalGame.Multiplayer.socket.emit('new room', GlobalGame.Multiplayer.room);
+            
+           var elem=document.getElementsByClassName('room-wrapper')
+            elem[0].parentNode.removeChild(elem[0]);
+//            this.game.transitions.to('multiplayerRoomDetailView');
+            this.game.transitions.to('playMultiplayer');
         }
+        
     },
     update: function() {
       // state update code
@@ -6622,8 +6976,12 @@ module.exports = Menu;
   };
 module.exports = MultiplayerRoomSelect;
 
-},{}],20:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
+
+  var io = require('../plugins/socket.io');  
+  var SocketEventHandlers = require('../prefabs/socketEventHandlers');  
+
   function MultiplayerUserSignIn() {}
   MultiplayerUserSignIn.prototype = {
     preload: function() {
@@ -6678,11 +7036,19 @@ module.exports = MultiplayerRoomSelect;
         }
 
         if(document.getElementById('user_name').value != ''){
-            BasicGame.userName = document.getElementById('user_name').value;
-                        console.log(BasicGame)
-            var elem=document.getElementById('userNameForm')
-            elem.parentNode.removeChild(elem);
-            this.game.transitions.to('multiplayerRoomSelect');
+            GlobalGame.Multiplayer.userName = document.getElementById('user_name').value;
+            
+            var socketEventHandlers = new SocketEventHandlers(this.game, io, null);
+            
+            var localGame = this.game;
+            
+            GlobalGame.Multiplayer.socket.on("connect",function(socket){
+                var elem=document.getElementById('userNameForm');
+                if(elem)
+                    elem.parentNode.removeChild(elem);
+                
+                localGame.transitions.to('multiplayerRoomSelect');
+            });
         }
     },
     update: function() {
@@ -6701,14 +7067,16 @@ module.exports = MultiplayerRoomSelect;
   };
 module.exports = MultiplayerUserSignIn;
 
-},{}],21:[function(require,module,exports){
+},{"../plugins/socket.io":6,"../prefabs/socketEventHandlers":16}],25:[function(require,module,exports){
 
   'use strict';
   var BirdGroup = require('../prefabs/birdGroup');  
   var Player = require('../prefabs/Player');  
   var EnemyPlaneGroup = require('../prefabs/EnemyPlaneGroup');  
   var Level = require('../prefabs/Level');  
+  var Level2 = require('../prefabs/Level2');  
   var PausePanel = require('../prefabs/PausePanel');  
+  var BasicLayer = require('../prefabs/BasicLayer');  
   var GameController = require('../plugins/GameController');
   var HUDManager = require('../plugins/HUDManager');
 
@@ -6734,9 +7102,31 @@ module.exports = MultiplayerUserSignIn;
         
         // new Level Object
         this.level = new Level(this.game);
+        //this.level = new Level2(this.game);
         
         // Create a new bird object
         this.birdGroup = new BirdGroup(this.game);
+        
+        // add our pause button with a callback
+        this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'btnpause', this.pauseGame, this);
+        this.pauseButton.fixedToCamera = true;
+        this.pauseButton.inputEnabled = true;
+//        this.pauseButton.anchor.setTo(0.5,0.5);
+        this.pauseButton.scale.setTo(0.75,0.75);
+        
+        // Let's build a pause panel
+        this.pausePanel = new PausePanel(this.game);
+        this.game.add.existing(this.pausePanel);
+        
+        //GameStart Layer    
+        this.basicLayer = new BasicLayer(this.game)
+        
+        // Add a input listener that can help us return from being paused
+        this.game.input.onDown.add(this.unpause, this);
+    },
+      
+    createPlayers: function(){
+        this.basicLayer.removeAll();
         
         // new Player Object
         this.player = new Player(this.game, 400, 400,0);
@@ -6745,6 +7135,99 @@ module.exports = MultiplayerUserSignIn;
         
         // Create a new bird object
         this.enemyPlaneGroup = new EnemyPlaneGroup(this.game, this.player);
+        this.enemyPlaneGroup.addEnemy();
+    },
+
+    pauseGame: function(){
+        if(!this.game.paused){
+            // Enter pause
+            this.pausePanel.show(function(){
+                 this.game.paused = true;
+                 this.pauseButton.visible = false;
+            });
+        }
+    },
+
+    playGame: function(){
+        if(this.game.paused){
+                // Leaving pause
+                this.pausePanel.hide();
+                this.game.paused =false;
+                this.pauseButton.visible = true;
+        }
+    },
+    // And finally the method that handels the pause menu
+    unpause: function(event){
+        // Only act if paused
+        if(this.game.paused){
+            // Calculate the corners of the menu
+            var w = window.innerWidth,
+                h = window.innerHeight,
+                x1 = w/2 - 270/2, x2 = x1,
+                y1 = h/2 - 180/2, y2 = y1;
+
+            // Check if the click was inside the menu
+            if(event.x > x1 && event.x < x2 && event.y > y1 && event.y < y2 ){
+                // The choicemap is an array that will help us see which item was clicked
+                var choisemap = ['one', 'two', 'three', 'four', 'five', 'six'];
+
+                // Get menu local coordinates for the click
+                var x = event.x - x1,
+                    y = event.y - y1;
+
+                // Calculate the choice 
+                var choise = Math.floor(x / 90) + 3*Math.floor(y / 90);
+//                var choise = (x / 90)<< 0 + (3 * (y / 90)<< 0);
+
+                console.log(choise)
+                
+                // Display the choice
+                console.log('You chose menu item: ' + choisemap[choise]);
+            }
+            else{
+                this.playGame();
+            }
+        }
+    }
+      
+  };
+  
+  module.exports = Play;
+},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../prefabs/BasicLayer":7,"../prefabs/EnemyPlaneGroup":9,"../prefabs/Level":10,"../prefabs/Level2":11,"../prefabs/PausePanel":12,"../prefabs/Player":13,"../prefabs/birdGroup":15}],26:[function(require,module,exports){
+'use strict';
+  var GameController = require('../plugins/GameController');
+  var HUDManager = require('../plugins/HUDManager');  
+  var io = require('../plugins/socket.io');  
+  var BirdGroup = require('../prefabs/birdGroup');  
+  var Player = require('../prefabs/Player');  
+  var PausePanel = require('../prefabs/PausePanel');
+  var Level = require('../prefabs/Level');  
+  var SocketEventHandlers = require('../prefabs/socketEventHandlers');  
+
+
+  function PlayMultiplayer() {}
+  PlayMultiplayer.prototype = {
+    preload: function() {
+      // Override this method to add some load operations. 
+      // If you need to use the loader, you may need to use them here.
+    },
+    create: function() {
+      // This method is called after the game engine successfully switches states. 
+      // Feel free to add any setup code here (do not load anything here, override preload() instead).
+        
+        // new Level Object
+        this.level = new Level(this.game);
+        
+        // Create a new bird object
+        this.birdGroup = new BirdGroup(this.game);
+        
+        // new Player Object
+        this.player = new Player(this.game, 400, 400,0);
+        this.game.add.existing(this.player); 
+        
+        this.socketEventHandlers = new SocketEventHandlers(this.game, io, this.player);
+
+        GlobalGame.Multiplayer.socket = this.socketEventHandlers;
         
         // add our pause button with a callback
         this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'btnpause', this.pauseGame, this);
@@ -6760,23 +7243,7 @@ module.exports = MultiplayerUserSignIn;
         // Add a input listener that can help us return from being paused
         this.game.input.onDown.add(this.unpause, this);
     },
-    update: function() {
-        this.game.physics.arcade.overlap(this.player.bullets, this.birdGroup, this.player.bulletHitsBird, null, this.player);
-        this.game.physics.arcade.overlap(this.player, this.birdGroup, this.player.playerHitsSomething, null, this.player);
-
-//        console.log(gameInitializer.enemies)
-//        if(gameInitializer.enemies.length){
-//            for(var i = 0; i < gameInitializer.enemies.length; i++){
-//                this.game.physics.arcade.overlap(gameInitializer.enemies[i].player, this.bullets, this.shootPlayer, null, this);
-//            }
-//        }
-        this.game.physics.arcade.collide(this.player, this.level.platforms, this.player.playerLoseHealth, null, this.player);
-    },
-//    pauseClick: function() {  
-//        // start the 'pause' state
-//        this.game.state.start('menu');
-//      },  
-    pauseGame: function(){
+   pauseGame: function(){
 			if(!this.game.paused){
 				// Enter pause
                 this.pausePanel.show(function(){
@@ -6823,69 +7290,7 @@ module.exports = MultiplayerUserSignIn;
                     this.playGame();
                 }
             }
-        }
-      
-  };
-  
-  module.exports = Play;
-},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../prefabs/EnemyPlaneGroup":8,"../prefabs/Level":9,"../prefabs/PausePanel":10,"../prefabs/Player":11,"../prefabs/birdGroup":13}],22:[function(require,module,exports){
-'use strict';
-  var GameController = require('../plugins/GameController');
-  var HUDManager = require('../plugins/HUDManager');  
-  var io = require('../plugins/socket.io');  
-  var BirdGroup = require('../prefabs/birdGroup');  
-  var Player = require('../prefabs/Player');  
-  var Level = require('../prefabs/Level');  
-  var SocketEventHandlers = require('../prefabs/socketEventHandlers');  
-
-
-  function PlayMultiplayer() {}
-  PlayMultiplayer.prototype = {
-    preload: function() {
-      // Override this method to add some load operations. 
-      // If you need to use the loader, you may need to use them here.
-    },
-    create: function() {
-      // This method is called after the game engine successfully switches states. 
-      // Feel free to add any setup code here (do not load anything here, override preload() instead).
-        
-        // new Level Object
-        this.level = new Level(this.game);
-        
-        // Create a new bird object
-        this.birdGroup = new BirdGroup(this.game);
-        
-        // new Player Object
-        this.player = new Player(this.game, 400, 400,0);
-        this.game.add.existing(this.player); 
-        
-        this.socketEventHandlers = new SocketEventHandlers(this.game, this.player, io);
-        
-        this.player.socket = this.socketEventHandlers;
-        
-        // add our pause button with a callback
-        this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'pause', this.pauseClick, this);
-        this.pauseButton.fixedToCamera = true;
-//        this.pauseButton.anchor.setTo(0.5,0.5);
-        this.pauseButton.scale.setTo(0.75,0.75);
-    },
-    update: function() {
-      // state update code
-        
-        this.game.physics.arcade.overlap(this.player.bullets, this.birdGroup, this.player.bulletHitsBird, null, this.player);
-        this.game.physics.arcade.overlap(this.player, this.birdGroup, this.player.playerHitsSomething, null, this.player);
-
-        if(this.player.socket.enemies.length){
-            for(var i = 0; i < this.player.socket.enemies.length; i++){
-                this.game.physics.arcade.overlap(this.player.socket.enemies[i], this.player.bullets, this.player.shootPlayer, null, this.player);
-            }
-        }
-        this.game.physics.arcade.collide(this.player, this.level.platforms, null, null, this.player);
-    },
-    pauseClick: function() {  
-        // start the 'pause' state
-        this.game.state.start('menu');
-    },  
+        },
     render: function() {
       // Put render operations here.
     },
@@ -6896,7 +7301,7 @@ module.exports = MultiplayerUserSignIn;
   };
 module.exports = PlayMultiplayer;
 
-},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../plugins/socket.io":6,"../prefabs/Level":9,"../prefabs/Player":11,"../prefabs/birdGroup":13,"../prefabs/socketEventHandlers":14}],23:[function(require,module,exports){
+},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../plugins/socket.io":6,"../prefabs/Level":10,"../prefabs/PausePanel":12,"../prefabs/Player":13,"../prefabs/birdGroup":15,"../prefabs/socketEventHandlers":16}],27:[function(require,module,exports){
 
 'use strict';
 
@@ -6968,8 +7373,8 @@ Preload.prototype = {
         this.load.image('smoke', 'assets/img/sprites/particles/pump_smoke_04.png');
         this.load.image('bullet', 'assets/img/sprites/bullet.png');
         this.load.image('bullet2', 'assets/img/sprites/bullet2.png');
-        this.load.spritesheet('explode', 'assets/img/sprites/effects/explode.png', 64, 64, 16 );
-        this.load.spritesheet('bombexplode', 'assets/img/sprites/effects/bombexplosion.png', 128, 115, 8);
+//        this.load.spritesheet('explode', 'assets/img/sprites/effects/explode.png', 64, 64, 16 );
+//        this.load.spritesheet('bombexplode', 'assets/img/sprites/effects/bombexplosion.png', 128, 115, 8);
         this.load.spritesheet('airplaneexplode', 'assets/img/sprites/effects/airplaneexplosion.png', 128, 115, 8);
         //PLAYER Buttons
         this.load.spritesheet('buttonvertical', 'assets/img/buttons/button-vertical.png',64,64);

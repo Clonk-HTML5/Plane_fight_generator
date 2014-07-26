@@ -5,9 +5,11 @@ window.onload = function () {
   var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'plane_fight');
 
   // Game States
+  game.state.add('Level2', require('./states/Level2'));
   game.state.add('boot', require('./states/boot'));
   game.state.add('gameover', require('./states/gameover'));
   game.state.add('menu', require('./states/menu'));
+  game.state.add('multiplayerRoomDetailView', require('./states/multiplayerRoomDetailView'));
   game.state.add('multiplayerRoomSelect', require('./states/multiplayerRoomSelect'));
   game.state.add('multiplayerUserSignIn', require('./states/multiplayerUserSignIn'));
   game.state.add('play', require('./states/play'));

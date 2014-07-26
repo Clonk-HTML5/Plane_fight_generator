@@ -20,10 +20,10 @@ Menu.prototype = {
 //      this.background = this.game.add.sprite(0, 0, 'menu_bg');
       
           // new Level Object
-    this.level = new Level(this.game);
+//    this.level = new Level(this.game, {menu: true});
 
     // Create a new bird object
-    this.birdGroup = new BirdGroup(this.game);
+//    this.birdGroup = new BirdGroup(this.game);
 
     // Create a new bird object
 //    this.enemyPlaneGroup = new EnemyPlaneGroup(this.game, this.player, {menu: true});
@@ -46,14 +46,15 @@ Menu.prototype = {
   startClick: function() {  
     // start button click handler
     // start the 'play' state
-//    this.game.state.start('play');
-      this.game.transitions.to('play');
+    this.game.state.start('play');
+//      this.game.transitions.to('play');
   },  
   multiplayerStartClick: function() {  
     // start button click handler
     // start the 'play' state
+    this.game.state.start('multiplayerUserSignIn');
 //    this.game.state.start('playMultiplayer');
-      this.game.transitions.to('multiplayerUserSignIn');
+//      this.game.transitions.to('multiplayerUserSignIn');
 //      this.game.transitions.to('playMultiplayer');
   }
 };

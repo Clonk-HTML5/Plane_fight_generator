@@ -42,6 +42,11 @@ var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle) {
 //        this.plane.scale.setTo(0.23, 0.23);
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
 //    this.body.collideWorldBounds = true;
+    
+    if(GlobalGame.Multiplayer.userName){
+        this.username = this.game.add.text(0, -100, GlobalGame.Multiplayer.userName, { fontSize: '22px', fill: '#000' });
+        this.addChild(this.username);
+    }
 
       this.hud = Phaser.Plugin.HUDManager.create(this.game, this, 'gamehud');
       this.healthHUD = this.hud.addBar(0,-50, this.width, 10, this.health, 'health', this, '#ffbd55', false);

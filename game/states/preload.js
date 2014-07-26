@@ -69,8 +69,8 @@ Preload.prototype = {
         this.load.image('smoke', 'assets/img/sprites/particles/pump_smoke_04.png');
         this.load.image('bullet', 'assets/img/sprites/bullet.png');
         this.load.image('bullet2', 'assets/img/sprites/bullet2.png');
-        this.load.spritesheet('explode', 'assets/img/sprites/effects/explode.png', 64, 64, 16 );
-        this.load.spritesheet('bombexplode', 'assets/img/sprites/effects/bombexplosion.png', 128, 115, 8);
+//        this.load.spritesheet('explode', 'assets/img/sprites/effects/explode.png', 64, 64, 16 );
+//        this.load.spritesheet('bombexplode', 'assets/img/sprites/effects/bombexplosion.png', 128, 115, 8);
         this.load.spritesheet('airplaneexplode', 'assets/img/sprites/effects/airplaneexplosion.png', 128, 115, 8);
         //PLAYER Buttons
         this.load.spritesheet('buttonvertical', 'assets/img/buttons/button-vertical.png',64,64);

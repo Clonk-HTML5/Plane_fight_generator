@@ -1,11 +1,10 @@
 'use strict';
 var socketPlayer,
     socketGame,
-    socketInGlobalScope,
     SocketObject,
     SocketRemotePlayer = require('../prefabs/socketRemotePlayer');  
 
-var SocketEventHandlers = function(game, player, io) {
+var SocketEventHandlers = function(game, io, player) {
         // Start listening for events
             //  Create some baddies to waste :)
 //        this.enemies = [];
@@ -15,11 +14,11 @@ var SocketEventHandlers = function(game, player, io) {
         this.enemies = [];
 //        this.socket = io.connect("http://localhost", {port: 8120, transports: ["websocket"]});
 //        this.socket = io.connect("http://localhost:8120");
-//        this.socket = io.connect("http://192.168.1.5:8120");
+        this.socket = io.connect("http://192.168.1.5:8120");
 //        this.socket = io.connect("http://neumic-asnort.codio.io:8120");
-        this.socket = io.connect("http://christian-dev.no-ip.biz:8120");
-        
-        socketInGlobalScope = this.socket;
+//        this.socket = io.connect("http://christian-dev.no-ip.biz:8120");
+        GlobalGame.Multiplayer.socket = this.socket;
+    
         this.setEventHandlers();
   
 };
@@ -31,25 +30,25 @@ SocketEventHandlers.prototype = {
     setEventHandlers: function() {
         
         // Socket connection successful
-        socketInGlobalScope.on("connect", this.onSocketConnected);
+        GlobalGame.Multiplayer.socket.on("connect", this.onSocketConnected);
 
         // Socket disconnection
-        socketInGlobalScope.on("disconnect", this.onSocketDisconnect);
+        GlobalGame.Multiplayer.socket.on("disconnect", this.onSocketDisconnect);
 
         // New player message received
-        socketInGlobalScope.on("new player", this.onNewPlayer);
+        GlobalGame.Multiplayer.socket.on("new player", this.onNewPlayer);
 
         // Player move message received
-        socketInGlobalScope.on("move player", this.onMovePlayer);
+        GlobalGame.Multiplayer.socket.on("move player", this.onMovePlayer);
 
         // Player fires bullet message received
-        socketInGlobalScope.on("fire bullet", this.onFireBullet);
+        GlobalGame.Multiplayer.socket.on("fire bullet", this.onFireBullet);
 
         // Bullet hits Player message received
-        socketInGlobalScope.on("bullet hit player", this.onBulletHitPlayer);
+        GlobalGame.Multiplayer.socket.on("bullet hit player", this.onBulletHitPlayer);
 
         // Player removed message received
-        socketInGlobalScope.on("remove player", this.onRemovePlayer);
+        GlobalGame.Multiplayer.socket.on("remove player", this.onRemovePlayer);
 
     },
 
@@ -57,15 +56,16 @@ SocketEventHandlers.prototype = {
     onSocketConnected: function(socket) {
         console.log("Connected to socket server ");
         
-        var bullet = socketPlayer.bullets.getFirstExists(false)
+        GlobalGame.Multiplayer.connected = true;
         // Send local player data to the game server
-        socketInGlobalScope.emit("new player", {x: socketPlayer.x, y:socketPlayer.y, angle: socketPlayer.angle});
+//        GlobalGame.Multiplayer.socket.emit("new player", {x: socketPlayer.x, y:socketPlayer.y, angle: socketPlayer.angle});
 //        this.socket.emit("new player");
     },
 
     // Socket disconnected
     onSocketDisconnect: function() {
         console.log("Disconnected from socket server");
+        GlobalGame.Multiplayer.connected = false;
     },
 
     
@@ -95,17 +95,19 @@ SocketEventHandlers.prototype = {
         movePlayer.y = data.y;
         movePlayer.angle = data.angle;
         
-        var px = data.x;
-        var py = data.y;
+        if(!socketGame.device.desktop){
+            var px = data.x;
+            var py = data.y;
 
-        px *= -1;
-        py *= -1;
+            px *= -1;
+            py *= -1;
 
-//        movePlayer.emitter.minParticleSpeed.set(px, py);
-//        movePlayer.emitter.maxParticleSpeed.set(px, py);
-        
-        movePlayer.emitter.emitX = data.x;
-        movePlayer.emitter.emitY = data.y;
+    //        movePlayer.emitter.minParticleSpeed.set(px, py);
+    //        movePlayer.emitter.maxParticleSpeed.set(px, py);
+
+            movePlayer.emitter.emitX = data.x;
+            movePlayer.emitter.emitY = data.y;
+        }
 
     },
     // Player fires Bullet

@@ -1,4 +1,8 @@
 'use strict';
+
+  var io = require('../plugins/socket.io');  
+  var SocketEventHandlers = require('../prefabs/socketEventHandlers');  
+
   function MultiplayerUserSignIn() {}
   MultiplayerUserSignIn.prototype = {
     preload: function() {
@@ -53,11 +57,19 @@
         }
 
         if(document.getElementById('user_name').value != ''){
-            BasicGame.userName = document.getElementById('user_name').value;
-                        console.log(BasicGame)
-            var elem=document.getElementById('userNameForm')
-            elem.parentNode.removeChild(elem);
-            this.game.transitions.to('multiplayerRoomSelect');
+            GlobalGame.Multiplayer.userName = document.getElementById('user_name').value;
+            
+            var socketEventHandlers = new SocketEventHandlers(this.game, io, null);
+            
+            var localGame = this.game;
+            
+            GlobalGame.Multiplayer.socket.on("connect",function(socket){
+                var elem=document.getElementById('userNameForm');
+                if(elem)
+                    elem.parentNode.removeChild(elem);
+                
+                localGame.transitions.to('multiplayerRoomSelect');
+            });
         }
     },
     update: function() {

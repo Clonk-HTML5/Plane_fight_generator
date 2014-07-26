@@ -9,6 +9,7 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
     
     this.player = player;
     
+    if (this.game.device.desktop){
         this.emitter = this.game.add.emitter(x, y, 400);
 
         this.emitter.makeParticles( [ 'smoke' ] );
@@ -18,6 +19,7 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
         this.emitter.setScale(0.1, 0, 0.05, 0, 1000);
 
         this.emitter.start(false, 3000, 5);
+    }
         
         //  Our bullet group
         this.bullets = this.game.add.group();
@@ -35,6 +37,10 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
         this.health = 5;
         this.kills = 0;
         this.angle = 0;
+        this.PI2 = Math.PI * 2;
+        // Define constants that affect motion
+        this.SPEED = 200; // missile speed pixels/second
+        this.TURN_RATE = 3; // turn rate in degrees/frame
         this.scale.setTo(0.6, 0.6);
 //        this.scale.x *= -1;
         this.anchor.setTo(0.5, 0.5);
@@ -74,36 +80,67 @@ EnemyPlane.prototype.update = function() {
         this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
     }
     
-    if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
-        this.body.rotation = this.game.physics.arcade.angleToXY(this, this.randomXPointInWorld, this.randomYPointInWorld);
-        this.randomXPointInWorld = this.game.world.randomX;
-        this.randomYPointInWorld = this.game.world.randomY - 300;
-    }
+//    if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
+//        this.randomXPointInWorld = this.game.world.randomX;
+//        this.randomYPointInWorld = this.game.world.randomY - 300;
+//    }
     
-    this.rotation = this.game.physics.arcade.moveToXY(this, this.randomXPointInWorld, this.randomYPointInWorld, 300, 2000)
-    this.game.physics.arcade.velocityFromAngle(this.angle, 300, this.body.velocity)
+    this.rotation = this.game.physics.arcade.moveToObject(this, this.player, 500);
+    
+    // Calculate the angle from the missile to the mouse cursor game.input.x
+    // and game.input.y are the mouse position; substitute with whatever
+    // target coordinates you need.
+    var targetAngle = this.game.math.angleBetween(
+        this.x, this.y,
+        this.randomXPointInWorld, this.randomYPointInWorld
+    );
+
+    // Gradually (this.TURN_RATE) aim the missile towards the target angle
+    if (this.rotation !== targetAngle) {
+        // Calculate difference between the current angle and targetAngle
+        var delta = targetAngle - this.rotation;
+
+        // Keep it in range from -180 to 180 to make the most efficient turns.
+        if (delta > Math.PI) delta -= this.PI2;
+        if (delta < -Math.PI) delta += this.PI2;
+
+        if (delta > 0) {
+            // Turn clockwise
+            this.angle += this.TURN_RATE;
+        } else {
+            // Turn counter-clockwise
+            this.angle -= this.TURN_RATE;
+        }
+
+        // Just set angle to target angle if they are close
+        if (Math.abs(delta) < this.game.math.degToRad(this.TURN_RATE)) {
+            this.rotation = targetAngle;
+        }
+    }
+
+    // Calculate velocity vector based on this.rotation and this.SPEED
+    this.body.velocity.x = Math.cos(this.rotation) * this.SPEED;
+    this.body.velocity.y = Math.sin(this.rotation) * this.SPEED;
     
     if(!this.options.menu){
          if (this.game.physics.arcade.distanceBetween(this, this.player) < 300){
              this.fireBullet();
          }
-    }else{
-//         if (this.game.physics.arcade.distanceBetween(this, this.player) < 300){
-//             this.fireBullet();
-//         }
     }
     
-    var px = this.body.velocity.x;
-    var py = this.body.velocity.y;
+    if(this.game.device.desktop){
+        var px = this.body.velocity.x;
+        var py = this.body.velocity.y;
 
-    px *= -1;
-    py *= -1;
+        px *= -1;
+        py *= -1;
 
-    this.emitter.minParticleSpeed.set(px, py);
-    this.emitter.maxParticleSpeed.set(px, py);
+        this.emitter.minParticleSpeed.set(px, py);
+        this.emitter.maxParticleSpeed.set(px, py);
 
-    this.emitter.emitX = this.x;
-    this.emitter.emitY = this.y;
+        this.emitter.emitX = this.x;
+        this.emitter.emitY = this.y;
+    }
   
 };
 
