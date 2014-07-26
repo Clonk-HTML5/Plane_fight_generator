@@ -64,8 +64,8 @@
         this.playerVelocity = 0;
         
         // Create a new bird object
-        this.enemyPlaneGroup = new EnemyPlaneGroup(this.game, this.player);
-        this.enemyPlaneGroup.addEnemy();
+//        this.enemyPlaneGroup = new EnemyPlaneGroup(this.game, this.player);
+//        this.enemyPlaneGroup.addEnemy();
     },
 
     pauseGame: function(){

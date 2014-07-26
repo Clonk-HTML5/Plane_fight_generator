@@ -7134,8 +7134,8 @@ module.exports = MultiplayerUserSignIn;
         this.playerVelocity = 0;
         
         // Create a new bird object
-        this.enemyPlaneGroup = new EnemyPlaneGroup(this.game, this.player);
-        this.enemyPlaneGroup.addEnemy();
+//        this.enemyPlaneGroup = new EnemyPlaneGroup(this.game, this.player);
+//        this.enemyPlaneGroup.addEnemy();
     },
 
     pauseGame: function(){
@@ -7410,7 +7410,7 @@ Preload.prototype = {
   },
   create: function() {
     this.asset.cropEnabled = false;
-    if (this.game.device.desktop){
+//    if (this.game.device.desktop){
         var stats = new Stats();
         stats.setMode(0); // 0: fps, 1: ms
 
@@ -7430,7 +7430,7 @@ Preload.prototype = {
             stats.end();
 
         }, 1000 / 60 );
-    }
+//    }
   },
   update: function() {
     if(!!this.ready) {

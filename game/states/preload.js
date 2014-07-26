@@ -106,7 +106,7 @@ Preload.prototype = {
   },
   create: function() {
     this.asset.cropEnabled = false;
-    if (this.game.device.desktop){
+//    if (this.game.device.desktop){
         var stats = new Stats();
         stats.setMode(0); // 0: fps, 1: ms
 
@@ -126,7 +126,7 @@ Preload.prototype = {
             stats.end();
 
         }, 1000 / 60 );
-    }
+//    }
   },
   update: function() {
     if(!!this.ready) {
