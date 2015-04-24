@@ -4,6 +4,7 @@
   var BirdGroup = require('../prefabs/birdGroup');  
   var EnemyPlaneGroup = require('../prefabs/EnemyPlaneGroup');  
   var Level = require('../prefabs/Level');
+  var LabelButton = require('../prefabs/labelButton');
 
 function Menu() {}
 
@@ -12,12 +13,7 @@ Menu.prototype = {
 
   },
   create: function() {
-      this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-      			this.game.scale.pageAlignHorizontally = true;
-			this.game.scale.pageAlignVertically = true;
-
-      
-//      this.background = this.game.add.sprite(0, 0, 'menu_bg');
+      this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.cache.getImage('menu_bg').height, 'menu_bg');
       
           // new Level Object
 //    this.level = new Level(this.game, {menu: true});
@@ -27,21 +23,18 @@ Menu.prototype = {
 
     // Create a new bird object
 //    this.enemyPlaneGroup = new EnemyPlaneGroup(this.game, this.player, {menu: true});
-      
-    // add our start button with a callback
-    this.startButton = this.game.add.button(this.game.width/2, 200, 'sprites', this.startClick, this, 'menu/Singleplayer', 'menu/Singleplayer', 'menu/Singleplayer', 'menu/Singleplayer');
-    this.startButton.anchor.setTo(0.5,0.5);
-    this.startButton.scale.setTo(0.5,0.5);
-      
-    this.multiplayerButton = this.game.add.button(this.game.width/2, 300, 'sprites', this.multiplayerStartClick, this, 'menu/Multiplayer', 'menu/Multiplayer', 'menu/Multiplayer', 'menu/Multiplayer');
-    this.multiplayerButton.anchor.setTo(0.5,0.5);
-    this.multiplayerButton.scale.setTo(0.5,0.5);
-      
+    this.buttonGroup = this.game.add.group();
+//    this.button = new LabelButton(this.game, this.game.width/2, 200, 'sprites', 'Singleplayer', this.singleplayerClick, this, 'buttons/button_green_act', 'buttons/button_green_no', 'buttons/button_green_act', 'buttons/button_green_no');
+      this.startButton = this.game.add.button(this.game.width/2, 200, 'sprites', this.startClick, this, 'buttons/button_green_act', 'buttons/button_green_no', 'buttons/button_green_act', 'buttons/button_green_no');
+      this.startButton.anchor.setTo(0.5,0.5);
+    this.startButton.scale.setTo(0.75,0.75);
+    this.buttonGroup.add(this.startButton);
+      this.multiplayerButton = this.game.add.button(this.game.width/2, 300, 'sprites', this.multiplayerStartClick, this, 'buttons/button_multiplayer_act', 'buttons/button_multiplayer_no', 'buttons/button_multiplayer_act', 'buttons/button_multiplayer_no');
+      this.multiplayerButton.anchor.setTo(0.5,0.5);
+    this.multiplayerButton.scale.setTo(0.75,0.75);
+      this.buttonGroup.add(this.multiplayerButton); 
   },
   update: function() {
-//    if(this.game.input.activePointer.justPressed()) {
-//      this.game.state.start('play');
-//    }
   },
   startClick: function() {  
     // start button click handler

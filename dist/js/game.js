@@ -20,7 +20,7 @@ window.onload = function () {
 
   game.state.start('boot');
 };
-},{"./states/Level2":18,"./states/boot":19,"./states/gameover":20,"./states/menu":21,"./states/multiplayerRoomDetailView":22,"./states/multiplayerRoomSelect":23,"./states/multiplayerUserSignIn":24,"./states/play":25,"./states/playMultiplayer":26,"./states/preload":27}],2:[function(require,module,exports){
+},{"./states/Level2":19,"./states/boot":20,"./states/gameover":21,"./states/menu":22,"./states/multiplayerRoomDetailView":23,"./states/multiplayerRoomSelect":24,"./states/multiplayerUserSignIn":25,"./states/play":26,"./states/playMultiplayer":27,"./states/preload":28}],2:[function(require,module,exports){
 /**
  * Helpers 
  */
@@ -6474,6 +6474,39 @@ BirdGroup.prototype.constructor = BirdGroup;
 module.exports = BirdGroup;
 },{"./bird":14}],16:[function(require,module,exports){
 'use strict';
+
+var LabelButton = function(game, x, y, key, label, callback, callbackContext, overFrame, outFrame, downFrame, upFrame) {
+    Phaser.Button.call(this, game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame);
+ 
+    //Style how you wish...
+    this.style = {
+        'font': '30px Arial',
+        'fill': 'white'
+    };
+    this.anchor.setTo( 0.5, 0.5 );
+
+//    this.label = new Phaser.Text(this.game, 0, 0, label, this.style);
+//    this.label.anchor.setTo( 0, 0.5 );
+//    this.addChild(this.label);
+//    this.setLabel( label );
+ 
+
+  
+};
+
+LabelButton.prototype = Object.create(Phaser.Button.prototype);
+LabelButton.prototype.constructor = LabelButton;
+
+LabelButton.prototype.setLabel = function( label ) {
+    
+   this.label.setText(label);
+ 
+};
+
+module.exports = LabelButton;
+
+},{}],17:[function(require,module,exports){
+'use strict';
 var socketPlayer,
     socketGame,
     SocketObject,
@@ -6688,7 +6721,7 @@ SocketEventHandlers.prototype = {
 
 module.exports = SocketEventHandlers;
 
-},{"../prefabs/socketRemotePlayer":17}],17:[function(require,module,exports){
+},{"../prefabs/socketRemotePlayer":18}],18:[function(require,module,exports){
 'use strict';
 
 var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle, name) {
@@ -6758,7 +6791,7 @@ SocketRemotePlayer.prototype.update = function() {
 
 module.exports = SocketRemotePlayer;
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 'use strict';
   function Level2() {}
   Level2.prototype = {
@@ -6792,7 +6825,7 @@ module.exports = SocketRemotePlayer;
   };
 module.exports = Level2;
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 GlobalGame = {
 
     /* Here we've just got some global level vars that persist regardless of State swaps */
@@ -6880,7 +6913,7 @@ Boot.prototype = {
 
 module.exports = Boot;
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 
 'use strict';
 function GameOver() {}
@@ -6910,13 +6943,14 @@ GameOver.prototype = {
 };
 module.exports = GameOver;
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 
 'use strict';
 
   var BirdGroup = require('../prefabs/birdGroup');  
   var EnemyPlaneGroup = require('../prefabs/EnemyPlaneGroup');  
   var Level = require('../prefabs/Level');
+  var LabelButton = require('../prefabs/labelButton');
 
 function Menu() {}
 
@@ -6925,12 +6959,7 @@ Menu.prototype = {
 
   },
   create: function() {
-      this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-      			this.game.scale.pageAlignHorizontally = true;
-			this.game.scale.pageAlignVertically = true;
-
-      
-//      this.background = this.game.add.sprite(0, 0, 'menu_bg');
+      this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.cache.getImage('menu_bg').height, 'menu_bg');
       
           // new Level Object
 //    this.level = new Level(this.game, {menu: true});
@@ -6940,21 +6969,18 @@ Menu.prototype = {
 
     // Create a new bird object
 //    this.enemyPlaneGroup = new EnemyPlaneGroup(this.game, this.player, {menu: true});
-      
-    // add our start button with a callback
-    this.startButton = this.game.add.button(this.game.width/2, 200, 'sprites', this.startClick, this, 'menu/Singleplayer', 'menu/Singleplayer', 'menu/Singleplayer', 'menu/Singleplayer');
-    this.startButton.anchor.setTo(0.5,0.5);
-    this.startButton.scale.setTo(0.5,0.5);
-      
-    this.multiplayerButton = this.game.add.button(this.game.width/2, 300, 'sprites', this.multiplayerStartClick, this, 'menu/Multiplayer', 'menu/Multiplayer', 'menu/Multiplayer', 'menu/Multiplayer');
-    this.multiplayerButton.anchor.setTo(0.5,0.5);
-    this.multiplayerButton.scale.setTo(0.5,0.5);
-      
+    this.buttonGroup = this.game.add.group();
+//    this.button = new LabelButton(this.game, this.game.width/2, 200, 'sprites', 'Singleplayer', this.singleplayerClick, this, 'buttons/button_green_act', 'buttons/button_green_no', 'buttons/button_green_act', 'buttons/button_green_no');
+      this.startButton = this.game.add.button(this.game.width/2, 200, 'sprites', this.startClick, this, 'buttons/button_green_act', 'buttons/button_green_no', 'buttons/button_green_act', 'buttons/button_green_no');
+      this.startButton.anchor.setTo(0.5,0.5);
+    this.startButton.scale.setTo(0.75,0.75);
+    this.buttonGroup.add(this.startButton);
+      this.multiplayerButton = this.game.add.button(this.game.width/2, 300, 'sprites', this.multiplayerStartClick, this, 'buttons/button_multiplayer_act', 'buttons/button_multiplayer_no', 'buttons/button_multiplayer_act', 'buttons/button_multiplayer_no');
+      this.multiplayerButton.anchor.setTo(0.5,0.5);
+    this.multiplayerButton.scale.setTo(0.75,0.75);
+      this.buttonGroup.add(this.multiplayerButton); 
   },
   update: function() {
-//    if(this.game.input.activePointer.justPressed()) {
-//      this.game.state.start('play');
-//    }
   },
   startClick: function() {  
     // start button click handler
@@ -6974,7 +7000,7 @@ Menu.prototype = {
 
 module.exports = Menu;
 
-},{"../prefabs/EnemyPlaneGroup":8,"../prefabs/Level":9,"../prefabs/birdGroup":15}],22:[function(require,module,exports){
+},{"../prefabs/EnemyPlaneGroup":8,"../prefabs/Level":9,"../prefabs/birdGroup":15,"../prefabs/labelButton":16}],23:[function(require,module,exports){
 'use strict';
   function MultiplayerRoomDetailView() {}
   MultiplayerRoomDetailView.prototype = {
@@ -7081,7 +7107,7 @@ module.exports = Menu;
   };
 module.exports = MultiplayerRoomDetailView;
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 'use strict';
 
   function MultiplayerRoomSelect() {}
@@ -7201,7 +7227,7 @@ module.exports = MultiplayerRoomDetailView;
   };
 module.exports = MultiplayerRoomSelect;
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 'use strict';
 
   var io = require('../plugins/socket.io');  
@@ -7293,7 +7319,7 @@ module.exports = MultiplayerRoomSelect;
   };
 module.exports = MultiplayerUserSignIn;
 
-},{"../plugins/socket.io":5,"../prefabs/socketEventHandlers":16}],25:[function(require,module,exports){
+},{"../plugins/socket.io":5,"../prefabs/socketEventHandlers":17}],26:[function(require,module,exports){
 
   'use strict';
   var BirdGroup = require('../prefabs/birdGroup');  
@@ -7448,7 +7474,7 @@ module.exports = MultiplayerUserSignIn;
   };
   
   module.exports = Play;
-},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../prefabs/BasicLayer":6,"../prefabs/EnemyPlaneGroup":8,"../prefabs/Level":9,"../prefabs/Level2":10,"../prefabs/Level3":11,"../prefabs/PausePanel":12,"../prefabs/Player":13,"../prefabs/birdGroup":15}],26:[function(require,module,exports){
+},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../prefabs/BasicLayer":6,"../prefabs/EnemyPlaneGroup":8,"../prefabs/Level":9,"../prefabs/Level2":10,"../prefabs/Level3":11,"../prefabs/PausePanel":12,"../prefabs/Player":13,"../prefabs/birdGroup":15}],27:[function(require,module,exports){
 'use strict';
   var GameController = require('../plugins/GameController');
   var HUDManager = require('../plugins/HUDManager');  
@@ -7577,7 +7603,7 @@ module.exports = MultiplayerUserSignIn;
   };
 module.exports = PlayMultiplayer;
 
-},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../plugins/socket.io":5,"../prefabs/BasicLayer":6,"../prefabs/Level":9,"../prefabs/PausePanel":12,"../prefabs/Player":13,"../prefabs/birdGroup":15,"../prefabs/socketEventHandlers":16}],27:[function(require,module,exports){
+},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../plugins/socket.io":5,"../prefabs/BasicLayer":6,"../prefabs/Level":9,"../prefabs/PausePanel":12,"../prefabs/Player":13,"../prefabs/birdGroup":15,"../prefabs/socketEventHandlers":17}],28:[function(require,module,exports){
 
 'use strict';
 
@@ -7621,6 +7647,7 @@ Preload.prototype = {
     this.load.spritesheet('buttonjump', 'assets/img/buttons/button-round-b.png',96,96);
       
     //LEVEL
+    this.load.image('menu_bg', 'assets/backgrounds/menu.png');
 //    this.load.image('bg1', 'assets/backgrounds/bg1.png');
 //    this.load.image('bg2', 'assets/backgrounds/bg2.png');
     this.load.image('bg1', 'assets/backgrounds/cloudsBackground.png');

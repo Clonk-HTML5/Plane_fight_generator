@@ -41,6 +41,7 @@ Preload.prototype = {
     this.load.spritesheet('buttonjump', 'assets/img/buttons/button-round-b.png',96,96);
       
     //LEVEL
+    this.load.image('menu_bg', 'assets/backgrounds/menu.png');
 //    this.load.image('bg1', 'assets/backgrounds/bg1.png');
 //    this.load.image('bg2', 'assets/backgrounds/bg2.png');
     this.load.image('bg1', 'assets/backgrounds/cloudsBackground.png');
