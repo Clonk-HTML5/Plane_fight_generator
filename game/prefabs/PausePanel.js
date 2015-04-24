@@ -6,7 +6,7 @@ var PausePanel = function(game, parent){
 		Phaser.Group.call(this, game, parent);
 
 		// Add the panel
-		this.panel = this.create(this.game.width/2, 10, 'panel');
+		this.panel = this.create(this.game.width/2, 10, 'sprites', 'menu/panel');
 		this.panel.anchor.setTo(0.5, 0);
         this.panel.fixedToCamera = true;
 
@@ -16,7 +16,7 @@ var PausePanel = function(game, parent){
         this.pauseText.fixedToCamera = true;
 		this.add(this.pauseText);
 //		this.cloudsText = this.game.add.bitmapText(this.game.width/2 - 100, 50, 'kenpixelblocks', 'Clouds are still moving :)', 16);
-		this.cloudsText = this.game.add.text(this.game.width/2 - 100, 50, 'Clouds are still moving :)',{ font: '16px Arial', fill: '#08d465', align: 'center'});
+		this.cloudsText = this.game.add.text(this.game.width/2 - 100, 50, 'Press the Play Button to continue',{ font: '16px Arial', fill: '#08d465', align: 'center'});
         this.cloudsText.fixedToCamera = true;
 		this.add(this.cloudsText);
 
@@ -30,12 +30,13 @@ var PausePanel = function(game, parent){
 
 	PausePanel.prototype.show = function(onComplete){
             // Add play button
-            this.btnPlay = this.game.add.button(this.game.width/2 - 220, 20, 'btnplay', function(){
+            this.btnPlay = this.game.add.button(this.game.width/2 - 220, 20, 'sprites', function(){
                 this.game.state.getCurrentState().playGame()}
-            , this);
+            , this, 'menu/btn-play', 'menu/btn-play', 'menu/btn-play', 'menu/btn-play');
             this.btnPlay.fixedToCamera = true;
             this.add(this.btnPlay);
-		this.game.add.tween(this).to({y:this.game.height/2}, 100, Phaser.Easing.Bounce.Out, true)._lastChild.onComplete.add(onComplete, this.game.state.getCurrentState());
+		this.game.add.tween(this).to({y:this.game.height/2}, 200, Phaser.Easing.Bounce.Out, true)
+                                 .onComplete.add(onComplete, this.game.state.getCurrentState());
 	};
 	PausePanel.prototype.hide = function(onComplete){
 		var closePauseTween = this.game.add.tween(this).to({y:-this.game.height/2-100}, 200, Phaser.Easing.Linear.NONE, true)

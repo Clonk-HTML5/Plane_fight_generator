@@ -1,13 +1,14 @@
 /**
 * @author       @karlmacklin <tacklemcclean@gmail.com>
 * @author       Richard Davey <rich@photonstorm.com>
-* @copyright    2014 Photon Storm Ltd.
+* @copyright    2015 Photon Storm Ltd.
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
 /**
+* If you need more fine-grained control over the handling of specific buttons you can create and use Phaser.GamepadButton objects.
+* 
 * @class Phaser.GamepadButton
-* @classdesc If you need more fine-grained control over the handling of specific buttons you can create and use Phaser.GamepadButton objects.
 * @constructor
 * @param {Phaser.SinglePad} pad - A reference to the gamepad that owns this button.
 * @param {number} buttonCode - The button code this GamepadButton is responsible for.
@@ -101,22 +102,14 @@ Phaser.GamepadButton.prototype = {
     */
     processButtonDown: function (value) {
 
-        if (this.isDown)
-        {
-            this.duration = this.game.time.now - this.timeDown;
-            this.repeats++;
-        }
-        else
-        {
-            this.isDown = true;
-            this.isUp = false;
-            this.timeDown = this.game.time.now;
-            this.duration = 0;
-            this.repeats = 0;
-            this.value = value;
+        this.isDown = true;
+        this.isUp = false;
+        this.timeDown = this.game.time.time;
+        this.duration = 0;
+        this.repeats = 0;
+        this.value = value;
 
-            this.onDown.dispatch(this, value);
-        }
+        this.onDown.dispatch(this, value);
 
     },
 
@@ -129,15 +122,12 @@ Phaser.GamepadButton.prototype = {
     */
     processButtonUp: function (value) {
 
-        if (this.isDown)
-        {
-            this.isDown = false;
-            this.isUp = true;
-            this.timeUp = this.game.time.now;
-            this.value = value;
+        this.isDown = false;
+        this.isUp = true;
+        this.timeUp = this.game.time.time;
+        this.value = value;
 
-            this.onUp.dispatch(this, value);
-        }
+        this.onUp.dispatch(this, value);
 
     },
 
@@ -165,9 +155,9 @@ Phaser.GamepadButton.prototype = {
     */
     justPressed: function (duration) {
 
-        if (typeof duration === "undefined") { duration = 250; }
+        duration = duration || 250;
 
-        return (this.isDown && this.duration < duration);
+        return (this.isDown === true && (this.timeDown + duration) > this.game.time.time);
 
     },
 
@@ -180,9 +170,9 @@ Phaser.GamepadButton.prototype = {
     */
     justReleased: function (duration) {
 
-        if (typeof duration === "undefined") { duration = 250; }
+        duration = duration || 250;
 
-        return (this.isDown === false && (this.game.time.now - this.timeUp < duration));
+        return (this.isUp === true && (this.timeUp + duration) > this.game.time.time);
 
     },
 
@@ -195,7 +185,7 @@ Phaser.GamepadButton.prototype = {
 
         this.isDown = false;
         this.isUp = true;
-        this.timeDown = this.game.time.now;
+        this.timeDown = this.game.time.time;
         this.duration = 0;
         this.repeats = 0;
 

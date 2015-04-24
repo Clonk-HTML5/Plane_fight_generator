@@ -1,7 +1,7 @@
 'use strict';
 
-var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle) {
-  Phaser.Sprite.call(this, game, xStart, yStart, 'plane3', 0);
+var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle, name) {
+  Phaser.Sprite.call(this, game, xStart, yStart, "sprites", "sprites/plane3");
 
   // initialize your prefab here
 
@@ -12,7 +12,7 @@ var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle) {
 //    this.emitter = player.emitter;
    this.emitter = this.game.add.emitter(xStart, yStart, 400);
 
-    this.emitter.makeParticles( [ 'smoke' ] );
+    this.emitter.makeParticles( 'sprites', 'sprites/particles/smoke' );
 
     this.emitter.gravity = 50;
     this.emitter.setAlpha(1, 0, 1000);
@@ -24,7 +24,7 @@ var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle) {
     this.bullets = this.game.add.group();
     this.bullets.enableBody = true;
     this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-    this.bullets.createMultiple(500, 'bullet2');
+    this.bullets.createMultiple(500, 'sprites', 'sprites/bullet2');
     this.bullets.setAll('anchor.x', 0.5);
     this.bullets.setAll('anchor.y', 1);
     this.bullets.setAll('checkWorldBounds', true);
@@ -34,6 +34,7 @@ var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle) {
     
     this.health = player.health;
     this.name = index.toString();
+    this.username = name.toString();
     
     this.angle = angle;
     this.scale.setTo(player.scale.x, player.scale.y);
@@ -43,8 +44,8 @@ var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle) {
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
 //    this.body.collideWorldBounds = true;
     
-    if(GlobalGame.Multiplayer.userName){
-        this.username = this.game.add.text(0, -100, GlobalGame.Multiplayer.userName, { fontSize: '22px', fill: '#000' });
+    if(this.username){
+        this.username = this.game.add.text(0, -100, this.username, { fontSize: '22px', fill: '#000' });
         this.addChild(this.username);
     }
 

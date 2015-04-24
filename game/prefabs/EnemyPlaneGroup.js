@@ -20,7 +20,7 @@ EnemyPlaneGroup.prototype.addEnemy = function () {
 //    this.maxElements = 5;
     //    for (var i = 0; i < maxElements; i++){
         // new Player Object
-    this.enemyPlane = new EnemyPlane(this.game, Math.random() * this.game.world.width, Math.random() * (this.game.world.height - 250),0, this.player, this.options);
+    this.enemyPlane = new EnemyPlane(this.game, Math.random() * this.game.world.width, Math.random() * (this.game.world.height - 250),"sprites/plane3", this.player, this.options);
     this.add(this.enemyPlane);
     //    }
 };

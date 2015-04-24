@@ -98,13 +98,7 @@ table {
   margin: 0 -1px;
 }
 
-/*
- * Copyright (c) 2013 Thibaut Courouble
- * http://www.cssflow.com
- *
- * Licensed under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- */
+
 body {
   font: 13px/20px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #404040;
@@ -112,10 +106,6 @@ body {
     font-family: verdana,arial;
     background: url('../assets/img/wood_pattern.png');
     text-align: center;
-}
-
-canvas{
-    margin: 0 auto;   
 }
 #userNameForm{
     position: absolute;

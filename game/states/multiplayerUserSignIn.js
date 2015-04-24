@@ -68,7 +68,8 @@
                 if(elem)
                     elem.parentNode.removeChild(elem);
                 
-                localGame.transitions.to('multiplayerRoomSelect');
+//                localGame.transitions.to('multiplayerRoomSelect');
+                  localGame.transitions.to('playMultiplayer');
             });
         }
     },

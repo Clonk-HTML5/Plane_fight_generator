@@ -18,116 +18,61 @@ function Preload() {
 Preload.prototype = {
   preload: function() {
     this.stage.backgroundColor = '#3498db';
-    this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-//    this.game.world.scale.setTo(0.5,0.5);  
-    if (this.game.device.desktop)
-        {
-            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-            this.game.scale.minWidth = 480;
-            this.game.scale.minHeight = 260;
-            this.game.scale.maxWidth = 1024;
-            this.game.scale.maxHeight = 768;
-            this.game.scale.pageAlignHorizontally = true;
-            this.game.scale.pageAlignVertically = true;
-            this.game.scale.setScreenSize(true);
-        }
-        else
-        {
-            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-            this.game.scale.minWidth = 480;
-            this.game.scale.minHeight = 260;
-            this.game.scale.maxWidth = 1024;
-            this.game.scale.maxHeight = 768;
-            this.game.scale.pageAlignHorizontally = true;
-            this.game.scale.pageAlignVertically = true;
-            this.game.scale.forceOrientation(true, false);
-//            this.game.scale.hasResized.add(this.gameResized, this);
-//            this.game.scale.enterIncorrectOrientation.add(this.enterIncorrectOrientation, this);
-//            this.game.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation, this);
-            this.game.scale.setScreenSize(true);
-        }
-
       
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.asset = this.add.sprite(this.game.width/2 * this.game.world.scale.x,this.game.height/2 * this.game.world.scale.y, 'preloader');
     this.asset.anchor.setTo(0.5, 0.5);
     this.load.setPreloadSprite(this.asset);
       
-    //MENU
-      this.load.image('singleplayer', 'assets/img/menu/Singleplayer.png');
-      this.load.image('multiplayer', 'assets/img/menu/Multiplayer.png');
-      this.load.image('pause', 'assets/img/menu/pause_64.png');
-      this.load.image('btnpause', 'assets/img/menu/btn-pause.png');
-      this.load.image('btnplay', 'assets/img/menu/btn-play.png');
-      this.load.image('panel', 'assets/img/menu/panel.png');
-//      this.load.bitmapFont('kenpixelblocks', 'assets/fonts/kenpixelblocks/kenpixelblocks.png', 'assets/fonts/kenpixelblocks/kenpixelblocks.fnt');
+    //all Sprites
+    this.load.atlasJSONHash('sprites', 'assets/sprites.png', 'assets/sprites.json');
+
+    //BIRD
+    this.load.spritesheet('birdie', 'assets/img/sprites/bird.png', 189, 169, 3);
       
     //PLAYER
-        this.load.image('plane3', 'assets/img/sprites/plane3.png');
-//        this.game.load.image('smoke', 'assets/img/sprites/smoke.png');
-        this.load.image('smoke_puff', 'assets/img/sprites/particles/smoke-puff.png');
-        this.load.image('smoke', 'assets/img/sprites/particles/pump_smoke_04.png');
-        this.load.image('bullet', 'assets/img/sprites/bullet.png');
-        this.load.image('bullet2', 'assets/img/sprites/bullet2.png');
-//        this.load.spritesheet('explode', 'assets/img/sprites/effects/explode.png', 64, 64, 16 );
-//        this.load.spritesheet('bombexplode', 'assets/img/sprites/effects/bombexplosion.png', 128, 115, 8);
-        this.load.spritesheet('airplaneexplode', 'assets/img/sprites/effects/airplaneexplosion.png', 128, 115, 8);
-        //PLAYER Buttons
-        this.load.spritesheet('buttonvertical', 'assets/img/buttons/button-vertical.png',64,64);
-        this.load.spritesheet('buttonhorizontal', 'assets/img/buttons/button-horizontal.png',96,64);
-        this.load.spritesheet('buttondiagonal', 'assets/img/buttons/button-diagonal.png',64,64);
-        this.load.spritesheet('buttonfire', 'assets/img/buttons/button-round-a.png',96,96);
-        this.load.spritesheet('buttonjump', 'assets/img/buttons/button-round-b.png',96,96);
+    this.load.spritesheet('airplaneexplode', 'assets/img/sprites/effects/airplaneexplosion.png', 128, 115, 8);
       
-    
+    //PLAYER Buttons
+    this.load.spritesheet('buttonvertical', 'assets/img/buttons/button-vertical.png',64,64);
+    this.load.spritesheet('buttonhorizontal', 'assets/img/buttons/button-horizontal.png',96,64);
+    this.load.spritesheet('buttondiagonal', 'assets/img/buttons/button-diagonal.png',64,64);
+    this.load.spritesheet('buttonfire', 'assets/img/buttons/button-round-a.png',96,96);
+    this.load.spritesheet('buttonjump', 'assets/img/buttons/button-round-b.png',96,96);
+      
     //LEVEL
-//        this.load.image('sky', 'assets/img/level/sky.png');
-        this.load.image('sky_new', 'assets/img/level/sky_new.png');
-//        this.load.image('clouds', 'assets/img/level/whiteclouds.png');
-        this.load.image('clouds1', 'assets/img/level/cloud_fluffy_1.png');
-        this.load.image('clouds2', 'assets/img/level/cloud_fluffy_2.png');
-        this.load.image('ground', 'assets/img/level/crosssection_long_new.png');
-//        this.load.image('tree0', 'assets/img/level/tree_canopy_single_1.png');
-//        this.load.image('tree0', 'assets/img/level/trees/obj_trees1_001.png');
-//        this.load.image('tree1', 'assets/img/level/trees/obj_trees1_002.png');
-//        this.load.image('tree2', 'assets/img/level/trees/obj_trees1_003.png');
-//        this.load.image('tree3', 'assets/img/level/trees/obj_trees1_004.png');
-//        this.load.image('tree4', 'assets/img/level/trees/obj_trees1_005.png');
-        this.load.image('tree0', 'assets/img/level/trees/tree_coniferous_1.png');
-        this.load.image('tree1', 'assets/img/level/trees/tree_coniferous_3.png');
-        this.load.image('tree2', 'assets/img/level/trees/tree_coniferous_4.png');
-        this.load.image('tree3', 'assets/img/level/trees/tree_deciduous3.png');
-//        this.load.image('tree4', 'assets/img/level/trees/tree_deciduous3.png');
-        this.load.image('mountains', 'assets/img/level/mountains.png');
+//    this.load.image('bg1', 'assets/backgrounds/bg1.png');
+//    this.load.image('bg2', 'assets/backgrounds/bg2.png');
+    this.load.image('bg1', 'assets/backgrounds/cloudsBackground.png');
+    this.load.image('ground', 'assets/backgrounds/ground.png');
+    this.load.image('treesMountain1', 'assets/backgrounds/treesMountain.png');
       
-        //BIRD
-        this.load.spritesheet('birdie', 'assets/img/sprites/bird.png', 189, 169, 3);
-
   },
   create: function() {
     this.asset.cropEnabled = false;
 //    if (this.game.device.desktop){
-        var stats = new Stats();
-        stats.setMode(0); // 0: fps, 1: ms
-
-        // Align top-left
-        stats.domElement.style.position = 'absolute';
-        stats.domElement.style.left = '0px';
-        stats.domElement.style.top = '0px';
-
-        document.body.appendChild( stats.domElement );
-
-        setInterval( function () {
-
-            stats.begin();
-
-            // your code goes here
-
-            stats.end();
-
-        }, 1000 / 60 );
+//        var stats = new Stats();
+//        stats.setMode(0); // 0: fps, 1: ms
+//
+//        // Align top-left
+//        stats.domElement.style.position = 'absolute';
+//        stats.domElement.style.left = '0px';
+//        stats.domElement.style.top = '0px';
+//
+//        document.body.appendChild( stats.domElement );
+//
+//        setInterval( function () {
+//
+//            stats.begin();
+//
+//            // your code goes here
+//
+//            stats.end();
+//
+//        }, 1000 / 60 );
 //    }
   },
+    
   update: function() {
     if(!!this.ready) {
         /* transition handling  */

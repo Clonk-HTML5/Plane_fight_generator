@@ -13,14 +13,14 @@ var Level = function(game, options) {
         this.game.world.setBounds(0, 0, 1280, 1000);
     }
     //fix background to camera
-    this.background = this.game.add.sprite(0, 0, 'sky_new');
+    this.background = this.game.add.sprite(0, 0, 'sprites', 'level/sky_new');
     this.background.fixedToCamera = true;
     this.background.cameraOffset.x = 0;
     this.background.cameraOffset.y = 0;
 
-    this.mountains = this.game.add.image(0, 482, 'mountains');
+    this.mountains = this.game.add.image(0, 482, 'sprites', 'level/mountains');
     if(!this.options.menu){
-        this.mountains2 = this.game.add.image(2560, 482, 'mountains');
+        this.mountains2 = this.game.add.image(2560, 482, 'sprites', 'level/mountains');
     }
   
   //  The platforms group contains the ground and the 2 ledges we can jump on
@@ -37,12 +37,12 @@ var Level = function(game, options) {
         
     for(var i = 0; i < maxElements; i++){
 
-        treeName = 'tree'+Math.round(Math.random() * 3);
+        treeName = 'tree_'+Math.round(Math.random() * 3);
 
-        var tree = this.game.add.image(Math.random() * this.game.world.width, 716, treeName);
+        var tree = this.game.add.image(Math.random() * this.game.world.width, 716, 'sprites', 'level/trees/'+treeName);
         tree.scale.setTo(0.25, 0.25);
 
-        this.clouds = this.game.add.sprite(this.game.rnd.integerInRange(0, this.game.world.width), this.game.rnd.integerInRange(0, this.game.world.height - 400), 'clouds1');
+        this.clouds = this.game.add.sprite(this.game.rnd.integerInRange(0, this.game.world.width), this.game.rnd.integerInRange(0, this.game.world.height - 400), 'sprites', 'level/cloud_fluffy_1');
         if(this.game.device.desktop){
             this.clouds.anchor.setTo(0.5, 0);
             // Kill the cloud when out of bounds
@@ -55,7 +55,7 @@ var Level = function(game, options) {
             this.clouds.body.velocity.x = -this.game.rnd.integerInRange(15, 30); 
          }
         
-        this.clouds2 = this.game.add.sprite(this.game.rnd.integerInRange(0, this.game.world.width), this.game.rnd.integerInRange(0, this.game.world.height - 400), 'clouds2');
+        this.clouds2 = this.game.add.sprite(this.game.rnd.integerInRange(0, this.game.world.width), this.game.rnd.integerInRange(0, this.game.world.height - 400), 'sprites', 'level/cloud_fluffy_2');
          if(this.game.device.desktop){
             this.clouds2.anchor.setTo(0.5, 0);
             // Kill the cloud when out of bounds
@@ -71,7 +71,7 @@ var Level = function(game, options) {
 
     while (lastGroundYPos < this.game.world.width){
         // Here we create the ground.
-        var ground = this.platforms.create(lastGroundYPos, this.game.world.height - 132, 'ground');
+        var ground = this.platforms.create(lastGroundYPos, this.game.world.height - 132, 'sprites', 'level/crosssection_long_new');
         ground.scale.setTo(1, 1);
         ground.name = 'ground';
         this.game.physics.enable(ground, Phaser.Physics.ARCADE);

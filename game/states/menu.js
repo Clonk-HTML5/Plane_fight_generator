@@ -29,11 +29,11 @@ Menu.prototype = {
 //    this.enemyPlaneGroup = new EnemyPlaneGroup(this.game, this.player, {menu: true});
       
     // add our start button with a callback
-    this.startButton = this.game.add.button(this.game.width/2, 300, 'singleplayer', this.startClick, this);
+    this.startButton = this.game.add.button(this.game.width/2, 200, 'sprites', this.startClick, this, 'menu/Singleplayer', 'menu/Singleplayer', 'menu/Singleplayer', 'menu/Singleplayer');
     this.startButton.anchor.setTo(0.5,0.5);
     this.startButton.scale.setTo(0.5,0.5);
       
-    this.multiplayerButton = this.game.add.button(this.game.width/2, 400, 'multiplayer', this.multiplayerStartClick, this);
+    this.multiplayerButton = this.game.add.button(this.game.width/2, 300, 'sprites', this.multiplayerStartClick, this, 'menu/Multiplayer', 'menu/Multiplayer', 'menu/Multiplayer', 'menu/Multiplayer');
     this.multiplayerButton.anchor.setTo(0.5,0.5);
     this.multiplayerButton.scale.setTo(0.5,0.5);
       

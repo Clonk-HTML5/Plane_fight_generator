@@ -4,17 +4,21 @@ var socketPlayer,
     SocketObject,
     SocketRemotePlayer = require('../prefabs/socketRemotePlayer');  
 
-var SocketEventHandlers = function(game, io, player) {
+var SocketEventHandlers = function(game, io) {
         // Start listening for events
             //  Create some baddies to waste :)
 //        this.enemies = [];
         socketGame = game;
-        socketPlayer = player;
+//        socketPlayer = player;
         SocketObject = this;
         this.enemies = [];
 //        this.socket = io.connect("http://localhost", {port: 8120, transports: ["websocket"]});
 //        this.socket = io.connect("http://localhost:8120");
-        this.socket = io.connect("http://192.168.1.5:8120");
+//        this.socket = io.connect("https://plane_fight_server-c9-clonk-html5.c9.io");
+//        this.socket = io.connect("http://192.168.51.67:8120");
+        this.socket = io.connect("http://127.0.0.1:8120/");
+//        this.socket = io.connect("http://192.168.1.5:8120");
+//        this.socket = io.connect("http://server-planefight.rhcloud.com:8000");
 //        this.socket = io.connect("http://neumic-asnort.codio.io:8120");
 //        this.socket = io.connect("http://christian-dev.no-ip.biz:8120");
         GlobalGame.Multiplayer.socket = this.socket;
@@ -74,7 +78,8 @@ SocketEventHandlers.prototype = {
         console.log("New player connected: "+data.id + " players " + SocketObject.enemies.length);
 
         // Add new player to the remote players array data.x, data.y
-        SocketObject.enemies.push(new SocketRemotePlayer(data.id, socketGame, socketPlayer, data.x, data.y, socketPlayer.angle));
+        if(!SocketObject.playerById(data.id))
+            SocketObject.enemies.push(new SocketRemotePlayer(data.id, socketGame, GlobalGame.player, data.x, data.y, data.angle, data.name));
         
         if(SocketObject.enemies[SocketObject.enemies.length-1])
             socketGame.add.existing(SocketObject.enemies[SocketObject.enemies.length-1]);
@@ -161,9 +166,9 @@ SocketEventHandlers.prototype = {
             }
         }else{
             // i think me was shooted
-            socketPlayer.health -= 1;
-            if(socketPlayer.health < 1){
-               socketPlayer.kill();
+            GlobalGame.player.health -= 1;
+            if(GlobalGame.player.health < 1){
+               GlobalGame.player.kill();
             }
         }
         
@@ -195,7 +200,7 @@ SocketEventHandlers.prototype = {
 
     },
         // Find player by ID
-        playerById: function(id) {
+    playerById: function(id) {
             var i;
             for (i = 0; i < SocketObject.enemies.length; i++) {
                 if (SocketObject.enemies[i].name == id)

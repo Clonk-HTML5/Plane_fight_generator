@@ -2,7 +2,7 @@
 
 //global variables
 window.onload = function () {
-  var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'plane_fight');
+  var game = new Phaser.Game(Math.ceil(480*window.innerWidth/500) , 500, Phaser.CANVAS, 'plane_fight');
 
   // Game States
   game.state.add('Level2', require('./states/Level2'));

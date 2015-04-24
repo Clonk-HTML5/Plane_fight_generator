@@ -1,7 +1,7 @@
 'use strict';
 
 var EnemyPlane = function(game, x, y, frame, player, options) {
-  Phaser.Sprite.call(this, game, x, y, 'plane3', frame);
+  Phaser.Sprite.call(this, game, x, y, 'sprites', frame);
 
   // initialize your prefab here
     
@@ -12,7 +12,7 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
     if (this.game.device.desktop){
         this.emitter = this.game.add.emitter(x, y, 400);
 
-        this.emitter.makeParticles( [ 'smoke' ] );
+        this.emitter.makeParticles('sprites', 'sprites/particles/smoke');
 
         this.emitter.gravity = 50;
         this.emitter.setAlpha(1, 0, 1000);
@@ -25,7 +25,7 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
         this.bullets = this.game.add.group();
         this.bullets.enableBody = true;
         this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-        this.bullets.createMultiple(500, 'bullet2');
+        this.bullets.createMultiple(500, 'sprites', 'sprites/bullet2');
         this.bullets.setAll('anchor.x', 0.5);
         this.bullets.setAll('anchor.y', 1);
         this.bullets.setAll('checkWorldBounds', true);
@@ -34,14 +34,15 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
         this.bullets.setAll('scale.y', 0.5);
         this.bulletTime = 0;
         
-        this.health = 5;
+        this.bringToTop();
+        this.health = 20;
         this.kills = 0;
         this.angle = 0;
         this.PI2 = Math.PI * 2;
         // Define constants that affect motion
         this.SPEED = 200; // missile speed pixels/second
         this.TURN_RATE = 3; // turn rate in degrees/frame
-        this.scale.setTo(0.6, 0.6);
+//        this.scale.setTo(0.6, 0.6);
 //        this.scale.x *= -1;
         this.anchor.setTo(0.5, 0.5);
 //        this.scale.setTo(0.23, 0.23);
@@ -52,7 +53,6 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
         this.body.gravity.y = 50;
         this.body.velocity.setTo(300, 0)
         this.body.maxVelocity.setTo(300, 300);
-//        this.bringToTop();
     
     
     /*******************
@@ -66,6 +66,12 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
     
     this.randomXPointInWorld = this.game.world.randomX;
     this.randomYPointInWorld = this.game.world.randomY - 300;
+    
+    // Let's build a Arrow
+    this.arrow = this.game.add.sprite(15, 15, 'sprites', 'sprites/arrow');
+    this.arrow.fixedToCamera = true;
+    this.arrow.anchor.setTo(0.5, 0.5);
+    this.arrow.visible = false;
   
 };
 
@@ -80,12 +86,10 @@ EnemyPlane.prototype.update = function() {
         this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
     }
     
-//    if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
-//        this.randomXPointInWorld = this.game.world.randomX;
-//        this.randomYPointInWorld = this.game.world.randomY - 300;
-//    }
-    
-    this.rotation = this.game.physics.arcade.moveToObject(this, this.player, 500);
+    if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
+        this.randomXPointInWorld = this.game.world.randomX;
+        this.randomYPointInWorld = this.game.world.randomY - 300;
+    }
     
     // Calculate the angle from the missile to the mouse cursor game.input.x
     // and game.input.y are the mouse position; substitute with whatever
@@ -95,7 +99,6 @@ EnemyPlane.prototype.update = function() {
         this.randomXPointInWorld, this.randomYPointInWorld
     );
 
-    // Gradually (this.TURN_RATE) aim the missile towards the target angle
     if (this.rotation !== targetAngle) {
         // Calculate difference between the current angle and targetAngle
         var delta = targetAngle - this.rotation;
@@ -125,6 +128,9 @@ EnemyPlane.prototype.update = function() {
     if(!this.options.menu){
          if (this.game.physics.arcade.distanceBetween(this, this.player) < 300){
              this.fireBullet();
+             
+//             if(this.player.alive)
+//                this.rotation = this.game.physics.arcade.moveToObject(this, this.player, this.SPEED-150);
          }
     }
     
@@ -168,7 +174,7 @@ EnemyPlane.prototype.fireBullet = function() {
 
 };
 
-     /**
+     /**    
      * player collides with enemy
      * @param player player collides
      */
@@ -179,6 +185,8 @@ EnemyPlane.prototype.fireBullet = function() {
         plane.health -= 1
         if(plane.health < 1){
             
+            if(this.player) this.player.kills += 1;
+            
             //explode animation
             var explosion = this.game.add.sprite(plane.x - plane.width/2, plane.y - plane.height/2, 'airplaneexplode');
             explosion.animations.add('explode');
@@ -188,6 +196,8 @@ EnemyPlane.prototype.fireBullet = function() {
             plane.kill();
             plane.emitter.kill();
             plane.bullets.removeAll();
+            plane.arrow.kill();
+            this.parent.addEnemy();
         }
     };
 

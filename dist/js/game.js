@@ -3,7 +3,7 @@
 
 //global variables
 window.onload = function () {
-  var game = new Phaser.Game(window.innerWidth, window.innerHeight, Phaser.AUTO, 'plane_fight');
+  var game = new Phaser.Game(Math.ceil(480*window.innerWidth/500) , 500, Phaser.CANVAS, 'plane_fight');
 
   // Game States
   game.state.add('Level2', require('./states/Level2'));
@@ -1489,7 +1489,7 @@ Phaser.Plugin.HUDManager.prototype.addBar = function(x, y, width, height, max, w
       bmd.ctx.fill();
       bmd.ctx.closePath();
       bmd.render();
-      bmd.refreshBuffer();
+//      bmd.refreshBuffer();
     } 
   });
 
@@ -1511,16 +1511,6 @@ Phaser.Plugin.HUDManager.prototype.addWatch = function(watched, watchedContext, 
 
 
 },{}],4:[function(require,module,exports){
-/*! Hammer.JS - v1.0.10 - 2014-03-28
- * http://eightmedia.github.io/hammer.js
- *
- * Copyright (c) 2014 Jorik Tangelder <j.tangelder@gmail.com>;
- * Licensed under the MIT license */
-
-
-!function(a,b){"use strict";function c(){d.READY||(s.determineEventTypes(),o.each(d.gestures,function(a){u.register(a)}),s.onTouch(d.DOCUMENT,m,u.detect),s.onTouch(d.DOCUMENT,n,u.detect),d.READY=!0)}var d=function(a,b){return new d.Instance(a,b||{})};d.VERSION="1.0.10",d.defaults={stop_browser_behavior:{userSelect:"none",touchAction:"none",touchCallout:"none",contentZooming:"none",userDrag:"none",tapHighlightColor:"rgba(0,0,0,0)"}},d.HAS_POINTEREVENTS=a.navigator.pointerEnabled||a.navigator.msPointerEnabled,d.HAS_TOUCHEVENTS="ontouchstart"in a,d.MOBILE_REGEX=/mobile|tablet|ip(ad|hone|od)|android|silk/i,d.NO_MOUSEEVENTS=d.HAS_TOUCHEVENTS&&a.navigator.userAgent.match(d.MOBILE_REGEX),d.EVENT_TYPES={},d.UPDATE_VELOCITY_INTERVAL=16,d.DOCUMENT=a.document;var e=d.DIRECTION_DOWN="down",f=d.DIRECTION_LEFT="left",g=d.DIRECTION_UP="up",h=d.DIRECTION_RIGHT="right",i=d.POINTER_MOUSE="mouse",j=d.POINTER_TOUCH="touch",k=d.POINTER_PEN="pen",l=d.EVENT_START="start",m=d.EVENT_MOVE="move",n=d.EVENT_END="end";d.plugins=d.plugins||{},d.gestures=d.gestures||{},d.READY=!1;var o=d.utils={extend:function(a,c,d){for(var e in c)a[e]!==b&&d||(a[e]=c[e]);return a},each:function(a,c,d){var e,f;if("forEach"in a)a.forEach(c,d);else if(a.length!==b){for(e=-1;f=a[++e];)if(c.call(d,f,e,a)===!1)return}else for(e in a)if(a.hasOwnProperty(e)&&c.call(d,a[e],e,a)===!1)return},inStr:function(a,b){return a.indexOf(b)>-1},hasParent:function(a,b){for(;a;){if(a==b)return!0;a=a.parentNode}return!1},getCenter:function(a){var b=[],c=[],d=[],e=[],f=Math.min,g=Math.max;return 1===a.length?{pageX:a[0].pageX,pageY:a[0].pageY,clientX:a[0].clientX,clientY:a[0].clientY}:(o.each(a,function(a){b.push(a.pageX),c.push(a.pageY),d.push(a.clientX),e.push(a.clientY)}),{pageX:(f.apply(Math,b)+g.apply(Math,b))/2,pageY:(f.apply(Math,c)+g.apply(Math,c))/2,clientX:(f.apply(Math,d)+g.apply(Math,d))/2,clientY:(f.apply(Math,e)+g.apply(Math,e))/2})},getVelocity:function(a,b,c){return{x:Math.abs(b/a)||0,y:Math.abs(c/a)||0}},getAngle:function(a,b){var c=b.clientX-a.clientX,d=b.clientY-a.clientY;return 180*Math.atan2(d,c)/Math.PI},getDirection:function(a,b){var c=Math.abs(a.clientX-b.clientX),d=Math.abs(a.clientY-b.clientY);return c>=d?a.clientX-b.clientX>0?f:h:a.clientY-b.clientY>0?g:e},getDistance:function(a,b){var c=b.clientX-a.clientX,d=b.clientY-a.clientY;return Math.sqrt(c*c+d*d)},getScale:function(a,b){return a.length>=2&&b.length>=2?this.getDistance(b[0],b[1])/this.getDistance(a[0],a[1]):1},getRotation:function(a,b){return a.length>=2&&b.length>=2?this.getAngle(b[1],b[0])-this.getAngle(a[1],a[0]):0},isVertical:function(a){return a==g||a==e},toggleDefaultBehavior:function(a,b,c){if(b&&a&&a.style){o.each(["webkit","moz","Moz","ms","o",""],function(d){o.each(b,function(b,e){d&&(e=d+e.substring(0,1).toUpperCase()+e.substring(1)),e in a.style&&(a.style[e]=!c&&b)})});var d=function(){return!1};"none"==b.userSelect&&(a.onselectstart=!c&&d),"none"==b.userDrag&&(a.ondragstart=!c&&d)}}};d.Instance=function(a,b){var e=this;return c(),this.element=a,this.enabled=!0,this.options=o.extend(o.extend({},d.defaults),b||{}),this.options.stop_browser_behavior&&o.toggleDefaultBehavior(this.element,this.options.stop_browser_behavior,!1),this.eventStartHandler=s.onTouch(a,l,function(a){e.enabled&&u.startDetect(e,a)}),this.eventHandlers=[],this},d.Instance.prototype={on:function(a,b){var c=a.split(" ");return o.each(c,function(a){this.element.addEventListener(a,b,!1),this.eventHandlers.push({gesture:a,handler:b})},this),this},off:function(a,b){var c,d,e=a.split(" ");return o.each(e,function(a){for(this.element.removeEventListener(a,b,!1),c=-1;d=this.eventHandlers[++c];)d.gesture===a&&d.handler===b&&this.eventHandlers.splice(c,1)},this),this},trigger:function(a,b){b||(b={});var c=d.DOCUMENT.createEvent("Event");c.initEvent(a,!0,!0),c.gesture=b;var e=this.element;return o.hasParent(b.target,e)&&(e=b.target),e.dispatchEvent(c),this},enable:function(a){return this.enabled=a,this},dispose:function(){var a,b;for(this.options.stop_browser_behavior&&o.toggleDefaultBehavior(this.element,this.options.stop_browser_behavior,!0),a=-1;b=this.eventHandlers[++a];)this.element.removeEventListener(b.gesture,b.handler,!1);return this.eventHandlers=[],s.unbindDom(this.element,d.EVENT_TYPES[l],this.eventStartHandler),null}};var p=null,q=!1,r=!1,s=d.event={bindDom:function(a,b,c){var d=b.split(" ");o.each(d,function(b){a.addEventListener(b,c,!1)})},unbindDom:function(a,b,c){var d=b.split(" ");o.each(d,function(b){a.removeEventListener(b,c,!1)})},onTouch:function(a,b,c){var e=this,f=function(f){var g=f.type.toLowerCase();if(!o.inStr(g,"mouse")||!r){o.inStr(g,"touch")||o.inStr(g,"pointerdown")||o.inStr(g,"mouse")&&1===f.which?q=!0:o.inStr(g,"mouse")&&!f.which&&(q=!1),(o.inStr(g,"touch")||o.inStr(g,"pointer"))&&(r=!0);var h=0;q&&(d.HAS_POINTEREVENTS&&b!=n?h=t.updatePointer(b,f):o.inStr(g,"touch")?h=f.touches.length:r||(h=o.inStr(g,"up")?0:1),h>0&&b==n?b=m:h||(b=n),(h||null===p)&&(p=f),c.call(u,e.collectEventData(a,b,e.getTouchList(p,b),f)),d.HAS_POINTEREVENTS&&b==n&&(h=t.updatePointer(b,f))),h||(p=null,q=!1,r=!1,t.reset())}};return this.bindDom(a,d.EVENT_TYPES[b],f),f},determineEventTypes:function(){var a;a=d.HAS_POINTEREVENTS?t.getEvents():d.NO_MOUSEEVENTS?["touchstart","touchmove","touchend touchcancel"]:["touchstart mousedown","touchmove mousemove","touchend touchcancel mouseup"],d.EVENT_TYPES[l]=a[0],d.EVENT_TYPES[m]=a[1],d.EVENT_TYPES[n]=a[2]},getTouchList:function(a){return d.HAS_POINTEREVENTS?t.getTouchList():a.touches?a.touches:(a.identifier=1,[a])},collectEventData:function(a,b,c,d){var e=j;return(o.inStr(d.type,"mouse")||t.matchType(i,d))&&(e=i),{center:o.getCenter(c),timeStamp:Date.now(),target:d.target,touches:c,eventType:b,pointerType:e,srcEvent:d,preventDefault:function(){var a=this.srcEvent;a.preventManipulation&&a.preventManipulation(),a.preventDefault&&a.preventDefault()},stopPropagation:function(){this.srcEvent.stopPropagation()},stopDetect:function(){return u.stopDetect()}}}},t=d.PointerEvent={pointers:{},getTouchList:function(){var a=[];return o.each(this.pointers,function(b){a.push(b)}),a},updatePointer:function(a,b){return a==n?delete this.pointers[b.pointerId]:(b.identifier=b.pointerId,this.pointers[b.pointerId]=b),Object.keys(this.pointers).length},matchType:function(a,b){if(!b.pointerType)return!1;var c=b.pointerType,d={};return d[i]=c===i,d[j]=c===j,d[k]=c===k,d[a]},getEvents:function(){return["pointerdown MSPointerDown","pointermove MSPointerMove","pointerup pointercancel MSPointerUp MSPointerCancel"]},reset:function(){this.pointers={}}},u=d.detection={gestures:[],current:null,previous:null,stopped:!1,startDetect:function(a,b){this.current||(this.stopped=!1,this.current={inst:a,startEvent:o.extend({},b),lastEvent:!1,lastVelocityEvent:!1,velocity:!1,name:""},this.detect(b))},detect:function(a){if(this.current&&!this.stopped){a=this.extendEventData(a);var b=this.current.inst,c=b.options;return o.each(this.gestures,function(d){return this.stopped||c[d.name]===!1||b.enabled===!1||d.handler.call(d,a,b)!==!1?void 0:(this.stopDetect(),!1)},this),this.current&&(this.current.lastEvent=a),a.eventType==n&&!a.touches.length-1&&this.stopDetect(),a}},stopDetect:function(){this.previous=o.extend({},this.current),this.current=null,this.stopped=!0},getVelocityData:function(a,b,c,e){var f=this.current,g=f.lastVelocityEvent,h=f.velocity;g&&a.timeStamp-g.timeStamp>d.UPDATE_VELOCITY_INTERVAL?(h=o.getVelocity(a.timeStamp-g.timeStamp,a.center.clientX-g.center.clientX,a.center.clientY-g.center.clientY),f.lastVelocityEvent=a):f.velocity||(h=o.getVelocity(b,c,e),f.lastVelocityEvent=a),f.velocity=h,a.velocityX=h.x,a.velocityY=h.y},getInterimData:function(a){var b,c,d=this.current.lastEvent;a.eventType==n?(b=d&&d.interimAngle,c=d&&d.interimDirection):(b=d&&o.getAngle(d.center,a.center),c=d&&o.getDirection(d.center,a.center)),a.interimAngle=b,a.interimDirection=c},extendEventData:function(a){var b=this.current,c=b.startEvent;(a.touches.length!=c.touches.length||a.touches===c.touches)&&(c.touches=[],o.each(a.touches,function(a){c.touches.push(o.extend({},a))}));var d=a.timeStamp-c.timeStamp,e=a.center.clientX-c.center.clientX,f=a.center.clientY-c.center.clientY;return this.getVelocityData(a,d,e,f),this.getInterimData(a),o.extend(a,{startEvent:c,deltaTime:d,deltaX:e,deltaY:f,distance:o.getDistance(c.center,a.center),angle:o.getAngle(c.center,a.center),direction:o.getDirection(c.center,a.center),scale:o.getScale(c.touches,a.touches),rotation:o.getRotation(c.touches,a.touches)}),a},register:function(a){var c=a.defaults||{};return c[a.name]===b&&(c[a.name]=!0),o.extend(d.defaults,c,!0),a.index=a.index||1e3,this.gestures.push(a),this.gestures.sort(function(a,b){return a.index<b.index?-1:a.index>b.index?1:0}),this.gestures}};d.gestures.Drag={name:"drag",index:50,defaults:{drag_min_distance:10,correct_for_drag_min_distance:!0,drag_max_touches:1,drag_block_horizontal:!1,drag_block_vertical:!1,drag_lock_to_axis:!1,drag_lock_min_distance:25},triggered:!1,handler:function(a,b){var c=u.current;if(c.name!=this.name&&this.triggered)return b.trigger(this.name+"end",a),void(this.triggered=!1);if(!(b.options.drag_max_touches>0&&a.touches.length>b.options.drag_max_touches))switch(a.eventType){case l:this.triggered=!1;break;case m:if(a.distance<b.options.drag_min_distance&&c.name!=this.name)return;var d=c.startEvent.center;if(c.name!=this.name&&(c.name=this.name,b.options.correct_for_drag_min_distance&&a.distance>0)){var i=Math.abs(b.options.drag_min_distance/a.distance);d.pageX+=a.deltaX*i,d.pageY+=a.deltaY*i,d.clientX+=a.deltaX*i,d.clientY+=a.deltaY*i,a=u.extendEventData(a)}(c.lastEvent.drag_locked_to_axis||b.options.drag_lock_to_axis&&b.options.drag_lock_min_distance<=a.distance)&&(a.drag_locked_to_axis=!0);var j=c.lastEvent.direction;a.drag_locked_to_axis&&j!==a.direction&&(a.direction=o.isVertical(j)?a.deltaY<0?g:e:a.deltaX<0?f:h),this.triggered||(b.trigger(this.name+"start",a),this.triggered=!0),b.trigger(this.name,a),b.trigger(this.name+a.direction,a);var k=o.isVertical(a.direction);(b.options.drag_block_vertical&&k||b.options.drag_block_horizontal&&!k)&&a.preventDefault();break;case n:this.triggered&&b.trigger(this.name+"end",a),this.triggered=!1}}},d.gestures.Hold={name:"hold",index:10,defaults:{hold_timeout:500,hold_threshold:2},timer:null,handler:function(a,b){switch(a.eventType){case l:clearTimeout(this.timer),u.current.name=this.name,this.timer=setTimeout(function(){"hold"==u.current.name&&b.trigger("hold",a)},b.options.hold_timeout);break;case m:a.distance>b.options.hold_threshold&&clearTimeout(this.timer);break;case n:clearTimeout(this.timer)}}},d.gestures.Release={name:"release",index:1/0,handler:function(a,b){a.eventType==n&&b.trigger(this.name,a)}},d.gestures.Swipe={name:"swipe",index:40,defaults:{swipe_min_touches:1,swipe_max_touches:1,swipe_velocity:.7},handler:function(a,b){if(a.eventType==n){if(a.touches.length<b.options.swipe_min_touches||a.touches.length>b.options.swipe_max_touches)return;(a.velocityX>b.options.swipe_velocity||a.velocityY>b.options.swipe_velocity)&&(b.trigger(this.name,a),b.trigger(this.name+a.direction,a))}}},d.gestures.Tap={name:"tap",index:100,defaults:{tap_max_touchtime:250,tap_max_distance:10,tap_always:!0,doubletap_distance:20,doubletap_interval:300},has_moved:!1,handler:function(a,b){var c,d,e;a.eventType==l?this.has_moved=!1:a.eventType!=m||this.moved?a.eventType==n&&"touchcancel"!=a.srcEvent.type&&a.deltaTime<b.options.tap_max_touchtime&&!this.has_moved&&(c=u.previous,d=c&&c.lastEvent&&a.timeStamp-c.lastEvent.timeStamp,e=!1,c&&"tap"==c.name&&d&&d<b.options.doubletap_interval&&a.distance<b.options.doubletap_distance&&(b.trigger("doubletap",a),e=!0),(!e||b.options.tap_always)&&(u.current.name="tap",b.trigger(u.current.name,a))):this.has_moved=a.distance>b.options.tap_max_distance}},d.gestures.Touch={name:"touch",index:-1/0,defaults:{prevent_default:!1,prevent_mouseevents:!1},handler:function(a,b){return b.options.prevent_mouseevents&&a.pointerType==i?void a.stopDetect():(b.options.prevent_default&&a.preventDefault(),void(a.eventType==l&&b.trigger(this.name,a)))}},d.gestures.Transform={name:"transform",index:45,defaults:{transform_min_scale:.01,transform_min_rotation:1,transform_always_block:!1,transform_within_instance:!1},triggered:!1,handler:function(a,b){if(u.current.name!=this.name&&this.triggered)return b.trigger(this.name+"end",a),void(this.triggered=!1);if(!(a.touches.length<2)){if(b.options.transform_always_block&&a.preventDefault(),b.options.transform_within_instance)for(var c=-1;a.touches[++c];)if(!o.hasParent(a.touches[c].target,b.element))return;switch(a.eventType){case l:this.triggered=!1;break;case m:var d=Math.abs(1-a.scale),e=Math.abs(a.rotation);if(d<b.options.transform_min_scale&&e<b.options.transform_min_rotation)return;u.current.name=this.name,this.triggered||(b.trigger(this.name+"start",a),this.triggered=!0),b.trigger(this.name,a),e>b.options.transform_min_rotation&&b.trigger("rotate",a),d>b.options.transform_min_scale&&(b.trigger("pinch",a),b.trigger("pinch"+(a.scale<1?"in":"out"),a));break;case n:this.triggered&&b.trigger(this.name+"end",a),this.triggered=!1}}}},"function"==typeof define&&define.amd?define(function(){return d}):"object"==typeof module&&module.exports?module.exports=d:a.Hammer=d}(window);
-//# sourceMappingURL=hammer.min.map
-},{}],5:[function(require,module,exports){
 /**
   * Phaser State Transition Plugin
   * It adds a little more liveliness to your state changes
@@ -1552,7 +1542,7 @@ Phaser.Plugin.HUDManager.prototype.addWatch = function(watched, watchedContext, 
   */
   
 !function(t,e){function i(){this._cover&&this._cover.bringToTop()}function s(t){if(this.game.paused=!0,this._cover&&this._cover.destroy(),this._texture||(this._texture=new e.RenderTexture(this.game,this.game.width,this.game.height,"cover")),this._texture.renderXY(this.game.stage,-this.game.camera.x,-this.game.camera.y),t){var i=this.game.state.states[t].create,s=this;this._cover=new e.Sprite(this.game,0,0,this._texture),this._cover.fixedToCamera=!0,this._cover.anchor.setTo(.5,.5),this._cover.cameraOffset.x=this.game.width/2,this._cover.cameraOffset.y=this.game.height/2,this.game.state.states[t].create=function(){i.call(s.game.state.states[t]),s.game.add.existing(s._cover),r.call(s)},this.game.state.start(t)}this.game.paused=!1}function r(){if(o&&o.properties){for(var t in o.properties)if("object"!=typeof o.properties[t]){var e={};e[t]=o.properties[t],this._tween=this.game.add.tween(this._cover).to(e,o.duration,o.ease,!0)}else this._tween=this.game.add.tween(this._cover[t]).to(o.properties[t],o.duration,o.ease,!0);this._tween.onComplete.addOnce(a,this)}}function a(){this._cover&&this._cover.destroy(),this._cover=null,this._texture&&this._texture.destroy(),this._texture=null}e.Plugin.StateTransition=function(t,i){e.Plugin.call(this,t,i)},e.Plugin.StateTransition.prototype=Object.create(e.Plugin.prototype),e.Plugin.StateTransition.prototype.constructor=e.Plugin.StateTransition,e.Plugin.StateTransition.prototype.to=function(t){s.call(this,t)},e.Plugin.StateTransition.prototype.bringToTop=function(){i.call(this)},e.Plugin.StateTransition.prototype.settings=function(t){if(!t)return Object.create(o);for(var e in t)o[e]&&(o[e]=t[e])};var o={duration:300,ease:e.Easing.Exponential.InOut,properties:{alpha:0}}}(window,Phaser);
-},{}],6:[function(require,module,exports){
+},{}],5:[function(require,module,exports){
 /*! Socket.IO.js build:0.9.16, development. Copyright(c) 2011 LearnBoost <dev@learnboost.com> MIT Licensed */
 
 var io = ('undefined' === typeof module ? {} : module.exports);
@@ -5426,13 +5416,17 @@ var io = ('undefined' === typeof module ? {} : module.exports);
         define([], function () { return io; });
     }
 })();
-},{}],7:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 'use strict';
 
-var BasicLayer = function(game, parent) {
+var BasicLayer = function(game, parent, layerText) {
   Phaser.Group.call(this, game, parent);
 
   // initialize your prefab here
+    
+    this.y = -1000;
+    
+    this.layerText = layerText ? layerText : "Click to play";
     
    // Alpha Layer
     this.b = this.game.add.bitmapData(this.game.width, this.game.height),
@@ -5440,25 +5434,22 @@ var BasicLayer = function(game, parent) {
     this.b.ctx.fillRect(0, 0,  this.game.width, this.game.height);
     
     this.c = this.game.add.sprite(0, 0, this.b);
-    this.c.alpha = .5;
+    this.c.alpha = 0.5;
     this.add(this.c);
-    
-        var button1 = this.game.add.button(this.game.width/2,100, 'singleplayer', this.game.state.getCurrentState().createPlayers,this.game.state.getCurrentState(),0,0,1);
-        button1.anchor.setTo(0.5,0.5);
-        button1.scale.setTo(.5,.5);
-        var button2 = this.game.add.button(this.game.width/2,210, 'multiplayer', this.game.state.getCurrentState().createPlayers,this.game.state.getCurrentState(),0,0,1);
-        button2.anchor.setTo(0.5,0.5);
-        button2.scale.setTo(.5,.5);
-        var button3 = this.game.add.button(this.game.width/2,310, 'singleplayer', this.game.state.getCurrentState().createPlayers,this.game.state.getCurrentState(),0,0,1);
-        button3.anchor.setTo(0.5,0.5);
-        button3.scale.setTo(.5,.5);
-        this.add(button1);
-        this.add(button2);
-        this.add(button3);
-        this.y = -500;
-    
-         this.game.add.tween(this).to({y:0}, 2000, Phaser.Easing.Back.Out, true);
+
+    this.fontStyle = { font: "40px Arial", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
+    this.scoreText = this.game.add.text(this.game.width/2-200, this.game.height/2, this.layerText, this.fontStyle);
+    this.add(this.scoreText);
+
+     this.game.add.tween(this).to({x:this.game.camera.x ,y:this.game.camera.y}, 550, Phaser.Easing.Back.Out, true);
 //            basicLayerTween._lastChild.onComplete.add(function(){this.game.paused = true;}, this.game.state.getCurrentState());
+
+    // set event listener for the user's click/tap the screen
+//		this.game.input.onDown.add(function(){
+//            console.log(this)
+//            this.game.state.getCurrentState().createPlayers();
+//            this.destroy();
+//		}, this);
   
 };
 
@@ -5466,6 +5457,12 @@ BasicLayer.prototype = Object.create(Phaser.Group.prototype);
 BasicLayer.prototype.constructor = BasicLayer;
 
 BasicLayer.prototype.update = function() {
+    
+    if(this.game.input.activePointer.justPressed()) {
+      this.game.state.getCurrentState().createPlayers();
+      this.destroy();
+      this.removeAll();
+    }
   
   // write your prefab's specific update code here
   
@@ -5473,11 +5470,11 @@ BasicLayer.prototype.update = function() {
 
 module.exports = BasicLayer;
 
-},{}],8:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 'use strict';
 
 var EnemyPlane = function(game, x, y, frame, player, options) {
-  Phaser.Sprite.call(this, game, x, y, 'plane3', frame);
+  Phaser.Sprite.call(this, game, x, y, 'sprites', frame);
 
   // initialize your prefab here
     
@@ -5488,7 +5485,7 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
     if (this.game.device.desktop){
         this.emitter = this.game.add.emitter(x, y, 400);
 
-        this.emitter.makeParticles( [ 'smoke' ] );
+        this.emitter.makeParticles('sprites', 'sprites/particles/smoke');
 
         this.emitter.gravity = 50;
         this.emitter.setAlpha(1, 0, 1000);
@@ -5501,7 +5498,7 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
         this.bullets = this.game.add.group();
         this.bullets.enableBody = true;
         this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-        this.bullets.createMultiple(500, 'bullet2');
+        this.bullets.createMultiple(500, 'sprites', 'sprites/bullet2');
         this.bullets.setAll('anchor.x', 0.5);
         this.bullets.setAll('anchor.y', 1);
         this.bullets.setAll('checkWorldBounds', true);
@@ -5510,14 +5507,15 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
         this.bullets.setAll('scale.y', 0.5);
         this.bulletTime = 0;
         
-        this.health = 5;
+        this.bringToTop();
+        this.health = 20;
         this.kills = 0;
         this.angle = 0;
         this.PI2 = Math.PI * 2;
         // Define constants that affect motion
         this.SPEED = 200; // missile speed pixels/second
         this.TURN_RATE = 3; // turn rate in degrees/frame
-        this.scale.setTo(0.6, 0.6);
+//        this.scale.setTo(0.6, 0.6);
 //        this.scale.x *= -1;
         this.anchor.setTo(0.5, 0.5);
 //        this.scale.setTo(0.23, 0.23);
@@ -5528,7 +5526,6 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
         this.body.gravity.y = 50;
         this.body.velocity.setTo(300, 0)
         this.body.maxVelocity.setTo(300, 300);
-//        this.bringToTop();
     
     
     /*******************
@@ -5542,6 +5539,12 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
     
     this.randomXPointInWorld = this.game.world.randomX;
     this.randomYPointInWorld = this.game.world.randomY - 300;
+    
+    // Let's build a Arrow
+    this.arrow = this.game.add.sprite(15, 15, 'sprites', 'sprites/arrow');
+    this.arrow.fixedToCamera = true;
+    this.arrow.anchor.setTo(0.5, 0.5);
+    this.arrow.visible = false;
   
 };
 
@@ -5556,12 +5559,10 @@ EnemyPlane.prototype.update = function() {
         this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
     }
     
-//    if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
-//        this.randomXPointInWorld = this.game.world.randomX;
-//        this.randomYPointInWorld = this.game.world.randomY - 300;
-//    }
-    
-    this.rotation = this.game.physics.arcade.moveToObject(this, this.player, 500);
+    if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
+        this.randomXPointInWorld = this.game.world.randomX;
+        this.randomYPointInWorld = this.game.world.randomY - 300;
+    }
     
     // Calculate the angle from the missile to the mouse cursor game.input.x
     // and game.input.y are the mouse position; substitute with whatever
@@ -5571,7 +5572,6 @@ EnemyPlane.prototype.update = function() {
         this.randomXPointInWorld, this.randomYPointInWorld
     );
 
-    // Gradually (this.TURN_RATE) aim the missile towards the target angle
     if (this.rotation !== targetAngle) {
         // Calculate difference between the current angle and targetAngle
         var delta = targetAngle - this.rotation;
@@ -5601,6 +5601,9 @@ EnemyPlane.prototype.update = function() {
     if(!this.options.menu){
          if (this.game.physics.arcade.distanceBetween(this, this.player) < 300){
              this.fireBullet();
+             
+//             if(this.player.alive)
+//                this.rotation = this.game.physics.arcade.moveToObject(this, this.player, this.SPEED-150);
          }
     }
     
@@ -5644,7 +5647,7 @@ EnemyPlane.prototype.fireBullet = function() {
 
 };
 
-     /**
+     /**    
      * player collides with enemy
      * @param player player collides
      */
@@ -5655,6 +5658,8 @@ EnemyPlane.prototype.fireBullet = function() {
         plane.health -= 1
         if(plane.health < 1){
             
+            if(this.player) this.player.kills += 1;
+            
             //explode animation
             var explosion = this.game.add.sprite(plane.x - plane.width/2, plane.y - plane.height/2, 'airplaneexplode');
             explosion.animations.add('explode');
@@ -5664,12 +5669,14 @@ EnemyPlane.prototype.fireBullet = function() {
             plane.kill();
             plane.emitter.kill();
             plane.bullets.removeAll();
+            plane.arrow.kill();
+            this.parent.addEnemy();
         }
     };
 
 module.exports = EnemyPlane;
 
-},{}],9:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 var EnemyPlane = require('./EnemyPlane');
@@ -5692,13 +5699,13 @@ EnemyPlaneGroup.prototype.addEnemy = function () {
 //    this.maxElements = 5;
     //    for (var i = 0; i < maxElements; i++){
         // new Player Object
-    this.enemyPlane = new EnemyPlane(this.game, Math.random() * this.game.world.width, Math.random() * (this.game.world.height - 250),0, this.player, this.options);
+    this.enemyPlane = new EnemyPlane(this.game, Math.random() * this.game.world.width, Math.random() * (this.game.world.height - 250),"sprites/plane3", this.player, this.options);
     this.add(this.enemyPlane);
     //    }
 };
 
 module.exports = EnemyPlaneGroup;
-},{"./EnemyPlane":8}],10:[function(require,module,exports){
+},{"./EnemyPlane":7}],9:[function(require,module,exports){
 'use strict';
 
 var Level = function(game, options) {
@@ -5714,14 +5721,14 @@ var Level = function(game, options) {
         this.game.world.setBounds(0, 0, 1280, 1000);
     }
     //fix background to camera
-    this.background = this.game.add.sprite(0, 0, 'sky_new');
+    this.background = this.game.add.sprite(0, 0, 'sprites', 'level/sky_new');
     this.background.fixedToCamera = true;
     this.background.cameraOffset.x = 0;
     this.background.cameraOffset.y = 0;
 
-    this.mountains = this.game.add.image(0, 482, 'mountains');
+    this.mountains = this.game.add.image(0, 482, 'sprites', 'level/mountains');
     if(!this.options.menu){
-        this.mountains2 = this.game.add.image(2560, 482, 'mountains');
+        this.mountains2 = this.game.add.image(2560, 482, 'sprites', 'level/mountains');
     }
   
   //  The platforms group contains the ground and the 2 ledges we can jump on
@@ -5738,12 +5745,12 @@ var Level = function(game, options) {
         
     for(var i = 0; i < maxElements; i++){
 
-        treeName = 'tree'+Math.round(Math.random() * 3);
+        treeName = 'tree_'+Math.round(Math.random() * 3);
 
-        var tree = this.game.add.image(Math.random() * this.game.world.width, 716, treeName);
+        var tree = this.game.add.image(Math.random() * this.game.world.width, 716, 'sprites', 'level/trees/'+treeName);
         tree.scale.setTo(0.25, 0.25);
 
-        this.clouds = this.game.add.sprite(this.game.rnd.integerInRange(0, this.game.world.width), this.game.rnd.integerInRange(0, this.game.world.height - 400), 'clouds1');
+        this.clouds = this.game.add.sprite(this.game.rnd.integerInRange(0, this.game.world.width), this.game.rnd.integerInRange(0, this.game.world.height - 400), 'sprites', 'level/cloud_fluffy_1');
         if(this.game.device.desktop){
             this.clouds.anchor.setTo(0.5, 0);
             // Kill the cloud when out of bounds
@@ -5756,7 +5763,7 @@ var Level = function(game, options) {
             this.clouds.body.velocity.x = -this.game.rnd.integerInRange(15, 30); 
          }
         
-        this.clouds2 = this.game.add.sprite(this.game.rnd.integerInRange(0, this.game.world.width), this.game.rnd.integerInRange(0, this.game.world.height - 400), 'clouds2');
+        this.clouds2 = this.game.add.sprite(this.game.rnd.integerInRange(0, this.game.world.width), this.game.rnd.integerInRange(0, this.game.world.height - 400), 'sprites', 'level/cloud_fluffy_2');
          if(this.game.device.desktop){
             this.clouds2.anchor.setTo(0.5, 0);
             // Kill the cloud when out of bounds
@@ -5772,7 +5779,7 @@ var Level = function(game, options) {
 
     while (lastGroundYPos < this.game.world.width){
         // Here we create the ground.
-        var ground = this.platforms.create(lastGroundYPos, this.game.world.height - 132, 'ground');
+        var ground = this.platforms.create(lastGroundYPos, this.game.world.height - 132, 'sprites', 'level/crosssection_long_new');
         ground.scale.setTo(1, 1);
         ground.name = 'ground';
         this.game.physics.enable(ground, Phaser.Physics.ARCADE);
@@ -5792,7 +5799,7 @@ Level.prototype.update = function() {
 
 module.exports = Level;
 
-},{}],11:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 var Level2 = function(game, parent) {
@@ -5833,6 +5840,89 @@ Level2.prototype.update = function() {
 
 module.exports = Level2;
 
+},{}],11:[function(require,module,exports){
+'use strict';
+
+var Level3 = function(game, options) {
+  Phaser.Group.call(this, game);
+
+  this.options = options ? options : false;
+
+  this.game.world.setBounds(0, 0, 3000, this.game.cache.getImage('bg1').height);
+
+  this.bgtile = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.cache.getImage('bg1').height, 'bg1');
+//  this.bgtile.fixedToCamera = true;
+  this.bgtile.autoScroll(50, 0);
+
+  this.mountaintile = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.cache.getImage('treesMountain1').height, 'treesMountain1');
+//  this.mountaintile.fixedToCamera = true;
+    
+  var maxElements = 20;
+
+  for (var i = 0; i < maxElements; i++) {
+    this.clouds = this.game.add.sprite(this.game.rnd.integerInRange(0, this.game.world.width), this.game.rnd.integerInRange(0, this.game.world.height - 400), 'sprites', 'level/cloud_fluffy_1');
+    if (this.game.device.desktop) {
+      this.clouds.anchor.setTo(0.5, 0);
+      // Kill the cloud when out of bounds
+      this.clouds.checkWorldBounds = true;
+      this.clouds.outOfBoundsKill = true;
+
+      // Move clouds
+      this.game.physics.arcade.enableBody(this.clouds);
+      this.clouds.body.allowGravity = false;
+      this.clouds.body.velocity.x = -this.game.rnd.integerInRange(15, 30);
+    }
+
+    this.clouds2 = this.game.add.sprite(this.game.rnd.integerInRange(0, this.game.world.width), this.game.rnd.integerInRange(0, this.game.world.height - 400), 'sprites', 'level/cloud_fluffy_2');
+    if (this.game.device.desktop) {
+      this.clouds2.anchor.setTo(0.5, 0);
+      // Kill the cloud when out of bounds
+      this.clouds2.checkWorldBounds = true;
+      this.clouds2.outOfBoundsKill = true;
+
+      // Move clouds
+      this.game.physics.arcade.enableBody(this.clouds2);
+      this.clouds2.body.allowGravity = false;
+      this.clouds2.body.velocity.x = -this.game.rnd.integerInRange(15, 30);
+    }
+  }
+    
+    this.platforms = this.game.add.group();
+//    this.groundtile = this.game.add.tileSprite(0, this.game.world.height - 132, this.game.world.width, this.game.cache.getImage('bg1').height, 'sprites', 'level/crosssection_long_new');
+    this.groundtile = this.game.add.tileSprite(0, this.game.world.height - this.game.cache.getImage('ground').height, this.game.world.width, this.game.cache.getImage('ground').height, 'ground');
+    this.groundtile.name = 'ground';
+    this.game.physics.enable(this.groundtile, Phaser.Physics.ARCADE);
+    this.groundtile.body.immovable = true; 
+    this.platforms.add(this.groundtile)
+};
+
+Level3.prototype = Object.create(Phaser.Group.prototype);;
+Level3.prototype.constructor = Level3;
+
+Level3.prototype.update = function() {
+//    this.bgtile.tilePosition.x = this.game.state.getCurrentState().player.x;
+//    this.bgtile.tilePosition.y = this.game.state.getCurrentState().player.y;
+//    
+//    this.mountaintile.tilePosition.x = this.game.state.getCurrentState().player.x;
+//    this.mountaintile.tilePosition.y = this.game.state.getCurrentState().player.y;
+    
+//    this.game.add.tween(this.bgtile.tilePosition).to({x: this.game.state.getCurrentState().player.body.velocity.x , y: this.game.state.getCurrentState().player.body.velocity.y}, 200, Phaser.Easing.Linear.None, true).start();
+    
+//    if( this.game.state.getCurrentState().player.body.velocity.x > 0){
+//        this.bgtile.tilePosition.x += this.game.state.getCurrentState().player.body.velocity.x;
+//    } else {
+//        this.bgtile.tilePosition.x -= this.game.state.getCurrentState().player.body.velocity.x;
+//    }
+//    if( this.game.state.getCurrentState().player.body.velocity.y > 0){
+//        this.bgtile.tilePosition.y += this.game.state.getCurrentState().player.body.velocity.y;
+//    } else {
+//        this.bgtile.tilePosition.y -= this.game.state.getCurrentState().player.body.velocity.y;
+//    }
+    
+};
+
+module.exports = Level3;
+
 },{}],12:[function(require,module,exports){
 'use strict';
 
@@ -5842,7 +5932,7 @@ var PausePanel = function(game, parent){
 		Phaser.Group.call(this, game, parent);
 
 		// Add the panel
-		this.panel = this.create(this.game.width/2, 10, 'panel');
+		this.panel = this.create(this.game.width/2, 10, 'sprites', 'menu/panel');
 		this.panel.anchor.setTo(0.5, 0);
         this.panel.fixedToCamera = true;
 
@@ -5852,7 +5942,7 @@ var PausePanel = function(game, parent){
         this.pauseText.fixedToCamera = true;
 		this.add(this.pauseText);
 //		this.cloudsText = this.game.add.bitmapText(this.game.width/2 - 100, 50, 'kenpixelblocks', 'Clouds are still moving :)', 16);
-		this.cloudsText = this.game.add.text(this.game.width/2 - 100, 50, 'Clouds are still moving :)',{ font: '16px Arial', fill: '#08d465', align: 'center'});
+		this.cloudsText = this.game.add.text(this.game.width/2 - 100, 50, 'Press the Play Button to continue',{ font: '16px Arial', fill: '#08d465', align: 'center'});
         this.cloudsText.fixedToCamera = true;
 		this.add(this.cloudsText);
 
@@ -5866,12 +5956,13 @@ var PausePanel = function(game, parent){
 
 	PausePanel.prototype.show = function(onComplete){
             // Add play button
-            this.btnPlay = this.game.add.button(this.game.width/2 - 220, 20, 'btnplay', function(){
+            this.btnPlay = this.game.add.button(this.game.width/2 - 220, 20, 'sprites', function(){
                 this.game.state.getCurrentState().playGame()}
-            , this);
+            , this, 'menu/btn-play', 'menu/btn-play', 'menu/btn-play', 'menu/btn-play');
             this.btnPlay.fixedToCamera = true;
             this.add(this.btnPlay);
-		this.game.add.tween(this).to({y:this.game.height/2}, 100, Phaser.Easing.Bounce.Out, true)._lastChild.onComplete.add(onComplete, this.game.state.getCurrentState());
+		this.game.add.tween(this).to({y:this.game.height/2}, 200, Phaser.Easing.Bounce.Out, true)
+                                 .onComplete.add(onComplete, this.game.state.getCurrentState());
 	};
 	PausePanel.prototype.hide = function(onComplete){
 		var closePauseTween = this.game.add.tween(this).to({y:-this.game.height/2-100}, 200, Phaser.Easing.Linear.NONE, true)
@@ -5884,16 +5975,16 @@ module.exports = PausePanel;
 },{}],13:[function(require,module,exports){
 'use strict';
 
-  var Hammer = require('../plugins/Hammer');   
+//  var Hammer = require('../plugins/Hammer');
+  var BasicLayer = require('../prefabs/BasicLayer');
 
 var Player = function(game, x, y, frame) {
-  Phaser.Sprite.call(this, game, x, y, 'plane3', frame);
+  Phaser.Sprite.call(this, game, x, y, "sprites", frame);
 
   // initialize your prefab here
     if (this.game.device.desktop){
-        this.emitter = this.game.add.emitter(400, 400, 400);
-
-        this.emitter.makeParticles( [ 'smoke' ] );
+        this.emitter = this.game.add.emitter(x, y, 400);
+        this.emitter.makeParticles('sprites', 'sprites/particles/smoke' );
 
         this.emitter.gravity = 50;
         this.emitter.setAlpha(1, 0, 1000);
@@ -5906,7 +5997,7 @@ var Player = function(game, x, y, frame) {
         this.bullets = this.game.add.group();
         this.bullets.enableBody = true;
         this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-        this.bullets.createMultiple(500, 'bullet2');
+        this.bullets.createMultiple(500, 'sprites', 'sprites/bullet2');
         this.bullets.setAll('anchor.x', 0.5);
         this.bullets.setAll('anchor.y', 1);
         this.bullets.setAll('checkWorldBounds', true);
@@ -5915,13 +6006,22 @@ var Player = function(game, x, y, frame) {
         this.bullets.setAll('scale.y', 0.5);
         this.bulletTime = 0;
         
+//        this.addChild(this.emitter);
         this.health = 5;
         this.kills = 0;
         this.angle = 0;
-        this.angleSpeed = 250;
-        this.angularVeloctitySpeed = 150;
+        this.angleSpeed = 150;
+        this.angularVeloctitySpeed = 50;
+        this.PI2 = Math.PI * 2;
+        this.SPEED = 200; // missile speed pixels/second
+        this.TURN_RATE = 3; // turn rate in degrees/frame
+        this.planeDirection = 1;
+        this.direction = 1;
+        this.flyLoop = false;
+        this.directionX,
+        this.directionY;
         
-        this.scale.setTo(0.6, 0.6);
+//        this.scale.setTo(0.6, 0.6);
 //        this.scale.x *= -1;
         this.anchor.setTo(0.5, 0.5);
 //        this.scale.setTo(0.23, 0.23);
@@ -5929,9 +6029,23 @@ var Player = function(game, x, y, frame) {
 //        this.body.collideWorldBounds = true;
         //	Tell it we don't want physics to manage the rotation
 //        this.body.allowRotation = false;
-        this.body.gravity.y = 50;
-        this.body.velocity.setTo(300, 0);
-        this.body.maxVelocity.setTo(400, 400);
+//        this.body.allowGravity = false;
+        this.body.width2 = this.body.width/2;
+        this.body.height2 = this.body.height/2;
+        this.body.gravity.y = 300;
+        this.body.velocity.setTo(200, 0);
+        this.body.maxVelocity.setTo(300, 300);
+    
+        if(GlobalGame.controller === 'keyboardButtons'){
+            this.body.gravity.y = 50;
+            this.body.velocity.setTo(300, 0);
+            this.angleSpeed = 250;
+            this.angularVeloctitySpeed = 150;
+            this.body.maxVelocity.setTo(400, 400);
+        }
+    
+//        this.body.drag.set(100);
+    
 //        this.bringToTop();
     
     
@@ -5962,35 +6076,18 @@ var Player = function(game, x, y, frame) {
 
         //Controlls initialize
         this.cursors = this.game.input.keyboard.createCursorKeys();
-        this.game.input.addPointer();
+        this.pointer = this.game.input.addPointer();
     
-    
-    /*******************
-    * Hammertime
-    *******************/
-//        var element = document.getElementsByTagName('canvas')[0],
-//        _this = this;
-//        
-//        var options = {
-//          preventDefault: true
-//        };
-//        if(typeof Hammer != "undefined"){
-//            var hammertime = new Hammer(element, options);
-//            hammertime.on("dragup swipeup", function(ev){ 
-//                _this.game.physics.arcade.velocityFromAngle(_this.angle, this.angleSpeed, _this.body.velocity);
-//                _this.body.angularVelocity -= 100;
-//            });        
-//            hammertime.on("dragdown swipedown", function(ev){ 
-//                _this.game.physics.arcade.velocityFromAngle(_this.angle, this.angleSpeed, _this.body.velocity);
-//                _this.body.angularVelocity += 100;
-//            });
-//        }
-    
+    if(GlobalGame.controller === 'touch') {
+        this.game.input.onDown.add(this.flap, this);
         
+//        this.game.input.onHold.add(this.flap, this);
+    }
+
     /*******************
     * PLAYER Controll Buttons If Device not Desktop
     *******************/
-    if (!this.game.device.desktop){
+    if (!this.game.device.desktop && GlobalGame.controller === 'keyboardButtons'){
         // create our virtual game controller buttons 
 
         this.buttonfire = this.game.add.button(this.game.width-194, this.game.height-94-50, 'buttonfire', null, this, 0, 1, 0, 1);
@@ -5999,20 +6096,6 @@ var Player = function(game, x, y, frame) {
         this.buttonfire.events.onInputOut.add(function(){this.fireBulletEventStarted=false;}, this);
         this.buttonfire.events.onInputDown.add(function(){this.fireBulletEventStarted=true;}, this);
         this.buttonfire.events.onInputUp.add(function(){this.fireBulletEventStarted=false;}, this);
-
-//        this.buttonleft = this.game.add.button(0, this.game.height-94-64, 'buttonhorizontal', null, this, 0, 1, 0, 1);
-//        this.buttonleft.fixedToCamera = true;
-//        this.buttonleft.events.onInputOver.add(function(){this.planeUpEventStarted=true;}, this);
-//        this.buttonleft.events.onInputOut.add(function(){this.planeUpEventStarted=false;}, this);
-//        this.buttonleft.events.onInputDown.add(function(){this.planeUpEventStarted=true;}, this);
-//        this.buttonleft.events.onInputUp.add(function(){this.planeUpEventStarted=false;}, this);
-//
-//        this.buttonright = this.game.add.button(160, this.game.height-94-64, 'buttonhorizontal', null, this, 0, 1, 0, 1);
-//        this.buttonright.fixedToCamera = true;
-//        this.buttonright.events.onInputOver.add(function(){this.planeDownEventStarted=true;}, this);
-//        this.buttonright.events.onInputOut.add(function(){this.planeDownEventStarted=false;}, this);
-//        this.buttonright.events.onInputDown.add(function(){this.planeDownEventStarted=true;}, this);
-//        this.buttonright.events.onInputUp.add(function(){this.planeDownEventStarted=false;}, this);
 
         this.buttonup = this.game.add.button(96, this.game.height-94-128, 'buttonvertical', null, this, 0, 1, 0, 1);
         this.buttonup.fixedToCamera = true;
@@ -6038,63 +6121,117 @@ Player.prototype.constructor = Player;
 
 Player.prototype.update = function() {
     
+        // Keep the plane on the screen
+        if (this.x > this.game.world.width) this.x = 0;
+        if (this.x < 0) this.x = this.game.world.width;
+    
          this.game.physics.arcade.collide(this, this.game.state.getCurrentState().level.platforms, this.playerLoseHealth, null, this);
     
-        if(GlobalGame.Multiplayer.socket !== null){
-            for(var i = 0; i < GlobalGame.Multiplayer.socket.enemies.length; i++){
-                this.game.physics.arcade.overlap(GlobalGame.Multiplayer.socket.enemies[i], this.bullets, this.shootPlayer, null, this);
+        if(GlobalGame.Multiplayer.socketEventHandlers !== null){
+            for(var i = 0; i < GlobalGame.Multiplayer.socketEventHandlers.enemies.length; i++){
+                this.game.physics.arcade.overlap(GlobalGame.Multiplayer.socketEventHandlers.enemies[i], this.bullets, this.shootPlayer, null, this);
             }
         }else{
             this.game.physics.arcade.overlap(this.bullets, this.game.state.getCurrentState().birdGroup, this.bulletHitsBird, null, this);
             this.game.physics.arcade.overlap(this, this.game.state.getCurrentState().birdGroup, this.playerHitsSomething, null, this);
         }
-    
-        this.body.angularVelocity = 0;
         
-        /**
-         * Cursor functions starts
-         */
-//        if (this.cursors.up.isDown) {
-//            this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed+300, this.body.velocity);
-//        } 
-//        else if(this.cursors.down.isDown){
-//            this.body.velocity.setTo(0, 0)
-//        }
-        if (this.cursors.left.isDown || this.cursors.up.isDown || this.planeUpEventStarted) {
-//            this.body.rotateLeft(100);
-            this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed, this.body.velocity);
-//            this.game.physics.arcade.accelerationFromRotation(this.rotation, this.angleSpeed, this.body.acceleration);
-            this.body.angularVelocity -= this.angularVeloctitySpeed;
+        if(GlobalGame.controller === 'keyboardButtons'){
             
-            // Invert scale.y to flip up/down
-//            if(this.scale.y > 0)
-//                this.scale.y *= -1;
-        } else if (this.cursors.right.isDown || this.cursors.down.isDown || this.planeDownEventStarted) {
-            this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed, this.body.velocity);
-//            this.game.physics.arcade.accelerationFromRotation(this.rotation, this.angleSpeed, this.body.acceleration);
-            this.body.angularVelocity += this.angularVeloctitySpeed;
+            this.body.angularVelocity = 0;
             
-//            this.body.rotateRight(100);
-//            if(this.scale.y < 0)
-//                this.scale.y *= 1;
+            /**
+             * Cursor functions starts
+             */
+            if (this.cursors.left.isDown || this.cursors.up.isDown || this.planeUpEventStarted) {
+    //            this.body.rotateLeft(100);
+                this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed, this.body.velocity);
+    //            this.game.physics.arcade.accelerationFromRotation(this.rotation, this.angleSpeed, this.body.acceleration);
+                this.body.angularVelocity -= this.angularVeloctitySpeed;
+
+                // Invert scale.y to flip up/down
+    //            if(this.scale.y > 0)
+    //                this.scale.y *= -1;
+            } else if (this.cursors.right.isDown || this.cursors.down.isDown || this.planeDownEventStarted) {
+                this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed, this.body.velocity);
+    //            this.game.physics.arcade.accelerationFromRotation(this.rotation, this.angleSpeed, this.body.acceleration);
+                this.body.angularVelocity += this.angularVeloctitySpeed;
+
+    //            this.body.rotateRight(100);
+    //            if(this.scale.y < 0)
+    //                this.scale.y *= 1;
+            }
+            if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) || this.fireBulletEventStarted){
+                this.fireBullet();
+            }
+            
+            
+        } 
+        else if(GlobalGame.controller === 'touch'){
+//            console.log(this.game.input.activePointer.isDown)
+//            if (this.game.input.activePointer.isDown){  
+//                this.flap();
+//            }
+            if(this.flyLoop){
+                  if(this.direction) {
+                    this.directionX = this.x+150;
+                    this.directionY = this.y-100;
+                  } else {
+                    this.directionX = this.x-200;
+                    this.directionY = this.y-100;    
+                  }
+                 var targetAngle = this.game.math.angleBetween(
+                    this.x, this.y,
+                    this.directionX, this.directionY
+                );
+
+                if (this.rotation !== targetAngle) {
+                    this.game.input.onDown.remove(this.flap, this);
+                            // Calculate difference between the current angle and targetAngle
+                        var delta = targetAngle - this.rotation;
+
+                        // Keep it in range from -180 to 180 to make the most efficient turns.
+                        if (delta > Math.PI) delta -= this.PI2;
+                        if (delta < -Math.PI) delta += this.PI2;
+
+                        if (delta > 0) {
+                            // Turn clockwise
+                            this.angle += this.TURN_RATE;
+                        } else {
+                            // Turn counter-clockwise
+                            this.angle -= this.TURN_RATE;
+                        }
+
+                        // Just set angle to target angle if they are close
+                        if (Math.abs(delta) < this.game.math.degToRad(this.TURN_RATE)) {
+                            this.rotation = targetAngle;
+                            this.game.input.onDown.add(this.flap, this);
+                            this.planeDirection = this.direction;
+                            this.flyLoop = false;
+                        }
+                }
+                this.body.velocity.x = Math.cos(this.rotation) * this.SPEED;
+                this.body.velocity.y = Math.sin(this.rotation) * this.SPEED;
+            }
         }
-        if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) || this.fireBulletEventStarted){
-            this.fireBullet();
-        }
+    
     
         //if plane falls rotatet right
         this.rotation = Math.atan2(this.body.velocity.y, this.body.velocity.x);
+//        this.rotation = this.body.angle;
     
-        if(this.body.rotation > -130 && this.body.rotation < -80){
-//            this.body.gravity.y = 300;
-//            this.body.velocity.setTo(this.body.velocity.x, 100);
-            this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed-100, this.body.velocity);
-        }
-        if(this.body.rotation > 80 && this.body.rotation < 130){
-//            this.body.gravity.y = 50;
-//            this.body.velocity.setTo(this.body.velocity.x, 300);
-             this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed+100, this.body.velocity);
-        }
+//        this.game.physics.arcade.accelerationFromRotation(this.rotation, 200, this.body.acceleration);
+
+//        if(this.body.rotation > -130 && this.body.rotation < -80){
+////            this.body.gravity.y = 300;
+////            this.body.velocity.setTo(this.body.velocity.x, 100);
+//            this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed-100, this.body.velocity);
+//        }
+//        if(this.body.rotation > 80 && this.body.rotation < 130){
+////            this.body.gravity.y = 50;
+////            this.body.velocity.setTo(this.body.velocity.x, 300);
+//             this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed+100, this.body.velocity);
+//        }
         
     if(this.game.device.desktop){
         var px = this.body.velocity.x;
@@ -6111,7 +6248,7 @@ Player.prototype.update = function() {
     }
 
         if(GlobalGame.Multiplayer.socket)
-            GlobalGame.Multiplayer.socket.socket.emit("move player", {x: this.x, y:this.y, angle: this.angle});
+            GlobalGame.Multiplayer.socket.emit("move player", {x: this.x, y:this.y, angle: this.angle});
   
 };
 
@@ -6136,16 +6273,16 @@ Player.prototype.update = function() {
 
             if (bullet)
             {
-                bullet.reset(this.body.x + this.body.width/2, this.body.y + this.body.height/2);
+                bullet.reset(this.body.x + this.body.width2, this.body.y + this.body.height/2);
 //                bullet.body.velocity.copyFrom(this.game.physics.arcade.velocityFromAngle(this.plane.angle, 1000))
 //                bullet.rotation = this.plane.rotation + this.game.math.degToRad(90);
                 bullet.lifespan = 2000;
                  bullet.rotation = this.rotation + this.game.math.degToRad(90);
                 this.game.physics.arcade.velocityFromRotation(this.rotation, 1000, bullet.body.velocity);
-                this.bulletTime = this.game.time.now + 250;
+                this.bulletTime = this.game.time.now + 125;
 //                gameInitializer.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.plane.angle});
                 if(GlobalGame.Multiplayer.socket)
-                    GlobalGame.Multiplayer.socket.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
+                    GlobalGame.Multiplayer.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
             }
         }
 
@@ -6162,8 +6299,8 @@ Player.prototype.update = function() {
         bullet.kill();
     };
     
-            /**
-     * player collides with enemy
+    /**
+    * player collides with enemy
      * @param enemy enemy collides
      * @param player player collides
      */
@@ -6174,6 +6311,33 @@ Player.prototype.update = function() {
         this.playerLoseHealth(plane);
     };
 
+    /**
+    * player flaps
+     */
+    Player.prototype.flap = function() {
+      if(!!this.alive) {
+          
+      var velocityX,
+          velocityY;
+          
+          this.direction = this.game.input.activePointer.x <= this.game.width / 2 ? 0 : 1;
+     
+          if(this.direction !== this.planeDirection){
+              this.flyLoop = true;
+          } else {
+              if(this.direction) {
+                velocityX = this.body.velocity.x+150;
+                velocityY = this.body.velocity.y-100;
+              } else {
+                velocityX = this.body.velocity.x-200;
+                velocityY = this.body.velocity.y-100;    
+              }
+              this.flapVelocityTween = this.game.add.tween(this.body.velocity).to({x: velocityX, y: velocityY}, 200, Phaser.Easing.Linear.None, true).start();
+            this.fireBullet();
+          }
+      }
+    };
+
      /**
      * player collides with enemy
      * @param player player collides
@@ -6181,7 +6345,7 @@ Player.prototype.update = function() {
     Player.prototype.playerLoseHealth = function (plane) {
 //        gameInitializer.socket.emit("bullet hit player", {playerId: plane.name});
         if(GlobalGame.Multiplayer.socket)
-            GlobalGame.Multiplayer.socket.socket.emit("bullet hit player", {playerId: this.name});
+            GlobalGame.Multiplayer.socket.emit("bullet hit player", {playerId: this.name});
         plane.health -= 1;
         if(plane.health < 1){
             
@@ -6192,18 +6356,25 @@ Player.prototype.update = function() {
 //            explosion.animations.destroy('explode');
             
             plane.kill();
-            if (this.game.device.desktop)
-                plane.emitter.kill();
-            plane.bullets.removeAll();
+            if (this.game.device.desktop) plane.emitter.kill();
+//            plane.bullets.removeAll();
             
 //            this.game.gameoverTransition.to('gameover');
-            this.game.transitions.to('gameover');
+//            this.game.transitions.to('gameover');
+              
+            //GameStart Layer
+//            if(plane.name == GlobalGame.Multiplayer.socket.socket.sessionid)
+            
+//            if(!plane.name) this.basicLayer = new BasicLayer(this.game, undefined, "Click to play again")
+            if(!plane.name){
+                this.basicLayer = new BasicLayer(this.game, undefined, "Click to play again")
+            }
         }
     };
 
 module.exports = Player;
 
-},{"../plugins/Hammer":4}],14:[function(require,module,exports){
+},{"../prefabs/BasicLayer":6}],14:[function(require,module,exports){
 'use strict';
 
 var Bird = function(game, x, y, frame) {
@@ -6308,17 +6479,21 @@ var socketPlayer,
     SocketObject,
     SocketRemotePlayer = require('../prefabs/socketRemotePlayer');  
 
-var SocketEventHandlers = function(game, io, player) {
+var SocketEventHandlers = function(game, io) {
         // Start listening for events
             //  Create some baddies to waste :)
 //        this.enemies = [];
         socketGame = game;
-        socketPlayer = player;
+//        socketPlayer = player;
         SocketObject = this;
         this.enemies = [];
 //        this.socket = io.connect("http://localhost", {port: 8120, transports: ["websocket"]});
 //        this.socket = io.connect("http://localhost:8120");
-        this.socket = io.connect("http://192.168.1.5:8120");
+//        this.socket = io.connect("https://plane_fight_server-c9-clonk-html5.c9.io");
+//        this.socket = io.connect("http://192.168.51.67:8120");
+        this.socket = io.connect("http://127.0.0.1:8120/");
+//        this.socket = io.connect("http://192.168.1.5:8120");
+//        this.socket = io.connect("http://server-planefight.rhcloud.com:8000");
 //        this.socket = io.connect("http://neumic-asnort.codio.io:8120");
 //        this.socket = io.connect("http://christian-dev.no-ip.biz:8120");
         GlobalGame.Multiplayer.socket = this.socket;
@@ -6378,7 +6553,8 @@ SocketEventHandlers.prototype = {
         console.log("New player connected: "+data.id + " players " + SocketObject.enemies.length);
 
         // Add new player to the remote players array data.x, data.y
-        SocketObject.enemies.push(new SocketRemotePlayer(data.id, socketGame, socketPlayer, data.x, data.y, socketPlayer.angle));
+        if(!SocketObject.playerById(data.id))
+            SocketObject.enemies.push(new SocketRemotePlayer(data.id, socketGame, GlobalGame.player, data.x, data.y, data.angle, data.name));
         
         if(SocketObject.enemies[SocketObject.enemies.length-1])
             socketGame.add.existing(SocketObject.enemies[SocketObject.enemies.length-1]);
@@ -6465,9 +6641,9 @@ SocketEventHandlers.prototype = {
             }
         }else{
             // i think me was shooted
-            socketPlayer.health -= 1;
-            if(socketPlayer.health < 1){
-               socketPlayer.kill();
+            GlobalGame.player.health -= 1;
+            if(GlobalGame.player.health < 1){
+               GlobalGame.player.kill();
             }
         }
         
@@ -6499,7 +6675,7 @@ SocketEventHandlers.prototype = {
 
     },
         // Find player by ID
-        playerById: function(id) {
+    playerById: function(id) {
             var i;
             for (i = 0; i < SocketObject.enemies.length; i++) {
                 if (SocketObject.enemies[i].name == id)
@@ -6515,8 +6691,8 @@ module.exports = SocketEventHandlers;
 },{"../prefabs/socketRemotePlayer":17}],17:[function(require,module,exports){
 'use strict';
 
-var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle) {
-  Phaser.Sprite.call(this, game, xStart, yStart, 'plane3', 0);
+var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle, name) {
+  Phaser.Sprite.call(this, game, xStart, yStart, "sprites", "sprites/plane3");
 
   // initialize your prefab here
 
@@ -6527,7 +6703,7 @@ var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle) {
 //    this.emitter = player.emitter;
    this.emitter = this.game.add.emitter(xStart, yStart, 400);
 
-    this.emitter.makeParticles( [ 'smoke' ] );
+    this.emitter.makeParticles( 'sprites', 'sprites/particles/smoke' );
 
     this.emitter.gravity = 50;
     this.emitter.setAlpha(1, 0, 1000);
@@ -6539,7 +6715,7 @@ var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle) {
     this.bullets = this.game.add.group();
     this.bullets.enableBody = true;
     this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-    this.bullets.createMultiple(500, 'bullet2');
+    this.bullets.createMultiple(500, 'sprites', 'sprites/bullet2');
     this.bullets.setAll('anchor.x', 0.5);
     this.bullets.setAll('anchor.y', 1);
     this.bullets.setAll('checkWorldBounds', true);
@@ -6549,6 +6725,7 @@ var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle) {
     
     this.health = player.health;
     this.name = index.toString();
+    this.username = name.toString();
     
     this.angle = angle;
     this.scale.setTo(player.scale.x, player.scale.y);
@@ -6558,8 +6735,8 @@ var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle) {
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
 //    this.body.collideWorldBounds = true;
     
-    if(GlobalGame.Multiplayer.userName){
-        this.username = this.game.add.text(0, -100, GlobalGame.Multiplayer.userName, { fontSize: '22px', fill: '#000' });
+    if(this.username){
+        this.username = this.game.add.text(0, -100, this.username, { fontSize: '22px', fill: '#000' });
         this.addChild(this.username);
     }
 
@@ -6627,9 +6804,20 @@ GlobalGame = {
     /* Your game can check BasicGame.orientated in internal loops to know if it should pause or not */
     orientated: false,
     
+    player: null,
+    
+    /* 
+    * Controller of the Ship: 
+    *  **keyboardButtons (Keyboard on Desktop Buttons on Mobile)
+    *  **touch (click and touch)
+    */
+    controller: 'touch',
+    
     Multiplayer: {
         
         socket: null,
+        
+        socketEventHandlers: null,
 
         userName: null,
         
@@ -6637,6 +6825,18 @@ GlobalGame = {
     }
 
 };
+
+//Clay = {};
+//Clay.gameKey = "planefight";
+//Clay.readyFunctions = [];
+//Clay.ready = function( fn ) {
+//    Clay.readyFunctions.push( fn );
+//};
+//( function() {
+//    var clay = document.createElement("script"); clay.async = true;
+//    clay.src = ( "https:" == document.location.protocol ? "https://" : "http://" ) + "clay.io/api/api.js"; 
+//    var tag = document.getElementsByTagName("script")[0]; tag.parentNode.insertBefore(clay, tag);
+//} )();
 
 function Boot() {
 }
@@ -6648,9 +6848,34 @@ Boot.prototype = {
   create: function() {
     this.stage.backgroundColor = '#3498db';
       
+    this.game.input.maxPointers = 1;
+    
+    this.stage.disableVisibilityChange = true;
+      
+    if (this.game.device.desktop)
+    {
+        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        this.scale.setMinMax(480, 260, 1024, 768);
+//        this.scale.pageAlignHorizontally = true;
+//        this.scale.pageAlignVertically = true;
+    }
+    else
+    {
+        this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        this.scale.setMinMax(480, 260, 1024, 768);
+//        this.scale.pageAlignHorizontally = true;
+//        this.scale.pageAlignVertically = true;
+        this.scale.forceOrientation(true, false);
+        this.scale.setResizeCallback(this.gameResized, this);
+//        this.scale.enterIncorrectOrientation.add(this.enterIncorrectOrientation, this);
+//        this.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation, this);
+    }
+      
+    //debug plugin
+//    this.game.add.plugin(Phaser.Plugin.Debug);  
 //    this.game.input.maxPointers = 1;
     this.game.state.start('preload');
-  }
+  },
 };
 
 module.exports = Boot;
@@ -6717,11 +6942,11 @@ Menu.prototype = {
 //    this.enemyPlaneGroup = new EnemyPlaneGroup(this.game, this.player, {menu: true});
       
     // add our start button with a callback
-    this.startButton = this.game.add.button(this.game.width/2, 300, 'singleplayer', this.startClick, this);
+    this.startButton = this.game.add.button(this.game.width/2, 200, 'sprites', this.startClick, this, 'menu/Singleplayer', 'menu/Singleplayer', 'menu/Singleplayer', 'menu/Singleplayer');
     this.startButton.anchor.setTo(0.5,0.5);
     this.startButton.scale.setTo(0.5,0.5);
       
-    this.multiplayerButton = this.game.add.button(this.game.width/2, 400, 'multiplayer', this.multiplayerStartClick, this);
+    this.multiplayerButton = this.game.add.button(this.game.width/2, 300, 'sprites', this.multiplayerStartClick, this, 'menu/Multiplayer', 'menu/Multiplayer', 'menu/Multiplayer', 'menu/Multiplayer');
     this.multiplayerButton.anchor.setTo(0.5,0.5);
     this.multiplayerButton.scale.setTo(0.5,0.5);
       
@@ -6749,7 +6974,7 @@ Menu.prototype = {
 
 module.exports = Menu;
 
-},{"../prefabs/EnemyPlaneGroup":9,"../prefabs/Level":10,"../prefabs/birdGroup":15}],22:[function(require,module,exports){
+},{"../prefabs/EnemyPlaneGroup":8,"../prefabs/Level":9,"../prefabs/birdGroup":15}],22:[function(require,module,exports){
 'use strict';
   function MultiplayerRoomDetailView() {}
   MultiplayerRoomDetailView.prototype = {
@@ -7047,7 +7272,8 @@ module.exports = MultiplayerRoomSelect;
                 if(elem)
                     elem.parentNode.removeChild(elem);
                 
-                localGame.transitions.to('multiplayerRoomSelect');
+//                localGame.transitions.to('multiplayerRoomSelect');
+                  localGame.transitions.to('playMultiplayer');
             });
         }
     },
@@ -7067,7 +7293,7 @@ module.exports = MultiplayerRoomSelect;
   };
 module.exports = MultiplayerUserSignIn;
 
-},{"../plugins/socket.io":6,"../prefabs/socketEventHandlers":16}],25:[function(require,module,exports){
+},{"../plugins/socket.io":5,"../prefabs/socketEventHandlers":16}],25:[function(require,module,exports){
 
   'use strict';
   var BirdGroup = require('../prefabs/birdGroup');  
@@ -7075,6 +7301,7 @@ module.exports = MultiplayerUserSignIn;
   var EnemyPlaneGroup = require('../prefabs/EnemyPlaneGroup');  
   var Level = require('../prefabs/Level');  
   var Level2 = require('../prefabs/Level2');  
+  var Level3 = require('../prefabs/Level3');  
   var PausePanel = require('../prefabs/PausePanel');  
   var BasicLayer = require('../prefabs/BasicLayer');  
   var GameController = require('../plugins/GameController');
@@ -7101,41 +7328,68 @@ module.exports = MultiplayerUserSignIn;
 //        this.pauseState = false;
         
         // new Level Object
-        this.level = new Level(this.game);
+//        this.level = new Level(this.game);
         //this.level = new Level2(this.game);
+        this.level = new Level3(this.game);
         
         // Create a new bird object
         this.birdGroup = new BirdGroup(this.game);
         
+        // new Player Object
+        this.player = new Player(this.game, 200, 100, "sprites/plane3");
+        
+        this.enemyPlaneGroup = new EnemyPlaneGroup(this.game, this.player);
+        this.enemyPlaneGroup.addEnemy();
+        
         // add our pause button with a callback
-        this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'btnpause', this.pauseGame, this);
+        this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'sprites', this.pauseGame, this, 'menu/btn-pause', 'menu/btn-pause', 'menu/btn-pause', 'menu/btn-pause');
         this.pauseButton.fixedToCamera = true;
         this.pauseButton.inputEnabled = true;
 //        this.pauseButton.anchor.setTo(0.5,0.5);
         this.pauseButton.scale.setTo(0.75,0.75);
         
+        //GameStart Layer    
+//        this.basicLayer = new BasicLayer(this.game)
+        this.createPlayers();
+        
         // Let's build a pause panel
         this.pausePanel = new PausePanel(this.game);
-        this.game.add.existing(this.pausePanel);
-        
-        //GameStart Layer    
-        this.basicLayer = new BasicLayer(this.game)
         
         // Add a input listener that can help us return from being paused
         this.game.input.onDown.add(this.unpause, this);
     },
       
+    update: function(){
+      this.enemyPlaneGroup.forEachAlive(function(enemyPlane){
+          if(!enemyPlane.inCamera){
+              enemyPlane.arrow.visible = true;
+//              enemyPlane.arrow.position.setTo(this.game.camera.view.x,this.game.camera.view.y)
+              enemyPlane.arrow.rotation = this.game.physics.arcade.angleBetween(enemyPlane.arrow, enemyPlane);
+          }else {
+              enemyPlane.arrow.visible = false;
+          }
+      }, this)
+    },
+      
+    render: function(){
+//      this.game.debug.bodyInfo(this.player, 32, 32); 
+//        this.game.debug.cameraInfo(this.game.camera, 32, 32);
+    },
+      
     createPlayers: function(){
-        this.basicLayer.removeAll();
+//        this.basicLayer.removeAll();
         
-        // new Player Object
-        this.player = new Player(this.game, 400, 400,0);
         this.game.add.existing(this.player);
-        this.playerVelocity = 0;
+        if(!this.player.alive){
+            this.player.x = 400;
+            this.player.y = 400;
+            this.player.body.velocity.setTo(300, 0);
+            this.player.revive(5);
+//            this.player.bullets.reverse();
+//            this.player.emitter.revive();
+        }
         
-        // Create a new bird object
-//        this.enemyPlaneGroup = new EnemyPlaneGroup(this.game, this.player);
-//        this.enemyPlaneGroup.addEnemy();
+
     },
 
     pauseGame: function(){
@@ -7156,6 +7410,7 @@ module.exports = MultiplayerUserSignIn;
                 this.pauseButton.visible = true;
         }
     },
+      
     // And finally the method that handels the pause menu
     unpause: function(event){
         // Only act if paused
@@ -7193,7 +7448,7 @@ module.exports = MultiplayerUserSignIn;
   };
   
   module.exports = Play;
-},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../prefabs/BasicLayer":7,"../prefabs/EnemyPlaneGroup":9,"../prefabs/Level":10,"../prefabs/Level2":11,"../prefabs/PausePanel":12,"../prefabs/Player":13,"../prefabs/birdGroup":15}],26:[function(require,module,exports){
+},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../prefabs/BasicLayer":6,"../prefabs/EnemyPlaneGroup":8,"../prefabs/Level":9,"../prefabs/Level2":10,"../prefabs/Level3":11,"../prefabs/PausePanel":12,"../prefabs/Player":13,"../prefabs/birdGroup":15}],26:[function(require,module,exports){
 'use strict';
   var GameController = require('../plugins/GameController');
   var HUDManager = require('../plugins/HUDManager');  
@@ -7203,6 +7458,7 @@ module.exports = MultiplayerUserSignIn;
   var PausePanel = require('../prefabs/PausePanel');
   var Level = require('../prefabs/Level');  
   var SocketEventHandlers = require('../prefabs/socketEventHandlers');  
+ var BasicLayer = require('../prefabs/BasicLayer'); 
 
 
   function PlayMultiplayer() {}
@@ -7222,15 +7478,17 @@ module.exports = MultiplayerUserSignIn;
         this.birdGroup = new BirdGroup(this.game);
         
         // new Player Object
-        this.player = new Player(this.game, 400, 400,0);
-        this.game.add.existing(this.player); 
+        this.player = new Player(this.game, 400, 400, "sprites/plane3");
+        this.game.add.existing(this.player);
         
-        this.socketEventHandlers = new SocketEventHandlers(this.game, io, this.player);
+        GlobalGame.player = this.player;
+        
+        this.socketEventHandlers = new SocketEventHandlers(this.game, io);
 
-        GlobalGame.Multiplayer.socket = this.socketEventHandlers;
+        GlobalGame.Multiplayer.socketEventHandlers = this.socketEventHandlers;
         
         // add our pause button with a callback
-        this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'btnpause', this.pauseGame, this);
+        this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'sprites', this.pauseGame, this, 'menu/btn-pause', 'menu/btn-pause', 'menu/btn-pause', 'menu/btn-pause');
         this.pauseButton.fixedToCamera = true;
         this.pauseButton.inputEnabled = true;
 //        this.pauseButton.anchor.setTo(0.5,0.5);
@@ -7238,11 +7496,29 @@ module.exports = MultiplayerUserSignIn;
         
         // Let's build a pause panel
         this.pausePanel = new PausePanel(this.game);
-        this.game.add.existing(this.pausePanel);
+                //GameStart Layer    
+//        this.basicLayer = new BasicLayer(this.game)
         
         // Add a input listener that can help us return from being paused
         this.game.input.onDown.add(this.unpause, this);
+        
+//        console.log(GlobalGame.Multiplayer.socket.sessionid)
+//        if(!this.socketEventHandlers.playerById(GlobalGame.Multiplayer.socket.sessionid))
+        GlobalGame.Multiplayer.socket.emit("new player", {x: this.player.x, y:this.player.y, angle: this.player.angle, name: GlobalGame.Multiplayer.userName});
     },
+    createPlayers: function(){
+        if(!this.player.alive){
+            this.player.x = 400;
+            this.player.y = 400;
+            this.player.body.velocity.setTo(300, 0);
+            this.player.revive(5);
+//            this.player.bullets.reverse();
+//            this.player.emitter.revive();
+        }
+
+
+    },
+      
    pauseGame: function(){
 			if(!this.game.paused){
 				// Enter pause
@@ -7301,7 +7577,7 @@ module.exports = MultiplayerUserSignIn;
   };
 module.exports = PlayMultiplayer;
 
-},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../plugins/socket.io":6,"../prefabs/Level":10,"../prefabs/PausePanel":12,"../prefabs/Player":13,"../prefabs/birdGroup":15,"../prefabs/socketEventHandlers":16}],27:[function(require,module,exports){
+},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../plugins/socket.io":5,"../prefabs/BasicLayer":6,"../prefabs/Level":9,"../prefabs/PausePanel":12,"../prefabs/Player":13,"../prefabs/birdGroup":15,"../prefabs/socketEventHandlers":16}],27:[function(require,module,exports){
 
 'use strict';
 
@@ -7322,116 +7598,61 @@ function Preload() {
 Preload.prototype = {
   preload: function() {
     this.stage.backgroundColor = '#3498db';
-    this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-//    this.game.world.scale.setTo(0.5,0.5);  
-    if (this.game.device.desktop)
-        {
-            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-            this.game.scale.minWidth = 480;
-            this.game.scale.minHeight = 260;
-            this.game.scale.maxWidth = 1024;
-            this.game.scale.maxHeight = 768;
-            this.game.scale.pageAlignHorizontally = true;
-            this.game.scale.pageAlignVertically = true;
-            this.game.scale.setScreenSize(true);
-        }
-        else
-        {
-            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-            this.game.scale.minWidth = 480;
-            this.game.scale.minHeight = 260;
-            this.game.scale.maxWidth = 1024;
-            this.game.scale.maxHeight = 768;
-            this.game.scale.pageAlignHorizontally = true;
-            this.game.scale.pageAlignVertically = true;
-            this.game.scale.forceOrientation(true, false);
-//            this.game.scale.hasResized.add(this.gameResized, this);
-//            this.game.scale.enterIncorrectOrientation.add(this.enterIncorrectOrientation, this);
-//            this.game.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation, this);
-            this.game.scale.setScreenSize(true);
-        }
-
       
     this.load.onLoadComplete.addOnce(this.onLoadComplete, this);
     this.asset = this.add.sprite(this.game.width/2 * this.game.world.scale.x,this.game.height/2 * this.game.world.scale.y, 'preloader');
     this.asset.anchor.setTo(0.5, 0.5);
     this.load.setPreloadSprite(this.asset);
       
-    //MENU
-      this.load.image('singleplayer', 'assets/img/menu/Singleplayer.png');
-      this.load.image('multiplayer', 'assets/img/menu/Multiplayer.png');
-      this.load.image('pause', 'assets/img/menu/pause_64.png');
-      this.load.image('btnpause', 'assets/img/menu/btn-pause.png');
-      this.load.image('btnplay', 'assets/img/menu/btn-play.png');
-      this.load.image('panel', 'assets/img/menu/panel.png');
-//      this.load.bitmapFont('kenpixelblocks', 'assets/fonts/kenpixelblocks/kenpixelblocks.png', 'assets/fonts/kenpixelblocks/kenpixelblocks.fnt');
+    //all Sprites
+    this.load.atlasJSONHash('sprites', 'assets/sprites.png', 'assets/sprites.json');
+
+    //BIRD
+    this.load.spritesheet('birdie', 'assets/img/sprites/bird.png', 189, 169, 3);
       
     //PLAYER
-        this.load.image('plane3', 'assets/img/sprites/plane3.png');
-//        this.game.load.image('smoke', 'assets/img/sprites/smoke.png');
-        this.load.image('smoke_puff', 'assets/img/sprites/particles/smoke-puff.png');
-        this.load.image('smoke', 'assets/img/sprites/particles/pump_smoke_04.png');
-        this.load.image('bullet', 'assets/img/sprites/bullet.png');
-        this.load.image('bullet2', 'assets/img/sprites/bullet2.png');
-//        this.load.spritesheet('explode', 'assets/img/sprites/effects/explode.png', 64, 64, 16 );
-//        this.load.spritesheet('bombexplode', 'assets/img/sprites/effects/bombexplosion.png', 128, 115, 8);
-        this.load.spritesheet('airplaneexplode', 'assets/img/sprites/effects/airplaneexplosion.png', 128, 115, 8);
-        //PLAYER Buttons
-        this.load.spritesheet('buttonvertical', 'assets/img/buttons/button-vertical.png',64,64);
-        this.load.spritesheet('buttonhorizontal', 'assets/img/buttons/button-horizontal.png',96,64);
-        this.load.spritesheet('buttondiagonal', 'assets/img/buttons/button-diagonal.png',64,64);
-        this.load.spritesheet('buttonfire', 'assets/img/buttons/button-round-a.png',96,96);
-        this.load.spritesheet('buttonjump', 'assets/img/buttons/button-round-b.png',96,96);
+    this.load.spritesheet('airplaneexplode', 'assets/img/sprites/effects/airplaneexplosion.png', 128, 115, 8);
       
-    
+    //PLAYER Buttons
+    this.load.spritesheet('buttonvertical', 'assets/img/buttons/button-vertical.png',64,64);
+    this.load.spritesheet('buttonhorizontal', 'assets/img/buttons/button-horizontal.png',96,64);
+    this.load.spritesheet('buttondiagonal', 'assets/img/buttons/button-diagonal.png',64,64);
+    this.load.spritesheet('buttonfire', 'assets/img/buttons/button-round-a.png',96,96);
+    this.load.spritesheet('buttonjump', 'assets/img/buttons/button-round-b.png',96,96);
+      
     //LEVEL
-//        this.load.image('sky', 'assets/img/level/sky.png');
-        this.load.image('sky_new', 'assets/img/level/sky_new.png');
-//        this.load.image('clouds', 'assets/img/level/whiteclouds.png');
-        this.load.image('clouds1', 'assets/img/level/cloud_fluffy_1.png');
-        this.load.image('clouds2', 'assets/img/level/cloud_fluffy_2.png');
-        this.load.image('ground', 'assets/img/level/crosssection_long_new.png');
-//        this.load.image('tree0', 'assets/img/level/tree_canopy_single_1.png');
-//        this.load.image('tree0', 'assets/img/level/trees/obj_trees1_001.png');
-//        this.load.image('tree1', 'assets/img/level/trees/obj_trees1_002.png');
-//        this.load.image('tree2', 'assets/img/level/trees/obj_trees1_003.png');
-//        this.load.image('tree3', 'assets/img/level/trees/obj_trees1_004.png');
-//        this.load.image('tree4', 'assets/img/level/trees/obj_trees1_005.png');
-        this.load.image('tree0', 'assets/img/level/trees/tree_coniferous_1.png');
-        this.load.image('tree1', 'assets/img/level/trees/tree_coniferous_3.png');
-        this.load.image('tree2', 'assets/img/level/trees/tree_coniferous_4.png');
-        this.load.image('tree3', 'assets/img/level/trees/tree_deciduous3.png');
-//        this.load.image('tree4', 'assets/img/level/trees/tree_deciduous3.png');
-        this.load.image('mountains', 'assets/img/level/mountains.png');
+//    this.load.image('bg1', 'assets/backgrounds/bg1.png');
+//    this.load.image('bg2', 'assets/backgrounds/bg2.png');
+    this.load.image('bg1', 'assets/backgrounds/cloudsBackground.png');
+    this.load.image('ground', 'assets/backgrounds/ground.png');
+    this.load.image('treesMountain1', 'assets/backgrounds/treesMountain.png');
       
-        //BIRD
-        this.load.spritesheet('birdie', 'assets/img/sprites/bird.png', 189, 169, 3);
-
   },
   create: function() {
     this.asset.cropEnabled = false;
 //    if (this.game.device.desktop){
-        var stats = new Stats();
-        stats.setMode(0); // 0: fps, 1: ms
-
-        // Align top-left
-        stats.domElement.style.position = 'absolute';
-        stats.domElement.style.left = '0px';
-        stats.domElement.style.top = '0px';
-
-        document.body.appendChild( stats.domElement );
-
-        setInterval( function () {
-
-            stats.begin();
-
-            // your code goes here
-
-            stats.end();
-
-        }, 1000 / 60 );
+//        var stats = new Stats();
+//        stats.setMode(0); // 0: fps, 1: ms
+//
+//        // Align top-left
+//        stats.domElement.style.position = 'absolute';
+//        stats.domElement.style.left = '0px';
+//        stats.domElement.style.top = '0px';
+//
+//        document.body.appendChild( stats.domElement );
+//
+//        setInterval( function () {
+//
+//            stats.begin();
+//
+//            // your code goes here
+//
+//            stats.end();
+//
+//        }, 1000 / 60 );
 //    }
   },
+    
   update: function() {
     if(!!this.ready) {
         /* transition handling  */
@@ -7472,4 +7693,4 @@ Preload.prototype = {
 
 module.exports = Preload;
 
-},{"../plugins/phaser-state-transition.min.js":5}]},{},[1])
+},{"../plugins/phaser-state-transition.min.js":4}]},{},[1])

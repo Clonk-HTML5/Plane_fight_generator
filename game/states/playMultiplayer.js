@@ -7,6 +7,7 @@
   var PausePanel = require('../prefabs/PausePanel');
   var Level = require('../prefabs/Level');  
   var SocketEventHandlers = require('../prefabs/socketEventHandlers');  
+ var BasicLayer = require('../prefabs/BasicLayer'); 
 
 
   function PlayMultiplayer() {}
@@ -26,15 +27,17 @@
         this.birdGroup = new BirdGroup(this.game);
         
         // new Player Object
-        this.player = new Player(this.game, 400, 400,0);
-        this.game.add.existing(this.player); 
+        this.player = new Player(this.game, 400, 400, "sprites/plane3");
+        this.game.add.existing(this.player);
         
-        this.socketEventHandlers = new SocketEventHandlers(this.game, io, this.player);
+        GlobalGame.player = this.player;
+        
+        this.socketEventHandlers = new SocketEventHandlers(this.game, io);
 
-        GlobalGame.Multiplayer.socket = this.socketEventHandlers;
+        GlobalGame.Multiplayer.socketEventHandlers = this.socketEventHandlers;
         
         // add our pause button with a callback
-        this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'btnpause', this.pauseGame, this);
+        this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'sprites', this.pauseGame, this, 'menu/btn-pause', 'menu/btn-pause', 'menu/btn-pause', 'menu/btn-pause');
         this.pauseButton.fixedToCamera = true;
         this.pauseButton.inputEnabled = true;
 //        this.pauseButton.anchor.setTo(0.5,0.5);
@@ -42,11 +45,29 @@
         
         // Let's build a pause panel
         this.pausePanel = new PausePanel(this.game);
-        this.game.add.existing(this.pausePanel);
+                //GameStart Layer    
+//        this.basicLayer = new BasicLayer(this.game)
         
         // Add a input listener that can help us return from being paused
         this.game.input.onDown.add(this.unpause, this);
+        
+//        console.log(GlobalGame.Multiplayer.socket.sessionid)
+//        if(!this.socketEventHandlers.playerById(GlobalGame.Multiplayer.socket.sessionid))
+        GlobalGame.Multiplayer.socket.emit("new player", {x: this.player.x, y:this.player.y, angle: this.player.angle, name: GlobalGame.Multiplayer.userName});
     },
+    createPlayers: function(){
+        if(!this.player.alive){
+            this.player.x = 400;
+            this.player.y = 400;
+            this.player.body.velocity.setTo(300, 0);
+            this.player.revive(5);
+//            this.player.bullets.reverse();
+//            this.player.emitter.revive();
+        }
+
+
+    },
+      
    pauseGame: function(){
 			if(!this.game.paused){
 				// Enter pause

@@ -71,11 +71,36 @@ module.exports = function (grunt) {
         src: ['game/main.js'],
         dest: 'dist/js/game.js'
       }
+    },
+    ftpush: {
+      build: {
+        auth: {
+          host:'ftp.christian-html5.de',
+          port:21,
+          authKey:'zones'
+        },
+        src: 'dist',
+        dest: '/',
+        exclusions: [
+          '**/.DS_Store',
+          '**/Thumbs.db',
+          '**/node_modules/**',
+          '**/.gitignore',
+          '.editorconfig',
+          '.ftppass',
+          '.grunt',
+          '.jshintrc'
+        ],
+        keep: [],
+        simple: false,
+        useList: false
+      }
     }
   });
   
   grunt.registerTask('build', ['buildBootstrapper', 'browserify','copy']);
   grunt.registerTask('serve', ['build', 'connect:livereload', 'open', 'watch']);
+  grunt.registerTask('ftp', ['ftpush']);
   grunt.registerTask('default', ['serve']);
   grunt.registerTask('prod', ['build', 'copy']);
 

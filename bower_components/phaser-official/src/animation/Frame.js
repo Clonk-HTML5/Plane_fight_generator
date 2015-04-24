@@ -1,6 +1,6 @@
 /**
 * @author       Richard Davey <rich@photonstorm.com>
-* @copyright    2014 Photon Storm Ltd.
+* @copyright    2015 Photon Storm Ltd.
 * @license      {@link https://github.com/photonstorm/phaser/blob/master/license.txt|MIT License}
 */
 
@@ -162,6 +162,29 @@ Phaser.Frame.prototype = {
             this.spriteSourceSizeW = destWidth;
             this.spriteSourceSizeH = destHeight;
         }
+
+    },
+
+    /**
+     * Clones this Frame into a new Phaser.Frame object and returns it.
+     * Note that all properties are cloned, including the name, index and UUID.
+     *
+     * @method Phaser.Frame#clone
+     * @return {Phaser.Frame} An exact copy of this Frame object.
+     */
+    clone: function () {
+
+        var output = new Phaser.Frame(this.index, this.x, this.y, this.width, this.height, this.name, this.uuid);
+
+        for (var prop in this)
+        {
+            if (this.hasOwnProperty(prop))
+            {
+                output[prop] = this[prop];
+            }
+        }
+
+        return output;
 
     },
 
