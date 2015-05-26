@@ -12,11 +12,11 @@ var PausePanel = function(game, parent){
 
 		// Add text
 //		this.pauseText = this.game.add.bitmapText(this.game.width/2 - 100, 20, 'kenpixelblocks', 'Game paused', 24);
-		this.pauseText = this.game.add.text(this.game.width/2 - 100, 20, 'Game paused',{ font: '24px Arial', fill: '#08d465', align: 'center'});
+		this.pauseText = this.game.add.text(this.game.width/2 - 100, 20, 'Game paused',{ font: '24px Cloudy_With_a_Chance_of_Love', fill: '#08d465', align: 'center'});
         this.pauseText.fixedToCamera = true;
 		this.add(this.pauseText);
 //		this.cloudsText = this.game.add.bitmapText(this.game.width/2 - 100, 50, 'kenpixelblocks', 'Clouds are still moving :)', 16);
-		this.cloudsText = this.game.add.text(this.game.width/2 - 100, 50, 'Press the Play Button to continue',{ font: '16px Arial', fill: '#08d465', align: 'center'});
+		this.cloudsText = this.game.add.text(this.game.width/2 - 100, 50, 'Press the Play Button to continue',{ font: '16px Cloudy_With_a_Chance_of_Love', fill: '#08d465', align: 'center'});
         this.cloudsText.fixedToCamera = true;
 		this.add(this.cloudsText);
 

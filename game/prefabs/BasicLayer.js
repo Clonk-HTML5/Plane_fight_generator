@@ -18,9 +18,21 @@ var BasicLayer = function(game, parent, layerText) {
     this.c.alpha = 0.5;
     this.add(this.c);
 
-    this.fontStyle = { font: "40px Arial", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
-    this.scoreText = this.game.add.text(this.game.width/2-200, this.game.height/2, this.layerText, this.fontStyle);
-    this.add(this.scoreText);
+    this.fontStyle = { font: "40px loudy_With_a_Chance_of_Love", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
+//    this.scoreText = this.game.add.text(this.game.width/2-200, this.game.height/2, this.layerText, this.fontStyle);
+//    this.add(this.scoreText);
+    
+    this.defeatWindow = this.game.add.image(this.game.width / 2, 50, 'sprites', 'menu/defeat_window');
+    this.defeatWindow.anchor.setTo(0.5, 0)
+    this.add(this.defeatWindow);
+    
+    this.restartButton = this.game.add.button(-50, this.defeatWindow.height-100, 'sprites', this.restartClick, this, 'buttons/button_restart_act', 'buttons/button_restart_no', 'buttons/button_restart_act', 'buttons/button_restart_no');
+//    this.restartButton.anchor.setTo(0.5,0.5);
+    this.defeatWindow.addChild(this.restartButton); 
+    
+    this.menuButton = this.game.add.button(50, this.defeatWindow.height-100, 'sprites', this.menuClick, this, 'buttons/button_menu_act', 'buttons/button_menu_no', 'buttons/button_menu_act', 'buttons/button_menu_no');
+//    this.menuButton.anchor.setTo(0.5,0.5);
+    this.defeatWindow.addChild(this.menuButton); 
 
      this.game.add.tween(this).to({x:this.game.camera.x ,y:this.game.camera.y}, 550, Phaser.Easing.Back.Out, true);
 //            basicLayerTween._lastChild.onComplete.add(function(){this.game.paused = true;}, this.game.state.getCurrentState());
@@ -39,14 +51,25 @@ BasicLayer.prototype.constructor = BasicLayer;
 
 BasicLayer.prototype.update = function() {
     
-    if(this.game.input.activePointer.justPressed()) {
-      this.game.state.getCurrentState().createPlayers();
-      this.destroy();
-      this.removeAll();
-    }
+//    if(this.game.input.activePointer.justPressed()) {
+//      this.game.state.getCurrentState().createPlayers();
+//      this.destroy();
+//      this.removeAll();
+//    }
   
   // write your prefab's specific update code here
   
+};
+
+BasicLayer.prototype.restartClick = function () {
+      this.game.state.getCurrentState().createPlayers();
+      this.destroy();
+//      this.removeAll();
+};
+BasicLayer.prototype.menuClick = function () {
+//    this.destroy();
+//    this.removeAll();
+    this.game.state.start('menu',true,false);
 };
 
 module.exports = BasicLayer;

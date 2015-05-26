@@ -9,18 +9,21 @@ window.onload = function () {
   game.state.add('Level2', require('./states/Level2'));
   game.state.add('boot', require('./states/boot'));
   game.state.add('gameover', require('./states/gameover'));
+  game.state.add('help', require('./states/help'));
   game.state.add('menu', require('./states/menu'));
+  game.state.add('missions', require('./states/missions'));
   game.state.add('multiplayerRoomDetailView', require('./states/multiplayerRoomDetailView'));
   game.state.add('multiplayerRoomSelect', require('./states/multiplayerRoomSelect'));
   game.state.add('multiplayerUserSignIn', require('./states/multiplayerUserSignIn'));
   game.state.add('play', require('./states/play'));
   game.state.add('playMultiplayer', require('./states/playMultiplayer'));
   game.state.add('preload', require('./states/preload'));
+  game.state.add('settings', require('./states/settings'));
   
 
   game.state.start('boot');
 };
-},{"./states/Level2":19,"./states/boot":20,"./states/gameover":21,"./states/menu":22,"./states/multiplayerRoomDetailView":23,"./states/multiplayerRoomSelect":24,"./states/multiplayerUserSignIn":25,"./states/play":26,"./states/playMultiplayer":27,"./states/preload":28}],2:[function(require,module,exports){
+},{"./states/Level2":19,"./states/boot":20,"./states/gameover":21,"./states/help":22,"./states/menu":23,"./states/missions":24,"./states/multiplayerRoomDetailView":25,"./states/multiplayerRoomSelect":26,"./states/multiplayerUserSignIn":27,"./states/play":28,"./states/playMultiplayer":29,"./states/preload":30,"./states/settings":31}],2:[function(require,module,exports){
 /**
  * Helpers 
  */
@@ -5437,9 +5440,21 @@ var BasicLayer = function(game, parent, layerText) {
     this.c.alpha = 0.5;
     this.add(this.c);
 
-    this.fontStyle = { font: "40px Arial", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
-    this.scoreText = this.game.add.text(this.game.width/2-200, this.game.height/2, this.layerText, this.fontStyle);
-    this.add(this.scoreText);
+    this.fontStyle = { font: "40px loudy_With_a_Chance_of_Love", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
+//    this.scoreText = this.game.add.text(this.game.width/2-200, this.game.height/2, this.layerText, this.fontStyle);
+//    this.add(this.scoreText);
+    
+    this.defeatWindow = this.game.add.image(this.game.width / 2, 50, 'sprites', 'menu/defeat_window');
+    this.defeatWindow.anchor.setTo(0.5, 0)
+    this.add(this.defeatWindow);
+    
+    this.restartButton = this.game.add.button(-50, this.defeatWindow.height-100, 'sprites', this.restartClick, this, 'buttons/button_restart_act', 'buttons/button_restart_no', 'buttons/button_restart_act', 'buttons/button_restart_no');
+//    this.restartButton.anchor.setTo(0.5,0.5);
+    this.defeatWindow.addChild(this.restartButton); 
+    
+    this.menuButton = this.game.add.button(50, this.defeatWindow.height-100, 'sprites', this.menuClick, this, 'buttons/button_menu_act', 'buttons/button_menu_no', 'buttons/button_menu_act', 'buttons/button_menu_no');
+//    this.menuButton.anchor.setTo(0.5,0.5);
+    this.defeatWindow.addChild(this.menuButton); 
 
      this.game.add.tween(this).to({x:this.game.camera.x ,y:this.game.camera.y}, 550, Phaser.Easing.Back.Out, true);
 //            basicLayerTween._lastChild.onComplete.add(function(){this.game.paused = true;}, this.game.state.getCurrentState());
@@ -5458,14 +5473,25 @@ BasicLayer.prototype.constructor = BasicLayer;
 
 BasicLayer.prototype.update = function() {
     
-    if(this.game.input.activePointer.justPressed()) {
-      this.game.state.getCurrentState().createPlayers();
-      this.destroy();
-      this.removeAll();
-    }
+//    if(this.game.input.activePointer.justPressed()) {
+//      this.game.state.getCurrentState().createPlayers();
+//      this.destroy();
+//      this.removeAll();
+//    }
   
   // write your prefab's specific update code here
   
+};
+
+BasicLayer.prototype.restartClick = function () {
+      this.game.state.getCurrentState().createPlayers();
+      this.destroy();
+//      this.removeAll();
+};
+BasicLayer.prototype.menuClick = function () {
+//    this.destroy();
+//    this.removeAll();
+    this.game.state.start('menu',true,false);
 };
 
 module.exports = BasicLayer;
@@ -5938,11 +5964,11 @@ var PausePanel = function(game, parent){
 
 		// Add text
 //		this.pauseText = this.game.add.bitmapText(this.game.width/2 - 100, 20, 'kenpixelblocks', 'Game paused', 24);
-		this.pauseText = this.game.add.text(this.game.width/2 - 100, 20, 'Game paused',{ font: '24px Arial', fill: '#08d465', align: 'center'});
+		this.pauseText = this.game.add.text(this.game.width/2 - 100, 20, 'Game paused',{ font: '24px Cloudy_With_a_Chance_of_Love', fill: '#08d465', align: 'center'});
         this.pauseText.fixedToCamera = true;
 		this.add(this.pauseText);
 //		this.cloudsText = this.game.add.bitmapText(this.game.width/2 - 100, 50, 'kenpixelblocks', 'Clouds are still moving :)', 16);
-		this.cloudsText = this.game.add.text(this.game.width/2 - 100, 50, 'Press the Play Button to continue',{ font: '16px Arial', fill: '#08d465', align: 'center'});
+		this.cloudsText = this.game.add.text(this.game.width/2 - 100, 50, 'Press the Play Button to continue',{ font: '16px Cloudy_With_a_Chance_of_Love', fill: '#08d465', align: 'center'});
         this.cloudsText.fixedToCamera = true;
 		this.add(this.cloudsText);
 
@@ -6839,6 +6865,9 @@ GlobalGame = {
     
     player: null,
     
+    /* Current Level */
+    level: 1,
+    
     /* 
     * Controller of the Ship: 
     *  **keyboardButtons (Keyboard on Desktop Buttons on Mobile)
@@ -6877,9 +6906,12 @@ function Boot() {
 Boot.prototype = {
   preload: function() {
     this.load.image('preloader', 'assets/preloader.gif');
+    this.load.image('menu_bg', 'assets/backgrounds/menu.png');
   },
   create: function() {
     this.stage.backgroundColor = '#3498db';
+    this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.height, 'menu_bg');
+    this.stage.addChildAt(this.background,0);
       
     this.game.input.maxPointers = 1;
     
@@ -6944,6 +6976,36 @@ GameOver.prototype = {
 module.exports = GameOver;
 
 },{}],22:[function(require,module,exports){
+'use strict';
+  function Help() {}
+  Help.prototype = {
+    create: function() {
+      this.backButton = this.game.add.button(50, this.game.height - 50, 'sprites', this.backClick, this, 'buttons/button_back_act', 'buttons/button_back_no', 'buttons/button_back_act', 'buttons/button_back_no');
+      this.backButton.anchor.setTo(0.5);
+    },
+    backClick: function() {
+//        var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ x: this.game.width }, 1000, Phaser.Easing.Bounce.In, true);
+//        fadeMenuOut.onComplete.add(function() {
+            this.game.state.start('menu',true,false);
+//        }, this);
+    },
+    update: function() {
+      // state update code
+    },
+    paused: function() {
+      // This method will be called when game paused.
+    },
+    render: function() {
+      // Put render operations here.
+    },
+    shutdown: function() {
+      // This method will be called when the state is shut down 
+      // (i.e. you switch to another state from this one).
+    }
+  };
+module.exports = Help;
+
+},{}],23:[function(require,module,exports){
 
 'use strict';
 
@@ -6959,18 +7021,10 @@ Menu.prototype = {
 
   },
   create: function() {
-      this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.cache.getImage('menu_bg').height, 'menu_bg');
+//      this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.height, 'menu_bg');
       
-          // new Level Object
-//    this.level = new Level(this.game, {menu: true});
-
-    // Create a new bird object
-//    this.birdGroup = new BirdGroup(this.game);
-
-    // Create a new bird object
-//    this.enemyPlaneGroup = new EnemyPlaneGroup(this.game, this.player, {menu: true});
     this.buttonGroup = this.game.add.group();
-//    this.button = new LabelButton(this.game, this.game.width/2, 200, 'sprites', 'Singleplayer', this.singleplayerClick, this, 'buttons/button_green_act', 'buttons/button_green_no', 'buttons/button_green_act', 'buttons/button_green_no');
+      this.buttonGroup.x = - this.game.width ;
       this.startButton = this.game.add.button(this.game.width/2, 200, 'sprites', this.startClick, this, 'buttons/button_green_act', 'buttons/button_green_no', 'buttons/button_green_act', 'buttons/button_green_no');
       this.startButton.anchor.setTo(0.5,0.5);
     this.startButton.scale.setTo(0.75,0.75);
@@ -6979,28 +7033,246 @@ Menu.prototype = {
       this.multiplayerButton.anchor.setTo(0.5,0.5);
     this.multiplayerButton.scale.setTo(0.75,0.75);
       this.buttonGroup.add(this.multiplayerButton); 
+      
+      this.settingsButton = this.game.add.button(50, this.game.height - 50, 'sprites', this.settingsClick, this, 'buttons/button_settings_act', 'buttons/button_settings_no', 'buttons/button_settings_act', 'buttons/button_settings_no');
+      this.settingsButton.anchor.setTo(0.5,0.5);
+      this.buttonGroup.add(this.settingsButton); 
+                  
+      this.helpButton = this.game.add.button(150, this.game.height - 50, 'sprites', this.helpClick, this, 'buttons/button_help_act', 'buttons/button_help_no', 'buttons/button_help_act', 'buttons/button_help_no');
+      this.helpButton.anchor.setTo(0.5,0.5);
+      this.buttonGroup.add(this.helpButton); 
+      
+      this.game.add.tween(this.buttonGroup).to({ x: 0 }, 1000, Phaser.Easing.Bounce.Out, true);
+
   },
   update: function() {
   },
   startClick: function() {  
-    // start button click handler
-    // start the 'play' state
-    this.game.state.start('play');
-//      this.game.transitions.to('play');
+    var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ x: this.game.width }, 1000, Phaser.Easing.Bounce.In, true);
+    fadeMenuOut.onComplete.add(function() {
+//        this.game.state.start('play');
+        this.game.state.start('missions');
+    }, this);
   },  
   multiplayerStartClick: function() {  
-    // start button click handler
-    // start the 'play' state
-    this.game.state.start('multiplayerUserSignIn');
-//    this.game.state.start('playMultiplayer');
-//      this.game.transitions.to('multiplayerUserSignIn');
-//      this.game.transitions.to('playMultiplayer');
+    var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ x: this.game.width }, 1000, Phaser.Easing.Bounce.In, true);
+    fadeMenuOut.onComplete.add(function() {
+        this.game.state.start('multiplayerUserSignIn');
+    }, this);
+  },
+  settingsClick: function() {
+    var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ x: this.game.width }, 1000, Phaser.Easing.Bounce.In, true);
+    fadeMenuOut.onComplete.add(function() {
+        this.game.state.start('settings');
+    }, this);
+  },  
+  helpClick: function() {
+    var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ x: this.game.width }, 1000, Phaser.Easing.Bounce.In, true);
+    fadeMenuOut.onComplete.add(function() {
+        this.game.state.start('help');
+    }, this);
   }
 };
 
 module.exports = Menu;
 
-},{"../prefabs/EnemyPlaneGroup":8,"../prefabs/Level":9,"../prefabs/birdGroup":15,"../prefabs/labelButton":16}],23:[function(require,module,exports){
+},{"../prefabs/EnemyPlaneGroup":8,"../prefabs/Level":9,"../prefabs/birdGroup":15,"../prefabs/labelButton":16}],24:[function(require,module,exports){
+'use strict';
+  function Missions() {}
+  Missions.prototype = {
+    create: function() {
+//        this.background = this.game.add.sprite(0, 0, this.game.world.width, this.game.height, 'menu_bg');
+        
+        this.thumbRows = 2;
+        // number of thumbnail cololumns
+        this.thumbCols = 3;
+        // width of a thumbnail, in pixels
+        this.thumbWidth = 120;
+        // height of a thumbnail, in pixels
+        this.thumbHeight = 120;
+        // space among thumbnails, in pixels
+        this.thumbSpacing = 8;
+        // array with finished levels and stars collected.
+        // 0 = playable yet unfinished level
+        // 1, 2, 3 = level finished with 1, 2, 3 stars
+        // 4 = locked
+        this.starsArray = [0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4];
+
+        // how many pages are needed to show all levels?
+        this.pages;
+        // group where to place all level thumbnails
+        this.levelThumbsGroup;
+        // current page
+        this.currentPage;
+        // arrows to navigate through level pages
+        this.leftArrow;
+        this.rightArrow;
+        // how many pages are needed to show all levels?
+		// CAUTION!! EACH PAGE SHOULD HAVE THE SAME AMOUNT OF LEVELS, THAT IS
+		// THE NUMBER OF LEVELS *MUST* BE DIVISIBLE BY THUMBCOLS*THUMBROWS
+  		this.pages = this.starsArray.length/(this.thumbRows*this.thumbCols);
+  		// current page according to last played level, if any
+		this.currentPage = Math.floor(GlobalGame.level/(this.thumbRows*this.thumbCols));
+		if(this.currentPage>this.pages-1){
+			this.currentPage = this.pages-1;
+		}
+		// left arrow button, to turn one page left
+		this.leftArrow = this.game.add.button(50,this.game.height/2,"sprites",this.arrowClicked,this, 'missions/small_arrow_left_act', 'missions/small_arrow_left_no', 'missions/small_arrow_left_act', 'missions/small_arrow_left_no');
+		this.leftArrow.anchor.setTo(0.5);
+        this.leftArrow.name = "leftArrow";
+		// can we turn one page left?
+		if(this.currentPage==0){
+			this.leftArrow.alpha = 0.3;
+		}
+		// right arrow button, to turn one page right
+		this.rightArrow = this.game.add.button(this.game.width - 50,this.game.height/2,"sprites",this.arrowClicked,this, 'missions/small_arrow_right_act', 'missions/small_arrow_right_no', 'missions/small_arrow_right_act', 'missions/small_arrow_right_no');
+		this.rightArrow.anchor.setTo(0.5);
+        this.rightArrow.name = "rightArrow";
+		// can we turn one page right?
+		if(this.currentPage==this.pages-1){
+			this.rightArrow.alpha = 0.3;
+		}
+		// creation of the thumbails group
+		this.levelThumbsGroup = this.game.add.group();
+        this.levelThumbsGroup.x = - this.game.width ;
+		// determining level thumbnails width and height for each page
+		var levelLength = this.thumbWidth*this.thumbCols+this.thumbSpacing*(this.thumbCols-1);
+		var levelHeight = this.thumbWidth*this.thumbRows+this.thumbSpacing*(this.thumbRows-1);
+		// looping through each page
+		for(var l = 0; l < this.pages; l++){
+			// horizontal offset to have level thumbnails horizontally centered in the page
+			var offsetX = (this.game.width-levelLength)/2+this.game.width*l;
+			// I am not interested in having level thumbnails vertically centered in the page, but
+			// if you are, simple replace my "20" with
+			// (game.height-levelHeight)/2
+//			var offsetY = 120;
+			var offsetY = (this.game.height-levelHeight)/2;
+			// looping through each level thumbnails
+		     for(var i = 0; i < this.thumbRows; i ++){
+		     	for(var j = 0; j < this.thumbCols; j ++){  
+		     		// which level does the thumbnail refer?
+					var levelNumber = i*this.thumbCols+j+l*(this.thumbRows*this.thumbCols);
+					// adding the thumbnail, as a button which will call thumbClicked function if clicked   		
+					var levelThumb = this.game.add.button(offsetX+j*(this.thumbWidth+this.thumbSpacing), offsetY+i*(this.thumbHeight+this.thumbSpacing), "sprites", this.thumbClicked, this);	
+                    var frame = "missions/level_thumb_frame_"+this.starsArray[levelNumber];
+					// shwoing proper frame
+					levelThumb.frameName = frame;
+					// custom attribute 
+					levelThumb.levelNumber = levelNumber+1;
+					// adding the level thumb to the group
+					this.levelThumbsGroup.add(levelThumb);
+					// if the level is playable, also write level number
+					if(this.starsArray[levelNumber]<4){
+						var style = {
+							font: "60px Cloudy_With_a_Chance_of_Love",
+							fill: "#ffffff"
+						};
+						var levelText = this.game.add.text(levelThumb.x+50,levelThumb.y+this.thumbHeight/2-50,levelNumber+1,style);
+						levelText.setShadow(2, 2, 'rgba(0,0,0,0.5)', 1);
+						this.levelThumbsGroup.add(levelText);
+					}
+				}
+			}
+		}
+		// scrolling thumbnails group according to level position
+//		this.levelThumbsGroup.x = this.currentPage * this.game.width * -1;
+        
+      this.ribbon = this.game.add.image(this.game.width / 2, 50, 'sprites', 'menu/ribbon');
+      this.ribbon.anchor.setTo(0.5);
+      this.ribbon.scale.setTo(0.75);
+        
+        this.ribbonText = this.game.add.text(-200,-40,"Mission Select",style);
+        this.ribbonText.setShadow(2, 2, 'rgba(0,0,0,0.5)', 1);
+        this.ribbon.addChild(this.ribbonText);
+        
+        
+      this.backButton = this.game.add.button(50, this.game.height - 50, 'sprites', this.backClick, this, 'buttons/button_back_act', 'buttons/button_back_no', 'buttons/button_back_act', 'buttons/button_back_no');
+      this.backButton.anchor.setTo(0.5);
+        
+      this.game.add.tween(this.levelThumbsGroup).to({ x: this.currentPage * this.game.width * -1 }, 800, Phaser.Easing.Cubic.None, true);
+        
+    },
+    arrowClicked:function(button){
+		// touching right arrow and still not reached last page
+		if(button.name=="rightArrow" && this.currentPage<this.pages-1){
+			this.leftArrow.alpha = 1;
+			this.currentPage++;
+			// fade out the button if we reached last page
+			if(this.currentPage == this.pages-1){
+				button.alpha = 0.3;
+			}
+			// scrolling level pages
+			var buttonsTween = this.game.add.tween(this.levelThumbsGroup);
+			buttonsTween.to({
+				x: this.currentPage * this.game.width * -1
+			}, 500, Phaser.Easing.Cubic.None);
+			buttonsTween.start();
+		}
+		// touching left arrow and still not reached first page
+		if(button.name=="leftArrow" && this.currentPage>0){
+			this.rightArrow.alpha = 1;
+			this.currentPage--;
+			// fade out the button if we reached first page
+			if(this.currentPage == 0){
+				button.alpha = 0.3;
+			}
+			// scrolling level pages
+			var buttonsTween = this.game.add.tween(this.levelThumbsGroup);
+			buttonsTween.to({
+				x: this.currentPage * this.game.width * -1
+			}, 400, Phaser.Easing.Cubic.None);
+			buttonsTween.start();
+		}		
+	},
+	thumbClicked: function(button){
+		if(button.frameName.replace("missions/level_thumb_frame_", "") < 4){
+			GlobalGame.level = button.levelNumber;
+            var fadeMenuOut = this.game.add.tween(this.levelThumbsGroup).to({ x: this.game.width }, 800, Phaser.Easing.Cubic.None, true);
+            fadeMenuOut.onComplete.add(function() {
+                this.game.state.start('play');
+            }, this);
+		}
+		else{
+			var buttonTween = this.game.add.tween(button)
+			buttonTween.to({
+				alpha: 0.5
+			}, 20, Phaser.Easing.Cubic.None);
+			buttonTween.to({
+				alpha: 1
+			}, 20, Phaser.Easing.Cubic.None);
+			buttonTween.to({
+				alpha: 0.5
+			}, 20, Phaser.Easing.Cubic.None);
+			buttonTween.to({
+				alpha: 1
+			}, 20, Phaser.Easing.Cubic.None);
+			buttonTween.start();
+		}
+	},
+    backClick: function() {
+//        var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ x: this.game.width }, 1000, Phaser.Easing.Bounce.In, true);
+//        fadeMenuOut.onComplete.add(function() {
+            this.game.state.start('menu',true,false);
+//        }, this);
+    },
+      
+    update: function() {
+      // state update code
+    },
+    paused: function() {
+      // This method will be called when game paused.
+    },
+    render: function() {
+      // Put render operations here.
+    },
+    shutdown: function() {
+      // This method will be called when the state is shut down 
+      // (i.e. you switch to another state from this one).
+    }
+  };
+module.exports = Missions;
+
+},{}],25:[function(require,module,exports){
 'use strict';
   function MultiplayerRoomDetailView() {}
   MultiplayerRoomDetailView.prototype = {
@@ -7107,7 +7379,7 @@ module.exports = Menu;
   };
 module.exports = MultiplayerRoomDetailView;
 
-},{}],24:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 'use strict';
 
   function MultiplayerRoomSelect() {}
@@ -7227,7 +7499,7 @@ module.exports = MultiplayerRoomDetailView;
   };
 module.exports = MultiplayerRoomSelect;
 
-},{}],25:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
   var io = require('../plugins/socket.io');  
@@ -7319,7 +7591,7 @@ module.exports = MultiplayerRoomSelect;
   };
 module.exports = MultiplayerUserSignIn;
 
-},{"../plugins/socket.io":5,"../prefabs/socketEventHandlers":17}],26:[function(require,module,exports){
+},{"../plugins/socket.io":5,"../prefabs/socketEventHandlers":17}],28:[function(require,module,exports){
 
   'use strict';
   var BirdGroup = require('../prefabs/birdGroup');  
@@ -7417,6 +7689,10 @@ module.exports = MultiplayerUserSignIn;
         
 
     },
+      
+    paused: function() {
+        console.log('paused')
+    },
 
     pauseGame: function(){
         if(!this.game.paused){
@@ -7474,7 +7750,7 @@ module.exports = MultiplayerUserSignIn;
   };
   
   module.exports = Play;
-},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../prefabs/BasicLayer":6,"../prefabs/EnemyPlaneGroup":8,"../prefabs/Level":9,"../prefabs/Level2":10,"../prefabs/Level3":11,"../prefabs/PausePanel":12,"../prefabs/Player":13,"../prefabs/birdGroup":15}],27:[function(require,module,exports){
+},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../prefabs/BasicLayer":6,"../prefabs/EnemyPlaneGroup":8,"../prefabs/Level":9,"../prefabs/Level2":10,"../prefabs/Level3":11,"../prefabs/PausePanel":12,"../prefabs/Player":13,"../prefabs/birdGroup":15}],29:[function(require,module,exports){
 'use strict';
   var GameController = require('../plugins/GameController');
   var HUDManager = require('../plugins/HUDManager');  
@@ -7603,7 +7879,7 @@ module.exports = MultiplayerUserSignIn;
   };
 module.exports = PlayMultiplayer;
 
-},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../plugins/socket.io":5,"../prefabs/BasicLayer":6,"../prefabs/Level":9,"../prefabs/PausePanel":12,"../prefabs/Player":13,"../prefabs/birdGroup":15,"../prefabs/socketEventHandlers":17}],28:[function(require,module,exports){
+},{"../plugins/GameController":2,"../plugins/HUDManager":3,"../plugins/socket.io":5,"../prefabs/BasicLayer":6,"../prefabs/Level":9,"../prefabs/PausePanel":12,"../prefabs/Player":13,"../prefabs/birdGroup":15,"../prefabs/socketEventHandlers":17}],30:[function(require,module,exports){
 
 'use strict';
 
@@ -7647,7 +7923,6 @@ Preload.prototype = {
     this.load.spritesheet('buttonjump', 'assets/img/buttons/button-round-b.png',96,96);
       
     //LEVEL
-    this.load.image('menu_bg', 'assets/backgrounds/menu.png');
 //    this.load.image('bg1', 'assets/backgrounds/bg1.png');
 //    this.load.image('bg2', 'assets/backgrounds/bg2.png');
     this.load.image('bg1', 'assets/backgrounds/cloudsBackground.png');
@@ -7683,24 +7958,10 @@ Preload.prototype = {
   update: function() {
     if(!!this.ready) {
         /* transition handling  */
-        this.game.transitions = this.game.plugins.add(Phaser.Plugin.StateTransition);
-        this.game.transitions.settings({
-            ease: Phaser.Easing.Bounce.Out,
-            duration: 1000,
-            properties: {
-                alpha: 0,
-                scale: {
-                    x: 0.5,
-                    y: 0.5
-                }
-            }
-        }) 
-        /* transition handling  */
-//        this.game.gameoverTransition = this.game.plugins.add(Phaser.Plugin.StateTransition);
-//        this.game.gameoverTransition.settings({
+//        this.game.transitions = this.game.plugins.add(Phaser.Plugin.StateTransition);
+//        this.game.transitions.settings({
+//            ease: Phaser.Easing.Bounce.Out,
 //            duration: 1000,
-//            //ease property
-////            ease: Phaser.Easing.Exponential.InOut, /* default ease */
 //            properties: {
 //                alpha: 0,
 //                scale: {
@@ -7708,8 +7969,7 @@ Preload.prototype = {
 //                    y: 0.5
 //                }
 //            }
-//        })
-        
+//        }) 
       this.game.state.start('menu');
     }
   },
@@ -7720,4 +7980,38 @@ Preload.prototype = {
 
 module.exports = Preload;
 
-},{"../plugins/phaser-state-transition.min.js":4}]},{},[1])
+},{"../plugins/phaser-state-transition.min.js":4}],31:[function(require,module,exports){
+'use strict';
+  function Settings() {}
+  Settings.prototype = {
+    preload: function() {
+      // Override this method to add some load operations. 
+      // If you need to use the loader, you may need to use them here.
+    },
+    create: function() {
+      this.backButton = this.game.add.button(50, this.game.height - 50, 'sprites', this.backClick, this, 'buttons/button_back_act', 'buttons/button_back_no', 'buttons/button_back_act', 'buttons/button_back_no');
+      this.backButton.anchor.setTo(0.5);
+    },
+    backClick: function() {
+//        var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ x: this.game.width }, 1000, Phaser.Easing.Bounce.In, true);
+//        fadeMenuOut.onComplete.add(function() {
+            this.game.state.start('menu',true,false);
+//        }, this);
+    },
+    update: function() {
+      // state update code
+    },
+    paused: function() {
+      // This method will be called when game paused.
+    },
+    render: function() {
+      // Put render operations here.
+    },
+    shutdown: function() {
+      // This method will be called when the state is shut down 
+      // (i.e. you switch to another state from this one).
+    }
+  };
+module.exports = Settings;
+
+},{}]},{},[1])

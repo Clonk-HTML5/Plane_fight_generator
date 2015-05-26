@@ -41,7 +41,6 @@ Preload.prototype = {
     this.load.spritesheet('buttonjump', 'assets/img/buttons/button-round-b.png',96,96);
       
     //LEVEL
-    this.load.image('menu_bg', 'assets/backgrounds/menu.png');
 //    this.load.image('bg1', 'assets/backgrounds/bg1.png');
 //    this.load.image('bg2', 'assets/backgrounds/bg2.png');
     this.load.image('bg1', 'assets/backgrounds/cloudsBackground.png');
@@ -77,24 +76,10 @@ Preload.prototype = {
   update: function() {
     if(!!this.ready) {
         /* transition handling  */
-        this.game.transitions = this.game.plugins.add(Phaser.Plugin.StateTransition);
-        this.game.transitions.settings({
-            ease: Phaser.Easing.Bounce.Out,
-            duration: 1000,
-            properties: {
-                alpha: 0,
-                scale: {
-                    x: 0.5,
-                    y: 0.5
-                }
-            }
-        }) 
-        /* transition handling  */
-//        this.game.gameoverTransition = this.game.plugins.add(Phaser.Plugin.StateTransition);
-//        this.game.gameoverTransition.settings({
+//        this.game.transitions = this.game.plugins.add(Phaser.Plugin.StateTransition);
+//        this.game.transitions.settings({
+//            ease: Phaser.Easing.Bounce.Out,
 //            duration: 1000,
-//            //ease property
-////            ease: Phaser.Easing.Exponential.InOut, /* default ease */
 //            properties: {
 //                alpha: 0,
 //                scale: {
@@ -102,8 +87,7 @@ Preload.prototype = {
 //                    y: 0.5
 //                }
 //            }
-//        })
-        
+//        }) 
       this.game.state.start('menu');
     }
   },

@@ -95,6 +95,10 @@
         
 
     },
+      
+    paused: function() {
+        console.log('paused')
+    },
 
     pauseGame: function(){
         if(!this.game.paused){

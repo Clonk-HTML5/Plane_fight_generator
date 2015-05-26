@@ -13,18 +13,10 @@ Menu.prototype = {
 
   },
   create: function() {
-      this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.cache.getImage('menu_bg').height, 'menu_bg');
+//      this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.height, 'menu_bg');
       
-          // new Level Object
-//    this.level = new Level(this.game, {menu: true});
-
-    // Create a new bird object
-//    this.birdGroup = new BirdGroup(this.game);
-
-    // Create a new bird object
-//    this.enemyPlaneGroup = new EnemyPlaneGroup(this.game, this.player, {menu: true});
     this.buttonGroup = this.game.add.group();
-//    this.button = new LabelButton(this.game, this.game.width/2, 200, 'sprites', 'Singleplayer', this.singleplayerClick, this, 'buttons/button_green_act', 'buttons/button_green_no', 'buttons/button_green_act', 'buttons/button_green_no');
+      this.buttonGroup.x = - this.game.width ;
       this.startButton = this.game.add.button(this.game.width/2, 200, 'sprites', this.startClick, this, 'buttons/button_green_act', 'buttons/button_green_no', 'buttons/button_green_act', 'buttons/button_green_no');
       this.startButton.anchor.setTo(0.5,0.5);
     this.startButton.scale.setTo(0.75,0.75);
@@ -33,22 +25,44 @@ Menu.prototype = {
       this.multiplayerButton.anchor.setTo(0.5,0.5);
     this.multiplayerButton.scale.setTo(0.75,0.75);
       this.buttonGroup.add(this.multiplayerButton); 
+      
+      this.settingsButton = this.game.add.button(50, this.game.height - 50, 'sprites', this.settingsClick, this, 'buttons/button_settings_act', 'buttons/button_settings_no', 'buttons/button_settings_act', 'buttons/button_settings_no');
+      this.settingsButton.anchor.setTo(0.5,0.5);
+      this.buttonGroup.add(this.settingsButton); 
+                  
+      this.helpButton = this.game.add.button(150, this.game.height - 50, 'sprites', this.helpClick, this, 'buttons/button_help_act', 'buttons/button_help_no', 'buttons/button_help_act', 'buttons/button_help_no');
+      this.helpButton.anchor.setTo(0.5,0.5);
+      this.buttonGroup.add(this.helpButton); 
+      
+      this.game.add.tween(this.buttonGroup).to({ x: 0 }, 1000, Phaser.Easing.Bounce.Out, true);
+
   },
   update: function() {
   },
   startClick: function() {  
-    // start button click handler
-    // start the 'play' state
-    this.game.state.start('play');
-//      this.game.transitions.to('play');
+    var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ x: this.game.width }, 1000, Phaser.Easing.Bounce.In, true);
+    fadeMenuOut.onComplete.add(function() {
+//        this.game.state.start('play');
+        this.game.state.start('missions');
+    }, this);
   },  
   multiplayerStartClick: function() {  
-    // start button click handler
-    // start the 'play' state
-    this.game.state.start('multiplayerUserSignIn');
-//    this.game.state.start('playMultiplayer');
-//      this.game.transitions.to('multiplayerUserSignIn');
-//      this.game.transitions.to('playMultiplayer');
+    var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ x: this.game.width }, 1000, Phaser.Easing.Bounce.In, true);
+    fadeMenuOut.onComplete.add(function() {
+        this.game.state.start('multiplayerUserSignIn');
+    }, this);
+  },
+  settingsClick: function() {
+    var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ x: this.game.width }, 1000, Phaser.Easing.Bounce.In, true);
+    fadeMenuOut.onComplete.add(function() {
+        this.game.state.start('settings');
+    }, this);
+  },  
+  helpClick: function() {
+    var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ x: this.game.width }, 1000, Phaser.Easing.Bounce.In, true);
+    fadeMenuOut.onComplete.add(function() {
+        this.game.state.start('help');
+    }, this);
   }
 };
 

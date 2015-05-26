@@ -11,6 +11,9 @@ GlobalGame = {
     
     player: null,
     
+    /* Current Level */
+    level: 1,
+    
     /* 
     * Controller of the Ship: 
     *  **keyboardButtons (Keyboard on Desktop Buttons on Mobile)
@@ -49,9 +52,12 @@ function Boot() {
 Boot.prototype = {
   preload: function() {
     this.load.image('preloader', 'assets/preloader.gif');
+    this.load.image('menu_bg', 'assets/backgrounds/menu.png');
   },
   create: function() {
     this.stage.backgroundColor = '#3498db';
+    this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.height, 'menu_bg');
+    this.stage.addChildAt(this.background,0);
       
     this.game.input.maxPointers = 1;
     
