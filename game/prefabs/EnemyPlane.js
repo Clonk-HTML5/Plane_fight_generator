@@ -194,7 +194,7 @@ EnemyPlane.prototype.fireBullet = function() {
 //            explosion.animations.destroy('explode');
             
             plane.kill();
-            plane.emitter.kill();
+            if (this.game.device.desktop) plane.emitter.kill();
             plane.bullets.removeAll();
             plane.arrow.kill();
             this.parent.addEnemy();
