@@ -1,0 +1,10 @@
+{
+    "name": "planefight ",
+    "description": "Small Dogfight-game! Singleplayer just got one Enemy. Multiplayer is working in pre Alpha!",
+    "version": "1",
+    "app": {
+        "launch": {
+            "local_path": "index.html"
+        }
+    }   
+}
