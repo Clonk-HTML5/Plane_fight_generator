@@ -1,3 +1,4 @@
+
 'use strict';
 
 var Level3 = function(game, options) {
@@ -43,13 +44,13 @@ var Level3 = function(game, options) {
       this.clouds2.body.velocity.x = -this.game.rnd.integerInRange(15, 30);
     }
   }
-    
+
     this.platforms = this.game.add.group();
 //    this.groundtile = this.game.add.tileSprite(0, this.game.world.height - 132, this.game.world.width, this.game.cache.getImage('bg1').height, 'sprites', 'level/crosssection_long_new');
     this.groundtile = this.game.add.tileSprite(0, this.game.world.height - this.game.cache.getImage('ground').height, this.game.world.width, this.game.cache.getImage('ground').height, 'ground');
     this.groundtile.name = 'ground';
     this.game.physics.enable(this.groundtile, Phaser.Physics.ARCADE);
-    this.groundtile.body.immovable = true; 
+    this.groundtile.body.immovable = true;
     this.platforms.add(this.groundtile)
 };
 
@@ -59,12 +60,12 @@ Level3.prototype.constructor = Level3;
 Level3.prototype.update = function() {
 //    this.bgtile.tilePosition.x = this.game.state.getCurrentState().player.x;
 //    this.bgtile.tilePosition.y = this.game.state.getCurrentState().player.y;
-//    
+//
 //    this.mountaintile.tilePosition.x = this.game.state.getCurrentState().player.x;
 //    this.mountaintile.tilePosition.y = this.game.state.getCurrentState().player.y;
-    
+
 //    this.game.add.tween(this.bgtile.tilePosition).to({x: this.game.state.getCurrentState().player.body.velocity.x , y: this.game.state.getCurrentState().player.body.velocity.y}, 200, Phaser.Easing.Linear.None, true).start();
-    
+
 //    if( this.game.state.getCurrentState().player.body.velocity.x > 0){
 //        this.bgtile.tilePosition.x += this.game.state.getCurrentState().player.body.velocity.x;
 //    } else {
@@ -75,7 +76,7 @@ Level3.prototype.update = function() {
 //    } else {
 //        this.bgtile.tilePosition.y -= this.game.state.getCurrentState().player.body.velocity.y;
 //    }
-    
+
 };
 
 module.exports = Level3;

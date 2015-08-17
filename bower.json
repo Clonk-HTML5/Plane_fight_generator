@@ -1,7 +1,7 @@
 {
   "name": "plane-fight",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "dependencies": {
-    "phaser": "2.2.2"
+    "phaser": "2.4.2"
   }
 }

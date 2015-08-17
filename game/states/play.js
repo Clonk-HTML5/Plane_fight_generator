@@ -32,6 +32,8 @@
 //        this.pauseState = false;
         
         // new Level Object
+        this.levelJson = this.game.cache.getJSON('levelJson');
+        console.log(this.levelJson)
 //        this.level = new Level(this.game);
         //this.level = new Level2(this.game);
         this.level = new Level3(this.game);

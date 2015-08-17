@@ -1,0 +1,4948 @@
+{"frames": {
+
+"buttons/button-diagonal":
+{
+	"frame": {"x":1191,"y":1675,"w":252,"h":124},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":252,"h":124},
+	"sourceSize": {"w":256,"h":128}
+},
+"buttons/button-round-a":
+{
+	"frame": {"x":3893,"y":3797,"w":192,"h":96},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":192,"h":96},
+	"sourceSize": {"w":192,"h":96}
+},
+"buttons/button-vertical":
+{
+	"frame": {"x":3920,"y":3671,"w":128,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":64},
+	"sourceSize": {"w":128,"h":64}
+},
+"buttons/button_back_act":
+{
+	"frame": {"x":1501,"y":622,"w":50,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":51},
+	"sourceSize": {"w":50,"h":51}
+},
+"buttons/button_back_no":
+{
+	"frame": {"x":1501,"y":675,"w":50,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":51},
+	"sourceSize": {"w":50,"h":51}
+},
+"buttons/button_green_act":
+{
+	"frame": {"x":1790,"y":3187,"w":400,"h":108},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":400,"h":108},
+	"sourceSize": {"w":400,"h":108}
+},
+"buttons/button_green_no":
+{
+	"frame": {"x":2,"y":3308,"w":400,"h":108},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":400,"h":108},
+	"sourceSize": {"w":400,"h":108}
+},
+"buttons/button_help_act":
+{
+	"frame": {"x":1501,"y":728,"w":50,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":51},
+	"sourceSize": {"w":50,"h":51}
+},
+"buttons/button_help_no":
+{
+	"frame": {"x":1501,"y":781,"w":50,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":51},
+	"sourceSize": {"w":50,"h":51}
+},
+"buttons/button_menu_act":
+{
+	"frame": {"x":1501,"y":834,"w":50,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":51},
+	"sourceSize": {"w":50,"h":51}
+},
+"buttons/button_menu_no":
+{
+	"frame": {"x":1492,"y":949,"w":50,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":51},
+	"sourceSize": {"w":50,"h":51}
+},
+"buttons/button_multiplayer_act":
+{
+	"frame": {"x":2,"y":3418,"w":400,"h":108},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":400,"h":108},
+	"sourceSize": {"w":400,"h":108}
+},
+"buttons/button_multiplayer_no":
+{
+	"frame": {"x":2,"y":3528,"w":400,"h":108},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":400,"h":108},
+	"sourceSize": {"w":400,"h":108}
+},
+"buttons/button_restart_act":
+{
+	"frame": {"x":3252,"y":502,"w":50,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":51},
+	"sourceSize": {"w":50,"h":51}
+},
+"buttons/button_restart_no":
+{
+	"frame": {"x":3252,"y":555,"w":50,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":51},
+	"sourceSize": {"w":50,"h":51}
+},
+"buttons/button_settings_act":
+{
+	"frame": {"x":3252,"y":608,"w":50,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":51},
+	"sourceSize": {"w":50,"h":51}
+},
+"buttons/button_settings_no":
+{
+	"frame": {"x":3252,"y":661,"w":50,"h":51},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":51},
+	"sourceSize": {"w":50,"h":51}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_attack_1":
+{
+	"frame": {"x":3286,"y":2872,"w":242,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":242,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_attack_2":
+{
+	"frame": {"x":3760,"y":2801,"w":242,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":242,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_attack_damaged_1":
+{
+	"frame": {"x":3760,"y":2906,"w":242,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":242,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_attack_damaged_2":
+{
+	"frame": {"x":1816,"y":2868,"w":242,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":242,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_death_1":
+{
+	"frame": {"x":1385,"y":2199,"w":248,"h":115},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":72,"w":248,"h":115},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_death_2":
+{
+	"frame": {"x":2742,"y":714,"w":248,"h":167},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":42,"w":248,"h":167},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_death_3":
+{
+	"frame": {"x":1818,"y":508,"w":249,"h":224},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":11,"w":249,"h":224},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_death_4":
+{
+	"frame": {"x":623,"y":1191,"w":248,"h":224},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":11,"w":248,"h":224},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_default":
+{
+	"frame": {"x":2,"y":3203,"w":225,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":225,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_default_damaged":
+{
+	"frame": {"x":1565,"y":2982,"w":225,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":225,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_down":
+{
+	"frame": {"x":2,"y":2447,"w":225,"h":106},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":76,"w":225,"h":106},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_down_damaged_1":
+{
+	"frame": {"x":3109,"y":2014,"w":225,"h":106},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":76,"w":225,"h":106},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_down_damaged_2":
+{
+	"frame": {"x":2,"y":2555,"w":225,"h":106},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":76,"w":225,"h":106},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_down_damaged_3":
+{
+	"frame": {"x":2,"y":2663,"w":225,"h":106},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":76,"w":225,"h":106},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_hit_1":
+{
+	"frame": {"x":1336,"y":2909,"w":227,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":227,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_hit_2":
+{
+	"frame": {"x":3530,"y":2671,"w":228,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":228,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_hit_3":
+{
+	"frame": {"x":3530,"y":2776,"w":228,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":228,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_hit_damaged_1":
+{
+	"frame": {"x":3530,"y":2986,"w":227,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":227,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_hit_damaged_2":
+{
+	"frame": {"x":3530,"y":2881,"w":228,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":228,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_hit_damaged_3":
+{
+	"frame": {"x":1576,"y":2877,"w":228,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":228,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_up":
+{
+	"frame": {"x":1336,"y":3014,"w":225,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":225,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_up_damaged_1":
+{
+	"frame": {"x":533,"y":3201,"w":225,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":225,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_up_damaged_2":
+{
+	"frame": {"x":3529,"y":3091,"w":225,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":225,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 1/PNG/AEG_CIV_up_damaged_3":
+{
+	"frame": {"x":1563,"y":3087,"w":225,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":225,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_attack_1":
+{
+	"frame": {"x":3286,"y":2977,"w":242,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":242,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_attack_2":
+{
+	"frame": {"x":3759,"y":3011,"w":242,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":242,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_attack_damaged_1":
+{
+	"frame": {"x":3285,"y":3082,"w":242,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":242,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_attack_damaged_2":
+{
+	"frame": {"x":3285,"y":3187,"w":242,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":242,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_death_1":
+{
+	"frame": {"x":1108,"y":2300,"w":248,"h":115},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":72,"w":248,"h":115},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_death_2":
+{
+	"frame": {"x":2472,"y":921,"w":248,"h":167},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":42,"w":248,"h":167},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_death_3":
+{
+	"frame": {"x":893,"y":968,"w":249,"h":224},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":11,"w":249,"h":224},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_death_4":
+{
+	"frame": {"x":2,"y":1451,"w":248,"h":224},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":11,"w":248,"h":224},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_default":
+{
+	"frame": {"x":1336,"y":3119,"w":225,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":225,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_default_damaged":
+{
+	"frame": {"x":533,"y":3306,"w":225,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":225,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_down":
+{
+	"frame": {"x":2,"y":2771,"w":225,"h":106},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":76,"w":225,"h":106},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_down_damaged_1":
+{
+	"frame": {"x":2,"y":2879,"w":225,"h":106},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":76,"w":225,"h":106},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_down_damaged_2":
+{
+	"frame": {"x":2,"y":2987,"w":225,"h":106},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":76,"w":225,"h":106},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_down_damaged_3":
+{
+	"frame": {"x":2,"y":3095,"w":225,"h":106},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":76,"w":225,"h":106},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_hit_1":
+{
+	"frame": {"x":3529,"y":3196,"w":225,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":225,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_hit_2":
+{
+	"frame": {"x":3527,"y":3301,"w":225,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":225,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_hit_3":
+{
+	"frame": {"x":1563,"y":3192,"w":225,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":225,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_hit_damaged_1":
+{
+	"frame": {"x":1336,"y":3224,"w":225,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":225,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_hit_damaged_2":
+{
+	"frame": {"x":3519,"y":3406,"w":225,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":225,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_hit_damaged_3":
+{
+	"frame": {"x":1334,"y":3329,"w":225,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":225,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_up":
+{
+	"frame": {"x":1333,"y":3434,"w":225,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":225,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_up_damaged_1":
+{
+	"frame": {"x":1786,"y":3673,"w":225,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":225,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/AEG C IV/Skin 2/PNG/AEG_CIV_up_damaged_2":
+{
+	"frame": {"x":3864,"y":3895,"w":225,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":79,"w":225,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/B-17/Skin 1/PNG/B_17_attack_2":
+{
+	"frame": {"x":1727,"y":3850,"w":253,"h":70},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":75,"w":253,"h":70},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/B-17/Skin 1/PNG/B_17_death_1":
+{
+	"frame": {"x":3822,"y":4000,"w":256,"h":94},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":74,"w":256,"h":94},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/B-17/Skin 1/PNG/B_17_death_2":
+{
+	"frame": {"x":1689,"y":1934,"w":256,"h":120},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":64,"w":256,"h":120},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/B-17/Skin 1/PNG/B_17_death_3":
+{
+	"frame": {"x":2722,"y":1082,"w":256,"h":162},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":50,"w":256,"h":162},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/B-17/Skin 1/PNG/B_17_death_4":
+{
+	"frame": {"x":1553,"y":760,"w":254,"h":211},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":26,"w":254,"h":211},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/B-17/Skin 2/PNG/b_17_death_2":
+{
+	"frame": {"x":1425,"y":1959,"w":256,"h":120},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":64,"w":256,"h":120},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/B-17/Skin 2/PNG/b_17_death_3":
+{
+	"frame": {"x":2722,"y":1082,"w":256,"h":162},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":50,"w":256,"h":162},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/B-17/Skin 2/PNG/b_17_death_4":
+{
+	"frame": {"x":1553,"y":760,"w":254,"h":211},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":26,"w":254,"h":211},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_attack_1":
+{
+	"frame": {"x":561,"y":1864,"w":249,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":249,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_attack_2":
+{
+	"frame": {"x":1445,"y":1705,"w":249,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":249,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_attack_damaged_1":
+{
+	"frame": {"x":1187,"y":1801,"w":249,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":249,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_attack_damaged_2":
+{
+	"frame": {"x":1696,"y":1807,"w":249,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":249,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_death_1":
+{
+	"frame": {"x":2642,"y":1840,"w":247,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":71,"w":247,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_death_2":
+{
+	"frame": {"x":3343,"y":1511,"w":251,"h":154},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":55,"w":251,"h":154},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_death_3":
+{
+	"frame": {"x":3841,"y":838,"w":251,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":36,"w":251,"h":189},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_death_4":
+{
+	"frame": {"x":2726,"y":883,"w":252,"h":197},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":33,"w":252,"h":197},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_default":
+{
+	"frame": {"x":2891,"y":1844,"w":237,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":237,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_default_damaged":
+{
+	"frame": {"x":3337,"y":1922,"w":237,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":237,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_down":
+{
+	"frame": {"x":850,"y":1785,"w":237,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":65,"w":237,"h":131},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_down_damaged_1":
+{
+	"frame": {"x":240,"y":1962,"w":237,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":65,"w":237,"h":131},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_down_damaged_2":
+{
+	"frame": {"x":234,"y":2095,"w":237,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":65,"w":237,"h":131},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_down_damaged_3":
+{
+	"frame": {"x":804,"y":2045,"w":237,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":65,"w":237,"h":131},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_hit_1":
+{
+	"frame": {"x":3336,"y":2049,"w":237,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":237,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_hit_2":
+{
+	"frame": {"x":3782,"y":2103,"w":237,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":237,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_hit_3":
+{
+	"frame": {"x":1947,"y":2027,"w":237,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":237,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_hit_damaged_1":
+{
+	"frame": {"x":2341,"y":2087,"w":237,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":237,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_hit_damaged_2":
+{
+	"frame": {"x":1941,"y":2154,"w":237,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":237,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_hit_damaged_3":
+{
+	"frame": {"x":2580,"y":2094,"w":237,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":237,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_up":
+{
+	"frame": {"x":2893,"y":1713,"w":237,"h":129},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":67,"w":237,"h":129},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_up_damaged_1":
+{
+	"frame": {"x":1947,"y":1896,"w":237,"h":129},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":67,"w":237,"h":129},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_up_damaged_2":
+{
+	"frame": {"x":1150,"y":2055,"w":237,"h":129},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":67,"w":237,"h":129},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 1/PNG/Fokker_up_damaged_3":
+{
+	"frame": {"x":788,"y":2178,"w":237,"h":129},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":67,"w":237,"h":129},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_attack_1":
+{
+	"frame": {"x":1438,"y":1832,"w":249,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":249,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_attack_2":
+{
+	"frame": {"x":1174,"y":1928,"w":249,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":249,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_attack_damaged_1":
+{
+	"frame": {"x":812,"y":1918,"w":249,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":249,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_attack_damaged_2":
+{
+	"frame": {"x":553,"y":1991,"w":249,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":249,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_death_1":
+{
+	"frame": {"x":2373,"y":1842,"w":247,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":71,"w":247,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_death_2":
+{
+	"frame": {"x":3803,"y":1556,"w":251,"h":154},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":55,"w":251,"h":154},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_death_3":
+{
+	"frame": {"x":3841,"y":1029,"w":251,"h":189},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":36,"w":251,"h":189},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_death_4":
+{
+	"frame": {"x":2726,"y":883,"w":252,"h":197},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":33,"w":252,"h":197},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_default":
+{
+	"frame": {"x":2330,"y":2214,"w":237,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":237,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_default_damaged":
+{
+	"frame": {"x":2819,"y":2097,"w":237,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":237,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_down":
+{
+	"frame": {"x":549,"y":2118,"w":237,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":65,"w":237,"h":131},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_down_damaged_1":
+{
+	"frame": {"x":233,"y":2228,"w":237,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":65,"w":237,"h":131},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_down_damaged_2":
+{
+	"frame": {"x":2655,"y":1574,"w":237,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":65,"w":237,"h":131},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_down_damaged_3":
+{
+	"frame": {"x":2894,"y":1580,"w":237,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":65,"w":237,"h":131},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_hit_1":
+{
+	"frame": {"x":2569,"y":2221,"w":237,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":237,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_hit_2":
+{
+	"frame": {"x":2322,"y":2341,"w":237,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":237,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_hit_3":
+{
+	"frame": {"x":3058,"y":2122,"w":237,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":237,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_hit_damaged_1":
+{
+	"frame": {"x":2808,"y":2224,"w":237,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":237,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_hit_damaged_2":
+{
+	"frame": {"x":2561,"y":2348,"w":237,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":237,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_hit_damaged_3":
+{
+	"frame": {"x":3297,"y":2176,"w":237,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":71,"w":237,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_up":
+{
+	"frame": {"x":543,"y":2251,"w":237,"h":129},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":67,"w":237,"h":129},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_up_damaged_1":
+{
+	"frame": {"x":233,"y":2361,"w":237,"h":129},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":67,"w":237,"h":129},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_up_damaged_2":
+{
+	"frame": {"x":3785,"y":1712,"w":237,"h":129},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":67,"w":237,"h":129},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Fokker/Skin 2/PNG/Fokker_up_damaged_3":
+{
+	"frame": {"x":3785,"y":1843,"w":237,"h":129},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":67,"w":237,"h":129},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/IL2_Sturmovik/Skin 1/PNG/IL2_Sturmovik_death_1":
+{
+	"frame": {"x":2215,"y":2704,"w":254,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":72,"w":254,"h":107},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/IL2_Sturmovik/Skin 1/PNG/IL2_Sturmovik_death_2":
+{
+	"frame": {"x":1492,"y":1273,"w":255,"h":141},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":65,"w":255,"h":141},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/IL2_Sturmovik/Skin 1/PNG/IL2_Sturmovik_death_3":
+{
+	"frame": {"x":900,"y":726,"w":255,"h":240},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":10,"w":255,"h":240},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/IL2_Sturmovik/Skin 1/PNG/IL2_Sturmovik_death_4":
+{
+	"frame": {"x":1561,"y":508,"w":255,"h":250},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":255,"h":250},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/IL2_Sturmovik/Skin 2/PNG/IL2_Sturmovik_death_1":
+{
+	"frame": {"x":2471,"y":2707,"w":254,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":72,"w":254,"h":107},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/IL2_Sturmovik/Skin 2/PNG/IL2_Sturmovik_death_2":
+{
+	"frame": {"x":1235,"y":1391,"w":255,"h":141},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":65,"w":255,"h":141},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/IL2_Sturmovik/Skin 2/PNG/IL2_Sturmovik_death_3":
+{
+	"frame": {"x":900,"y":726,"w":255,"h":240},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":10,"w":255,"h":240},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/IL2_Sturmovik/Skin 2/PNG/IL2_Sturmovik_death_4":
+{
+	"frame": {"x":1561,"y":508,"w":255,"h":250},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":0,"w":255,"h":250},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 1/PNG/lola_t_70_attack_1":
+{
+	"frame": {"x":1215,"y":3923,"w":252,"h":49},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":103,"w":252,"h":49},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 1/PNG/lola_t_70_attack_2":
+{
+	"frame": {"x":931,"y":4042,"w":254,"h":49},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":103,"w":254,"h":49},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 1/PNG/lola_t_70_attack_damaged_1":
+{
+	"frame": {"x":1469,"y":3922,"w":252,"h":49},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":103,"w":252,"h":49},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 1/PNG/lola_t_70_attack_damaged_2":
+{
+	"frame": {"x":1187,"y":4042,"w":254,"h":49},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":103,"w":254,"h":49},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 1/PNG/lola_t_70_up":
+{
+	"frame": {"x":694,"y":4046,"w":235,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":103,"w":235,"h":48},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 1/PNG/lola_t_70_up_death_1":
+{
+	"frame": {"x":2204,"y":2813,"w":254,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":75,"w":254,"h":107},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 1/PNG/lola_t_70_up_death_2":
+{
+	"frame": {"x":1750,"y":1226,"w":256,"h":141},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":68,"w":256,"h":141},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 1/PNG/lola_t_70_up_death_3":
+{
+	"frame": {"x":642,"y":726,"w":256,"h":240},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":13,"w":256,"h":240},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 1/PNG/lola_t_70_up_death_4":
+{
+	"frame": {"x":2069,"y":421,"w":256,"h":251},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":256,"h":251},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 2/PNG/lola_t_70_attack_1":
+{
+	"frame": {"x":1723,"y":3922,"w":252,"h":49},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":103,"w":252,"h":49},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 2/PNG/lola_t_70_attack_2":
+{
+	"frame": {"x":1443,"y":4042,"w":254,"h":49},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":103,"w":254,"h":49},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 2/PNG/lola_t_70_attack_damaged_1":
+{
+	"frame": {"x":1955,"y":4041,"w":252,"h":49},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":103,"w":252,"h":49},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 2/PNG/lola_t_70_attack_damaged_2":
+{
+	"frame": {"x":1699,"y":4042,"w":254,"h":49},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":103,"w":254,"h":49},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 2/PNG/lola_t_70_death_1":
+{
+	"frame": {"x":2460,"y":2816,"w":254,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":75,"w":254,"h":107},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 2/PNG/lola_t_70_death_2":
+{
+	"frame": {"x":1750,"y":1226,"w":256,"h":141},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":68,"w":256,"h":141},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 2/PNG/lola_t_70_death_3":
+{
+	"frame": {"x":642,"y":726,"w":256,"h":240},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":13,"w":256,"h":240},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 2/PNG/lola_t_70_death_4":
+{
+	"frame": {"x":2069,"y":421,"w":256,"h":251},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":2,"w":256,"h":251},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 2/PNG/lola_t_70_down":
+{
+	"frame": {"x":1529,"y":3787,"w":237,"h":61},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":101,"w":237,"h":61},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 2/PNG/lola_t_70_down_damaged_1":
+{
+	"frame": {"x":1768,"y":3787,"w":237,"h":61},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":101,"w":237,"h":61},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Lola T-70/Skin 2/PNG/lola_t_70_up":
+{
+	"frame": {"x":455,"y":4046,"w":237,"h":48},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":103,"w":237,"h":48},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmidt Me 262/Skin 1/PNG/Messerschmidt_M_ 262_attack_1":
+{
+	"frame": {"x":2938,"y":4017,"w":247,"h":74},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":85,"w":247,"h":74},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmidt Me 262/Skin 1/PNG/Messerschmidt_M_ 262_death_1":
+{
+	"frame": {"x":1127,"y":2186,"w":256,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":78,"w":256,"h":112},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmidt Me 262/Skin 1/PNG/Messerschmidt_M_ 262_death_2":
+{
+	"frame": {"x":862,"y":1494,"w":253,"h":141},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":71,"w":253,"h":141},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmidt Me 262/Skin 1/PNG/Messerschmidt_M_ 262_death_3":
+{
+	"frame": {"x":2,"y":986,"w":253,"h":240},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":16,"w":253,"h":240},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmidt Me 262/Skin 1/PNG/Messerschmidt_M_ 262_death_4":
+{
+	"frame": {"x":1246,"y":622,"w":253,"h":251},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":5,"w":253,"h":251},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmidt Me 262/Skin 1/PNG/Messerschmidt_M_ 262_hit_3":
+{
+	"frame": {"x":2115,"y":3766,"w":247,"h":79},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":85,"w":247,"h":79},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmidt Me 262/Skin 1/PNG/Messerschmidt_M_ 262_hit_damaged_3":
+{
+	"frame": {"x":2225,"y":3868,"w":247,"h":79},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":85,"w":247,"h":79},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmidt Me 262/Skin 2/PNG/Messerschmidt_M_ 262_death_1":
+{
+	"frame": {"x":1642,"y":2174,"w":256,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":78,"w":256,"h":112},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmidt Me 262/Skin 2/PNG/Messerschmidt_M_ 262_death_2":
+{
+	"frame": {"x":2008,"y":1328,"w":253,"h":141},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":71,"w":253,"h":141},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmidt Me 262/Skin 2/PNG/Messerschmidt_M_ 262_death_3":
+{
+	"frame": {"x":2,"y":986,"w":253,"h":240},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":16,"w":253,"h":240},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmidt Me 262/Skin 2/PNG/Messerschmidt_M_ 262_death_4":
+{
+	"frame": {"x":1246,"y":622,"w":253,"h":251},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":5,"w":253,"h":251},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmitt/Skin_1/PNG/Messerchmitt_death_1":
+{
+	"frame": {"x":2355,"y":1969,"w":256,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":73,"w":256,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmitt/Skin_1/PNG/Messerchmitt_death_2":
+{
+	"frame": {"x":3805,"y":1220,"w":256,"h":166},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":41,"w":256,"h":166},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmitt/Skin_1/PNG/Messerchmitt_death_3":
+{
+	"frame": {"x":2994,"y":502,"w":256,"h":197},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":27,"w":256,"h":197},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmitt/Skin_1/PNG/Messerchmitt_death_4":
+{
+	"frame": {"x":2069,"y":674,"w":251,"h":216},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":25,"w":251,"h":216},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmitt/Skin_2/PNG/Messerchmitt_death_1":
+{
+	"frame": {"x":1683,"y":2056,"w":256,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":73,"w":256,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmitt/Skin_2/PNG/Messerchmitt_death_2":
+{
+	"frame": {"x":3805,"y":1220,"w":256,"h":166},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":41,"w":256,"h":166},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmitt/Skin_2/PNG/Messerchmitt_death_3":
+{
+	"frame": {"x":2994,"y":502,"w":256,"h":197},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":27,"w":256,"h":197},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Messerschmitt/Skin_2/PNG/Messerchmitt_death_4":
+{
+	"frame": {"x":2069,"y":674,"w":251,"h":216},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":25,"w":251,"h":216},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_attack_1":
+{
+	"frame": {"x":964,"y":3843,"w":249,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":249,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_attack_2":
+{
+	"frame": {"x":709,"y":3875,"w":249,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":249,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_attack_damaged_1":
+{
+	"frame": {"x":2660,"y":3555,"w":249,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":249,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_attack_damaged_2":
+{
+	"frame": {"x":2911,"y":3585,"w":249,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":249,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_default":
+{
+	"frame": {"x":1091,"y":3322,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_default_damaged":
+{
+	"frame": {"x":1090,"y":3424,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_die_1":
+{
+	"frame": {"x":3158,"y":3711,"w":247,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":247,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_die_2":
+{
+	"frame": {"x":1842,"y":2519,"w":252,"h":111},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":67,"w":252,"h":111},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_die_3":
+{
+	"frame": {"x":1585,"y":2526,"w":247,"h":113},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":67,"w":247,"h":113},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_die_4":
+{
+	"frame": {"x":2948,"y":1250,"w":251,"h":159},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":47,"w":251,"h":159},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_down":
+{
+	"frame": {"x":2798,"y":2703,"w":241,"h":102},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":74,"w":241,"h":102},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_down_damaged_1":
+{
+	"frame": {"x":3287,"y":2664,"w":241,"h":102},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":74,"w":241,"h":102},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_down_damaged_2":
+{
+	"frame": {"x":2798,"y":2807,"w":241,"h":102},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":74,"w":241,"h":102},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_down_damaged_3":
+{
+	"frame": {"x":3287,"y":2768,"w":241,"h":102},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":74,"w":241,"h":102},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_hit_1":
+{
+	"frame": {"x":461,"y":3944,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_hit_2":
+{
+	"frame": {"x":2413,"y":3562,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_hit_3":
+{
+	"frame": {"x":3407,"y":3719,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_hit_damaged_1":
+{
+	"frame": {"x":3650,"y":3747,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_hit_damaged_2":
+{
+	"frame": {"x":2163,"y":3664,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_hit_damaged_3":
+{
+	"frame": {"x":2406,"y":3664,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_up":
+{
+	"frame": {"x":2649,"y":3759,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_up_damaged_1":
+{
+	"frame": {"x":2892,"y":3789,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_up_damaged_2":
+{
+	"frame": {"x":3135,"y":3813,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 1/PNG/Mitsubishi_up_damaged_3":
+{
+	"frame": {"x":3378,"y":3821,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_attack_1":
+{
+	"frame": {"x":2656,"y":3657,"w":249,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":249,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_attack_2":
+{
+	"frame": {"x":3162,"y":3609,"w":249,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":249,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_attack_damaged_1":
+{
+	"frame": {"x":2907,"y":3687,"w":249,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":249,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_attack_damaged_2":
+{
+	"frame": {"x":3413,"y":3617,"w":249,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":249,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_default":
+{
+	"frame": {"x":3621,"y":3849,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_default_damaged":
+{
+	"frame": {"x":1982,"y":3850,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_die_1":
+{
+	"frame": {"x":1530,"y":3685,"w":250,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":250,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_die_2":
+{
+	"frame": {"x":2866,"y":1971,"w":241,"h":124},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":15,"y":66,"w":241,"h":124},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_die_3":
+{
+	"frame": {"x":2798,"y":2595,"w":241,"h":106},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":15,"y":66,"w":241,"h":106},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_die_4":
+{
+	"frame": {"x":1809,"y":917,"w":242,"h":158},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":14,"y":48,"w":242,"h":158},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_down":
+{
+	"frame": {"x":1093,"y":3010,"w":241,"h":102},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":74,"w":241,"h":102},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_down_damaged_1":
+{
+	"frame": {"x":1093,"y":3114,"w":241,"h":102},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":74,"w":241,"h":102},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_down_damaged_2":
+{
+	"frame": {"x":1093,"y":3218,"w":241,"h":102},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":74,"w":241,"h":102},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_down_damaged_3":
+{
+	"frame": {"x":3284,"y":3292,"w":241,"h":102},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":74,"w":241,"h":102},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_hit_1":
+{
+	"frame": {"x":2364,"y":3766,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_hit_2":
+{
+	"frame": {"x":2607,"y":3861,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_hit_3":
+{
+	"frame": {"x":2209,"y":3952,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_hit_damaged_1":
+{
+	"frame": {"x":2850,"y":3891,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_hit_damaged_2":
+{
+	"frame": {"x":3093,"y":3915,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_hit_damaged_3":
+{
+	"frame": {"x":3336,"y":3923,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_up":
+{
+	"frame": {"x":3579,"y":3951,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_up_damaged_1":
+{
+	"frame": {"x":2452,"y":3963,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi A6M/Skin 2/PNG/Mitsubishi_up_damaged_2":
+{
+	"frame": {"x":2695,"y":3993,"w":241,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":76,"w":241,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi Type 96/Skin 1/PNG/Mitsubishi_Type_96_death_2":
+{
+	"frame": {"x":1749,"y":1369,"w":256,"h":139},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":65,"w":256,"h":139},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi Type 96/Skin 1/PNG/Mitsubishi_Type_96_death_3":
+{
+	"frame": {"x":2980,"y":900,"w":256,"h":183},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":45,"w":256,"h":183},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi Type 96/Skin 1/PNG/Mitsubishi_Type_96_death_4":
+{
+	"frame": {"x":635,"y":968,"w":256,"h":221},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":23,"w":256,"h":221},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi Type 96/Skin 2/PNG/Mitsubishi_Type_96_death_2":
+{
+	"frame": {"x":1229,"y":1534,"w":256,"h":139},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":65,"w":256,"h":139},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi Type 96/Skin 2/PNG/Mitsubishi_Type_96_death_3":
+{
+	"frame": {"x":2980,"y":900,"w":256,"h":183},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":45,"w":256,"h":183},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Mitsubishi Type 96/Skin 2/PNG/Mitsubishi_Type_96_death_4":
+{
+	"frame": {"x":635,"y":968,"w":256,"h":221},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":23,"w":256,"h":221},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Russian I-16/Skin 1/PNG/i_16_death_2":
+{
+	"frame": {"x":3773,"y":2474,"w":231,"h":108},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":12,"y":83,"w":231,"h":108},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Russian I-16/Skin 1/PNG/i_16_death_3":
+{
+	"frame": {"x":2470,"y":1262,"w":234,"h":158},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":12,"y":58,"w":234,"h":158},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Russian I-16/Skin 1/PNG/i_16_death_4":
+{
+	"frame": {"x":257,"y":986,"w":241,"h":186},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":43,"w":241,"h":186},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Russian I-16/Skin 2/PNG/i_16_death_2":
+{
+	"frame": {"x":3772,"y":2584,"w":231,"h":108},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":12,"y":83,"w":231,"h":108},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Russian I-16/Skin 2/PNG/i_16_death_3":
+{
+	"frame": {"x":2470,"y":1262,"w":234,"h":158},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":12,"y":58,"w":234,"h":158},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Russian I-16/Skin 2/PNG/i_16_death_4":
+{
+	"frame": {"x":257,"y":986,"w":241,"h":186},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":43,"w":241,"h":186},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Spitfire/Skin 1/PNG/Spitfire_death_1":
+{
+	"frame": {"x":2655,"y":1707,"w":236,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":20,"y":74,"w":236,"h":131},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Spitfire/Skin 1/PNG/Spitfire_death_2":
+{
+	"frame": {"x":1544,"y":973,"w":256,"h":150},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":63,"w":256,"h":150},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Spitfire/Skin 1/PNG/Spitfire_death_3":
+{
+	"frame": {"x":3437,"y":599,"w":256,"h":190},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":25,"w":256,"h":190},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Spitfire/Skin 1/PNG/Spitfire_death_4":
+{
+	"frame": {"x":3849,"y":386,"w":235,"h":224},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":15,"w":235,"h":224},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Spitfire/Skin 2/PNG/Spitfire_death_1":
+{
+	"frame": {"x":3340,"y":1667,"w":236,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":15,"y":61,"w":236,"h":131},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Spitfire/Skin 2/PNG/Spitfire_death_2":
+{
+	"frame": {"x":2053,"y":1028,"w":251,"h":150},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":50,"w":251,"h":150},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Spitfire/Skin 2/PNG/Spitfire_death_3":
+{
+	"frame": {"x":3437,"y":791,"w":251,"h":190},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":12,"w":251,"h":190},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/Spitfire/Skin 2/PNG/Spitfire_death_4":
+{
+	"frame": {"x":3849,"y":612,"w":235,"h":224},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":2,"w":235,"h":224},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/WWi Boeing B-47 Stratojet/Skin 1/PNG/Boeing _B47_stratojet_attack_2":
+{
+	"frame": {"x":1702,"y":3973,"w":252,"h":66},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":83,"w":252,"h":66},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/WWi Boeing B-47 Stratojet/Skin 1/PNG/Boeing _B47_stratojet_death_1":
+{
+	"frame": {"x":2192,"y":3242,"w":254,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":83,"w":254,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/WWi Boeing B-47 Stratojet/Skin 1/PNG/Boeing _B47_stratojet_death_2":
+{
+	"frame": {"x":1240,"y":1091,"w":254,"h":150},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":62,"w":254,"h":150},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/WWi Boeing B-47 Stratojet/Skin 1/PNG/Boeing _B47_stratojet_death_3":
+{
+	"frame": {"x":2994,"y":701,"w":254,"h":197},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":35,"w":254,"h":197},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/WWi Boeing B-47 Stratojet/Skin 1/PNG/Boeing _B47_stratojet_death_4":
+{
+	"frame": {"x":2484,"y":502,"w":256,"h":216},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":24,"w":256,"h":216},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/WWi Boeing B-47 Stratojet/Skin 2/PNG/Boeing _B47_stratojet_death_1":
+{
+	"frame": {"x":2448,"y":3245,"w":254,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":83,"w":254,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/WWi Boeing B-47 Stratojet/Skin 2/PNG/Boeing _B47_stratojet_death_2":
+{
+	"frame": {"x":873,"y":1194,"w":254,"h":150},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":62,"w":254,"h":150},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/WWi Boeing B-47 Stratojet/Skin 2/PNG/Boeing _B47_stratojet_death_3":
+{
+	"frame": {"x":2994,"y":701,"w":254,"h":197},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":35,"w":254,"h":197},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Airplanes/WWi Boeing B-47 Stratojet/Skin 2/PNG/Boeing _B47_stratojet_death_4":
+{
+	"frame": {"x":2484,"y":502,"w":256,"h":216},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":24,"w":256,"h":216},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 1/PNG/Boss_1_death_1":
+{
+	"frame": {"x":3578,"y":1780,"w":205,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":73,"w":205,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 1/PNG/Boss_1_death_2":
+{
+	"frame": {"x":3578,"y":1882,"w":205,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":73,"w":205,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 1/PNG/Boss_1_death_3":
+{
+	"frame": {"x":2487,"y":2593,"w":243,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":71,"w":243,"h":112},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 1/PNG/Boss_1_death_4":
+{
+	"frame": {"x":1389,"y":2081,"w":251,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":71,"w":251,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 1/PNG/Boss_1_default":
+{
+	"frame": {"x":3132,"y":1810,"w":205,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":73,"w":205,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 1/PNG/Boss_1_default_damaged":
+{
+	"frame": {"x":3130,"y":1912,"w":205,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":73,"w":205,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 1/PNG/Boss_1_down":
+{
+	"frame": {"x":3596,"y":1572,"w":205,"h":102},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":73,"w":205,"h":102},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 1/PNG/Boss_1_down_damaged_1":
+{
+	"frame": {"x":3133,"y":1602,"w":205,"h":102},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":73,"w":205,"h":102},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 1/PNG/Boss_1_down_damaged_2":
+{
+	"frame": {"x":3133,"y":1706,"w":205,"h":102},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":73,"w":205,"h":102},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 1/PNG/Boss_1_down_damaged_3":
+{
+	"frame": {"x":3578,"y":1676,"w":205,"h":102},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":73,"w":205,"h":102},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 1/PNG/Boss_1_hit_1":
+{
+	"frame": {"x":3576,"y":1984,"w":205,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":73,"w":205,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 1/PNG/Boss_1_hit_2":
+{
+	"frame": {"x":3575,"y":2086,"w":205,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":73,"w":205,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 1/PNG/Boss_1_hit_3":
+{
+	"frame": {"x":1808,"y":3367,"w":205,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":73,"w":205,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 1/PNG/Boss_1_hit_damaged_1":
+{
+	"frame": {"x":1808,"y":3469,"w":205,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":73,"w":205,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 1/PNG/Boss_1_hit_damaged_2":
+{
+	"frame": {"x":1806,"y":3571,"w":205,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":73,"w":205,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 1/PNG/Boss_1_hit_damaged_3":
+{
+	"frame": {"x":248,"y":3980,"w":205,"h":100},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":73,"w":205,"h":100},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 2/PNG/Boss_2_death_2":
+{
+	"frame": {"x":3042,"y":2372,"w":246,"h":119},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":71,"w":246,"h":119},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 2/PNG/Boss_2_death_3":
+{
+	"frame": {"x":1818,"y":734,"w":246,"h":181},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":43,"w":246,"h":181},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 2/PNG/Boss_2_death_4":
+{
+	"frame": {"x":2742,"y":502,"w":250,"h":210},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":30,"w":250,"h":210},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 2/PNG/Boss_2_down_damaged_1":
+{
+	"frame": {"x":229,"y":3202,"w":233,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":92,"w":233,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 2/PNG/Boss_2_down_damaged_3":
+{
+	"frame": {"x":535,"y":3094,"w":233,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":92,"w":233,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_attack_1":
+{
+	"frame": {"x":3288,"y":2545,"w":240,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_attack_2":
+{
+	"frame": {"x":3530,"y":2552,"w":240,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_attack_damaged_1":
+{
+	"frame": {"x":782,"y":2309,"w":240,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_attack_damaged_2":
+{
+	"frame": {"x":229,"y":2492,"w":240,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_death_1":
+{
+	"frame": {"x":780,"y":2428,"w":240,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_death_2":
+{
+	"frame": {"x":1802,"y":1077,"w":248,"h":147},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":45,"w":248,"h":147},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_death_3":
+{
+	"frame": {"x":2980,"y":1085,"w":252,"h":163},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":35,"w":252,"h":163},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_death_4":
+{
+	"frame": {"x":2,"y":1228,"w":253,"h":221},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":18,"w":253,"h":221},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_default":
+{
+	"frame": {"x":229,"y":2611,"w":240,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_default_damaged":
+{
+	"frame": {"x":1900,"y":2281,"w":240,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_down":
+{
+	"frame": {"x":1635,"y":2288,"w":240,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_down_damaged_1":
+{
+	"frame": {"x":1358,"y":2316,"w":240,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_down_damaged_2":
+{
+	"frame": {"x":1101,"y":2417,"w":240,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_down_damaged_3":
+{
+	"frame": {"x":779,"y":2547,"w":240,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_hit_1":
+{
+	"frame": {"x":229,"y":2730,"w":240,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_hit_2":
+{
+	"frame": {"x":1877,"y":2400,"w":240,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_hit_3":
+{
+	"frame": {"x":1600,"y":2407,"w":240,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_hit_damaged_1":
+{
+	"frame": {"x":1343,"y":2435,"w":240,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_hit_damaged_2":
+{
+	"frame": {"x":1101,"y":2536,"w":240,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_hit_damaged_3":
+{
+	"frame": {"x":778,"y":2666,"w":240,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_up":
+{
+	"frame": {"x":2800,"y":2351,"w":240,"h":120},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":120},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_up_damaged_1":
+{
+	"frame": {"x":3536,"y":2188,"w":240,"h":120},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":120},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_up_damaged_2":
+{
+	"frame": {"x":3293,"y":2303,"w":240,"h":120},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":120},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 3/PNG/Boss_3_up_damaged_3":
+{
+	"frame": {"x":2800,"y":2473,"w":240,"h":120},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":58,"w":240,"h":120},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 4/PNG/Boss_4_death_1":
+{
+	"frame": {"x":3664,"y":3650,"w":254,"h":95},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":77,"w":254,"h":95},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 4/PNG/Boss_4_death_2":
+{
+	"frame": {"x":3803,"y":1388,"w":254,"h":166},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":43,"w":254,"h":166},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 4/PNG/Boss_4_death_3":
+{
+	"frame": {"x":3399,"y":983,"w":253,"h":181},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":38,"w":253,"h":181},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 4/PNG/Boss_4_death_4":
+{
+	"frame": {"x":1240,"y":875,"w":250,"h":214},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":26,"w":250,"h":214},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 4/PNG/Boss_4_down":
+{
+	"frame": {"x":2786,"y":3235,"w":249,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":91,"w":249,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 4/PNG/Boss_4_down_damaged_1":
+{
+	"frame": {"x":2457,"y":3139,"w":252,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":91,"w":252,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 4/PNG/Boss_4_down_damaged_2":
+{
+	"frame": {"x":2459,"y":3033,"w":254,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":91,"w":254,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 4/PNG/Boss_4_down_damaged_3":
+{
+	"frame": {"x":2201,"y":3136,"w":254,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":91,"w":254,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 4/PNG/Boss_4_hit_2":
+{
+	"frame": {"x":1215,"y":3852,"w":254,"h":68},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":91,"w":254,"h":68},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 4/PNG/Boss_4_hit_3":
+{
+	"frame": {"x":1471,"y":3852,"w":254,"h":68},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":91,"w":254,"h":68},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 4/PNG/Boss_4_hit_damaged_2":
+{
+	"frame": {"x":3187,"y":4025,"w":254,"h":68},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":91,"w":254,"h":68},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_attack_1":
+{
+	"frame": {"x":2052,"y":1180,"w":252,"h":146},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":69,"w":252,"h":146},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_attack_2":
+{
+	"frame": {"x":1239,"y":1243,"w":251,"h":146},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":69,"w":251,"h":146},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_attack_damaged_1":
+{
+	"frame": {"x":1496,"y":1125,"w":252,"h":146},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":69,"w":252,"h":146},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_attack_damaged_2":
+{
+	"frame": {"x":873,"y":1346,"w":251,"h":146},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":69,"w":251,"h":146},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_death_1":
+{
+	"frame": {"x":252,"y":1518,"w":236,"h":146},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":69,"w":236,"h":146},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_death_2":
+{
+	"frame": {"x":617,"y":1417,"w":243,"h":149},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":69,"w":243,"h":149},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_death_3":
+{
+	"frame": {"x":3399,"y":1166,"w":251,"h":175},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":61,"w":251,"h":175},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_death_4":
+{
+	"frame": {"x":2473,"y":720,"w":251,"h":199},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":47,"w":251,"h":199},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_default":
+{
+	"frame": {"x":252,"y":1666,"w":236,"h":146},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":69,"w":236,"h":146},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_default_damaged":
+{
+	"frame": {"x":2468,"y":1422,"w":236,"h":146},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":69,"w":236,"h":146},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_down":
+{
+	"frame": {"x":257,"y":1174,"w":236,"h":170},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":57,"w":236,"h":170},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_down_damaged_1":
+{
+	"frame": {"x":257,"y":1346,"w":236,"h":170},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":57,"w":236,"h":170},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_down_damaged_2":
+{
+	"frame": {"x":2472,"y":1090,"w":236,"h":170},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":57,"w":236,"h":170},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_down_damaged_3":
+{
+	"frame": {"x":2710,"y":1246,"w":236,"h":170},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":57,"w":236,"h":170},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_hit_1":
+{
+	"frame": {"x":861,"y":1637,"w":236,"h":146},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":69,"w":236,"h":146},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_hit_2":
+{
+	"frame": {"x":612,"y":1716,"w":236,"h":146},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":69,"w":236,"h":146},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_hit_3":
+{
+	"frame": {"x":246,"y":1814,"w":236,"h":146},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":69,"w":236,"h":146},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_hit_damaged_1":
+{
+	"frame": {"x":2,"y":1824,"w":236,"h":146},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":69,"w":236,"h":146},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_hit_damaged_2":
+{
+	"frame": {"x":1743,"y":1510,"w":236,"h":146},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":69,"w":236,"h":146},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_hit_damaged_3":
+{
+	"frame": {"x":1487,"y":1557,"w":236,"h":146},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":69,"w":236,"h":146},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_up":
+{
+	"frame": {"x":3340,"y":1800,"w":236,"h":120},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":78,"w":236,"h":120},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_up_damaged_1":
+{
+	"frame": {"x":3778,"y":2230,"w":236,"h":120},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":78,"w":236,"h":120},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_up_damaged_2":
+{
+	"frame": {"x":3535,"y":2310,"w":236,"h":120},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":78,"w":236,"h":120},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Bosses/Boss 5/PNG/Boss_5_up_damaged_3":
+{
+	"frame": {"x":3773,"y":2352,"w":236,"h":120},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":78,"w":236,"h":120},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_default":
+{
+	"frame": {"x":4001,"y":3335,"w":73,"h":111},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":36,"y":26,"w":73,"h":111},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_front_1":
+{
+	"frame": {"x":4004,"y":2998,"w":75,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":36,"y":26,"w":75,"h":110},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_front_2":
+{
+	"frame": {"x":4011,"y":2434,"w":81,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":30,"y":26,"w":81,"h":110},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_front_3":
+{
+	"frame": {"x":1099,"y":1770,"w":86,"h":109},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":26,"y":27,"w":86,"h":109},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_front_4":
+{
+	"frame": {"x":2306,"y":1139,"w":92,"h":109},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":20,"y":27,"w":92,"h":109},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_front_5":
+{
+	"frame": {"x":2306,"y":1028,"w":96,"h":109},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":18,"y":27,"w":96,"h":109},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_front_6":
+{
+	"frame": {"x":1099,"y":1770,"w":86,"h":109},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":26,"y":27,"w":86,"h":109},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_front_7":
+{
+	"frame": {"x":4011,"y":2434,"w":81,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":30,"y":26,"w":81,"h":110},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_front_8":
+{
+	"frame": {"x":4004,"y":2998,"w":75,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":36,"y":26,"w":75,"h":110},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_up_1":
+{
+	"frame": {"x":4004,"y":2998,"w":75,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":36,"y":26,"w":75,"h":110},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_up_10":
+{
+	"frame": {"x":1063,"y":1995,"w":85,"h":109},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":30,"y":27,"w":85,"h":109},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_up_11":
+{
+	"frame": {"x":4011,"y":2434,"w":81,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":30,"y":26,"w":81,"h":110},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_up_12":
+{
+	"frame": {"x":4004,"y":2998,"w":75,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":36,"y":26,"w":75,"h":110},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_up_2":
+{
+	"frame": {"x":4011,"y":2434,"w":81,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":30,"y":26,"w":81,"h":110},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_up_3":
+{
+	"frame": {"x":1063,"y":1995,"w":85,"h":109},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":30,"y":27,"w":85,"h":109},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_up_4":
+{
+	"frame": {"x":1022,"y":2448,"w":77,"h":111},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":40,"y":25,"w":77,"h":111},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_up_5":
+{
+	"frame": {"x":4021,"y":2197,"w":71,"h":121},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":49,"y":15,"w":71,"h":121},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_up_6":
+{
+	"frame": {"x":4024,"y":1846,"w":68,"h":128},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":53,"y":8,"w":68,"h":128},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_up_7":
+{
+	"frame": {"x":479,"y":2020,"w":68,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":54,"y":5,"w":68,"h":131},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_up_8":
+{
+	"frame": {"x":4021,"y":2197,"w":71,"h":121},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":49,"y":15,"w":71,"h":121},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_shot_up_9":
+{
+	"frame": {"x":1022,"y":2448,"w":77,"h":111},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":40,"y":25,"w":77,"h":111},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_walk_1":
+{
+	"frame": {"x":1020,"y":2675,"w":76,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":35,"y":26,"w":76,"h":110},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_walk_2":
+{
+	"frame": {"x":1016,"y":3008,"w":75,"h":111},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":36,"y":25,"w":75,"h":111},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_walk_3":
+{
+	"frame": {"x":4004,"y":2770,"w":74,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":37,"y":24,"w":74,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_walk_4":
+{
+	"frame": {"x":1016,"y":3233,"w":73,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":38,"y":24,"w":73,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_walk_5":
+{
+	"frame": {"x":4003,"y":3110,"w":75,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":38,"y":26,"w":75,"h":110},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_walk_6":
+{
+	"frame": {"x":972,"y":3460,"w":73,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":37,"y":26,"w":73,"h":110},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_walk_7":
+{
+	"frame": {"x":4004,"y":2884,"w":74,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":36,"y":24,"w":74,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 1/PNG/Soldier1_walk_8":
+{
+	"frame": {"x":2704,"y":3267,"w":72,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":35,"y":24,"w":72,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_default":
+{
+	"frame": {"x":3993,"y":3448,"w":72,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":37,"y":27,"w":72,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_shoot_front_1":
+{
+	"frame": {"x":404,"y":3308,"w":72,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":37,"y":27,"w":72,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_shoot_front_10":
+{
+	"frame": {"x":404,"y":3422,"w":72,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":37,"y":27,"w":72,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_shoot_front_2":
+{
+	"frame": {"x":1021,"y":2561,"w":76,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":33,"y":27,"w":76,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_shoot_front_3":
+{
+	"frame": {"x":2289,"y":1757,"w":82,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":29,"y":27,"w":82,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_shoot_front_4":
+{
+	"frame": {"x":1089,"y":1881,"w":83,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":27,"y":27,"w":83,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_shoot_front_5":
+{
+	"frame": {"x":1144,"y":1106,"w":91,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":19,"y":27,"w":91,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_shoot_front_6":
+{
+	"frame": {"x":1144,"y":992,"w":94,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":17,"y":27,"w":94,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_shoot_front_7":
+{
+	"frame": {"x":2334,"y":1529,"w":87,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":23,"y":27,"w":87,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_shoot_front_8":
+{
+	"frame": {"x":2310,"y":1643,"w":84,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":27,"y":27,"w":84,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_shoot_front_9":
+{
+	"frame": {"x":1043,"y":2106,"w":82,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":27,"y":27,"w":82,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_shoot_up_1":
+{
+	"frame": {"x":4016,"y":2320,"w":78,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":31,"y":27,"w":78,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_shoot_up_2":
+{
+	"frame": {"x":2404,"y":1134,"w":64,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":47,"y":8,"w":64,"h":131},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_shoot_up_3":
+{
+	"frame": {"x":2389,"y":1267,"w":70,"h":136},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":41,"y":3,"w":70,"h":136},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_shoot_up_4":
+{
+	"frame": {"x":484,"y":1879,"w":67,"h":139},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":43,"y":0,"w":67,"h":139},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_shoot_up_5":
+{
+	"frame": {"x":4005,"y":2656,"w":78,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":31,"y":27,"w":78,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_walk_1":
+{
+	"frame": {"x":1016,"y":3121,"w":75,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":34,"y":29,"w":75,"h":110},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_walk_2":
+{
+	"frame": {"x":2717,"y":2926,"w":74,"h":111},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":33,"y":28,"w":74,"h":111},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_walk_3":
+{
+	"frame": {"x":2715,"y":3039,"w":73,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":34,"y":27,"w":73,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_walk_4":
+{
+	"frame": {"x":404,"y":3536,"w":72,"h":111},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":35,"y":28,"w":72,"h":111},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_walk_5":
+{
+	"frame": {"x":1027,"y":2220,"w":79,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":35,"y":29,"w":79,"h":110},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_walk_6":
+{
+	"frame": {"x":1016,"y":2896,"w":76,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":34,"y":29,"w":76,"h":110},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_walk_7":
+{
+	"frame": {"x":2711,"y":3153,"w":73,"h":112},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":34,"y":27,"w":73,"h":112},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 2/PNG/soldier2_walk_8":
+{
+	"frame": {"x":4003,"y":3222,"w":74,"h":111},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":33,"y":28,"w":74,"h":111},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_default":
+{
+	"frame": {"x":2732,"y":2593,"w":64,"h":109},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":57,"y":31,"w":64,"h":109},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_shoot_front_1":
+{
+	"frame": {"x":2732,"y":2704,"w":64,"h":109},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":57,"y":31,"w":64,"h":109},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_shoot_front_2":
+{
+	"frame": {"x":4006,"y":2546,"w":82,"h":108},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":32,"w":82,"h":108},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_shoot_front_3":
+{
+	"frame": {"x":1117,"y":1551,"w":90,"h":108},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":31,"y":32,"w":90,"h":108},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_shoot_front_4":
+{
+	"frame": {"x":1126,"y":1441,"w":101,"h":108},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":20,"y":32,"w":101,"h":108},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_shoot_front_5":
+{
+	"frame": {"x":1129,"y":1331,"w":104,"h":108},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":17,"y":32,"w":104,"h":108},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_shoot_front_6":
+{
+	"frame": {"x":1117,"y":1551,"w":90,"h":108},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":31,"y":32,"w":90,"h":108},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_shoot_front_7":
+{
+	"frame": {"x":4006,"y":2546,"w":82,"h":108},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":32,"w":82,"h":108},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_shoot_front_8":
+{
+	"frame": {"x":2732,"y":2704,"w":64,"h":109},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":57,"y":31,"w":64,"h":109},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_shoot_up_1":
+{
+	"frame": {"x":1024,"y":2332,"w":75,"h":114},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":45,"y":26,"w":75,"h":114},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_shoot_up_2":
+{
+	"frame": {"x":472,"y":2286,"w":67,"h":132},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":53,"y":8,"w":67,"h":132},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_shoot_up_3":
+{
+	"frame": {"x":1157,"y":726,"w":73,"h":140},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":47,"y":0,"w":73,"h":140},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_shoot_up_4":
+{
+	"frame": {"x":2220,"y":1729,"w":67,"h":140},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":53,"y":0,"w":67,"h":140},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_shoot_up_5":
+{
+	"frame": {"x":4024,"y":1712,"w":67,"h":132},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":53,"y":8,"w":67,"h":132},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_shoot_up_6":
+{
+	"frame": {"x":1024,"y":2332,"w":75,"h":114},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":45,"y":26,"w":75,"h":114},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_walk_1":
+{
+	"frame": {"x":4024,"y":1976,"w":68,"h":108},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":53,"y":32,"w":68,"h":108},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_walk_2":
+{
+	"frame": {"x":468,"y":2866,"w":67,"h":108},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":54,"y":32,"w":67,"h":108},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_walk_3":
+{
+	"frame": {"x":472,"y":2420,"w":66,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":55,"y":30,"w":66,"h":110},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_walk_4":
+{
+	"frame": {"x":471,"y":2644,"w":65,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":56,"y":30,"w":65,"h":110},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_walk_5":
+{
+	"frame": {"x":2408,"y":1019,"w":62,"h":113},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":59,"y":27,"w":62,"h":113},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_walk_6":
+{
+	"frame": {"x":468,"y":3195,"w":63,"h":111},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":58,"y":29,"w":63,"h":111},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_walk_7":
+{
+	"frame": {"x":471,"y":2532,"w":66,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":55,"y":30,"w":66,"h":110},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 3/PNG/Soldier3_walk_8":
+{
+	"frame": {"x":4024,"y":2086,"w":67,"h":109},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":54,"y":31,"w":67,"h":109},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_default":
+{
+	"frame": {"x":3970,"y":3562,"w":64,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":52,"y":30,"w":64,"h":107},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_shoot_front_1":
+{
+	"frame": {"x":972,"y":3572,"w":64,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":52,"y":30,"w":64,"h":107},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_shoot_front_2":
+{
+	"frame": {"x":398,"y":3649,"w":72,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":44,"y":30,"w":72,"h":107},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_shoot_front_3":
+{
+	"frame": {"x":1016,"y":2787,"w":79,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":37,"y":30,"w":79,"h":107},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_shoot_front_4":
+{
+	"frame": {"x":2220,"y":1620,"w":88,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":28,"y":30,"w":88,"h":107},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_shoot_front_5":
+{
+	"frame": {"x":1099,"y":1661,"w":90,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":27,"y":30,"w":90,"h":107},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_shoot_front_6":
+{
+	"frame": {"x":1016,"y":2787,"w":79,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":37,"y":30,"w":79,"h":107},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_shoot_front_7":
+{
+	"frame": {"x":398,"y":3649,"w":72,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":44,"y":30,"w":72,"h":107},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_shoot_front_8":
+{
+	"frame": {"x":972,"y":3572,"w":64,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":52,"y":30,"w":64,"h":107},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_shoot_up_1":
+{
+	"frame": {"x":1015,"y":3347,"w":73,"h":111},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":43,"y":26,"w":73,"h":111},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_shoot_up_2":
+{
+	"frame": {"x":2408,"y":892,"w":62,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":54,"y":12,"w":62,"h":125},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_shoot_up_3":
+{
+	"frame": {"x":473,"y":2153,"w":68,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":48,"y":6,"w":68,"h":131},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_shoot_up_4":
+{
+	"frame": {"x":490,"y":1740,"w":69,"h":137},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":47,"y":0,"w":69,"h":137},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_shoot_up_5":
+{
+	"frame": {"x":2408,"y":892,"w":62,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":54,"y":12,"w":62,"h":125},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_shoot_up_6":
+{
+	"frame": {"x":1015,"y":3347,"w":73,"h":111},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":43,"y":26,"w":73,"h":111},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_walk_1":
+{
+	"frame": {"x":398,"y":3868,"w":61,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":55,"y":30,"w":61,"h":107},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_walk_2":
+{
+	"frame": {"x":398,"y":3758,"w":63,"h":108},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":53,"y":29,"w":63,"h":108},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_walk_3":
+{
+	"frame": {"x":2727,"y":2815,"w":64,"h":109},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":52,"y":28,"w":64,"h":109},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_walk_4":
+{
+	"frame": {"x":471,"y":2756,"w":65,"h":108},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":51,"y":29,"w":65,"h":108},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_walk_5":
+{
+	"frame": {"x":468,"y":2976,"w":66,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":50,"y":30,"w":66,"h":107},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_walk_6":
+{
+	"frame": {"x":468,"y":3085,"w":65,"h":108},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":51,"y":29,"w":65,"h":108},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_walk_7":
+{
+	"frame": {"x":2670,"y":3381,"w":64,"h":109},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":52,"y":28,"w":64,"h":109},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Soldiers/Soldier 4/PNG/Soldier4_walk_8":
+{
+	"frame": {"x":970,"y":3681,"w":63,"h":108},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":53,"y":29,"w":63,"h":108},
+	"sourceSize": {"w":140,"h":140}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_attack_1":
+{
+	"frame": {"x":724,"y":3663,"w":244,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":73,"w":244,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_attack_2":
+{
+	"frame": {"x":2982,"y":3479,"w":245,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":73,"w":245,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_attack_3":
+{
+	"frame": {"x":3041,"y":2724,"w":244,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":70,"w":244,"h":107},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_attack_4":
+{
+	"frame": {"x":2793,"y":2911,"w":245,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":70,"w":245,"h":107},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_attack_5":
+{
+	"frame": {"x":3040,"y":2942,"w":244,"h":106},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":71,"w":244,"h":106},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_attack_6":
+{
+	"frame": {"x":472,"y":3732,"w":244,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":73,"w":244,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_attack_7":
+{
+	"frame": {"x":1560,"y":3473,"w":244,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":73,"w":244,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_attack_8":
+{
+	"frame": {"x":1294,"y":3539,"w":244,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":73,"w":244,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_death_1":
+{
+	"frame": {"x":724,"y":3663,"w":244,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":73,"w":244,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_death_10":
+{
+	"frame": {"x":1282,"y":3751,"w":245,"h":99},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":78,"w":245,"h":99},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_death_2":
+{
+	"frame": {"x":2167,"y":3560,"w":244,"h":102},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":75,"w":244,"h":102},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_death_3":
+{
+	"frame": {"x":3041,"y":2613,"w":244,"h":109},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":68,"w":244,"h":109},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_death_4":
+{
+	"frame": {"x":3042,"y":2493,"w":244,"h":118},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":59,"w":244,"h":118},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_death_5":
+{
+	"frame": {"x":2396,"y":1713,"w":244,"h":127},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":50,"w":244,"h":127},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_death_6":
+{
+	"frame": {"x":3047,"y":2249,"w":244,"h":121},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":56,"w":244,"h":121},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_death_7":
+{
+	"frame": {"x":770,"y":3127,"w":244,"h":106},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":71,"w":244,"h":106},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_death_8":
+{
+	"frame": {"x":3756,"y":3116,"w":245,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":72,"w":245,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_death_9":
+{
+	"frame": {"x":3041,"y":2833,"w":243,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":70,"w":243,"h":107},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_default":
+{
+	"frame": {"x":1038,"y":3632,"w":244,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":73,"w":244,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_move_backward_1":
+{
+	"frame": {"x":718,"y":3769,"w":244,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":73,"w":244,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_move_backward_2":
+{
+	"frame": {"x":463,"y":3838,"w":244,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":73,"w":244,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_move_backward_3":
+{
+	"frame": {"x":3039,"y":3158,"w":244,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":72,"w":244,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_move_backward_4":
+{
+	"frame": {"x":2793,"y":3020,"w":244,"h":106},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":71,"w":244,"h":106},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_move_backward_5":
+{
+	"frame": {"x":478,"y":3625,"w":244,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":72,"w":244,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_move_backward_6":
+{
+	"frame": {"x":2,"y":3959,"w":244,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":73,"w":244,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_move_backward_7":
+{
+	"frame": {"x":2167,"y":3454,"w":244,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":73,"w":244,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_move_backward_8":
+{
+	"frame": {"x":2,"y":3852,"w":244,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":72,"w":244,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_move_forward_1":
+{
+	"frame": {"x":1540,"y":3579,"w":244,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":73,"w":244,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_move_forward_2":
+{
+	"frame": {"x":2167,"y":3454,"w":244,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":73,"w":244,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_move_forward_3":
+{
+	"frame": {"x":2178,"y":3347,"w":244,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":72,"w":244,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_move_forward_4":
+{
+	"frame": {"x":3039,"y":3050,"w":244,"h":106},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":71,"w":244,"h":106},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_move_forward_5":
+{
+	"frame": {"x":2424,"y":3350,"w":244,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":72,"w":244,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_move_forward_6":
+{
+	"frame": {"x":1284,"y":3645,"w":244,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":73,"w":244,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_move_forward_7":
+{
+	"frame": {"x":463,"y":3838,"w":244,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":73,"w":244,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/American Sherman/PNG/American_sherman_move_forward_8":
+{
+	"frame": {"x":2736,"y":3448,"w":244,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":72,"w":244,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_attack_1":
+{
+	"frame": {"x":777,"y":2785,"w":237,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":62,"w":237,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_attack_2":
+{
+	"frame": {"x":538,"y":2859,"w":237,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":62,"w":237,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_attack_3":
+{
+	"frame": {"x":229,"y":2968,"w":237,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":62,"w":237,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_attack_4":
+{
+	"frame": {"x":229,"y":3086,"w":237,"h":114},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":64,"w":237,"h":114},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_attack_5":
+{
+	"frame": {"x":2271,"y":2468,"w":237,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":62,"w":237,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_attack_6":
+{
+	"frame": {"x":1834,"y":2632,"w":237,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":62,"w":237,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_attack_7":
+{
+	"frame": {"x":1582,"y":2641,"w":237,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":62,"w":237,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_death_1":
+{
+	"frame": {"x":1338,"y":2673,"w":237,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":62,"w":237,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_death_10":
+{
+	"frame": {"x":775,"y":3021,"w":239,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":74,"w":239,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_death_2":
+{
+	"frame": {"x":1098,"y":2774,"w":237,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":64,"w":237,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_death_3":
+{
+	"frame": {"x":3785,"y":1974,"w":237,"h":127},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":53,"w":237,"h":127},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_death_4":
+{
+	"frame": {"x":2706,"y":1418,"w":237,"h":154},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":26,"w":237,"h":154},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_death_5":
+{
+	"frame": {"x":2948,"y":1411,"w":237,"h":167},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":13,"w":237,"h":167},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_death_6":
+{
+	"frame": {"x":3360,"y":1343,"w":237,"h":166},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":14,"w":237,"h":166},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_death_7":
+{
+	"frame": {"x":1981,"y":1617,"w":237,"h":145},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":35,"w":237,"h":145},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_death_8":
+{
+	"frame": {"x":536,"y":2977,"w":237,"h":115},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":64,"w":237,"h":115},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_default":
+{
+	"frame": {"x":2510,"y":2475,"w":237,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":62,"w":237,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_move_backward_1":
+{
+	"frame": {"x":2248,"y":2586,"w":237,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":62,"w":237,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_move_backward_2":
+{
+	"frame": {"x":1821,"y":2750,"w":237,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":62,"w":237,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_move_backward_3":
+{
+	"frame": {"x":540,"y":2502,"w":237,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":61,"w":237,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_move_backward_4":
+{
+	"frame": {"x":3534,"y":2432,"w":237,"h":118},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":60,"w":237,"h":118},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_move_backward_5":
+{
+	"frame": {"x":539,"y":2621,"w":237,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":61,"w":237,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_move_backward_6":
+{
+	"frame": {"x":1577,"y":2759,"w":237,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":62,"w":237,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_move_backward_7":
+{
+	"frame": {"x":1337,"y":2791,"w":237,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":62,"w":237,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_move_backward_8":
+{
+	"frame": {"x":538,"y":2740,"w":237,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":61,"w":237,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_move_forward_1":
+{
+	"frame": {"x":1097,"y":2892,"w":237,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":62,"w":237,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_move_forward_2":
+{
+	"frame": {"x":1337,"y":2791,"w":237,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":62,"w":237,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_move_forward_3":
+{
+	"frame": {"x":229,"y":2849,"w":237,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":61,"w":237,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_move_forward_4":
+{
+	"frame": {"x":541,"y":2382,"w":237,"h":118},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":60,"w":237,"h":118},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_move_forward_5":
+{
+	"frame": {"x":1343,"y":2554,"w":237,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":61,"w":237,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_move_forward_6":
+{
+	"frame": {"x":777,"y":2903,"w":237,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":62,"w":237,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_move_forward_7":
+{
+	"frame": {"x":1821,"y":2750,"w":237,"h":116},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":62,"w":237,"h":116},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/British M4 Sherman/PNG/British_m4_sherman_move_forward_8":
+{
+	"frame": {"x":1099,"y":2655,"w":237,"h":117},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":61,"w":237,"h":117},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_attack_1":
+{
+	"frame": {"x":2204,"y":2922,"w":253,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":253,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_attack_2":
+{
+	"frame": {"x":1792,"y":3080,"w":253,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":253,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_attack_3":
+{
+	"frame": {"x":2459,"y":2925,"w":256,"h":106},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":73,"w":256,"h":106},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_attack_4":
+{
+	"frame": {"x":2202,"y":3029,"w":255,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":74,"w":255,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_attack_5":
+{
+	"frame": {"x":760,"y":3235,"w":253,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":253,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_attack_6":
+{
+	"frame": {"x":760,"y":3342,"w":253,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":253,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_attack_7":
+{
+	"frame": {"x":1806,"y":2973,"w":252,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":252,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_attack_8":
+{
+	"frame": {"x":2790,"y":3128,"w":247,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":247,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_backward_1":
+{
+	"frame": {"x":3756,"y":3223,"w":245,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":245,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_backward_2":
+{
+	"frame": {"x":3229,"y":3503,"w":245,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":75,"w":245,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_backward_3":
+{
+	"frame": {"x":1035,"y":3738,"w":245,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":76,"w":245,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_backward_4":
+{
+	"frame": {"x":3476,"y":3511,"w":245,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":75,"w":245,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_backward_5":
+{
+	"frame": {"x":3037,"y":3265,"w":245,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":245,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_backward_6":
+{
+	"frame": {"x":3754,"y":3330,"w":245,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":245,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_backward_7":
+{
+	"frame": {"x":2778,"y":3341,"w":245,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":245,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_backward_8":
+{
+	"frame": {"x":3025,"y":3372,"w":245,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":245,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_death_1":
+{
+	"frame": {"x":3272,"y":3396,"w":245,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":245,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_death_10":
+{
+	"frame": {"x":3760,"y":2694,"w":242,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":242,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_death_2":
+{
+	"frame": {"x":3746,"y":3437,"w":245,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":245,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_death_3":
+{
+	"frame": {"x":478,"y":3411,"w":245,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":245,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_death_4":
+{
+	"frame": {"x":2622,"y":1967,"w":242,"h":125},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":54,"w":242,"h":125},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_death_5":
+{
+	"frame": {"x":2,"y":1677,"w":242,"h":145},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":34,"w":242,"h":145},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_death_6":
+{
+	"frame": {"x":2007,"y":1471,"w":242,"h":144},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":35,"w":242,"h":144},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_death_7":
+{
+	"frame": {"x":617,"y":1568,"w":242,"h":146},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":33,"w":242,"h":146},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_death_8":
+{
+	"frame": {"x":1956,"y":1764,"w":242,"h":130},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":49,"w":242,"h":130},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_death_9":
+{
+	"frame": {"x":3290,"y":2425,"w":242,"h":118},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":61,"w":242,"h":118},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_default":
+{
+	"frame": {"x":725,"y":3449,"w":245,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":245,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_forward_1":
+{
+	"frame": {"x":478,"y":3518,"w":245,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":245,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_forward_2":
+{
+	"frame": {"x":2,"y":3638,"w":245,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":245,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_forward_3":
+{
+	"frame": {"x":3723,"y":3544,"w":245,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":75,"w":245,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_forward_4":
+{
+	"frame": {"x":2413,"y":3457,"w":245,"h":103},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":76,"w":245,"h":103},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_forward_5":
+{
+	"frame": {"x":1561,"y":3367,"w":245,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":75,"w":245,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_forward_6":
+{
+	"frame": {"x":2,"y":3745,"w":245,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":245,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_forward_7":
+{
+	"frame": {"x":725,"y":3556,"w":245,"h":105},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":74,"w":245,"h":105},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/German Tiger-1/PNG/German_tiger_1_forward_8":
+{
+	"frame": {"x":1047,"y":3526,"w":245,"h":104},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":75,"w":245,"h":104},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/Russian T-34/PNG/Russian_t_34_backward_1":
+{
+	"frame": {"x":1977,"y":3952,"w":228,"h":87},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":102,"w":228,"h":87},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/Russian T-34/PNG/Russian_t_34_death_3":
+{
+	"frame": {"x":2,"y":2109,"w":230,"h":114},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":82,"w":230,"h":114},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/Russian T-34/PNG/Russian_t_34_death_4":
+{
+	"frame": {"x":2,"y":1972,"w":230,"h":135},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":61,"w":230,"h":135},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/Russian T-34/PNG/Russian_t_34_death_5":
+{
+	"frame": {"x":2423,"y":1570,"w":230,"h":141},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":53,"w":230,"h":141},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/Russian T-34/PNG/Russian_t_34_death_6":
+{
+	"frame": {"x":1725,"y":1658,"w":229,"h":147},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":47,"w":229,"h":147},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/Russian T-34/PNG/Russian_t_34_death_7":
+{
+	"frame": {"x":2,"y":2225,"w":229,"h":111},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":78,"w":229,"h":111},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Tanks/Russian T-34/PNG/Russian_t_34_death_8":
+{
+	"frame": {"x":2,"y":2338,"w":229,"h":107},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":83,"w":229,"h":107},
+	"sourceSize": {"w":256,"h":256}
+},
+"characters/Turrets/Turret 1/PNG/turret_1_default":
+{
+	"frame": {"x":504,"y":952,"w":129,"h":146},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":23,"y":14,"w":129,"h":146},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 1/PNG/turret_1_fire_1":
+{
+	"frame": {"x":504,"y":800,"w":135,"h":150},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":17,"y":10,"w":135,"h":150},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 1/PNG/turret_1_fire_2":
+{
+	"frame": {"x":2322,"y":734,"w":141,"h":156},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":4,"w":141,"h":156},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 1/PNG/turret_1_fire_3":
+{
+	"frame": {"x":3698,"y":341,"w":149,"h":160},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":0,"w":149,"h":160},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 1/PNG/turret_1_fire_4":
+{
+	"frame": {"x":2327,"y":572,"w":144,"h":160},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":8,"y":0,"w":144,"h":160},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 1/PNG/turret_1_fire_5":
+{
+	"frame": {"x":500,"y":1100,"w":121,"h":146},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":31,"y":14,"w":121,"h":146},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 1/PNG/turret_1_fire_6":
+{
+	"frame": {"x":3305,"y":396,"w":130,"h":153},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":22,"y":7,"w":130,"h":153},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 1/PNG/turret_1_fire_7":
+{
+	"frame": {"x":504,"y":484,"w":136,"h":156},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":16,"y":4,"w":136,"h":156},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 1/PNG/turret_1_fire_8":
+{
+	"frame": {"x":504,"y":642,"w":136,"h":156},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":16,"y":4,"w":136,"h":156},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 2/PNG/Turret_2_default":
+{
+	"frame": {"x":3304,"y":551,"w":131,"h":123},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":34,"w":131,"h":123},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 2/PNG/Turret_2_fire_1":
+{
+	"frame": {"x":3304,"y":551,"w":131,"h":123},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":34,"w":131,"h":123},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 2/PNG/Turret_2_fire_2":
+{
+	"frame": {"x":3304,"y":676,"w":131,"h":123},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":34,"w":131,"h":123},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 2/PNG/Turret_2_fire_3":
+{
+	"frame": {"x":2060,"y":3059,"w":139,"h":126},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":17,"y":31,"w":139,"h":126},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 2/PNG/Turret_2_fire_4":
+{
+	"frame": {"x":2060,"y":2793,"w":142,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":16,"y":26,"w":142,"h":131},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 2/PNG/Turret_2_fire_5":
+{
+	"frame": {"x":2327,"y":421,"w":155,"h":149},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":8,"w":155,"h":149},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 2/PNG/Turret_2_fire_6":
+{
+	"frame": {"x":3695,"y":660,"w":149,"h":145},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":12,"w":149,"h":145},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 2/PNG/Turret_2_fire_7":
+{
+	"frame": {"x":3690,"y":807,"w":149,"h":145},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":12,"w":149,"h":145},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 2/PNG/Turret_2_fire_8":
+{
+	"frame": {"x":3304,"y":551,"w":131,"h":123},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":25,"y":34,"w":131,"h":123},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 3/PNG/turret_3_default":
+{
+	"frame": {"x":2119,"y":2402,"w":150,"h":126},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":26,"w":150,"h":126},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 3/PNG/turret_3_fire_1":
+{
+	"frame": {"x":2119,"y":2402,"w":150,"h":126},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":26,"w":150,"h":126},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 3/PNG/turret_3_fire_2":
+{
+	"frame": {"x":2200,"y":1871,"w":153,"h":128},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":24,"w":153,"h":128},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 3/PNG/turret_3_fire_3":
+{
+	"frame": {"x":3187,"y":1471,"w":154,"h":129},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":6,"y":23,"w":154,"h":129},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 3/PNG/turret_3_fire_4":
+{
+	"frame": {"x":2186,"y":2001,"w":153,"h":128},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":24,"w":153,"h":128},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 3/PNG/turret_3_fire_5":
+{
+	"frame": {"x":3201,"y":1336,"w":157,"h":133},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":19,"w":157,"h":133},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 3/PNG/turret_3_fire_6":
+{
+	"frame": {"x":3234,"y":1199,"w":158,"h":135},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":17,"w":158,"h":135},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 3/PNG/turret_3_fire_7":
+{
+	"frame": {"x":3238,"y":923,"w":159,"h":136},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":16,"w":159,"h":136},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 3/PNG/turret_3_fire_8":
+{
+	"frame": {"x":3238,"y":1061,"w":159,"h":136},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":16,"w":159,"h":136},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 3/PNG/turret_3_fire_9":
+{
+	"frame": {"x":2096,"y":2530,"w":150,"h":126},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":26,"w":150,"h":126},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 4/PNG/Turret_4_default":
+{
+	"frame": {"x":2060,"y":2926,"w":140,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":19,"y":25,"w":140,"h":131},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 4/PNG/Turret_4_fire_1":
+{
+	"frame": {"x":2060,"y":2926,"w":140,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":19,"y":25,"w":140,"h":131},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 4/PNG/Turret_4_fire_2":
+{
+	"frame": {"x":2186,"y":2131,"w":142,"h":134},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":17,"y":22,"w":142,"h":134},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 4/PNG/Turret_4_fire_3":
+{
+	"frame": {"x":2180,"y":2267,"w":140,"h":133},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":19,"y":23,"w":140,"h":133},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 4/PNG/Turret_4_fire_4":
+{
+	"frame": {"x":2073,"y":2658,"w":140,"h":133},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":19,"y":23,"w":140,"h":133},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 4/PNG/Turret_4_fire_5":
+{
+	"frame": {"x":3690,"y":954,"w":149,"h":144},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":12,"w":149,"h":144},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 4/PNG/Turret_4_fire_6":
+{
+	"frame": {"x":3654,"y":1100,"w":149,"h":144},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":12,"w":149,"h":144},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 4/PNG/Turret_4_fire_7":
+{
+	"frame": {"x":3652,"y":1246,"w":149,"h":144},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":12,"w":149,"h":144},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 4/PNG/Turret_4_fire_8":
+{
+	"frame": {"x":3698,"y":503,"w":149,"h":155},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":1,"w":149,"h":155},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 4/PNG/Turret_4_fire_9":
+{
+	"frame": {"x":2060,"y":2926,"w":140,"h":131},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":19,"y":25,"w":140,"h":131},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 5/PNG/Turret_5_default":
+{
+	"frame": {"x":248,"y":3869,"w":147,"h":109},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":50,"w":147,"h":109},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 5/PNG/Turret_5_fire_1":
+{
+	"frame": {"x":2025,"y":3297,"w":151,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":49,"w":151,"h":110},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 5/PNG/Turret_5_fire_2":
+{
+	"frame": {"x":2013,"y":3632,"w":148,"h":108},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":12,"y":51,"w":148,"h":108},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 5/PNG/Turret_5_fire_3":
+{
+	"frame": {"x":2015,"y":3521,"w":150,"h":109},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":50,"w":150,"h":109},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 5/PNG/Turret_5_fire_4":
+{
+	"frame": {"x":2015,"y":3409,"w":150,"h":110},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":10,"y":49,"w":150,"h":110},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 5/PNG/Turret_5_fire_5":
+{
+	"frame": {"x":249,"y":3638,"w":147,"h":114},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":45,"w":147,"h":114},
+	"sourceSize": {"w":160,"h":160}
+},
+"characters/Turrets/Turret 5/PNG/Turret_5_fire_6":
+{
+	"frame": {"x":249,"y":3754,"w":147,"h":113},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":13,"y":46,"w":147,"h":113},
+	"sourceSize": {"w":160,"h":160}
+},
+"level/air":
+{
+	"frame": {"x":2,"y":2,"w":640,"h":480},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":640,"h":480},
+	"sourceSize": {"w":640,"h":480}
+},
+"level/cloud_fluffy_1":
+{
+	"frame": {"x":1492,"y":1416,"w":249,"h":139},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":249,"h":139},
+	"sourceSize": {"w":252,"h":142}
+},
+"level/cloud_fluffy_2":
+{
+	"frame": {"x":2066,"y":892,"w":340,"h":134},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":1,"w":340,"h":134},
+	"sourceSize": {"w":343,"h":135}
+},
+"level/crosssection_long_new":
+{
+	"frame": {"x":2503,"y":262,"w":936,"h":132},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":936,"h":132},
+	"sourceSize": {"w":936,"h":132}
+},
+"level/whiteclouds":
+{
+	"frame": {"x":644,"y":2,"w":919,"h":300},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":919,"h":300},
+	"sourceSize": {"w":919,"h":300}
+},
+"menu/btn-pause":
+{
+	"frame": {"x":3250,"y":714,"w":48,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":48},
+	"sourceSize": {"w":48,"h":48}
+},
+"menu/btn-play":
+{
+	"frame": {"x":3250,"y":764,"w":48,"h":48},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":48},
+	"sourceSize": {"w":48,"h":48}
+},
+"menu/defeat_window":
+{
+	"frame": {"x":644,"y":304,"w":600,"h":420},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":600,"h":420},
+	"sourceSize": {"w":600,"h":420}
+},
+"menu/panel":
+{
+	"frame": {"x":1563,"y":3297,"w":460,"h":68},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":460,"h":68},
+	"sourceSize": {"w":460,"h":68}
+},
+"menu/pause_64":
+{
+	"frame": {"x":1492,"y":887,"w":59,"h":60},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":3,"w":59,"h":60},
+	"sourceSize": {"w":64,"h":64}
+},
+"menu/paused":
+{
+	"frame": {"x":3477,"y":165,"w":391,"h":174},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":3,"w":391,"h":174},
+	"sourceSize": {"w":391,"h":177}
+},
+"menu/play":
+{
+	"frame": {"x":1129,"y":1220,"w":108,"h":109},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":108,"h":109},
+	"sourceSize": {"w":108,"h":109}
+},
+"menu/ribbon":
+{
+	"frame": {"x":2503,"y":396,"w":800,"h":104},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":800,"h":104},
+	"sourceSize": {"w":800,"h":104}
+},
+"menu/start_button":
+{
+	"frame": {"x":3920,"y":3737,"w":104,"h":58},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":104,"h":58},
+	"sourceSize": {"w":104,"h":58}
+},
+"missions/level_thumb_frame_0":
+{
+	"frame": {"x":495,"y":1374,"w":120,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":120},
+	"sourceSize": {"w":120,"h":120}
+},
+"missions/level_thumb_frame_1":
+{
+	"frame": {"x":3300,"y":801,"w":120,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":120},
+	"sourceSize": {"w":120,"h":120}
+},
+"missions/level_thumb_frame_2":
+{
+	"frame": {"x":495,"y":1496,"w":120,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":120},
+	"sourceSize": {"w":120,"h":120}
+},
+"missions/level_thumb_frame_3":
+{
+	"frame": {"x":490,"y":1618,"w":120,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":120},
+	"sourceSize": {"w":120,"h":120}
+},
+"missions/level_thumb_frame_4":
+{
+	"frame": {"x":2263,"y":1374,"w":120,"h":120},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":120},
+	"sourceSize": {"w":120,"h":120}
+},
+"missions/small_arrow_left_act":
+{
+	"frame": {"x":1157,"y":868,"w":81,"h":122},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":81,"h":122},
+	"sourceSize": {"w":86,"h":126}
+},
+"missions/small_arrow_left_no":
+{
+	"frame": {"x":2306,"y":1250,"w":81,"h":122},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":81,"h":122},
+	"sourceSize": {"w":86,"h":126}
+},
+"missions/small_arrow_right_act":
+{
+	"frame": {"x":2385,"y":1405,"w":81,"h":122},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":81,"h":122},
+	"sourceSize": {"w":86,"h":126}
+},
+"missions/small_arrow_right_no":
+{
+	"frame": {"x":2251,"y":1496,"w":81,"h":122},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":2,"w":81,"h":122},
+	"sourceSize": {"w":86,"h":126}
+},
+"sprites/arrow":
+{
+	"frame": {"x":4047,"y":67,"w":30,"h":29},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":30,"h":29},
+	"sourceSize": {"w":30,"h":29}
+},
+"sprites/bird":
+{
+	"frame": {"x":3488,"y":2,"w":557,"h":161},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":5,"w":557,"h":161},
+	"sourceSize": {"w":576,"h":169}
+},
+"sprites/bullet":
+{
+	"frame": {"x":4079,"y":2,"w":6,"h":36},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":6,"h":36},
+	"sourceSize": {"w":6,"h":36}
+},
+"sprites/bullet2":
+{
+	"frame": {"x":4047,"y":2,"w":19,"h":49},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":19,"h":49},
+	"sourceSize": {"w":19,"h":49}
+},
+"sprites/effects/airplaneexplosion":
+{
+	"frame": {"x":2503,"y":2,"w":983,"h":128},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":36,"y":0,"w":983,"h":128},
+	"sourceSize": {"w":1024,"h":128}
+},
+"sprites/effects/bombexplosion":
+{
+	"frame": {"x":2503,"y":132,"w":972,"h":128},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":44,"y":0,"w":972,"h":128},
+	"sourceSize": {"w":1024,"h":128}
+},
+"sprites/effects/explode":
+{
+	"frame": {"x":704,"y":3977,"w":996,"h":63},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":11,"y":0,"w":996,"h":63},
+	"sourceSize": {"w":1024,"h":64}
+},
+"sprites/new_bullet":
+{
+	"frame": {"x":4068,"y":2,"w":9,"h":63},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":9,"h":63},
+	"sourceSize": {"w":9,"h":63}
+},
+"sprites/particles/Smoke10":
+{
+	"frame": {"x":3441,"y":341,"w":255,"h":256},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":255,"h":256},
+	"sourceSize": {"w":256,"h":256}
+},
+"sprites/particles/pump_smoke_01":
+{
+	"frame": {"x":2069,"y":2,"w":432,"h":417},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":34,"y":33,"w":432,"h":417},
+	"sourceSize": {"w":512,"h":512}
+},
+"sprites/particles/pump_smoke_04":
+{
+	"frame": {"x":1246,"y":304,"w":313,"h":316},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":105,"y":97,"w":313,"h":316},
+	"sourceSize": {"w":512,"h":512}
+},
+"sprites/particles/smoke-puff":
+{
+	"frame": {"x":495,"y":1248,"w":126,"h":124},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":4,"w":126,"h":124},
+	"sourceSize": {"w":128,"h":128}
+},
+"sprites/particles/smoke":
+{
+	"frame": {"x":3870,"y":165,"w":212,"h":219},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":18,"y":19,"w":212,"h":219},
+	"sourceSize": {"w":256,"h":256}
+},
+"sprites/particles/smoke_A":
+{
+	"frame": {"x":1565,"y":2,"w":502,"h":504},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":9,"y":8,"w":502,"h":504},
+	"sourceSize": {"w":512,"h":512}
+},
+"sprites/particles/smoke_light":
+{
+	"frame": {"x":3599,"y":1392,"w":202,"h":178},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":27,"y":39,"w":202,"h":178},
+	"sourceSize": {"w":256,"h":256}
+},
+"sprites/plane3":
+{
+	"frame": {"x":2013,"y":3742,"w":100,"h":34},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":34},
+	"sourceSize": {"w":100,"h":34}
+},
+"wood_pattern":
+{
+	"frame": {"x":2,"y":484,"w":500,"h":500},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":500,"h":500},
+	"sourceSize": {"w":500,"h":500}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "sprites1.png",
+	"format": "RGBA8888",
+	"size": {"w":4096,"h":4096},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:1eeb7328706bf184c92ae00c4f90f739:ca170aa490f0d5569d41b8ce35d7b95c:83ea59fcc6eb243ac6b9fd79627c8f48$"
+}
+}

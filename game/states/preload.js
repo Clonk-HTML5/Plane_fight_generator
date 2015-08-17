@@ -26,6 +26,10 @@ Preload.prototype = {
       
     //all Sprites
     this.load.atlasJSONHash('sprites', 'assets/sprites.png', 'assets/sprites.json');
+    this.load.atlasJSONHash('sprites1', 'assets/sprites1.png', 'assets/sprites1.json');
+    this.load.atlasJSONHash('sprites2', 'assets/sprites2.png', 'assets/sprites2.json');
+      
+    this.load.json('levelJson', 'assets/levels/levels.json');
 
     //BIRD
     this.load.spritesheet('birdie', 'assets/img/sprites/bird.png', 189, 169, 3);
