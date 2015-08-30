@@ -1,13 +1,12 @@
 
   'use strict';
-  var BirdGroup = require('../prefabs/birdGroup');  
-  var Player = require('../prefabs/Player');  
-  var EnemyPlaneGroup = require('../prefabs/EnemyPlaneGroup');  
-  var Level = require('../prefabs/Level');  
-  var Level2 = require('../prefabs/Level2');  
-  var Level3 = require('../prefabs/Level3');  
-  var PausePanel = require('../prefabs/PausePanel');  
-  var BasicLayer = require('../prefabs/BasicLayer');  
+  var BirdGroup = require('../prefabs/birdGroup');
+  var Player = require('../prefabs/Player');
+  var EnemyPlaneGroup = require('../prefabs/EnemyPlaneGroup');
+  var Level = require('../prefabs/Level');
+  var Level_old = require('../prefabs/Level_old');
+  var PausePanel = require('../prefabs/PausePanel');
+  var BasicLayer = require('../prefabs/BasicLayer');
   var GameController = require('../plugins/GameController');
   var HUDManager = require('../plugins/HUDManager');
 
@@ -15,56 +14,61 @@
   Play.prototype = {
     create: function() {
 //        this.worldScale = 0.8
-//        
+//
 //        // set a minimum and maximum scale value
 //        this.worldScale = Phaser.Math.clamp(this.worldScale, 0.25, 2);
 //
 //        // set our world scale as needed
 //        this.game.world.scale.set(this.worldScale);
-//        
+//
 //        // set our world size to be bigger than the window so we can move the camera
 //        this.game.world.setBounds(0, -200, 4000, 1000);
 //
 //        // move our camera half the size of the viewport back so the pivot point is in the center of our view
 //        this.game.camera.x = (this.game.width * -0.5);
 //        this.game.camera.y = (this.game.height * -0.5);
-        
+
 //        this.pauseState = false;
-        
+
         // new Level Object
         this.levelJson = this.game.cache.getJSON('levelJson');
-        console.log(this.levelJson)
-//        this.level = new Level(this.game);
-        //this.level = new Level2(this.game);
-        this.level = new Level3(this.game);
-        
+        this.currentLevel = this.levelJson.Levels[GlobalGame.level];
+        console.log(this.currentLevel)
+
+        this.level = new Level(this.game, {currentLevel: this.currentLevel});
+        this.level.scale.setTo(GlobalGame.scale+GlobalGame.scale);
+
         // Create a new bird object
         this.birdGroup = new BirdGroup(this.game);
-        
+
         // new Player Object
-        this.player = new Player(this.game, 200, 100, "sprites/plane3");
-        
+        // this.player = new Player(this.game, parseInt(this.currentLevel.playerStart.x), parseInt(this.currentLevel.playerStart.y), "sprites/plane3");
+        this.player = new Player(this.game, parseInt(this.currentLevel.playerStart.x), parseInt(this.currentLevel.playerStart.y), "Airplanes/Fokker/Skin 1/PNG/Fokker_default");
+
         this.enemyPlaneGroup = new EnemyPlaneGroup(this.game, this.player);
         this.enemyPlaneGroup.addEnemy();
-        
+
         // add our pause button with a callback
         this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'sprites', this.pauseGame, this, 'menu/btn-pause', 'menu/btn-pause', 'menu/btn-pause', 'menu/btn-pause');
         this.pauseButton.fixedToCamera = true;
         this.pauseButton.inputEnabled = true;
 //        this.pauseButton.anchor.setTo(0.5,0.5);
-        this.pauseButton.scale.setTo(0.75,0.75);
-        
-        //GameStart Layer    
+        // this.pauseButton.scale.setTo(0.75,0.75);
+
+        //GameStart Layer
 //        this.basicLayer = new BasicLayer(this.game)
         this.createPlayers();
-        
+
         // Let's build a pause panel
         this.pausePanel = new PausePanel(this.game);
-        
+
+        // this.bounds = Phaser.Rectangle.clone(this.game.camera.bounds);
+        this.zoomTo(GlobalGame.scale);
+
         // Add a input listener that can help us return from being paused
         this.game.input.onDown.add(this.unpause, this);
     },
-      
+
     update: function(){
       this.enemyPlaneGroup.forEachAlive(function(enemyPlane){
           if(!enemyPlane.inCamera){
@@ -76,15 +80,17 @@
           }
       }, this)
     },
-      
+
     render: function(){
-//      this.game.debug.bodyInfo(this.player, 32, 32); 
+    //  this.game.debug.body(this.player, 32, 32);
 //        this.game.debug.cameraInfo(this.game.camera, 32, 32);
+      // this.game.debug.cameraInfo(this.game.camera, 500, 32);
+      // this.game.debug.spriteCoords(this, 32, 32);
     },
-      
+
     createPlayers: function(){
 //        this.basicLayer.removeAll();
-        
+
         this.game.add.existing(this.player);
         if(!this.player.alive){
             this.player.x = 400;
@@ -94,10 +100,10 @@
 //            this.player.bullets.reverse();
 //            this.player.emitter.revive();
         }
-        
+
 
     },
-      
+
     paused: function() {
         console.log('paused')
     },
@@ -120,7 +126,31 @@
                 this.pauseButton.visible = true;
         }
     },
-      
+
+    zoomTo: function(scale, duration){
+      var bounds       = this.game.world.bounds;
+      var cameraBounds = this.game.camera.bounds;
+      var postionScale = (1 - scale) / 2;
+      var x      = bounds.width  * postionScale,
+        y      = bounds.height * postionScale,
+        width  = bounds.width  * scale,
+        height = bounds.height * scale;
+      if (!duration) {
+            // cameraBounds.x      = x;
+            // cameraBounds.y      = y;
+            // cameraBounds.width  = width;
+            // cameraBounds.height = height;
+            this.game.camera.scale.setTo(scale);
+      } else {
+        // this.game.add.tween(cameraBounds)
+        // .to({x, y, width, height}, duration).start();
+        this.game.add.tween(cameraBounds)
+        .to({width, height}, duration).start();
+        return this.game.add.tween(this.game.camera.scale)
+        .to({x: scale, y: scale}, duration).start();
+      }
+    },
+
     // And finally the method that handels the pause menu
     unpause: function(event){
         // Only act if paused
@@ -140,12 +170,12 @@
                 var x = event.x - x1,
                     y = event.y - y1;
 
-                // Calculate the choice 
+                // Calculate the choice
                 var choise = Math.floor(x / 90) + 3*Math.floor(y / 90);
 //                var choise = (x / 90)<< 0 + (3 * (y / 90)<< 0);
 
                 console.log(choise)
-                
+
                 // Display the choice
                 console.log('You chose menu item: ' + choisemap[choise]);
             }
@@ -154,7 +184,7 @@
             }
         }
     }
-      
+
   };
-  
+
   module.exports = Play;

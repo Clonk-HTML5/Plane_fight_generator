@@ -2,13 +2,12 @@
 
 //  var Hammer = require('../plugins/Hammer');
   var BasicLayer = require('../prefabs/BasicLayer');
-  var Gesture = require('../plugins/gesturemanager');
+  var Gesture = require('../plugins/Gesture');
 
-var Player = function(game, x, y, frame) {
-  Phaser.Sprite.call(this, game, x, y, "sprites", frame);
+var Player = function(game, x, y,frame) {
+  Phaser.Sprite.call(this, game, x, y, "airplanes", frame);
 
-  // initialize your prefab here
-    if (this.game.device.desktop){
+    // if (this.game.device.desktop){
         this.emitter = this.game.add.emitter(x, y, 400);
         this.emitter.makeParticles('sprites', 'sprites/particles/smoke' );
 
@@ -17,7 +16,7 @@ var Player = function(game, x, y, frame) {
         this.emitter.setScale(0.1, 0, 0.05, 0, 1000);
 
         this.emitter.start(false, 3000, 5);
-    }
+    // }
 
         //  Our bullet group
         this.bullets = this.game.add.group();
@@ -28,8 +27,8 @@ var Player = function(game, x, y, frame) {
         this.bullets.setAll('anchor.y', 1);
         this.bullets.setAll('checkWorldBounds', true);
         this.bullets.setAll('outOfBoundsKill', true);
-        this.bullets.setAll('scale.x', 0.5);
-        this.bullets.setAll('scale.y', 0.5);
+        // this.bullets.setAll('scale.x', 0.5);
+        // this.bullets.setAll('scale.y', 0.5);
         this.bulletTime = 0;
 
 //        this.addChild(this.emitter);
@@ -46,8 +45,9 @@ var Player = function(game, x, y, frame) {
         this.flyLoop = false;
         this.directionX,
         this.directionY;
+        this.scaleFactor = new Phaser.Point(0.5, 0.5);
 
-//        this.scale.setTo(0.6, 0.6);
+       this.scale.setTo(this.scaleFactor.x, this.scaleFactor.y);
 //        this.scale.x *= -1;
         this.anchor.setTo(0.5, 0.5);
 //        this.scale.setTo(0.23, 0.23);
@@ -61,6 +61,38 @@ var Player = function(game, x, y, frame) {
         this.body.gravity.y = 300;
         this.body.velocity.setTo(200, 0);
         this.body.maxVelocity.setTo(300, 300);
+
+        this.hitAnimation = this.animations.add('hit', [
+            'Airplanes/Fokker/Skin 1/PNG/Fokker_hit_1',
+            'Airplanes/Fokker/Skin 1/PNG/Fokker_hit_2',
+            'Airplanes/Fokker/Skin 1/PNG/Fokker_hit_3'
+        ], 10, false, false);
+
+        this.deadAnimation = this.animations.add('explode', [
+            'Airplanes/Fokker/Skin 1/PNG/Fokker_death_1',
+            'Airplanes/Fokker/Skin 1/PNG/Fokker_death_2',
+            'Airplanes/Fokker/Skin 1/PNG/Fokker_death_3',
+            'Airplanes/Fokker/Skin 1/PNG/Fokker_death_4'
+        ], 10, false, false);
+
+        this.hitAnimation.onComplete.add(function() {
+            this.frameName = "Airplanes/Fokker/Skin 1/PNG/Fokker_default";
+        }, this);
+
+        this.deadAnimation.onComplete.add(function() {
+
+          this.deadAnimation.stop('explode');
+          this.kill();
+          if (this.game.device.desktop) this.emitter.kill();
+          this.frameName = "Airplanes/Fokker/Skin 1/PNG/Fokker_default";
+          this.bullets.removeAll();
+
+//            if(this.name == GlobalGame.Multiplayer.socket.socket.sessionid)
+
+          if(!this.name){
+              this.basicLayer = new BasicLayer(this.game, undefined, "Click to play again")
+          }
+        }, this);
 
         if(GlobalGame.controller === 'keyboardButtons'){
             this.body.gravity.y = 50;
@@ -90,11 +122,11 @@ var Player = function(game, x, y, frame) {
 
       this.healthHUD = this.hud.addBar(0,-50, this.width, 10, this.health, 'health', this, '#ffbd55', false);
       this.healthHUD.bar.anchor.setTo(0.5, 0.5);
-      this.addChild(this.healthHUD.bar);
+      // this.addChild(this.healthHUD.bar);
 
     if(GlobalGame.Multiplayer.userName){
         this.username = this.game.add.text(0, -100, GlobalGame.Multiplayer.userName, { fontSize: '22px', fill: '#000' });
-        this.addChild(this.username);
+        // this.addChild(this.username);
     }
 
         //Camera
@@ -103,6 +135,14 @@ var Player = function(game, x, y, frame) {
         //Controlls initialize
         this.cursors = this.game.input.keyboard.createCursorKeys();
         this.pointer = this.game.input.addPointer();
+
+        // this.gestures = new Gesture(this.game);
+
+        // this.gestures.onTap.add(this.flap, this);
+        // this.gestures.onHold.add(this.holded, this);
+        // this.gestures.onSwipe.add(this.swiped, this);
+
+        this.game.input.onDown.add(this.flap, this);
 
     /*******************
     * PLAYER Controll Buttons If Device not Desktop
@@ -141,20 +181,23 @@ Player.prototype.constructor = Player;
 
 Player.prototype.update = function() {
 
-      if (this.game.input.activePointer.isDown) {
-          var duration = this.game.input.activePointer.duration;
-          if (duration < 450) {
-            this.flap();
-          } else {
-            this.holdFlap();
-          }
-      }
+  // this.gestures.update();
+
+      // if (this.game.input.activePointer.isDown) {
+          // var duration = this.game.input.activePointer.duration;
+          // if (duration < 450) {
+            // this.flap();
+          // } else {
+          //   this.flap();
+          //   // this.holdFlap();
+          // }
+      // }
 
         // Keep the plane on the screen
         if (this.x > this.game.world.width) this.x = 0;
         if (this.x < 0) this.x = this.game.world.width;
 
-         this.game.physics.arcade.collide(this, this.game.state.getCurrentState().level.platforms, this.playerLoseHealth, null, this);
+         this.game.physics.arcade.overlap(this, this.game.state.getCurrentState().level.platforms, this.playerLoseHealth, null, this);
 
         if(GlobalGame.Multiplayer.socketEventHandlers !== null){
             for(var i = 0; i < GlobalGame.Multiplayer.socketEventHandlers.enemies.length; i++){
@@ -201,15 +244,21 @@ Player.prototype.update = function() {
 //            if (this.game.input.activePointer.isDown){
 //                this.flap();
 //            }
+            // if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
+            //   this.animations.play('hit', 5, false);
+            // }
+
             if(this.flyLoop){
                 this.fireBullet();
 
                   if(this.direction) {
                     this.directionX = this.x+150;
                     this.directionY = this.y-100;
+                    this.tweenScaleFactor = new Phaser.Point(this.scaleFactor.x, this.scaleFactor.y);
                   } else {
                     this.directionX = this.x-200;
                     this.directionY = this.y-100;
+                    this.tweenScaleFactor = new Phaser.Point(this.scaleFactor.x, -this.scaleFactor.y);
                   }
                  var targetAngle = this.game.math.angleBetween(
                     this.x, this.y,
@@ -236,6 +285,7 @@ Player.prototype.update = function() {
                         // Just set angle to target angle if they are close
                         if (Math.abs(delta) < this.game.math.degToRad(this.TURN_RATE)) {
                             this.rotation = targetAngle;
+                            this.scaleTween = this.game.add.tween(this.scale).to({x: this.tweenScaleFactor.x, y: this.tweenScaleFactor.y}, 500, Phaser.Easing.Back.Out, true).start();
                             this.game.input.onDown.add(this.flap, this);
                             this.planeDirection = this.direction;
                             this.flyLoop = false;
@@ -264,7 +314,7 @@ Player.prototype.update = function() {
 //             this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed+100, this.body.velocity);
 //        }
 
-    if(this.game.device.desktop){
+    // if(this.game.device.desktop){
         var px = this.body.velocity.x;
         var py = this.body.velocity.y;
 
@@ -276,7 +326,7 @@ Player.prototype.update = function() {
 
         this.emitter.emitX = this.x;
         this.emitter.emitY = this.y;
-    }
+    // }
 
         if(GlobalGame.Multiplayer.socket)
             GlobalGame.Multiplayer.socket.emit("move player", {x: this.x, y:this.y, angle: this.angle});
@@ -295,6 +345,9 @@ Player.prototype.update = function() {
         this.playerLoseHealth(plane);
     };
 
+  /**
+   * Fires a Bullet
+   */
     Player.prototype.fireBullet = function() {
 
         if (this.game.time.now > this.bulletTime)
@@ -304,7 +357,8 @@ Player.prototype.update = function() {
 
             if (bullet)
             {
-                bullet.reset(this.body.x + this.body.width2, this.body.y + this.body.height/2);
+                // bullet.reset(this.body.x + this.body.width2, this.body.y + this.body.height/2);
+                bullet.reset(this.x, this.y);
 //                bullet.body.velocity.copyFrom(this.game.physics.arcade.velocityFromAngle(this.plane.angle, 1000))
 //                bullet.rotation = this.plane.rotation + this.game.math.degToRad(90);
                 bullet.lifespan = 2000;
@@ -325,8 +379,8 @@ Player.prototype.update = function() {
      * @param player player collides
      */
     Player.prototype.bulletHitsBird = function (bullet, bird) {
-        // Removes the star from the screen
         bird.kill();
+        if(typeof bird.parent.addBird === 'function') bird.parent.addBird();
         bullet.kill();
     };
 
@@ -336,9 +390,8 @@ Player.prototype.update = function() {
      * @param player player collides
      */
     Player.prototype.playerHitsSomething = function (plane, something) {
-        // Removes the star from the screen
         something.kill();
-
+        if(typeof something.parent.addBird === 'function') something.parent.addBird();
         this.playerLoseHealth(plane);
     };
 
@@ -369,7 +422,7 @@ Player.prototype.update = function() {
     };
 
     /**
-    * player flaps
+    * player hold touch flaps
      */
     Player.prototype.holdFlap = function() {
       if(!!this.alive) {
@@ -384,13 +437,13 @@ Player.prototype.update = function() {
               if(this.direction) {
                 // velocityX = this.body.velocity.x+150;
                 // velocityY = this.body.velocity.y-100;
-                this.body.velocity.x += 25;
-                this.body.velocity.y -= 20;
+                this.body.velocity.x += 35;
+                this.body.velocity.y -= 30;
               } else {
                 // velocityX = this.body.velocity.x-200;
                 // velocityY = this.body.velocity.y-100;
-                this.body.velocity.x -= 30;
-                this.body.velocity.y -= 20;
+                this.body.velocity.x -= 40;
+                this.body.velocity.y -= 30;
               }
               // this.flapVelocityTween = this.game.add.tween(this.body.velocity).to({x: velocityX, y: velocityY}, 200, Phaser.Easing.Linear.None, true).start();
             this.fireBullet();
@@ -403,32 +456,32 @@ Player.prototype.update = function() {
      * @param player player collides
      */
     Player.prototype.playerLoseHealth = function (plane) {
-//        gameInitializer.socket.emit("bullet hit player", {playerId: plane.name});
-        if(GlobalGame.Multiplayer.socket)
-            GlobalGame.Multiplayer.socket.emit("bullet hit player", {playerId: this.name});
-        plane.health -= 1;
-        if(plane.health < 1){
+        if(plane.health >= 0) {
+          this.hitAnimation.play('hit', 10, false);
+          // plane.tint = Math.random() * 0xffffff;
+          // var lightningTween = this.game.add.tween(plane).to({tint: 0xCCFFFF}, 1000, Phaser.Easing.Exponential.Out, true, 0, 0, true);
+          // lightningTween.onComplete.add(function(){plane.tint = 0xffffff}, this);
 
-            //explode animation
-            var explosion = this.game.add.sprite(plane.x - plane.width/2, plane.y - plane.height/2, 'airplaneexplode');
-            explosion.animations.add('explode');
-            explosion.animations.play('explode', 10, false, true);
-//            explosion.animations.destroy('explode');
+  //        gameInitializer.socket.emit("bullet hit player", {playerId: plane.name});
+          if(GlobalGame.Multiplayer.socket)
+              GlobalGame.Multiplayer.socket.emit("bullet hit player", {playerId: this.name});
+          plane.health -= 1;
 
-            plane.kill();
-            if (this.game.device.desktop) plane.emitter.kill();
-//            plane.bullets.removeAll();
+          if(plane.health < 5){
+            plane.frameName = "Airplanes/Fokker/Skin 1/PNG/Fokker_default_damaged";
+          } else if (plane.health < 4) {
+            plane.frameName = "Airplanes/Fokker/Skin 1/PNG/Fokker_attack_damaged_1";
+          } else if (plane.health < 3) {
+            plane.frameName = "Airplanes/Fokker/Skin 1/PNG/Fokker_attack_damaged_2";
+          }
 
-//            this.game.gameoverTransition.to('gameover');
-//            this.game.transitions.to('gameover');
-
-            //GameStart Layer
-//            if(plane.name == GlobalGame.Multiplayer.socket.socket.sessionid)
-
-//            if(!plane.name) this.basicLayer = new BasicLayer(this.game, undefined, "Click to play again")
-            if(!plane.name){
-                this.basicLayer = new BasicLayer(this.game, undefined, "Click to play again")
-            }
+          if(plane.health < 1){
+              this.game.input.onDown.remove(this.flap, this);
+              plane.body.velocity.x = 0;
+              plane.body.velocity.y = 0;
+              plane.body.gravity.y = 700;
+              this.deadAnimation.play('explode', 10, false, true);
+          }
         }
     };
 

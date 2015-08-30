@@ -1,10 +1,10 @@
 {
 "Levels": {
     "1": {
-        "playerStart": {"x": "400","y": "400"}
+        "playerStart": {"x": 200,"y": 100}
     },
     "2": {
-        "playerStart": {"x": "400","y": "400"}
+        "playerStart": {"x": 200,"y": 100}
     }
 }
 }

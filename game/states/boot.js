@@ -8,27 +8,29 @@ GlobalGame = {
 
     /* Your game can check BasicGame.orientated in internal loops to know if it should pause or not */
     orientated: false,
-    
+
     player: null,
-    
+
     /* Current Level */
     level: 1,
-    
-    /* 
-    * Controller of the Ship: 
+
+    scale: 0.7,
+
+    /*
+    * Controller of the Ship:
     *  **keyboardButtons (Keyboard on Desktop Buttons on Mobile)
     *  **touch (click and touch)
     */
     controller: 'touch',
-    
+
     Multiplayer: {
-        
+
         socket: null,
-        
+
         socketEventHandlers: null,
 
         userName: null,
-        
+
         connected: false
     }
 
@@ -42,7 +44,7 @@ GlobalGame = {
 //};
 //( function() {
 //    var clay = document.createElement("script"); clay.async = true;
-//    clay.src = ( "https:" == document.location.protocol ? "https://" : "http://" ) + "clay.io/api/api.js"; 
+//    clay.src = ( "https:" == document.location.protocol ? "https://" : "http://" ) + "clay.io/api/api.js";
 //    var tag = document.getElementsByTagName("script")[0]; tag.parentNode.insertBefore(clay, tag);
 //} )();
 
@@ -58,13 +60,14 @@ Boot.prototype = {
     this.stage.backgroundColor = '#3498db';
     this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.height, 'menu_bg');
     this.stage.addChildAt(this.background,0);
-      
+
     this.game.input.maxPointers = 1;
-    
+
     this.stage.disableVisibilityChange = true;
-      
+
     if (this.game.device.desktop)
     {
+        this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         this.scale.setMinMax(480, 260, 1024, 768);
 //        this.scale.pageAlignHorizontally = true;
@@ -72,6 +75,7 @@ Boot.prototype = {
     }
     else
     {
+        this.game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
         this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
         this.scale.setMinMax(480, 260, 1024, 768);
 //        this.scale.pageAlignHorizontally = true;
@@ -81,9 +85,9 @@ Boot.prototype = {
 //        this.scale.enterIncorrectOrientation.add(this.enterIncorrectOrientation, this);
 //        this.scale.leaveIncorrectOrientation.add(this.leaveIncorrectOrientation, this);
     }
-      
+
     //debug plugin
-//    this.game.add.plugin(Phaser.Plugin.Debug);  
+//    this.game.add.plugin(Phaser.Plugin.Debug);
 //    this.game.input.maxPointers = 1;
     this.game.state.start('preload');
   },

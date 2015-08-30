@@ -75,6 +75,8 @@
 //
 //     return Gesture;
 // });
+
+
 /**
  * Phaser Gesture Plugin
  * @author       Christian Schmitt

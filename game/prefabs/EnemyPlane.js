@@ -4,11 +4,11 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
   Phaser.Sprite.call(this, game, x, y, 'sprites', frame);
 
   // initialize your prefab here
-    
+
     this.options = options ? options : false;
-    
+
     this.player = player;
-    
+
     if (this.game.device.desktop){
         this.emitter = this.game.add.emitter(x, y, 400);
 
@@ -20,7 +20,7 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
 
         this.emitter.start(false, 3000, 5);
     }
-        
+
         //  Our bullet group
         this.bullets = this.game.add.group();
         this.bullets.enableBody = true;
@@ -33,7 +33,7 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
         this.bullets.setAll('scale.x', 0.5);
         this.bullets.setAll('scale.y', 0.5);
         this.bulletTime = 0;
-        
+
         this.bringToTop();
         this.health = 20;
         this.kills = 0;
@@ -53,44 +53,44 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
         this.body.gravity.y = 50;
         this.body.velocity.setTo(300, 0)
         this.body.maxVelocity.setTo(300, 300);
-    
-    
+
+
     /*******************
     * HUD'S
     *******************/
-        
+
       this.hud = Phaser.Plugin.HUDManager.create(this.game, this, 'gamehud');
       this.healthHUD = this.hud.addBar(0,-50, this.width, 10, this.health, 'health', this, '#ffbd55', false);
       this.healthHUD.bar.anchor.setTo(0.5, 0.5);
       this.addChild(this.healthHUD.bar);
-    
+
     this.randomXPointInWorld = this.game.world.randomX;
     this.randomYPointInWorld = this.game.world.randomY - 300;
-    
+
     // Let's build a Arrow
     this.arrow = this.game.add.sprite(15, 15, 'sprites', 'sprites/arrow');
     this.arrow.fixedToCamera = true;
     this.arrow.anchor.setTo(0.5, 0.5);
     this.arrow.visible = false;
-  
+
 };
 
 EnemyPlane.prototype = Object.create(Phaser.Sprite.prototype);
 EnemyPlane.prototype.constructor = EnemyPlane;
 
 EnemyPlane.prototype.update = function() {
-  
+
   // write your prefab's specific update code here
     if(!this.options.menu){
         this.game.physics.arcade.overlap(this, this.player.bullets, this.playerLoseHealth, null, this);
         this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
     }
-    
+
     if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
         this.randomXPointInWorld = this.game.world.randomX;
         this.randomYPointInWorld = this.game.world.randomY - 300;
     }
-    
+
     // Calculate the angle from the missile to the mouse cursor game.input.x
     // and game.input.y are the mouse position; substitute with whatever
     // target coordinates you need.
@@ -124,16 +124,16 @@ EnemyPlane.prototype.update = function() {
     // Calculate velocity vector based on this.rotation and this.SPEED
     this.body.velocity.x = Math.cos(this.rotation) * this.SPEED;
     this.body.velocity.y = Math.sin(this.rotation) * this.SPEED;
-    
+
     if(!this.options.menu){
          if (this.game.physics.arcade.distanceBetween(this, this.player) < 300){
              this.fireBullet();
-             
+
 //             if(this.player.alive)
 //                this.rotation = this.game.physics.arcade.moveToObject(this, this.player, this.SPEED-150);
          }
     }
-    
+
     if(this.game.device.desktop){
         var px = this.body.velocity.x;
         var py = this.body.velocity.y;
@@ -147,7 +147,7 @@ EnemyPlane.prototype.update = function() {
         this.emitter.emitX = this.x;
         this.emitter.emitY = this.y;
     }
-  
+
 };
 
 EnemyPlane.prototype.fireBullet = function() {
@@ -159,7 +159,8 @@ EnemyPlane.prototype.fireBullet = function() {
 
         if (bullet)
         {
-            bullet.reset(this.body.x + this.body.width/2, this.body.y + this.body.height/2);
+            // bullet.reset(this.body.x + this.body.width/2, this.body.y + this.body.height/2);
+            bullet.reset(this.x, this.y);
 //                bullet.body.velocity.copyFrom(this.game.physics.arcade.velocityFromAngle(this.plane.angle, 1000))
 //                bullet.rotation = this.plane.rotation + this.game.math.degToRad(90);
             bullet.lifespan = 2000;
@@ -174,7 +175,7 @@ EnemyPlane.prototype.fireBullet = function() {
 
 };
 
-     /**    
+     /**
      * player collides with enemy
      * @param player player collides
      */
@@ -184,15 +185,15 @@ EnemyPlane.prototype.fireBullet = function() {
             this.socket.socket.emit("bullet hit player", {playerId: this.name});
         plane.health -= 1
         if(plane.health < 1){
-            
+
             if(this.player) this.player.kills += 1;
-            
+
             //explode animation
             var explosion = this.game.add.sprite(plane.x - plane.width/2, plane.y - plane.height/2, 'airplaneexplode');
             explosion.animations.add('explode');
             explosion.animations.play('explode', 10, false, true);
 //            explosion.animations.destroy('explode');
-            
+
             plane.kill();
             if (this.game.device.desktop) plane.emitter.kill();
             plane.bullets.removeAll();

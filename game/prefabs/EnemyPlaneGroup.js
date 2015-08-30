@@ -12,11 +12,10 @@ EnemyPlaneGroup.prototype = Object.create(Phaser.Group.prototype);
 EnemyPlaneGroup.prototype.constructor = EnemyPlaneGroup;
 
 /**
-* player collides with enemy
-* @param player player collides
+* adds enemy
 */
 EnemyPlaneGroup.prototype.addEnemy = function () {
-    
+
 //    this.maxElements = 5;
     //    for (var i = 0; i < maxElements; i++){
         // new Player Object

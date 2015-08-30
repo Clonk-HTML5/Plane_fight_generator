@@ -7,11 +7,11 @@ _.str = require('underscore.string');
 // Mix in non-conflict functions to Underscore namespace if you want
 _.mixin(_.str.exports());
 
-var LIVERELOAD_PORT = 35729;
-var lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT});
-var mountFolder = function (connect, dir) {
-  return connect.static(require('path').resolve(dir));
-};
+// var LIVERELOAD_PORT = 35729;
+// var lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT});
+// var mountFolder = function (connect, dir) {
+//   return connect.static(require('path').resolve(dir));
+// };
 
 module.exports = function (grunt) {
   // load all grunt tasks
@@ -26,32 +26,39 @@ module.exports = function (grunt) {
         ],
         options: {
           spawn: false,
-          livereload: LIVERELOAD_PORT
+          // livereload: LIVERELOAD_PORT
+          livereload: true
         },
         tasks: ['build']
       }
     },
     connect: {
       options: {
-        port: 9001,
+        port: 9000,
         // change this to '0.0.0.0' to access the server from outside
 //        hostname: 'localhost'
         hostname: '0.0.0.0'
       },
-      livereload: {
-        options: {
-          middleware: function (connect) {
-            return [
-              lrSnippet,
-              mountFolder(connect, 'dist')
-            ];
-          }
-        }
-      }
+      server: {
+         options: {
+           port: 9000,
+           base: 'dist'
+         }
+       }
+      // livereload: {
+      //   options: {
+      //     middleware: function (connect) {
+      //       return [
+      //         lrSnippet,
+      //         mountFolder(connect, 'dist')
+      //       ];
+      //     }
+      //   }
+      // }
     },
     open: {
       server: {
-        path: 'http://localhost:9001'
+        path: 'http://localhost:9000'
       }
     },
     copy: {
@@ -99,7 +106,8 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('build', ['buildBootstrapper', 'browserify','copy']);
-  grunt.registerTask('serve', ['build', 'connect:livereload', 'open', 'watch']);
+  // grunt.registerTask('serve', ['build', 'connect:livereload', 'open', 'watch']);
+  grunt.registerTask('serve', ['build', 'connect:server', 'open', 'watch']);
   grunt.registerTask('ftp', ['ftpush']);
   grunt.registerTask('default', ['serve']);
   grunt.registerTask('prod', ['build', 'copy']);
