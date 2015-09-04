@@ -21,7 +21,6 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
         this.emitter.start(false, 3000, 5);
     }
 
-        //  Our bullet group
         this.bullets = this.game.add.group();
         this.bullets.enableBody = true;
         this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
@@ -81,7 +80,7 @@ EnemyPlane.prototype.constructor = EnemyPlane;
 EnemyPlane.prototype.update = function() {
 
   // write your prefab's specific update code here
-    if(!this.options.menu){
+    if(!this.options.menu && this.player){
         this.game.physics.arcade.overlap(this, this.player.bullets, this.playerLoseHealth, null, this);
         this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
     }
@@ -125,7 +124,7 @@ EnemyPlane.prototype.update = function() {
     this.body.velocity.x = Math.cos(this.rotation) * this.SPEED;
     this.body.velocity.y = Math.sin(this.rotation) * this.SPEED;
 
-    if(!this.options.menu){
+    if(!this.options.menu && this.player){
          if (this.game.physics.arcade.distanceBetween(this, this.player) < 300){
              this.fireBullet();
 

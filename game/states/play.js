@@ -2,7 +2,7 @@
   'use strict';
   var BirdGroup = require('../prefabs/birdGroup');
   var Player = require('../prefabs/Player');
-  var EnemyPlaneGroup = require('../prefabs/EnemyPlaneGroup');
+  var EnemyGroup = require('../prefabs/EnemyGroup');
   var Level = require('../prefabs/Level');
   var Level_old = require('../prefabs/Level_old');
   var PausePanel = require('../prefabs/PausePanel');
@@ -45,8 +45,8 @@
         // this.player = new Player(this.game, parseInt(this.currentLevel.playerStart.x), parseInt(this.currentLevel.playerStart.y), "sprites/plane3");
         this.player = new Player(this.game, parseInt(this.currentLevel.playerStart.x), parseInt(this.currentLevel.playerStart.y), "Airplanes/Fokker/Skin 1/PNG/Fokker_default");
 
-        this.enemyPlaneGroup = new EnemyPlaneGroup(this.game, this.player);
-        this.enemyPlaneGroup.addEnemy();
+        this.enemyGroup = new EnemyGroup(this.game, this.player);
+        this.enemyGroup.addEnemy();
 
         // add our pause button with a callback
         this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'sprites', this.pauseGame, this, 'menu/btn-pause', 'menu/btn-pause', 'menu/btn-pause', 'menu/btn-pause');
@@ -70,7 +70,7 @@
     },
 
     update: function(){
-      this.enemyPlaneGroup.forEachAlive(function(enemyPlane){
+      this.enemyGroup.forEachAlive(function(enemyPlane){
           if(!enemyPlane.inCamera){
               enemyPlane.arrow.visible = true;
 //              enemyPlane.arrow.position.setTo(this.game.camera.view.x,this.game.camera.view.y)
@@ -86,6 +86,7 @@
 //        this.game.debug.cameraInfo(this.game.camera, 32, 32);
       // this.game.debug.cameraInfo(this.game.camera, 500, 32);
       // this.game.debug.spriteCoords(this, 32, 32);
+      this.game.debug.spriteInfo(this.enemyGroup.flak, 32, 32);
     },
 
     createPlayers: function(){

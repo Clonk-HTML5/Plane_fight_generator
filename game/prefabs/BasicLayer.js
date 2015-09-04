@@ -10,31 +10,38 @@ var BasicLayer = function(game, parent, layerText) {
     this.layerText = layerText ? layerText : "Click to play";
 
    // Alpha Layer
-    this.b = this.game.add.bitmapData(this.game.world.width, this.game.world.height),
-    this.b.ctx.fillStyle = "#000",
-    this.b.ctx.fillRect(0, 0,  this.game.world.width, this.game.world.height);
-
-    this.c = this.game.add.sprite(0, 0, this.b);
-    this.c.alpha = 0.5;
-    this.add(this.c);
+    // this.b = this.game.add.bitmapData(this.game.world.width, this.game.world.height),
+    // this.b.ctx.fillStyle = "#000",
+    // this.b.ctx.fillRect(0, 0,  this.game.world.width, this.game.world.height);
+    //
+    // this.c = this.game.add.sprite(0, 0, this.b);
+    // this.c.alpha = 0.5;
+    // this.add(this.c);
 
     this.fontStyle = { font: "40px loudy_With_a_Chance_of_Love", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
 //    this.scoreText = this.game.add.text(this.game.width/2-200, this.game.height/2, this.layerText, this.fontStyle);
 //    this.add(this.scoreText);
 
-    this.defeatWindow = this.game.add.image(this.game.width / 2, 50, 'sprites', 'menu/defeat_window');
-    this.defeatWindow.anchor.setTo(0.5, 0)
+    this.defeatWindow = this.game.add.image(this.game.width / 2 , this.game.height / 2, 'sprites', 'menu/defeat_window');
+    this.defeatWindow.x = this.game.width / 2 - this.defeatWindow.width/2;
+    this.defeatWindow.y = this.game.height / 2 - (this.defeatWindow.height - 100);
+    this.defeatWindow.anchor.setTo(0.5, 0.5);
+    this.defeatWindow.fixedToCamera = true;
     this.add(this.defeatWindow);
 
-    this.restartButton = this.game.add.button(-50, this.defeatWindow.height-100, 'sprites', this.restartClick, this, 'buttons/button_restart_act', 'buttons/button_restart_no', 'buttons/button_restart_act', 'buttons/button_restart_no');
+    this.restartButton = this.game.add.button(-50, this.defeatWindow.height -250, 'sprites', this.restartClick, this, 'buttons/button_restart_act', 'buttons/button_restart_no', 'buttons/button_restart_act', 'buttons/button_restart_no');
 //    this.restartButton.anchor.setTo(0.5,0.5);
     this.defeatWindow.addChild(this.restartButton);
 
-    this.menuButton = this.game.add.button(50, this.defeatWindow.height-100, 'sprites', this.menuClick, this, 'buttons/button_menu_act', 'buttons/button_menu_no', 'buttons/button_menu_act', 'buttons/button_menu_no');
+    this.menuButton = this.game.add.button(50, this.defeatWindow.height -250, 'sprites', this.menuClick, this, 'buttons/button_menu_act', 'buttons/button_menu_no', 'buttons/button_menu_act', 'buttons/button_menu_no');
 //    this.menuButton.anchor.setTo(0.5,0.5);
     this.defeatWindow.addChild(this.menuButton);
 
-     this.game.add.tween(this).to({x:this.game.camera.x * GlobalGame.scale ,y:this.game.camera.y * GlobalGame.scale}, 550, Phaser.Easing.Back.Out, true);
+     this.game.add.tween(this).to({x:this.game.width / 2 ,y:this.game.width / 2}, 550, Phaser.Easing.Back.Out, true);
+    //  this.game.add.tween(this.defeatWindow).to({x:this.game.width / 2 ,y: this.game.height / 2}, 550, Phaser.Easing.Back.Out, true);
+    // console.log(this.game.camera.width)
+    // console.log(this.game.camera.width / 2)
+    //  this.game.add.tween(this).to({x:this.game.camera.width / 2 - this.defeatWindow.width ,y:this.game.camera.height / 2}, 550, Phaser.Easing.Back.Out, true);
 //            basicLayerTween._lastChild.onComplete.add(function(){this.game.paused = true;}, this.game.state.getCurrentState());
 
     // set event listener for the user's click/tap the screen

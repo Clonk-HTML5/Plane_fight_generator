@@ -13,7 +13,7 @@ var Player = function(game, x, y,frame) {
 
         this.emitter.gravity = 50;
         this.emitter.setAlpha(1, 0, 1000);
-        this.emitter.setScale(0.1, 0, 0.05, 0, 1000);
+        this.emitter.setScale(0.1, 0, 0.06, 0, 1000);
 
         this.emitter.start(false, 3000, 5);
     // }
@@ -52,10 +52,7 @@ var Player = function(game, x, y,frame) {
         this.anchor.setTo(0.5, 0.5);
 //        this.scale.setTo(0.23, 0.23);
         this.game.physics.enable(this, Phaser.Physics.ARCADE);
-//        this.body.collideWorldBounds = true;
-        //	Tell it we don't want physics to manage the rotation
-//        this.body.allowRotation = false;
-//        this.body.allowGravity = false;
+
         this.body.width2 = this.body.width/2;
         this.body.height2 = this.body.height/2;
         this.body.gravity.y = 300;
@@ -180,6 +177,24 @@ Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
 
 Player.prototype.update = function() {
+
+  if (this.cursors.up.isDown)
+  {
+      this.game.camera.y -= 4;
+  }
+  else if (this.cursors.down.isDown)
+  {
+      this.game.camera.y += 4;
+  }
+
+  if (this.cursors.left.isDown)
+  {
+      this.game.camera.x -= 4;
+  }
+  else if (this.cursors.right.isDown)
+  {
+      this.game.camera.x += 4;
+  }
 
   // this.gestures.update();
 

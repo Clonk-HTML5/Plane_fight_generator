@@ -1,8 +1,6 @@
 
 'use strict';
 
-  var BirdGroup = require('../prefabs/birdGroup');
-  var EnemyPlaneGroup = require('../prefabs/EnemyPlaneGroup');
   var Level = require('../prefabs/Level');
   var LabelButton = require('../prefabs/labelButton');
 
