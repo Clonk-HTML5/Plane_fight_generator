@@ -6,7 +6,7 @@ var Level = function(game, options) {
 
   this.options = options ? options : false;
   this.worldHeight = this.game.cache.getImage('bg1').height;
-  this.game.world.setBounds(0 , 0, 3000, this.worldHeight);
+  this.game.world.setBounds(0 , 0, 4000, this.worldHeight);
 
   this.bgtile = this.game.add.tileSprite(0, 0, this.game.world.width, this.worldHeight, 'bg1');
 //  this.bgtile.fixedToCamera = true;

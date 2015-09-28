@@ -48,9 +48,7 @@ var Player = function(game, x, y,frame) {
         this.scaleFactor = new Phaser.Point(0.5, 0.5);
 
        this.scale.setTo(this.scaleFactor.x, this.scaleFactor.y);
-//        this.scale.x *= -1;
         this.anchor.setTo(0.5, 0.5);
-//        this.scale.setTo(0.23, 0.23);
         this.game.physics.enable(this, Phaser.Physics.ARCADE);
 
         this.body.width2 = this.body.width/2;
@@ -58,6 +56,14 @@ var Player = function(game, x, y,frame) {
         this.body.gravity.y = 300;
         this.body.velocity.setTo(200, 0);
         this.body.maxVelocity.setTo(300, 300);
+
+        if(GlobalGame.controller === 'keyboardButtons'){
+            this.body.gravity.y = 50;
+            this.body.velocity.setTo(300, 0);
+            this.angleSpeed = 250;
+            this.angularVeloctitySpeed = 150;
+            this.body.maxVelocity.setTo(400, 400);
+        }
 
         this.hitAnimation = this.animations.add('hit', [
             'Airplanes/Fokker/Skin 1/PNG/Fokker_hit_1',
@@ -90,19 +96,6 @@ var Player = function(game, x, y,frame) {
               this.basicLayer = new BasicLayer(this.game, undefined, "Click to play again")
           }
         }, this);
-
-        if(GlobalGame.controller === 'keyboardButtons'){
-            this.body.gravity.y = 50;
-            this.body.velocity.setTo(300, 0);
-            this.angleSpeed = 250;
-            this.angularVeloctitySpeed = 150;
-            this.body.maxVelocity.setTo(400, 400);
-        }
-
-//        this.body.drag.set(100);
-
-//        this.bringToTop();
-
 
     /*******************
     * HUD'S

@@ -79,11 +79,10 @@ EnemyPlane.prototype.constructor = EnemyPlane;
 
 EnemyPlane.prototype.update = function() {
 
-  // write your prefab's specific update code here
-    if(!this.options.menu && this.player){
-        this.game.physics.arcade.overlap(this, this.player.bullets, this.playerLoseHealth, null, this);
-        this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
-    }
+    // if(!this.options.menu && this.player){
+    //     this.game.physics.arcade.overlap(this, this.player.bullets, this.enemyLoseHealth, null, this);
+    //     this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
+    // }
 
     if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
         this.randomXPointInWorld = this.game.world.randomX;
@@ -175,28 +174,29 @@ EnemyPlane.prototype.fireBullet = function() {
 };
 
      /**
-     * player collides with enemy
-     * @param player player collides
+     * enemyLoseHealth collides with enemy
+     * @param enemy collides
      */
-    EnemyPlane.prototype.playerLoseHealth = function (plane) {
+    EnemyPlane.prototype.enemyLoseHealth = function (enemy) {
 //        gameInitializer.socket.emit("bullet hit player", {playerId: plane.name});
         if(this.socket)
             this.socket.socket.emit("bullet hit player", {playerId: this.name});
-        plane.health -= 1
-        if(plane.health < 1){
+        enemy.health -= 1
+        if(enemy.health < 1){
 
             if(this.player) this.player.kills += 1;
 
             //explode animation
-            var explosion = this.game.add.sprite(plane.x - plane.width/2, plane.y - plane.height/2, 'airplaneexplode');
+            var explosion = this.game.add.sprite(enemy.x - enemy.width/2, enemy.y - enemy.height/2, 'airplaneexplode');
             explosion.animations.add('explode');
             explosion.animations.play('explode', 10, false, true);
 //            explosion.animations.destroy('explode');
 
-            plane.kill();
-            if (this.game.device.desktop) plane.emitter.kill();
-            plane.bullets.removeAll();
-            plane.arrow.kill();
+            enemy.kill();
+            if (this.game.device.desktop) enemy.emitter.kill();
+            enemy.bullets.removeAll();
+            enemy.arrow.kill();
+            this.parent.currentWaveCountEnemiesLeft -= 1;
             this.parent.addEnemy();
         }
     };

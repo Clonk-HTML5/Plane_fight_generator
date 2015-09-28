@@ -36,7 +36,7 @@
         console.log(this.currentLevel)
 
         this.level = new Level(this.game, {currentLevel: this.currentLevel});
-        this.level.scale.setTo(GlobalGame.scale+GlobalGame.scale);
+        this.level.scale.setTo(GlobalGame.scale+GlobalGame.scale+0.1);
 
         // Create a new bird object
         this.birdGroup = new BirdGroup(this.game);
@@ -45,7 +45,7 @@
         // this.player = new Player(this.game, parseInt(this.currentLevel.playerStart.x), parseInt(this.currentLevel.playerStart.y), "sprites/plane3");
         this.player = new Player(this.game, parseInt(this.currentLevel.playerStart.x), parseInt(this.currentLevel.playerStart.y), "Airplanes/Fokker/Skin 1/PNG/Fokker_default");
 
-        this.enemyGroup = new EnemyGroup(this.game, this.player);
+        this.enemyGroup = new EnemyGroup(this.game, this.player, {currentLevel: this.currentLevel});
         this.enemyGroup.addEnemy();
 
         // add our pause button with a callback
@@ -70,13 +70,15 @@
     },
 
     update: function(){
-      this.enemyGroup.forEachAlive(function(enemyPlane){
-          if(!enemyPlane.inCamera){
-              enemyPlane.arrow.visible = true;
+      this.enemyGroup.forEachAlive(function(enemy){
+         this.game.physics.arcade.overlap(enemy, this.player.bullets, enemy.enemyLoseHealth, null, enemy);
+         this.game.physics.arcade.overlap(this.player, enemy.bullets, this.player.playerHitsSomething, null, this.player);
+          if(!enemy.inCamera){
+              enemy.arrow.visible = true;
 //              enemyPlane.arrow.position.setTo(this.game.camera.view.x,this.game.camera.view.y)
-              enemyPlane.arrow.rotation = this.game.physics.arcade.angleBetween(enemyPlane.arrow, enemyPlane);
+              enemy.arrow.rotation = this.game.physics.arcade.angleBetween(enemy.arrow, enemy);
           }else {
-              enemyPlane.arrow.visible = false;
+              enemy.arrow.visible = false;
           }
       }, this)
     },
@@ -86,7 +88,8 @@
 //        this.game.debug.cameraInfo(this.game.camera, 32, 32);
       // this.game.debug.cameraInfo(this.game.camera, 500, 32);
       // this.game.debug.spriteCoords(this, 32, 32);
-      this.game.debug.spriteInfo(this.enemyGroup.flak, 32, 32);
+      // this.game.debug.spriteInfo(this.enemyGroup.flak, 32, 32);
+      // this.game.debug.body(this.enemyGroup.solider, 32, 32);
     },
 
     createPlayers: function(){

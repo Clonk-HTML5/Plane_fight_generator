@@ -5701,6 +5701,9 @@ var EnemyGroup = function(game, player, options) {
   Phaser.Group.call(this, game);
     this.player = player;
     this.options = options ? options : {};
+    this.currentLevel = this.options.currentLevel;
+    this.currentWave = 1;
+    this.currentWaveCountEnemiesLeft = this.currentLevel.waves[this.currentWave].countEnemies;
 };
 
 EnemyGroup.prototype = Object.create(Phaser.Group.prototype);
@@ -5710,22 +5713,47 @@ EnemyGroup.prototype.constructor = EnemyGroup;
 * adds enemy
 */
 EnemyGroup.prototype.addEnemy = function () {
+    if(this.currentWaveCountEnemiesLeft < 1){
+      this.currentWave += 1;
+    }
+    if(this.currentWave <= this.currentLevel.waves.count) {
 
-//    this.maxElements = 5;
-    //    for (var i = 0; i < maxElements; i++){
-        // new Player Object
-    this.enemyPlane = new EnemyPlane(this.game, Math.random() * this.game.world.width, Math.random() * (this.game.world.height - 250),"sprites/plane3", this.player, this.options);
-    this.add(this.enemyPlane);
+      if(this.currentLevel.waves[this.currentWave].planes) {
+        for (var i = 0; i < this.currentLevel.waves[this.currentWave].planes.count; i++){
+          this.enemyPlane = new EnemyPlane(this.game, Math.random() * this.game.world.width, Math.random() * (this.game.world.height - 250),"sprites/plane3", this.player, this.options);
+          this.add(this.enemyPlane);
+        }
+      }
 
-    this.flak = new Flak(this.game, Math.random() * this.game.world.width, this.game.world.height ,"flak/flak1/turret_1_default", this.player, this.options);
-    this.add(this.flak);
+      if(this.currentLevel.waves[this.currentWave].flaks) {
+        for (var i = 0; i < this.currentLevel.waves[this.currentWave].flaks.count; i++){
+          this.flak = new Flak(this.game, Math.random() * this.game.world.width, this.game.cache.getImage('bg1').height ,"flak/flak1/turret_1_default", this.player, this.options);
+          this.add(this.flak);
+        }
+      }
 
-    this.options.soliderId = 1;
+      if(this.currentLevel.waves[this.currentWave].soliders) {
+        for (var i = 0; i < this.currentLevel.waves[this.currentWave].soliders.count; i++){
+          this.options.soliderId = this.currentLevel.waves[this.currentWave].soliders.type;
 
-    this.solider = new Solider(this.game, Math.random() * this.game.world.width, this.game.world.height ,"soliders/solider"+this.options.soliderId+"/Soldier"+this.options.soliderId+"_default", this.player, this.options);
-    this.add(this.solider);
-    //    }
+          // this.solider = new Solider(this.game, Math.random() * this.game.world.width, this.game.world.height ,"soliders/solider"+this.options.soliderId+"/Soldier"+this.options.soliderId+"_default", this.player, this.options);
+          this.solider = new Solider(this.game, Math.random() * this.game.world.width, this.game.world.height ,"soliders/solider"+this.options.soliderId+"/Soldier"+this.options.soliderId+"_shot_up_6", this.player, this.options);
+          this.add(this.solider);
+        }
+      }
+    } else {
+      alert('Level abgeschlossen');
+      this.finishedLevel();
+    }
 };
+
+/**
+* adds enemy
+*/
+EnemyGroup.prototype.finishedLevel = function () {
+    GlobalGame.level += 1;
+    // this.game.state.start('missions');
+}
 
 module.exports = EnemyGroup;
 
@@ -5811,11 +5839,10 @@ EnemyPlane.prototype.constructor = EnemyPlane;
 
 EnemyPlane.prototype.update = function() {
 
-  // write your prefab's specific update code here
-    if(!this.options.menu && this.player){
-        this.game.physics.arcade.overlap(this, this.player.bullets, this.playerLoseHealth, null, this);
-        this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
-    }
+    // if(!this.options.menu && this.player){
+    //     this.game.physics.arcade.overlap(this, this.player.bullets, this.enemyLoseHealth, null, this);
+    //     this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
+    // }
 
     if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
         this.randomXPointInWorld = this.game.world.randomX;
@@ -5907,28 +5934,29 @@ EnemyPlane.prototype.fireBullet = function() {
 };
 
      /**
-     * player collides with enemy
-     * @param player player collides
+     * enemyLoseHealth collides with enemy
+     * @param enemy collides
      */
-    EnemyPlane.prototype.playerLoseHealth = function (plane) {
+    EnemyPlane.prototype.enemyLoseHealth = function (enemy) {
 //        gameInitializer.socket.emit("bullet hit player", {playerId: plane.name});
         if(this.socket)
             this.socket.socket.emit("bullet hit player", {playerId: this.name});
-        plane.health -= 1
-        if(plane.health < 1){
+        enemy.health -= 1
+        if(enemy.health < 1){
 
             if(this.player) this.player.kills += 1;
 
             //explode animation
-            var explosion = this.game.add.sprite(plane.x - plane.width/2, plane.y - plane.height/2, 'airplaneexplode');
+            var explosion = this.game.add.sprite(enemy.x - enemy.width/2, enemy.y - enemy.height/2, 'airplaneexplode');
             explosion.animations.add('explode');
             explosion.animations.play('explode', 10, false, true);
 //            explosion.animations.destroy('explode');
 
-            plane.kill();
-            if (this.game.device.desktop) plane.emitter.kill();
-            plane.bullets.removeAll();
-            plane.arrow.kill();
+            enemy.kill();
+            if (this.game.device.desktop) enemy.emitter.kill();
+            enemy.bullets.removeAll();
+            enemy.arrow.kill();
+            this.parent.currentWaveCountEnemiesLeft -= 1;
             this.parent.addEnemy();
         }
     };
@@ -5957,15 +5985,46 @@ var Flak = function(game, x, y, frame, player, options) {
   this.bullets.setAll('scale.y', 0.5);
   this.bulletTime = 0;
 
+  this.shotAnimation = this.animations.add('shot', [
+      'flak/flak1/turret_1_fire_1',
+      'flak/flak1/turret_1_fire_2',
+      'flak/flak1/turret_1_fire_3',
+      'flak/flak1/turret_1_fire_4',
+      'flak/flak1/turret_1_fire_5',
+      'flak/flak1/turret_1_fire_6',
+      'flak/flak1/turret_1_fire_7',
+      'flak/flak1/turret_1_fire_8'
+  ], 15);
+
+  this.shotAnimation.enableUpdate = true;
+  this.shotAnimation.onUpdate.add(function(anim, frame){
+    if(frame.index === 4){
+        if (this.game.time.now > this.bulletTime) {
+            var bullet = this.bullets.getFirstExists(false);
+            if (bullet) {
+                bullet.reset(this.x, this.y);
+                bullet.lifespan = 2000;
+                bullet.rotation = this.rotation + this.game.math.degToRad(90);
+                this.game.physics.arcade.velocityFromRotation(this.rotation, 1000, bullet.body.velocity);
+                this.bulletTime = this.game.time.now + 250;
+                if(this.socket)
+                    this.socket.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
+            }
+        }
+    }
+  }, this);
+
   this.health = 20;
 
-  this.rotation = -0.2;
-  this.anchor.setTo(0.5, 0.5);
-//        this.scale.setTo(0.23, 0.23);
+  // this.rotation = -0.2;
+  this.anchor.setTo(0.1, 0.5);
+  this.scaleFactor = new Phaser.Point(1, 1);
+  // this.scale.setTo(this.scaleFactor.x, this.scaleFactor.y);
+// this.player.x = x +150;
+// this.player.y = y +150;
+  this.base = game.add.sprite(x +35 , y -35, 'flak', 'flak/flak1/base_1_default');
+  this.base.anchor.setTo(0.9, 0.5);
 
-  this.base = this.game.add.sprite(x, y, 'flak', 'flak/flak1/base_1_default');
-  this.base.anchor.setTo(0.5, 0.5);
-  // this.turret = this.game.add.sprite(x, y, 'flak', 'turret');
   this.game.physics.enable(this, Phaser.Physics.ARCADE);
 
   this.arrow = this.game.add.sprite(15, 45, 'sprites', 'sprites/arrow');
@@ -5980,10 +6039,23 @@ Flak.prototype.constructor = Flak;
 Flak.prototype.update = function() {
       // console.log(this.game.physics.arcade.angleBetween(this, this.player))
 
-    var currentAngleBetween = this.game.physics.arcade.angleBetween(this, this.player);
-    if (currentAngleBetween > -0.2 && currentAngleBetween < 3) {
-         this.rotation = this.game.physics.arcade.angleBetween(this, this.player);
-     }
+    // var currentAngleBetween = this.game.physics.arcade.angleBetween(this, this.player);
+    // var dx = this.game.input.activePointer.worldX - this.x;
+    // var dy = this.game.input.activePointer.worldY - this.y;
+    // this.rotation = Math.atan2(dy, dx);
+
+    // if (currentAngleBetween > -0.2 && currentAngleBetween < 3) {
+    // this.rotation = this.game.physics.arcade.angleToPointer(this);
+    if( this.player){
+       this.rotation = this.game.physics.arcade.angleBetween(this, this.player);
+       this.checkIfLookingInTheRightDirection(this.player.x);
+       if (this.game.physics.arcade.distanceBetween(this, this.player) < 800){
+
+          // this.shotUpAnimation.play('shot');
+          this.fireBullet();
+       }
+   }
+    //  }
 
 };
 
@@ -5991,28 +6063,48 @@ Flak.prototype.update = function() {
  * Fires a Bullet
  */
 Flak.prototype.fireBullet = function() {
+  if(!this.shotAnimation.isPlaying) {
+    this.shotAnimation.play('shot');
+  }
+};
 
-    if (this.game.time.now > this.bulletTime)
-    {
+Flak.prototype.checkIfLookingInTheRightDirection = function(directionX) {
+  if(directionX > this.x) {
+    this.tweenScaleFactor = new Phaser.Point(this.scaleFactor.x, this.scaleFactor.y);
+  } else {
+    this.tweenScaleFactor = new Phaser.Point(this.scaleFactor.x, -this.scaleFactor.y);
+  }
+  if(this.scale !== this.tweenScaleFactor) {
+     this.scaleTween = this.game.add.tween(this.scale).to({x: this.tweenScaleFactor.x, y: this.tweenScaleFactor.y}, 100, Phaser.Easing.Back.Out, true).start();
+  }
+};
 
-        var bullet = this.bullets.getFirstExists(false);
+/**
+* enemyLoseHealth collides with enemy
+* @param enemy collides
+*/
+Flak.prototype.enemyLoseHealth = function (enemy) {
+//        gameInitializer.socket.emit("bullet hit player", {playerId: plane.name});
+   if(this.socket)
+       this.socket.socket.emit("bullet hit player", {playerId: this.name});
+   enemy.health -= 1
+   if(enemy.health < 1){
 
-        if (bullet)
-        {
-            // bullet.reset(this.body.x + this.body.width2, this.body.y + this.body.height/2);
-            bullet.reset(this.x, this.y);
-//                bullet.body.velocity.copyFrom(this.game.physics.arcade.velocityFromAngle(this.plane.angle, 1000))
-//                bullet.rotation = this.plane.rotation + this.game.math.degToRad(90);
-            bullet.lifespan = 2000;
-             bullet.rotation = this.rotation + this.game.math.degToRad(90);
-            this.game.physics.arcade.velocityFromRotation(this.rotation, 1000, bullet.body.velocity);
-            this.bulletTime = this.game.time.now + 125;
-//                gameInitializer.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.plane.angle});
-            // if(GlobalGame.Multiplayer.socket)
-            //     GlobalGame.Multiplayer.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
-        }
-    }
+       if(this.player) this.player.kills += 1;
 
+       //explode animation
+       var explosion = this.game.add.sprite(enemy.x - enemy.width/2, enemy.y - enemy.height/2, 'airplaneexplode');
+       explosion.animations.add('explode');
+       explosion.animations.play('explode', 10, false, true);
+//            explosion.animations.destroy('explode');
+
+       enemy.kill();
+       enemy.base.kill();
+       enemy.bullets.removeAll();
+       enemy.arrow.kill();
+       this.parent.currentWaveCountEnemiesLeft -= 1;
+       this.parent.addEnemy();
+   }
 };
 
 module.exports = Flak;
@@ -6026,7 +6118,7 @@ var Level = function(game, options) {
 
   this.options = options ? options : false;
   this.worldHeight = this.game.cache.getImage('bg1').height;
-  this.game.world.setBounds(0 , 0, 3000, this.worldHeight);
+  this.game.world.setBounds(0 , 0, 4000, this.worldHeight);
 
   this.bgtile = this.game.add.tileSprite(0, 0, this.game.world.width, this.worldHeight, 'bg1');
 //  this.bgtile.fixedToCamera = true;
@@ -6281,9 +6373,7 @@ var Player = function(game, x, y,frame) {
         this.scaleFactor = new Phaser.Point(0.5, 0.5);
 
        this.scale.setTo(this.scaleFactor.x, this.scaleFactor.y);
-//        this.scale.x *= -1;
         this.anchor.setTo(0.5, 0.5);
-//        this.scale.setTo(0.23, 0.23);
         this.game.physics.enable(this, Phaser.Physics.ARCADE);
 
         this.body.width2 = this.body.width/2;
@@ -6291,6 +6381,14 @@ var Player = function(game, x, y,frame) {
         this.body.gravity.y = 300;
         this.body.velocity.setTo(200, 0);
         this.body.maxVelocity.setTo(300, 300);
+
+        if(GlobalGame.controller === 'keyboardButtons'){
+            this.body.gravity.y = 50;
+            this.body.velocity.setTo(300, 0);
+            this.angleSpeed = 250;
+            this.angularVeloctitySpeed = 150;
+            this.body.maxVelocity.setTo(400, 400);
+        }
 
         this.hitAnimation = this.animations.add('hit', [
             'Airplanes/Fokker/Skin 1/PNG/Fokker_hit_1',
@@ -6323,19 +6421,6 @@ var Player = function(game, x, y,frame) {
               this.basicLayer = new BasicLayer(this.game, undefined, "Click to play again")
           }
         }, this);
-
-        if(GlobalGame.controller === 'keyboardButtons'){
-            this.body.gravity.y = 50;
-            this.body.velocity.setTo(300, 0);
-            this.angleSpeed = 250;
-            this.angularVeloctitySpeed = 150;
-            this.body.maxVelocity.setTo(400, 400);
-        }
-
-//        this.body.drag.set(100);
-
-//        this.bringToTop();
-
 
     /*******************
     * HUD'S
@@ -6759,10 +6844,13 @@ var Solider = function(game, x, y, frame, player, options) {
 
     this.soliderId = this.options.soliderId;
     this.health = 3;
+    this.direction = 0;
 
     this.rotation = -0.2;
     this.anchor.setTo(0.5, 0.5);
-  //        this.scale.setTo(0.23, 0.23);
+    this.scaleFactor = new Phaser.Point(1, 1);
+
+    // this.scale.setTo(this.scaleFactor.x, this.scaleFactor.y);
 
   this.walkAnimation = this.animations.add('walk', [
       'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_walk_1',
@@ -6773,43 +6861,67 @@ var Solider = function(game, x, y, frame, player, options) {
       'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_walk_6',
       'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_walk_7',
       'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_walk_8'
-  ]);
+  ], 15);
 
-  this.shootUpAnimation = this.animations.add('shootUp', [
+  this.shotUpAnimation = this.animations.add('shotUp', [
       'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up_1',
-      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up__2',
-      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up__3',
-      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up__4',
-      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up__5',
-      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up__6',
-      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up__7',
-      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up__8',
-      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up__9',
-      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up__10',
-      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up__11',
-      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up__12'
-  ]);
+      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up_2',
+      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up_3',
+      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up_4',
+      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up_5',
+      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up_6',
+      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up_7',
+      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up_8',
+      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up_9',
+      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up_10',
+      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up_11',
+      'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_shot_up_12'
+  ], 15);
+
+  this.shotUpAnimation.enableUpdate = true;
+  this.shotUpAnimation.onUpdate.add(function(anim, frame){
+    if(frame.index === 7){
+        if (this.game.time.now > this.bulletTime) {
+            var bullet = this.bullets.getFirstExists(false);
+            if (bullet) {
+                var rotation;
+                if(this.direction){
+                  rotation = -0.8;
+                } else {
+                  rotation = -2.6;
+                }
+                bullet.reset(this.x, this.y);
+                bullet.lifespan = 2000;
+                 bullet.rotation = rotation + this.game.math.degToRad(90);
+                this.game.physics.arcade.velocityFromRotation(rotation, 1000, bullet.body.velocity);
+                this.bulletTime = this.game.time.now + 250;
+                if(this.socket)
+                    this.socket.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
+            }
+        }
+    }
+  }, this);
 
   // this.walkAnimation.onComplete.add(function() {
   //     this.frameName = 'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_default';
   // }, this);
 
-  this.shootUpAnimation.onComplete.add(function() {
-    if (this.game.time.now > this.bulletTime) {
-        var bullet = this.bullets.getFirstExists(false);
-
-        if (bullet) {
-            bullet.reset(this.x, this.y);
-            bullet.lifespan = 2000;
-             bullet.rotation = this.rotation + this.game.math.degToRad(90);
-            this.game.physics.arcade.velocityFromRotation(this.rotation, 1000, bullet.body.velocity);
-            this.bulletTime = this.game.time.now + 250;
-            if(this.socket)
-                this.socket.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
-        }
-    }
-    // this.frameName = 'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_default';
-  }, this);
+  // this.shotUpAnimation.onComplete.add(function() {
+  //   if (this.game.time.now > this.bulletTime) {
+  //       var bullet = this.bullets.getFirstExists(false);
+  //       console.log(bullet)
+  //       if (bullet) {
+  //           bullet.reset(this.x, this.y);
+  //           bullet.lifespan = 2000;
+  //            bullet.rotation = this.rotation + this.game.math.degToRad(90);
+  //           this.game.physics.arcade.velocityFromRotation(this.rotation, 1000, bullet.body.velocity);
+  //           this.bulletTime = this.game.time.now + 250;
+  //           if(this.socket)
+  //               this.socket.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
+  //       }
+  //   }
+  //   // this.frameName = 'soliders/solider'+this.soliderId+'/Soldier'+this.soliderId+'_default';
+  // }, this);
 
     // this.base = this.game.add.sprite(x, y, 'soliders', 'flak/flak1/base_1_default');
     // this.base.anchor.setTo(0.5, 0.5);
@@ -6844,19 +6956,68 @@ Solider.prototype.update = function() {
 };
 
 Solider.prototype.fireBullet = function() {
-    this.walkAnimation.stop('walk');
-    this.shootUpAnimation.play('shootUp');
+    if(!this.shotUpAnimation.isPlaying) {
+      this.walkAnimation.stop('walk');
+      this.shotUpAnimation.play('shotUp');
+      if(this.flapVelocityTween && this.flapVelocityTween.isRunning){
+        this.flapVelocityTween.stop();
+      }
+      this.checkIfLookingInTheRightDirection(this.player.x);
+    }
 };
 
 Solider.prototype.walk = function() {
     if(!this.walkAnimation.isPlaying) {
-        this.shootUpAnimation.stop('shootUp');
+        this.shotUpAnimation.stop('shotUp');
         this.walkAnimation.play('walk');
-        this.flapVelocityTween.isRunning
         if(!this.flapVelocityTween.isRunning) {
-          this.flapVelocityTween = this.game.add.tween(this).to({x: Math.random() * this.game.world.width}, 1000, Phaser.Easing.Linear.None, true).start();
+          var nextXPosition = Math.random() * this.game.world.width;
+
+          this.checkIfLookingInTheRightDirection(nextXPosition);
+
+          this.flapVelocityTween = this.game.add.tween(this).to({x: nextXPosition}, 5000, Phaser.Easing.Linear.None, true).start();
         }
     }
+};
+
+Solider.prototype.checkIfLookingInTheRightDirection = function(directionX) {
+  if(directionX > this.x) {
+    this.tweenScaleFactor = new Phaser.Point(-this.scaleFactor.x, this.scaleFactor.y);
+    this.direction = 1;
+  } else {
+    this.tweenScaleFactor = new Phaser.Point(this.scaleFactor.x, this.scaleFactor.y);
+    this.direction = 0;
+  }
+  if(this.scale !== this.tweenScaleFactor) {
+     this.scaleTween = this.game.add.tween(this.scale).to({x: this.tweenScaleFactor.x, y: this.tweenScaleFactor.y}, 100, Phaser.Easing.Back.Out, true).start();
+  }
+};
+
+/**
+* enemyLoseHealth collides with enemy
+* @param enemy collides
+*/
+Solider.prototype.enemyLoseHealth = function (enemy) {
+//        gameInitializer.socket.emit("bullet hit player", {playerId: plane.name});
+   if(this.socket)
+       this.socket.socket.emit("bullet hit player", {playerId: this.name});
+   enemy.health -= 1
+   if(enemy.health < 1){
+
+       if(this.player) this.player.kills += 1;
+
+       //explode animation
+       var explosion = this.game.add.sprite(enemy.x - enemy.width/2, enemy.y - enemy.height/2, 'airplaneexplode');
+       explosion.animations.add('explode');
+       explosion.animations.play('explode', 10, false, true);
+//            explosion.animations.destroy('explode');
+
+       enemy.kill();
+       enemy.bullets.removeAll();
+       enemy.arrow.kill();
+       this.parent.currentWaveCountEnemiesLeft -= 1;
+       this.parent.addEnemy();
+   }
 };
 
 module.exports = Solider;
@@ -7549,7 +7710,7 @@ module.exports = Menu;
   Missions.prototype = {
     create: function() {
 //        this.background = this.game.add.sprite(0, 0, this.game.world.width, this.game.height, 'menu_bg');
-        
+
         this.thumbRows = 2;
         // number of thumbnail cololumns
         this.thumbCols = 3;
@@ -7559,77 +7720,87 @@ module.exports = Menu;
         this.thumbHeight = 120;
         // space among thumbnails, in pixels
         this.thumbSpacing = 8;
-        // array with finished levels and stars collected.
-        // 0 = playable yet unfinished level
-        // 1, 2, 3 = level finished with 1, 2, 3 stars
-        // 4 = locked
-        this.starsArray = [0,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4];
 
-        // how many pages are needed to show all levels?
+        if(!localStorage.getItem('levels')){
+          this.levelJson = this.game.cache.getJSON('levelJson');
+          this.localStorageLevel = {};
+          for(var level in this.levelJson.Levels){
+             this.localStorageLevel[level] = level == 1 ? 0 : 4;
+          }
+          localStorage.setItem('levels', JSON.stringify(this.localStorageLevel));
+        }
+        this.levelsLocalStorageObject = JSON.parse(localStorage.getItem('levels'));
+
+        /**
+        /* object with finished levels and stars collected.
+        /* 0 = playable yet unfinished level
+        /* 1, 2, 3 = level finished with 1, 2, 3 stars
+        /* 4 = locked
+        */
+        // this.starsArray = [0,3,2,1,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4];
+        this.starsArray = this.levelsLocalStorageObject;
+
         this.pages;
-        // group where to place all level thumbnails
+
         this.levelThumbsGroup;
-        // current page
+
         this.currentPage;
-        // arrows to navigate through level pages
+
         this.leftArrow;
         this.rightArrow;
-        // how many pages are needed to show all levels?
-		// CAUTION!! EACH PAGE SHOULD HAVE THE SAME AMOUNT OF LEVELS, THAT IS
-		// THE NUMBER OF LEVELS *MUST* BE DIVISIBLE BY THUMBCOLS*THUMBROWS
-  		this.pages = this.starsArray.length/(this.thumbRows*this.thumbCols);
-  		// current page according to last played level, if any
+
+  		// this.pages = this.starsArray.length/(this.thumbRows*this.thumbCols);
+		this.pages = Object.keys(this.starsArray).length/(this.thumbRows*this.thumbCols);
+    console.log(Object.keys(this.starsArray).length)
+
 		this.currentPage = Math.floor(GlobalGame.level/(this.thumbRows*this.thumbCols));
 		if(this.currentPage>this.pages-1){
 			this.currentPage = this.pages-1;
 		}
-		// left arrow button, to turn one page left
+
 		this.leftArrow = this.game.add.button(50,this.game.height/2,"sprites",this.arrowClicked,this, 'missions/small_arrow_left_act', 'missions/small_arrow_left_no', 'missions/small_arrow_left_act', 'missions/small_arrow_left_no');
 		this.leftArrow.anchor.setTo(0.5);
-        this.leftArrow.name = "leftArrow";
-		// can we turn one page left?
+    this.leftArrow.name = "leftArrow";
+
 		if(this.currentPage==0){
 			this.leftArrow.alpha = 0.3;
 		}
-		// right arrow button, to turn one page right
+
 		this.rightArrow = this.game.add.button(this.game.width - 50,this.game.height/2,"sprites",this.arrowClicked,this, 'missions/small_arrow_right_act', 'missions/small_arrow_right_no', 'missions/small_arrow_right_act', 'missions/small_arrow_right_no');
 		this.rightArrow.anchor.setTo(0.5);
-        this.rightArrow.name = "rightArrow";
-		// can we turn one page right?
+    this.rightArrow.name = "rightArrow";
+
 		if(this.currentPage==this.pages-1){
 			this.rightArrow.alpha = 0.3;
 		}
-		// creation of the thumbails group
+
 		this.levelThumbsGroup = this.game.add.group();
-        this.levelThumbsGroup.x = - this.game.width ;
-		// determining level thumbnails width and height for each page
+    this.levelThumbsGroup.x = - this.game.width;
+
 		var levelLength = this.thumbWidth*this.thumbCols+this.thumbSpacing*(this.thumbCols-1);
 		var levelHeight = this.thumbWidth*this.thumbRows+this.thumbSpacing*(this.thumbRows-1);
-		// looping through each page
+
 		for(var l = 0; l < this.pages; l++){
-			// horizontal offset to have level thumbnails horizontally centered in the page
+
 			var offsetX = (this.game.width-levelLength)/2+this.game.width*l;
-			// I am not interested in having level thumbnails vertically centered in the page, but
-			// if you are, simple replace my "20" with
+
 			// (game.height-levelHeight)/2
 //			var offsetY = 120;
 			var offsetY = (this.game.height-levelHeight)/2;
-			// looping through each level thumbnails
+
 		     for(var i = 0; i < this.thumbRows; i ++){
-		     	for(var j = 0; j < this.thumbCols; j ++){  
-		     		// which level does the thumbnail refer?
+		     	for(var j = 0; j < this.thumbCols; j ++){
+
 					var levelNumber = i*this.thumbCols+j+l*(this.thumbRows*this.thumbCols);
-					// adding the thumbnail, as a button which will call thumbClicked function if clicked   		
-					var levelThumb = this.game.add.button(offsetX+j*(this.thumbWidth+this.thumbSpacing), offsetY+i*(this.thumbHeight+this.thumbSpacing), "sprites", this.thumbClicked, this);	
-                    var frame = "missions/level_thumb_frame_"+this.starsArray[levelNumber];
-					// shwoing proper frame
-					levelThumb.frameName = frame;
-					// custom attribute 
-					levelThumb.levelNumber = levelNumber+1;
-					// adding the level thumb to the group
-					this.levelThumbsGroup.add(levelThumb);
-					// if the level is playable, also write level number
-					if(this.starsArray[levelNumber]<4){
+
+					var levelThumb = this.game.add.button(offsetX+j*(this.thumbWidth+this.thumbSpacing), offsetY+i*(this.thumbHeight+this.thumbSpacing), "sprites", this.thumbClicked, this);
+          if(typeof this.starsArray[levelNumber+1] !== 'undefined'){
+            var frame = "missions/level_thumb_frame_"+this.starsArray[levelNumber+1];
+  					levelThumb.frameName = frame;
+  					levelThumb.levelNumber = levelNumber+1;
+  					this.levelThumbsGroup.add(levelThumb);
+          }
+					if(this.starsArray[levelNumber+1]<4){
 						var style = {
 							font: "60px Cloudy_With_a_Chance_of_Love",
 							fill: "#ffffff"
@@ -7641,55 +7812,53 @@ module.exports = Menu;
 				}
 			}
 		}
-		// scrolling thumbnails group according to level position
 //		this.levelThumbsGroup.x = this.currentPage * this.game.width * -1;
-        
+
       this.ribbon = this.game.add.image(this.game.width / 2, 50, 'sprites', 'menu/ribbon');
       this.ribbon.anchor.setTo(0.5);
       this.ribbon.scale.setTo(0.75);
-        
+
         this.ribbonText = this.game.add.text(-200,-40,"Mission Select",style);
         this.ribbonText.setShadow(2, 2, 'rgba(0,0,0,0.5)', 1);
         this.ribbon.addChild(this.ribbonText);
-        
-        
+
+
       this.backButton = this.game.add.button(50, this.game.height - 50, 'sprites', this.backClick, this, 'buttons/button_back_act', 'buttons/button_back_no', 'buttons/button_back_act', 'buttons/button_back_no');
       this.backButton.anchor.setTo(0.5);
-        
+
       this.game.add.tween(this.levelThumbsGroup).to({ x: this.currentPage * this.game.width * -1 }, 800, Phaser.Easing.Cubic.None, true);
-        
+
     },
     arrowClicked:function(button){
-		// touching right arrow and still not reached last page
 		if(button.name=="rightArrow" && this.currentPage<this.pages-1){
 			this.leftArrow.alpha = 1;
 			this.currentPage++;
-			// fade out the button if we reached last page
+
 			if(this.currentPage == this.pages-1){
 				button.alpha = 0.3;
 			}
-			// scrolling level pages
+
 			var buttonsTween = this.game.add.tween(this.levelThumbsGroup);
 			buttonsTween.to({
 				x: this.currentPage * this.game.width * -1
 			}, 500, Phaser.Easing.Cubic.None);
 			buttonsTween.start();
 		}
-		// touching left arrow and still not reached first page
+
 		if(button.name=="leftArrow" && this.currentPage>0){
 			this.rightArrow.alpha = 1;
 			this.currentPage--;
-			// fade out the button if we reached first page
+
 			if(this.currentPage == 0){
 				button.alpha = 0.3;
 			}
-			// scrolling level pages
+
 			var buttonsTween = this.game.add.tween(this.levelThumbsGroup);
 			buttonsTween.to({
 				x: this.currentPage * this.game.width * -1
 			}, 400, Phaser.Easing.Cubic.None);
 			buttonsTween.start();
-		}		
+		}
 	},
 	thumbClicked: function(button){
 		if(button.frameName.replace("missions/level_thumb_frame_", "") < 4){
@@ -7722,7 +7891,7 @@ module.exports = Menu;
             this.game.state.start('menu',true,false);
 //        }, this);
     },
-      
+
     update: function() {
       // state update code
     },
@@ -7733,7 +7902,7 @@ module.exports = Menu;
       // Put render operations here.
     },
     shutdown: function() {
-      // This method will be called when the state is shut down 
+      // This method will be called when the state is shut down
       // (i.e. you switch to another state from this one).
     }
   };
@@ -8097,7 +8266,7 @@ module.exports = MultiplayerUserSignIn;
         console.log(this.currentLevel)
 
         this.level = new Level(this.game, {currentLevel: this.currentLevel});
-        this.level.scale.setTo(GlobalGame.scale+GlobalGame.scale);
+        this.level.scale.setTo(GlobalGame.scale+GlobalGame.scale+0.1);
 
         // Create a new bird object
         this.birdGroup = new BirdGroup(this.game);
@@ -8106,7 +8275,7 @@ module.exports = MultiplayerUserSignIn;
         // this.player = new Player(this.game, parseInt(this.currentLevel.playerStart.x), parseInt(this.currentLevel.playerStart.y), "sprites/plane3");
         this.player = new Player(this.game, parseInt(this.currentLevel.playerStart.x), parseInt(this.currentLevel.playerStart.y), "Airplanes/Fokker/Skin 1/PNG/Fokker_default");
 
-        this.enemyGroup = new EnemyGroup(this.game, this.player);
+        this.enemyGroup = new EnemyGroup(this.game, this.player, {currentLevel: this.currentLevel});
         this.enemyGroup.addEnemy();
 
         // add our pause button with a callback
@@ -8131,13 +8300,15 @@ module.exports = MultiplayerUserSignIn;
     },
 
     update: function(){
-      this.enemyGroup.forEachAlive(function(enemyPlane){
-          if(!enemyPlane.inCamera){
-              enemyPlane.arrow.visible = true;
+      this.enemyGroup.forEachAlive(function(enemy){
+         this.game.physics.arcade.overlap(enemy, this.player.bullets, enemy.enemyLoseHealth, null, enemy);
+         this.game.physics.arcade.overlap(this.player, enemy.bullets, this.player.playerHitsSomething, null, this.player);
+          if(!enemy.inCamera){
+              enemy.arrow.visible = true;
 //              enemyPlane.arrow.position.setTo(this.game.camera.view.x,this.game.camera.view.y)
-              enemyPlane.arrow.rotation = this.game.physics.arcade.angleBetween(enemyPlane.arrow, enemyPlane);
+              enemy.arrow.rotation = this.game.physics.arcade.angleBetween(enemy.arrow, enemy);
           }else {
-              enemyPlane.arrow.visible = false;
+              enemy.arrow.visible = false;
           }
       }, this)
     },
@@ -8147,7 +8318,8 @@ module.exports = MultiplayerUserSignIn;
 //        this.game.debug.cameraInfo(this.game.camera, 32, 32);
       // this.game.debug.cameraInfo(this.game.camera, 500, 32);
       // this.game.debug.spriteCoords(this, 32, 32);
-      this.game.debug.spriteInfo(this.enemyGroup.flak, 32, 32);
+      // this.game.debug.spriteInfo(this.enemyGroup.flak, 32, 32);
+      // this.game.debug.body(this.enemyGroup.solider, 32, 32);
     },
 
     createPlayers: function(){
