@@ -49,7 +49,7 @@ EnemyGroup.prototype.addEnemy = function () {
         }
       }
     } else {
-      alert('Level abgeschlossen');
+      // alert('Level abgeschlossen');
       this.finishedLevel();
     }
 };
@@ -58,8 +58,25 @@ EnemyGroup.prototype.addEnemy = function () {
 * adds enemy
 */
 EnemyGroup.prototype.finishedLevel = function () {
-    GlobalGame.level += 1;
-    // this.game.state.start('missions');
+    var levelsLocalStorageObject = JSON.parse(localStorage.getItem('levels'));
+    if(this.game.state.getCurrentState().currentTimer.seconds < this.currentLevel.stars[1] ){
+      if(this.game.state.getCurrentState().currentTimer.seconds < this.currentLevel.stars[2] ){
+        if (this.game.state.getCurrentState().currentTimer.seconds < this.currentLevel.stars[3]) {
+           levelsLocalStorageObject[GlobalGame.level] = 3;
+        } else {
+          levelsLocalStorageObject[GlobalGame.level] = 2;
+        }
+      } else {
+        levelsLocalStorageObject[GlobalGame.level] = 1;
+      }
+      if(GlobalGame.level === Object.keys(levelsLocalStorageObject).length){
+        alert('you finished all Singleplayer Levels replay the Levels or play the Multiplayer')
+      }
+      levelsLocalStorageObject[GlobalGame.level+1] = 0;
+    }
+    this.game.state.getCurrentState().currentTimer.remove();
+    localStorage.setItem('levels', JSON.stringify(levelsLocalStorageObject));
+    this.game.state.start('missions');
 }
 
 module.exports = EnemyGroup;

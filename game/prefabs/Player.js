@@ -3,6 +3,7 @@
 //  var Hammer = require('../plugins/Hammer');
   var BasicLayer = require('../prefabs/BasicLayer');
   var Gesture = require('../plugins/Gesture');
+  var HealthBar = require('../plugins/HealthBar.js');
 
 var Player = function(game, x, y,frame) {
   Phaser.Sprite.call(this, game, x, y, "airplanes", frame);
@@ -32,7 +33,8 @@ var Player = function(game, x, y,frame) {
         this.bulletTime = 0;
 
 //        this.addChild(this.emitter);
-        this.health = 5;
+        this.fullHealth = 20;
+        this.health = this.fullHealth;
         this.kills = 0;
         this.angle = 0;
         this.angleSpeed = 150;
@@ -100,19 +102,27 @@ var Player = function(game, x, y,frame) {
     /*******************
     * HUD'S
     *******************/
+    // this.killsText = this.game.add.text(0, 0, '', { fontSize: '32px', fill: '#000' });
+    // this.killsText.fixedToCamera = true;
+    // this.killsText.cameraOffset.setTo(16, 16);
 
-    this.killsText = this.game.add.text(0, 0, '', { fontSize: '32px', fill: '#000' });
-    this.killsText.fixedToCamera = true;
-    this.killsText.cameraOffset.setTo(16, 16);
+    // var style = { font: '18px Arial', fill: '#ffffff', align: 'center'};
+    //   this.hud = Phaser.Plugin.HUDManager.create(this.game, this, 'gamehud');
+    //   this.killsHUD = this.hud.addText(10, 10, 'Kills: ', style, 'kills', this);
+    //   this.killsText.addChild(this.killsHUD.text);
+    //
+    //   this.healthHUD = this.hud.addBar(0,-50, this.width, 10, this.health, 'health', this, '#ffbd55', false);
+    //   this.healthHUD.bar.anchor.setTo(0.5, 0.5);
 
-    var style = { font: '18px Arial', fill: '#ffffff', align: 'center'};
-      this.hud = Phaser.Plugin.HUDManager.create(this.game, this, 'gamehud');
-      this.killsHUD = this.hud.addText(10, 10, 'Kills: ', style, 'kills', this);
-      this.killsText.addChild(this.killsHUD.text);
-
-      this.healthHUD = this.hud.addBar(0,-50, this.width, 10, this.health, 'health', this, '#ffbd55', false);
-      this.healthHUD.bar.anchor.setTo(0.5, 0.5);
-      // this.addChild(this.healthHUD.bar);
+    this.healthBarGroup = this.game.add.group();
+    this.healthBar = new HealthBar(this.game, {x: 151, y: 74, width: 143, height:34, bg: {color: '#A87436'}, bar:{color: '#EB3B3B'}});
+    this.healthBarOverlay = this.game.add.sprite(50, 50, "sprites", "HUD/healthBar");
+    this.healthBar.bgSprite.fixedToCamera = true;
+    this.healthBar.barSprite.fixedToCamera = true;
+    this.healthBarOverlay.fixedToCamera = true;
+    this.healthBarGroup.addChild(this.healthBar.bgSprite);
+    this.healthBarGroup.addChild(this.healthBar.barSprite);
+    this.healthBarGroup.addChild(this.healthBarOverlay);
 
     if(GlobalGame.Multiplayer.userName){
         this.username = this.game.add.text(0, -100, GlobalGame.Multiplayer.userName, { fontSize: '22px', fill: '#000' });
@@ -474,6 +484,8 @@ Player.prototype.update = function() {
           if(GlobalGame.Multiplayer.socket)
               GlobalGame.Multiplayer.socket.emit("bullet hit player", {playerId: this.name});
           plane.health -= 1;
+
+          this.healthBar.setPercent(plane.health / plane.fullHealth * 100);
 
           if(plane.health < 5){
             plane.frameName = "Airplanes/Fokker/Skin 1/PNG/Fokker_default_damaged";

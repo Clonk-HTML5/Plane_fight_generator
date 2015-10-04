@@ -1514,190 +1514,136 @@ window.onload = function () {
 } (Phaser));
 
 },{}],4:[function(require,module,exports){
-'use strict';
 /**
-* A Sample Plugin demonstrating how to hook into the Phaser plugin system.
-*/
-function initWatchVal() {}
+   Copyright (c) 2015 Belahcen Marwane (b.marwane@gmail.com)
 
-Phaser.Plugin.HUDManager = function (game, parent, name, pollRate) {
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
 
-  Phaser.Plugin.call(this, game, parent);
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
 
-  this.pollRate = pollRate || 100;
-  this.digestTimer = this.game.time.events.loop(this.pollRate, this.$digest, this);
-  this.digestTimer.timer.start();
-  this.$$watchers = [];
-  this.$$lastDirtyWatch = null;
-  this.name = name || Phaser.Plugin.HUDManager.hudCounter++;
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE.
+ */
+
+var HealthBar = function(game, providedConfig) {
+  this.game = game;
+
+  this.setupConfiguration(providedConfig);
+  this.setPosition(this.config.x, this.config.y);
+  this.drawBackground();
+  this.drawHealthBar();
+};
+HealthBar.prototype.constructor = HealthBar;
+
+HealthBar.prototype.setupConfiguration = function (providedConfig) {
+  this.config = this.mergeWithDefaultConfiguration(providedConfig);
+  this.flipped = this.config.flipped;
 };
 
-Phaser.Plugin.HUDManager.huds = {};
-Phaser.Plugin.HUDManager.hudCounter = 0;
-
-Phaser.Plugin.HUDManager.HEALTHBAR = function(percent) {
-  if (percent <= 0.25) {
-    return '#ff7474'; //red
-  }
-  if (percent <= 0.75) {
-    return '#eaff74'; //yellow
-  }
-  return '#74ff74'; //green
-};
-
-
-Phaser.Plugin.HUDManager.prototype = Object.create(Phaser.Plugin.prototype);
-Phaser.Plugin.HUDManager.prototype.constructor = Phaser.Plugin.HUDManager;
-
-
-
-Phaser.Plugin.HUDManager.create = function(game, parent, name, pollrate) {
-
-  var hud = Phaser.Plugin.HUDManager.huds[name];
-  if(!!hud) {
-    return hud;
-  }
-  name = name || Phaser.Plugin.HUDManager.hudCounter++;
-  hud = new Phaser.Plugin.HUDManager(game, parent, name, pollrate);
-  Phaser.Plugin.HUDManager.huds[name] = hud;
-  return hud;
-};
-
-Phaser.Plugin.HUDManager.get = function(name) {
-    var hud = Phaser.Plugin.HUDManager.huds[name];
-    if(hud) {
-      return hud;
-    } else {
-      throw 'HUD "' + name + '" not found';
-    }
-};
-
-
-Phaser.Plugin.HUDManager.prototype.destroy = function() {
- delete Phaser.Plugin.HUDManager.huds[this.name];
- this.$$watchers = [];
-};
-
-Phaser.Plugin.HUDManager.prototype.$watch = function(watchFn, listenerFn) {
-  var watcher = {
-    watchFn: watchFn,
-    listenerFn: listenerFn || function() {},
-    last: initWatchVal,
+HealthBar.prototype.mergeWithDefaultConfiguration = function(newConfig) {
+  var defaultConfig= {
+    width: 250,
+    height: 40,
+    x: 0,
+    y: 0,
+    bg: {
+      color: '#651828'
+    },
+    bar: {
+      color: '#FEFF03'
+    },
+    animationDuration: 200,
+    flipped: false
   };
-  this.$$watchers.push(watcher);
-  this.$$lastDirtyWatch = null;
-  var self = this;
-  return function() {
-    var index = self.$$watchers.indexOf(watcher);
-    if (index >= 0) {
-      self.$$watchers.splice(index, 1);
-    }
-  };
+
+  return mergeObjects(defaultConfig, newConfig);
 };
 
-
-
-Phaser.Plugin.HUDManager.prototype.$digestOnce = function() {
-  var newValue, oldValue, dirty;
-  this.$$watchers.forEach(function(watcher) {
-    newValue = watcher.watchFn(this);
-    oldValue = watcher.last;
-    if(newValue !== oldValue) {
-      this.$$lastDirtyWatch = watcher;
-      watcher.last = newValue;
-      watcher.listenerFn(newValue, (oldValue == initWatchVal ? newValue: oldValue), this);
-      dirty = true;
-    } else if (this.$$lastDirtyWatch === watcher) {
-      return false;
-    }
-  }, this);
-  return dirty;
-};
-
-Phaser.Plugin.HUDManager.prototype.$digest = function() {
-  var ttl = 10;
-  
-  var self = this;
-
-  this.$$lastDirtyWatch = null;
-  function digest() {
-    var dirty = self.$digestOnce();
-    if (dirty && !(ttl--)) {
-      throw "10 Digest Iterations Reached";
-    }
-    if(dirty) {
-      setTimeout(digest, 0);
+function mergeObjects(targetObj, newObj) {
+  for (var p in newObj) {
+    try {
+      targetObj[p] = newObj[p].constructor==Object ? mergeObjects(targetObj[p], newObj[p]) : newObj[p];
+    } catch(e) {
+      targetObj[p] = newObj[p];
     }
   }
-  setTimeout(digest, 0);
-    
-};
+  return targetObj;
+}
 
-Phaser.Plugin.HUDManager.prototype.addText = function(x, y, label, style, watched, context) {
-  var text = this.game.add.text(x, y, label, style);
-  context = context || window;
-  var dereg = this.$watch(function() {
-      return context[watched];
-    }, function() {
-      text.setText(label + context[watched]);
-  });
-  return {text: text, deregister: dereg};
-};
+HealthBar.prototype.drawBackground = function() {
 
-Phaser.Plugin.HUDManager.prototype.addBar = function(x, y, width, height, max, watched, context, color, backgroundColor) {
-  max = max || 100;
+  var bmd = this.game.add.bitmapData(this.config.width, this.config.height);
+  bmd.ctx.fillStyle = this.config.bg.color;
+  bmd.ctx.beginPath();
+  bmd.ctx.rect(0, 0, this.config.width, this.config.height);
+  bmd.ctx.fill();
 
-  color = color || 'white';
-  backgroundColor = backgroundColor || '#999';
+  this.bgSprite = this.game.add.sprite(this.x, this.y, bmd);
+  this.bgSprite.anchor.set(0.5);
 
-  var colorFunction = function() { return color; };
-
-  if(typeof color === 'function' ) {
-    colorFunction = color;
+  if(this.flipped){
+    this.bgSprite.scale.x = -1;
   }
+};
 
-  
-  var bmd = this.game.add.bitmapData(width, height);
-  context = context || window;
-  var bar = this.game.add.sprite(x, y, bmd);
-  var dereg = this.$watch(function() {
-    return context[watched];
-  }, function(newVal) {
-    var percent = newVal / max;
-    if((percent <= 1 && percent >= 0)) {
-      bmd.clear();
-      bmd.ctx.beginPath();
-      bmd.ctx.moveTo(0,0);
-      bmd.ctx.rect(0,0, width, height);
-      bmd.ctx.closePath();
-      bmd.ctx.fillStyle = backgroundColor;
-      bmd.ctx.fill();
-      bmd.ctx.beginPath();
-      bmd.ctx.rect(0,0,width*percent, height);
-      bmd.ctx.fillStyle = colorFunction(percent);
-      bmd.ctx.fill();
-      bmd.ctx.closePath();
-      bmd.render();
-//      bmd.refreshBuffer();
-    } 
-  });
+HealthBar.prototype.drawHealthBar = function() {
+  var bmd = this.game.add.bitmapData(this.config.width, this.config.height);
+  bmd.ctx.fillStyle = this.config.bar.color;
+  bmd.ctx.beginPath();
+  bmd.ctx.rect(0, 0, this.config.width, this.config.height);
+  bmd.ctx.fill();
 
-  return {bar: bar,  deregister: dereg};
+  this.barSprite = this.game.add.sprite(this.x - this.bgSprite.width/2 + 17, this.y, bmd);
+  this.barSprite.anchor.y = 0.5;
+
+  if(this.flipped){
+    this.barSprite.scale.x = -1;
+  }
+};
+
+HealthBar.prototype.setPosition = function (x, y) {
+  this.x = x;
+  this.y = y;
+
+  if(this.bgSprite !== undefined & this.barSprite !== undefined){
+    this.bgSprite.position.x = x;
+    this.bgSprite.position.y = y;
+
+    this.barSprite.position.x = x - this.config.width/2;
+    this.barSprite.position.y = y;
+  }
 };
 
 
-Phaser.Plugin.HUDManager.prototype.addWatch = function(watched, watchedContext, callback, callbackContext) {
-  watchedContext = watchedContext || window;
-  callbackContext = callbackContext || window;
-  var dereg = this.$watch(function() {
-    return watchedContext[watched];
-  }, function(newVal, oldVal) {
-    callback.call(callbackContext, newVal, oldVal);
-  });
-  return dereg;
+HealthBar.prototype.setPercent = function(newValue){
+  if(newValue < 0) newValue = 0;
+  if(newValue > 100) newValue = 100;
+
+  var newWidth =  (newValue * this.config.width) / 100;
+
+  this.setWidth(newWidth);
+};
+
+HealthBar.prototype.setWidth = function(newWidth){
+  if(this.flipped) {
+    newWidth = -1 * newWidth;
+  }
+  this.game.add.tween(this.barSprite).to( { width: newWidth }, this.config.animationDuration, Phaser.Easing.Linear.None, true);
 };
 
 
+module.exports = HealthBar; // for browserify, if not needed
 
 },{}],5:[function(require,module,exports){
 /**
@@ -5742,7 +5688,7 @@ EnemyGroup.prototype.addEnemy = function () {
         }
       }
     } else {
-      alert('Level abgeschlossen');
+      // alert('Level abgeschlossen');
       this.finishedLevel();
     }
 };
@@ -5751,8 +5697,25 @@ EnemyGroup.prototype.addEnemy = function () {
 * adds enemy
 */
 EnemyGroup.prototype.finishedLevel = function () {
-    GlobalGame.level += 1;
-    // this.game.state.start('missions');
+    var levelsLocalStorageObject = JSON.parse(localStorage.getItem('levels'));
+    if(this.game.state.getCurrentState().currentTimer.seconds < this.currentLevel.stars[1] ){
+      if(this.game.state.getCurrentState().currentTimer.seconds < this.currentLevel.stars[2] ){
+        if (this.game.state.getCurrentState().currentTimer.seconds < this.currentLevel.stars[3]) {
+           levelsLocalStorageObject[GlobalGame.level] = 3;
+        } else {
+          levelsLocalStorageObject[GlobalGame.level] = 2;
+        }
+      } else {
+        levelsLocalStorageObject[GlobalGame.level] = 1;
+      }
+      if(GlobalGame.level === Object.keys(levelsLocalStorageObject).length){
+        alert('you finished all Singleplayer Levels replay the Levels or play the Multiplayer')
+      }
+      levelsLocalStorageObject[GlobalGame.level+1] = 0;
+    }
+    this.game.state.getCurrentState().currentTimer.remove();
+    localStorage.setItem('levels', JSON.stringify(levelsLocalStorageObject));
+    this.game.state.start('missions');
 }
 
 module.exports = EnemyGroup;
@@ -5818,10 +5781,10 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
     * HUD'S
     *******************/
 
-      this.hud = Phaser.Plugin.HUDManager.create(this.game, this, 'gamehud');
-      this.healthHUD = this.hud.addBar(0,-50, this.width, 10, this.health, 'health', this, '#ffbd55', false);
-      this.healthHUD.bar.anchor.setTo(0.5, 0.5);
-      this.addChild(this.healthHUD.bar);
+      // this.hud = Phaser.Plugin.HUDManager.create(this.game, this, 'gamehud');
+      // this.healthHUD = this.hud.addBar(0,-50, this.width, 10, this.health, 'health', this, '#ffbd55', false);
+      // this.healthHUD.bar.anchor.setTo(0.5, 0.5);
+      // this.addChild(this.healthHUD.bar);
 
     this.randomXPointInWorld = this.game.world.randomX;
     this.randomYPointInWorld = this.game.world.randomY - 300;
@@ -6328,6 +6291,7 @@ module.exports = PausePanel;
 //  var Hammer = require('../plugins/Hammer');
   var BasicLayer = require('../prefabs/BasicLayer');
   var Gesture = require('../plugins/Gesture');
+  var HealthBar = require('../plugins/HealthBar.js');
 
 var Player = function(game, x, y,frame) {
   Phaser.Sprite.call(this, game, x, y, "airplanes", frame);
@@ -6357,7 +6321,8 @@ var Player = function(game, x, y,frame) {
         this.bulletTime = 0;
 
 //        this.addChild(this.emitter);
-        this.health = 5;
+        this.fullHealth = 20;
+        this.health = this.fullHealth;
         this.kills = 0;
         this.angle = 0;
         this.angleSpeed = 150;
@@ -6425,19 +6390,27 @@ var Player = function(game, x, y,frame) {
     /*******************
     * HUD'S
     *******************/
+    // this.killsText = this.game.add.text(0, 0, '', { fontSize: '32px', fill: '#000' });
+    // this.killsText.fixedToCamera = true;
+    // this.killsText.cameraOffset.setTo(16, 16);
 
-    this.killsText = this.game.add.text(0, 0, '', { fontSize: '32px', fill: '#000' });
-    this.killsText.fixedToCamera = true;
-    this.killsText.cameraOffset.setTo(16, 16);
+    // var style = { font: '18px Arial', fill: '#ffffff', align: 'center'};
+    //   this.hud = Phaser.Plugin.HUDManager.create(this.game, this, 'gamehud');
+    //   this.killsHUD = this.hud.addText(10, 10, 'Kills: ', style, 'kills', this);
+    //   this.killsText.addChild(this.killsHUD.text);
+    //
+    //   this.healthHUD = this.hud.addBar(0,-50, this.width, 10, this.health, 'health', this, '#ffbd55', false);
+    //   this.healthHUD.bar.anchor.setTo(0.5, 0.5);
 
-    var style = { font: '18px Arial', fill: '#ffffff', align: 'center'};
-      this.hud = Phaser.Plugin.HUDManager.create(this.game, this, 'gamehud');
-      this.killsHUD = this.hud.addText(10, 10, 'Kills: ', style, 'kills', this);
-      this.killsText.addChild(this.killsHUD.text);
-
-      this.healthHUD = this.hud.addBar(0,-50, this.width, 10, this.health, 'health', this, '#ffbd55', false);
-      this.healthHUD.bar.anchor.setTo(0.5, 0.5);
-      // this.addChild(this.healthHUD.bar);
+    this.healthBarGroup = this.game.add.group();
+    this.healthBar = new HealthBar(this.game, {x: 151, y: 74, width: 143, height:34, bg: {color: '#A87436'}, bar:{color: '#EB3B3B'}});
+    this.healthBarOverlay = this.game.add.sprite(50, 50, "sprites", "HUD/healthBar");
+    this.healthBar.bgSprite.fixedToCamera = true;
+    this.healthBar.barSprite.fixedToCamera = true;
+    this.healthBarOverlay.fixedToCamera = true;
+    this.healthBarGroup.addChild(this.healthBar.bgSprite);
+    this.healthBarGroup.addChild(this.healthBar.barSprite);
+    this.healthBarGroup.addChild(this.healthBarOverlay);
 
     if(GlobalGame.Multiplayer.userName){
         this.username = this.game.add.text(0, -100, GlobalGame.Multiplayer.userName, { fontSize: '22px', fill: '#000' });
@@ -6800,6 +6773,8 @@ Player.prototype.update = function() {
               GlobalGame.Multiplayer.socket.emit("bullet hit player", {playerId: this.name});
           plane.health -= 1;
 
+          this.healthBar.setPercent(plane.health / plane.fullHealth * 100);
+
           if(plane.health < 5){
             plane.frameName = "Airplanes/Fokker/Skin 1/PNG/Fokker_default_damaged";
           } else if (plane.health < 4) {
@@ -6820,7 +6795,7 @@ Player.prototype.update = function() {
 
 module.exports = Player;
 
-},{"../plugins/Gesture":3,"../prefabs/BasicLayer":7}],15:[function(require,module,exports){
+},{"../plugins/Gesture":3,"../plugins/HealthBar.js":4,"../prefabs/BasicLayer":7}],15:[function(require,module,exports){
 'use strict';
 
 var Solider = function(game, x, y, frame, player, options) {
@@ -7384,7 +7359,7 @@ var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle, na
 //    this.game = game;
     this.bullets = player.bullets;
     this.alive = true;
-    
+
 //    this.emitter = player.emitter;
    this.emitter = this.game.add.emitter(xStart, yStart, 400);
 
@@ -7395,7 +7370,7 @@ var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle, na
     this.emitter.setScale(0.1, 0, 0.05, 0, 1000);
 
     this.emitter.start(false, 3000, 5);
-    
+
     //  Our bullet group
     this.bullets = this.game.add.group();
     this.bullets.enableBody = true;
@@ -7407,11 +7382,11 @@ var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle, na
     this.bullets.setAll('outOfBoundsKill', true);
     this.bullets.setAll('scale.x', 0.5);
     this.bullets.setAll('scale.y', 0.5);
-    
+
     this.health = player.health;
     this.name = index.toString();
     this.username = name.toString();
-    
+
     this.angle = angle;
     this.scale.setTo(player.scale.x, player.scale.y);
 //        this.plane.scale.x *= -1;
@@ -7419,26 +7394,26 @@ var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle, na
 //        this.plane.scale.setTo(0.23, 0.23);
     this.game.physics.enable(this, Phaser.Physics.ARCADE);
 //    this.body.collideWorldBounds = true;
-    
+
     if(this.username){
         this.username = this.game.add.text(0, -100, this.username, { fontSize: '22px', fill: '#000' });
         this.addChild(this.username);
     }
 
-      this.hud = Phaser.Plugin.HUDManager.create(this.game, this, 'gamehud');
-      this.healthHUD = this.hud.addBar(0,-50, this.width, 10, this.health, 'health', this, '#ffbd55', false);
-      this.healthHUD.bar.anchor.setTo(0.5, 0.5);
-      this.addChild(this.healthHUD.bar);
-  
+      // this.hud = Phaser.Plugin.HUDManager.create(this.game, this, 'gamehud');
+      // this.healthHUD = this.hud.addBar(0,-50, this.width, 10, this.health, 'health', this, '#ffbd55', false);
+      // this.healthHUD.bar.anchor.setTo(0.5, 0.5);
+      // this.addChild(this.healthHUD.bar);
+
 };
 
 SocketRemotePlayer.prototype = Object.create(Phaser.Sprite.prototype);
 SocketRemotePlayer.prototype.constructor = SocketRemotePlayer;
 
 SocketRemotePlayer.prototype.update = function() {
-  
+
   // write your prefab's specific update code here
-  
+
 };
 
 module.exports = SocketRemotePlayer;
@@ -7751,7 +7726,6 @@ module.exports = Menu;
 
   		// this.pages = this.starsArray.length/(this.thumbRows*this.thumbCols);
 		this.pages = Object.keys(this.starsArray).length/(this.thumbRows*this.thumbCols);
-    console.log(Object.keys(this.starsArray).length)
 
 		this.currentPage = Math.floor(GlobalGame.level/(this.thumbRows*this.thumbCols));
 		if(this.currentPage>this.pages-1){
@@ -8238,7 +8212,7 @@ module.exports = MultiplayerUserSignIn;
   var PausePanel = require('../prefabs/PausePanel');
   var BasicLayer = require('../prefabs/BasicLayer');
   var GameController = require('../plugins/GameController');
-  var HUDManager = require('../plugins/HUDManager');
+  // var HUDManager = require('../plugins/HUDManager');
 
   function Play() {}
   Play.prototype = {
@@ -8297,6 +8271,10 @@ module.exports = MultiplayerUserSignIn;
 
         // Add a input listener that can help us return from being paused
         this.game.input.onDown.add(this.unpause, this);
+
+        this.currentTimer = this.game.time.create(false);
+        // this.currentTimer.loop(Phaser.Timer.SECOND, updateTimer, this);
+        this.currentTimer.start();
     },
 
     update: function(){
@@ -8314,6 +8292,7 @@ module.exports = MultiplayerUserSignIn;
     },
 
     render: function(){
+    //  this.game.debug.text(this.currentTimer.seconds, 32, 32);
     //  this.game.debug.body(this.player, 32, 32);
 //        this.game.debug.cameraInfo(this.game.camera, 32, 32);
       // this.game.debug.cameraInfo(this.game.camera, 500, 32);
@@ -8340,6 +8319,7 @@ module.exports = MultiplayerUserSignIn;
 
     paused: function() {
         console.log('paused')
+        this.currentTimer.pause();
     },
 
     pauseGame: function(){
@@ -8358,6 +8338,7 @@ module.exports = MultiplayerUserSignIn;
                 this.pausePanel.hide();
                 this.game.paused =false;
                 this.pauseButton.visible = true;
+                this.currentTimer.resume();
         }
     },
 
@@ -8423,60 +8404,60 @@ module.exports = MultiplayerUserSignIn;
 
   module.exports = Play;
 
-},{"../plugins/GameController":2,"../plugins/HUDManager":4,"../prefabs/BasicLayer":7,"../prefabs/EnemyGroup":8,"../prefabs/Level":11,"../prefabs/Level_old":12,"../prefabs/PausePanel":13,"../prefabs/Player":14,"../prefabs/birdGroup":17}],31:[function(require,module,exports){
+},{"../plugins/GameController":2,"../prefabs/BasicLayer":7,"../prefabs/EnemyGroup":8,"../prefabs/Level":11,"../prefabs/Level_old":12,"../prefabs/PausePanel":13,"../prefabs/Player":14,"../prefabs/birdGroup":17}],31:[function(require,module,exports){
 'use strict';
   var GameController = require('../plugins/GameController');
-  var HUDManager = require('../plugins/HUDManager');  
-  var io = require('../plugins/socket.io');  
-  var BirdGroup = require('../prefabs/birdGroup');  
-  var Player = require('../prefabs/Player');  
+  // var HUDManager = require('../plugins/HUDManager');  
+  var io = require('../plugins/socket.io');
+  var BirdGroup = require('../prefabs/birdGroup');
+  var Player = require('../prefabs/Player');
   var PausePanel = require('../prefabs/PausePanel');
-  var Level = require('../prefabs/Level');  
-  var SocketEventHandlers = require('../prefabs/socketEventHandlers');  
- var BasicLayer = require('../prefabs/BasicLayer'); 
+  var Level = require('../prefabs/Level');
+  var SocketEventHandlers = require('../prefabs/socketEventHandlers');
+ var BasicLayer = require('../prefabs/BasicLayer');
 
 
   function PlayMultiplayer() {}
   PlayMultiplayer.prototype = {
     preload: function() {
-      // Override this method to add some load operations. 
+      // Override this method to add some load operations.
       // If you need to use the loader, you may need to use them here.
     },
     create: function() {
-      // This method is called after the game engine successfully switches states. 
+      // This method is called after the game engine successfully switches states.
       // Feel free to add any setup code here (do not load anything here, override preload() instead).
-        
+
         // new Level Object
         this.level = new Level(this.game);
-        
+
         // Create a new bird object
         this.birdGroup = new BirdGroup(this.game);
-        
+
         // new Player Object
         this.player = new Player(this.game, 400, 400, "sprites/plane3");
         this.game.add.existing(this.player);
-        
+
         GlobalGame.player = this.player;
-        
+
         this.socketEventHandlers = new SocketEventHandlers(this.game, io);
 
         GlobalGame.Multiplayer.socketEventHandlers = this.socketEventHandlers;
-        
+
         // add our pause button with a callback
         this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'sprites', this.pauseGame, this, 'menu/btn-pause', 'menu/btn-pause', 'menu/btn-pause', 'menu/btn-pause');
         this.pauseButton.fixedToCamera = true;
         this.pauseButton.inputEnabled = true;
 //        this.pauseButton.anchor.setTo(0.5,0.5);
         this.pauseButton.scale.setTo(0.75,0.75);
-        
+
         // Let's build a pause panel
         this.pausePanel = new PausePanel(this.game);
-                //GameStart Layer    
+                //GameStart Layer
 //        this.basicLayer = new BasicLayer(this.game)
-        
+
         // Add a input listener that can help us return from being paused
         this.game.input.onDown.add(this.unpause, this);
-        
+
 //        console.log(GlobalGame.Multiplayer.socket.sessionid)
 //        if(!this.socketEventHandlers.playerById(GlobalGame.Multiplayer.socket.sessionid))
         GlobalGame.Multiplayer.socket.emit("new player", {x: this.player.x, y:this.player.y, angle: this.player.angle, name: GlobalGame.Multiplayer.userName});
@@ -8493,7 +8474,7 @@ module.exports = MultiplayerUserSignIn;
 
 
     },
-      
+
    pauseGame: function(){
 			if(!this.game.paused){
 				// Enter pause
@@ -8531,7 +8512,7 @@ module.exports = MultiplayerUserSignIn;
                     var x = event.x - x1,
                         y = event.y - y1;
 
-                    // Calculate the choice 
+                    // Calculate the choice
                     var choise = Math.floor(x / 90) + 3*Math.floor(y / 90);
 
                     // Display the choice
@@ -8546,13 +8527,13 @@ module.exports = MultiplayerUserSignIn;
       // Put render operations here.
     },
     shutdown: function() {
-      // This method will be called when the state is shut down 
+      // This method will be called when the state is shut down
       // (i.e. you switch to another state from this one).
     }
   };
 module.exports = PlayMultiplayer;
 
-},{"../plugins/GameController":2,"../plugins/HUDManager":4,"../plugins/socket.io":6,"../prefabs/BasicLayer":7,"../prefabs/Level":11,"../prefabs/PausePanel":13,"../prefabs/Player":14,"../prefabs/birdGroup":17,"../prefabs/socketEventHandlers":19}],32:[function(require,module,exports){
+},{"../plugins/GameController":2,"../plugins/socket.io":6,"../prefabs/BasicLayer":7,"../prefabs/Level":11,"../prefabs/PausePanel":13,"../prefabs/Player":14,"../prefabs/birdGroup":17,"../prefabs/socketEventHandlers":19}],32:[function(require,module,exports){
 
 'use strict';
 

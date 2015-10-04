@@ -58,10 +58,10 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
     * HUD'S
     *******************/
 
-      this.hud = Phaser.Plugin.HUDManager.create(this.game, this, 'gamehud');
-      this.healthHUD = this.hud.addBar(0,-50, this.width, 10, this.health, 'health', this, '#ffbd55', false);
-      this.healthHUD.bar.anchor.setTo(0.5, 0.5);
-      this.addChild(this.healthHUD.bar);
+      // this.hud = Phaser.Plugin.HUDManager.create(this.game, this, 'gamehud');
+      // this.healthHUD = this.hud.addBar(0,-50, this.width, 10, this.health, 'health', this, '#ffbd55', false);
+      // this.healthHUD.bar.anchor.setTo(0.5, 0.5);
+      // this.addChild(this.healthHUD.bar);
 
     this.randomXPointInWorld = this.game.world.randomX;
     this.randomYPointInWorld = this.game.world.randomY - 300;

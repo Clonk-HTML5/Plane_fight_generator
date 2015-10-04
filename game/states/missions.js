@@ -44,7 +44,6 @@
 
   		// this.pages = this.starsArray.length/(this.thumbRows*this.thumbCols);
 		this.pages = Object.keys(this.starsArray).length/(this.thumbRows*this.thumbCols);
-    console.log(Object.keys(this.starsArray).length)
 
 		this.currentPage = Math.floor(GlobalGame.level/(this.thumbRows*this.thumbCols));
 		if(this.currentPage>this.pages-1){

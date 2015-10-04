@@ -8,7 +8,7 @@
   var PausePanel = require('../prefabs/PausePanel');
   var BasicLayer = require('../prefabs/BasicLayer');
   var GameController = require('../plugins/GameController');
-  var HUDManager = require('../plugins/HUDManager');
+  // var HUDManager = require('../plugins/HUDManager');
 
   function Play() {}
   Play.prototype = {
@@ -67,6 +67,10 @@
 
         // Add a input listener that can help us return from being paused
         this.game.input.onDown.add(this.unpause, this);
+
+        this.currentTimer = this.game.time.create(false);
+        // this.currentTimer.loop(Phaser.Timer.SECOND, updateTimer, this);
+        this.currentTimer.start();
     },
 
     update: function(){
@@ -84,6 +88,7 @@
     },
 
     render: function(){
+    //  this.game.debug.text(this.currentTimer.seconds, 32, 32);
     //  this.game.debug.body(this.player, 32, 32);
 //        this.game.debug.cameraInfo(this.game.camera, 32, 32);
       // this.game.debug.cameraInfo(this.game.camera, 500, 32);
@@ -110,6 +115,7 @@
 
     paused: function() {
         console.log('paused')
+        this.currentTimer.pause();
     },
 
     pauseGame: function(){
@@ -128,6 +134,7 @@
                 this.pausePanel.hide();
                 this.game.paused =false;
                 this.pauseButton.visible = true;
+                this.currentTimer.resume();
         }
     },
 
