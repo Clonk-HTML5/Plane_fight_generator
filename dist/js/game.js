@@ -18,12 +18,13 @@ window.onload = function () {
   game.state.add('play', require('./states/play'));
   game.state.add('playMultiplayer', require('./states/playMultiplayer'));
   game.state.add('preload', require('./states/preload'));
+  game.state.add('selectPlane', require('./states/selectPlane'));
   game.state.add('settings', require('./states/settings'));
   
 
   game.state.start('boot');
 };
-},{"./states/Level2":21,"./states/boot":22,"./states/gameover":23,"./states/help":24,"./states/menu":25,"./states/missions":26,"./states/multiplayerRoomDetailView":27,"./states/multiplayerRoomSelect":28,"./states/multiplayerUserSignIn":29,"./states/play":30,"./states/playMultiplayer":31,"./states/preload":32,"./states/settings":33}],2:[function(require,module,exports){
+},{"./states/Level2":21,"./states/boot":22,"./states/gameover":23,"./states/help":24,"./states/menu":25,"./states/missions":26,"./states/multiplayerRoomDetailView":27,"./states/multiplayerRoomSelect":28,"./states/multiplayerUserSignIn":29,"./states/play":30,"./states/playMultiplayer":31,"./states/preload":32,"./states/selectPlane":33,"./states/settings":34}],2:[function(require,module,exports){
 /**
  * Helpers 
  */
@@ -5666,7 +5667,7 @@ EnemyGroup.prototype.addEnemy = function () {
 
       if(this.currentLevel.waves[this.currentWave].planes) {
         for (var i = 0; i < this.currentLevel.waves[this.currentWave].planes.count; i++){
-          this.enemyPlane = new EnemyPlane(this.game, Math.random() * this.game.world.width, Math.random() * (this.game.world.height - 250),"sprites/plane3", this.player, this.options);
+          this.enemyPlane = new EnemyPlane(this.game, Math.random() * this.game.world.width, Math.random() * (this.game.world.height - 250),"Airplanes/Fokker/Skin 2/PNG/Fokker_default", this.player, this.options);
           this.add(this.enemyPlane);
         }
       }
@@ -5724,7 +5725,7 @@ module.exports = EnemyGroup;
 'use strict';
 
 var EnemyPlane = function(game, x, y, frame, player, options) {
-  Phaser.Sprite.call(this, game, x, y, 'sprites', frame);
+  Phaser.Sprite.call(this, game, x, y, "airplanes", frame);
 
   // initialize your prefab here
 
@@ -6245,23 +6246,21 @@ var PausePanel = function(game, parent){
 		Phaser.Group.call(this, game, parent);
 
 		// Add the panel
-		this.panel = this.create(this.game.width/2, 10, 'sprites', 'menu/panel');
+		this.panel = this.create(this.game.width/2, 10, 'sprites', 'menu/paused');
 		this.panel.anchor.setTo(0.5, 0);
         this.panel.fixedToCamera = true;
 
 		// Add text
-//		this.pauseText = this.game.add.bitmapText(this.game.width/2 - 100, 20, 'kenpixelblocks', 'Game paused', 24);
-		this.pauseText = this.game.add.text(this.game.width/2 - 100, 20, 'Game paused',{ font: '24px Cloudy_With_a_Chance_of_Love', fill: '#08d465', align: 'center'});
-        this.pauseText.fixedToCamera = true;
-		this.add(this.pauseText);
-//		this.cloudsText = this.game.add.bitmapText(this.game.width/2 - 100, 50, 'kenpixelblocks', 'Clouds are still moving :)', 16);
-		this.cloudsText = this.game.add.text(this.game.width/2 - 100, 50, 'Press the Play Button to continue',{ font: '16px Cloudy_With_a_Chance_of_Love', fill: '#08d465', align: 'center'});
-        this.cloudsText.fixedToCamera = true;
-		this.add(this.cloudsText);
+		// this.pauseText = this.game.add.text(this.game.width/2 - 100, 20, 'Game paused',{ font: '24px Cloudy_With_a_Chance_of_Love', fill: '#08d465', align: 'center'});
+    //     this.pauseText.fixedToCamera = true;
+		// this.add(this.pauseText);
+		// this.cloudsText = this.game.add.text(this.game.width/2 - 100, 50, 'Press the Play Button to continue',{ font: '16px Cloudy_With_a_Chance_of_Love', fill: '#08d465', align: 'center'});
+    //     this.cloudsText.fixedToCamera = true;
+		// this.add(this.cloudsText);
 
 		// Place it out of bounds
 		this.x = 0;
-		this.y = -100;
+		this.y = -300;
 	};
 
 	PausePanel.prototype = Object.create(Phaser.Group.prototype);
@@ -6269,11 +6268,15 @@ var PausePanel = function(game, parent){
 
 	PausePanel.prototype.show = function(onComplete){
             // Add play button
-            this.btnPlay = this.game.add.button(this.game.width/2 - 220, 20, 'sprites', function(){
-                this.game.state.getCurrentState().playGame()}
-            , this, 'menu/btn-play', 'menu/btn-play', 'menu/btn-play', 'menu/btn-play');
+            this.btnPlay = this.game.add.button(this.game.width/2 - 100, this.panel.height/2 - 20, 'sprites', function(){this.game.state.getCurrentState().playGame()}, this, 'buttons/button_play_act', 'buttons/button_play_no', 'buttons/button_play_act', 'buttons/button_play_no');
+						this.restartButton = this.game.add.button(this.game.width/2 -20, this.panel.height/2 - 20, 'sprites', this.game.state.getCurrentState().restart, this, 'buttons/button_restart_new_act', 'buttons/button_restart_new_no', 'buttons/button_restart_new_act', 'buttons/button_restart_new_no');
+						this.menuButton = this.game.add.button(this.game.width/2 + 60, this.panel.height/2 - 20, 'sprites', this.game.state.getCurrentState().menu, this, 'buttons/button_menu_new_no', 'buttons/button_menu_new_no', 'buttons/button_menu_new_no', 'buttons/button_menu_new_no');
             this.btnPlay.fixedToCamera = true;
             this.add(this.btnPlay);
+            this.restartButton.fixedToCamera = true;
+            this.add(this.restartButton);
+            this.menuButton.fixedToCamera = true;
+            this.add(this.menuButton);
 		this.game.add.tween(this).to({y:this.game.height/2}, 200, Phaser.Easing.Bounce.Out, true)
                                  .onComplete.add(onComplete, this.game.state.getCurrentState());
 	};
@@ -6281,6 +6284,12 @@ var PausePanel = function(game, parent){
 		var closePauseTween = this.game.add.tween(this).to({y:-this.game.height/2-100}, 200, Phaser.Easing.Linear.NONE, true)
             if(typeof onComplete == 'function')
                 closePauseTween._lastChild.onComplete.add(onComplete, this.game.state.getCurrentState());
+	};
+	PausePanel.prototype.restartClick = function () {
+	      this.game.state.restart();
+	};
+	PausePanel.prototype.menuClick = function () {
+	    this.game.state.start('menu',true,false);
 	};
 
 module.exports = PausePanel;
@@ -8247,13 +8256,13 @@ module.exports = MultiplayerUserSignIn;
 
         // new Player Object
         // this.player = new Player(this.game, parseInt(this.currentLevel.playerStart.x), parseInt(this.currentLevel.playerStart.y), "sprites/plane3");
-        this.player = new Player(this.game, parseInt(this.currentLevel.playerStart.x), parseInt(this.currentLevel.playerStart.y), "Airplanes/Fokker/Skin 1/PNG/Fokker_default");
+        this.player = new Player(this.game, parseInt(this.currentLevel.playerStart.x), parseInt(this.currentLevel.playerStart.y), "Airplanes/AEG_C_IV/Skin_1/default");
 
         this.enemyGroup = new EnemyGroup(this.game, this.player, {currentLevel: this.currentLevel});
         this.enemyGroup.addEnemy();
 
         // add our pause button with a callback
-        this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'sprites', this.pauseGame, this, 'menu/btn-pause', 'menu/btn-pause', 'menu/btn-pause', 'menu/btn-pause');
+        this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'sprites', this.pauseGame, this, 'buttons/button_pause_act', 'buttons/button_pause_no', 'buttons/button_pause_act', 'buttons/button_pause_no');
         this.pauseButton.fixedToCamera = true;
         this.pauseButton.inputEnabled = true;
 //        this.pauseButton.anchor.setTo(0.5,0.5);
@@ -8284,6 +8293,23 @@ module.exports = MultiplayerUserSignIn;
           if(!enemy.inCamera){
               enemy.arrow.visible = true;
 //              enemyPlane.arrow.position.setTo(this.game.camera.view.x,this.game.camera.view.y)
+              // var arrowPositionX = 0;
+              // var arrowPositionY = 0;
+              // if(enemy.x > this.game.camera.width){
+              //   arrowPositionX = this.game.camera.width;
+              // } else if(enemy.x < this.game.camera.x) {
+              //   arrowPositionX = 0;
+              // } else {
+              //   arrowPositionX = enemy.x;
+              // }
+              // if(enemy.y > this.game.camera.height){
+              //   arrowPositionY = this.game.camera.height;
+              // } else if(enemy.y < this.game.camera.y){
+              //   arrowPositionY = 0;
+              // } else {
+              //   arrowPositionY = enemy.y;
+              // }
+              // this.arrowTween = this.game.add.tween(enemy.arrow.cameraOffset).to({x: arrowPositionX, y: arrowPositionY}, 1000, Phaser.Easing.Linear.None).start();
               enemy.arrow.rotation = this.game.physics.arcade.angleBetween(enemy.arrow, enemy);
           }else {
               enemy.arrow.visible = false;
@@ -8316,9 +8342,14 @@ module.exports = MultiplayerUserSignIn;
 
 
     },
+    restart: function () {
+	      this.game.state.restart();
+  	},
+  	menu: function () {
+  	    this.game.state.start('menu',true,false);
+  	},
 
     paused: function() {
-        console.log('paused')
         this.currentTimer.pause();
     },
 
@@ -8371,33 +8402,47 @@ module.exports = MultiplayerUserSignIn;
         // Only act if paused
         if(this.game.paused){
             // Calculate the corners of the menu
-            var w = window.innerWidth,
-                h = window.innerHeight,
-                x1 = w/2 - 270/2, x2 = x1,
-                y1 = h/2 - 180/2, y2 = y1;
+            var w = this.game.width,
+                h = this.game.height,
+                x1 = w/2 - 260/2, x2 = w/2 + 245/2,
+                y1 = h/2 - 90/2, y2 = h/2 + 90/2;
 
             // Check if the click was inside the menu
             if(event.x > x1 && event.x < x2 && event.y > y1 && event.y < y2 ){
-                // The choicemap is an array that will help us see which item was clicked
-                var choisemap = ['one', 'two', 'three', 'four', 'five', 'six'];
-
                 // Get menu local coordinates for the click
                 var x = event.x - x1,
                     y = event.y - y1;
 
                 // Calculate the choice
-                var choise = Math.floor(x / 90) + 3*Math.floor(y / 90);
+                var choise = Math.floor(x / 100) + 3*Math.floor(y / 100);
 //                var choise = (x / 90)<< 0 + (3 * (y / 90)<< 0);
 
-                console.log(choise)
-
-                // Display the choice
-                console.log('You chose menu item: ' + choisemap[choise]);
-            }
-            else{
+                // console.log(choise)
+                switch (choise) {
+                  case 0:
+                      this.playGame();
+                    break;
+                  case 1:
+                      this.playGame();
+                      this.restart();
+                    break;
+                  case 2:
+                      this.playGame();
+                      this.menu();
+                    break;
+                }
+            } else{
                 this.playGame();
             }
         }
+    },
+    /**
+     * This method will be called when the state is shut down
+     * (i.e. you switch to another state from this one).
+     */
+    shutdown: function() {
+        this.currentTimer.remove();
+        this.zoomTo(1);
     }
 
   };
@@ -8642,6 +8687,34 @@ Preload.prototype = {
 module.exports = Preload;
 
 },{"../plugins/phaser-state-transition.min.js":5}],33:[function(require,module,exports){
+'use strict';
+  function SelectPlane() {}
+  SelectPlane.prototype = {
+    preload: function() {
+      // Override this method to add some load operations. 
+      // If you need to use the loader, you may need to use them here.
+    },
+    create: function() {
+      // This method is called after the game engine successfully switches states. 
+      // Feel free to add any setup code here (do not load anything here, override preload() instead).
+    },
+    update: function() {
+      // state update code
+    },
+    paused: function() {
+      // This method will be called when game paused.
+    },
+    render: function() {
+      // Put render operations here.
+    },
+    shutdown: function() {
+      // This method will be called when the state is shut down 
+      // (i.e. you switch to another state from this one).
+    }
+  };
+module.exports = SelectPlane;
+
+},{}],34:[function(require,module,exports){
 'use strict';
   function Settings() {}
   Settings.prototype = {

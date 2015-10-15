@@ -17,6 +17,7 @@ window.onload = function () {
   game.state.add('play', require('./states/play'));
   game.state.add('playMultiplayer', require('./states/playMultiplayer'));
   game.state.add('preload', require('./states/preload'));
+  game.state.add('selectPlane', require('./states/selectPlane'));
   game.state.add('settings', require('./states/settings'));
   
 

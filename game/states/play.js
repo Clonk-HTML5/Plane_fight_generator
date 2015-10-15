@@ -43,13 +43,13 @@
 
         // new Player Object
         // this.player = new Player(this.game, parseInt(this.currentLevel.playerStart.x), parseInt(this.currentLevel.playerStart.y), "sprites/plane3");
-        this.player = new Player(this.game, parseInt(this.currentLevel.playerStart.x), parseInt(this.currentLevel.playerStart.y), "Airplanes/Fokker/Skin 1/PNG/Fokker_default");
+        this.player = new Player(this.game, parseInt(this.currentLevel.playerStart.x), parseInt(this.currentLevel.playerStart.y), "Airplanes/AEG_C_IV/Skin_1/default");
 
         this.enemyGroup = new EnemyGroup(this.game, this.player, {currentLevel: this.currentLevel});
         this.enemyGroup.addEnemy();
 
         // add our pause button with a callback
-        this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'sprites', this.pauseGame, this, 'menu/btn-pause', 'menu/btn-pause', 'menu/btn-pause', 'menu/btn-pause');
+        this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'sprites', this.pauseGame, this, 'buttons/button_pause_act', 'buttons/button_pause_no', 'buttons/button_pause_act', 'buttons/button_pause_no');
         this.pauseButton.fixedToCamera = true;
         this.pauseButton.inputEnabled = true;
 //        this.pauseButton.anchor.setTo(0.5,0.5);
@@ -80,6 +80,23 @@
           if(!enemy.inCamera){
               enemy.arrow.visible = true;
 //              enemyPlane.arrow.position.setTo(this.game.camera.view.x,this.game.camera.view.y)
+              // var arrowPositionX = 0;
+              // var arrowPositionY = 0;
+              // if(enemy.x > this.game.camera.width){
+              //   arrowPositionX = this.game.camera.width;
+              // } else if(enemy.x < this.game.camera.x) {
+              //   arrowPositionX = 0;
+              // } else {
+              //   arrowPositionX = enemy.x;
+              // }
+              // if(enemy.y > this.game.camera.height){
+              //   arrowPositionY = this.game.camera.height;
+              // } else if(enemy.y < this.game.camera.y){
+              //   arrowPositionY = 0;
+              // } else {
+              //   arrowPositionY = enemy.y;
+              // }
+              // this.arrowTween = this.game.add.tween(enemy.arrow.cameraOffset).to({x: arrowPositionX, y: arrowPositionY}, 1000, Phaser.Easing.Linear.None).start();
               enemy.arrow.rotation = this.game.physics.arcade.angleBetween(enemy.arrow, enemy);
           }else {
               enemy.arrow.visible = false;
@@ -112,9 +129,14 @@
 
 
     },
+    restart: function () {
+	      this.game.state.restart();
+  	},
+  	menu: function () {
+  	    this.game.state.start('menu',true,false);
+  	},
 
     paused: function() {
-        console.log('paused')
         this.currentTimer.pause();
     },
 
@@ -167,33 +189,47 @@
         // Only act if paused
         if(this.game.paused){
             // Calculate the corners of the menu
-            var w = window.innerWidth,
-                h = window.innerHeight,
-                x1 = w/2 - 270/2, x2 = x1,
-                y1 = h/2 - 180/2, y2 = y1;
+            var w = this.game.width,
+                h = this.game.height,
+                x1 = w/2 - 260/2, x2 = w/2 + 245/2,
+                y1 = h/2 - 90/2, y2 = h/2 + 90/2;
 
             // Check if the click was inside the menu
             if(event.x > x1 && event.x < x2 && event.y > y1 && event.y < y2 ){
-                // The choicemap is an array that will help us see which item was clicked
-                var choisemap = ['one', 'two', 'three', 'four', 'five', 'six'];
-
                 // Get menu local coordinates for the click
                 var x = event.x - x1,
                     y = event.y - y1;
 
                 // Calculate the choice
-                var choise = Math.floor(x / 90) + 3*Math.floor(y / 90);
+                var choise = Math.floor(x / 100) + 3*Math.floor(y / 100);
 //                var choise = (x / 90)<< 0 + (3 * (y / 90)<< 0);
 
-                console.log(choise)
-
-                // Display the choice
-                console.log('You chose menu item: ' + choisemap[choise]);
-            }
-            else{
+                // console.log(choise)
+                switch (choise) {
+                  case 0:
+                      this.playGame();
+                    break;
+                  case 1:
+                      this.playGame();
+                      this.restart();
+                    break;
+                  case 2:
+                      this.playGame();
+                      this.menu();
+                    break;
+                }
+            } else{
                 this.playGame();
             }
         }
+    },
+    /**
+     * This method will be called when the state is shut down
+     * (i.e. you switch to another state from this one).
+     */
+    shutdown: function() {
+        this.currentTimer.remove();
+        this.zoomTo(1);
     }
 
   };

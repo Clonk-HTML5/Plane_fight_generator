@@ -1,7 +1,7 @@
 'use strict';
 
 var EnemyPlane = function(game, x, y, frame, player, options) {
-  Phaser.Sprite.call(this, game, x, y, 'sprites', frame);
+  Phaser.Sprite.call(this, game, x, y, "airplanes", frame);
 
   // initialize your prefab here
 
