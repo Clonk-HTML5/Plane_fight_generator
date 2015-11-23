@@ -11,6 +11,8 @@ GlobalGame = {
 
     player: null,
 
+    enemy: 'Airplanes/Fokker/Skin_1/default',
+
     /* Current Level */
     level: 1,
 

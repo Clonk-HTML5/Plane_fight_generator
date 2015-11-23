@@ -10,13 +10,16 @@ var Player = function(game, x, y,frame) {
 
     // if (this.game.device.desktop){
         this.emitter = this.game.add.emitter(x, y, 400);
-        this.emitter.makeParticles('sprites', 'sprites/particles/smoke' );
+        // this.emitter.makeParticles('sprites', 'sprites/particles/smoke' );
+        var particleBaseName = 'sprites/particles/white_puff/whitePuff';
+        this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
 
         this.emitter.gravity = 50;
-        this.emitter.setAlpha(1, 0, 1000);
-        this.emitter.setScale(0.1, 0, 0.06, 0, 1000);
+        this.emitter.setAlpha(1, 0, 3000);
+        this.emitter.setScale(0.08, 0, 0.08, 0, 3000);
+        this.emitter.particleAnchor = new Phaser.Point(0.2, 0.5);
 
-        this.emitter.start(false, 3000, 5);
+        // this.emitter.start(false, 3000, 5);
     // }
 
         //  Our bullet group
@@ -67,21 +70,23 @@ var Player = function(game, x, y,frame) {
             this.body.maxVelocity.setTo(400, 400);
         }
 
+        var playerHitString = GlobalGame.player.replace('default', 'hit_');
         this.hitAnimation = this.animations.add('hit', [
-            'Airplanes/Fokker/Skin 1/PNG/Fokker_hit_1',
-            'Airplanes/Fokker/Skin 1/PNG/Fokker_hit_2',
-            'Airplanes/Fokker/Skin 1/PNG/Fokker_hit_3'
+            playerHitString+'1',
+            playerHitString+'2',
+            playerHitString+'3'
         ], 10, false, false);
 
+        var playerDeathString = GlobalGame.player.replace('default', 'death_');
         this.deadAnimation = this.animations.add('explode', [
-            'Airplanes/Fokker/Skin 1/PNG/Fokker_death_1',
-            'Airplanes/Fokker/Skin 1/PNG/Fokker_death_2',
-            'Airplanes/Fokker/Skin 1/PNG/Fokker_death_3',
-            'Airplanes/Fokker/Skin 1/PNG/Fokker_death_4'
+            playerDeathString+'1',
+            playerDeathString+'2',
+            playerDeathString+'3',
+            playerDeathString+'4'
         ], 10, false, false);
 
         this.hitAnimation.onComplete.add(function() {
-            this.frameName = "Airplanes/Fokker/Skin 1/PNG/Fokker_default";
+            this.frameName = GlobalGame.player;
         }, this);
 
         this.deadAnimation.onComplete.add(function() {
@@ -89,7 +94,7 @@ var Player = function(game, x, y,frame) {
           this.deadAnimation.stop('explode');
           this.kill();
           if (this.game.device.desktop) this.emitter.kill();
-          this.frameName = "Airplanes/Fokker/Skin 1/PNG/Fokker_default";
+          this.frameName = "Airplanes/AEG_C_IV/Skin_1/default";
           this.bullets.removeAll();
 
 //            if(this.name == GlobalGame.Multiplayer.socket.socket.sessionid)
@@ -360,7 +365,7 @@ Player.prototype.update = function() {
         // Removes the star from the screen
         bullet.kill();
 
-        this.playerLoseHealth(plane);
+        plane.playerLoseHealth(plane);
     };
 
   /**
@@ -487,12 +492,15 @@ Player.prototype.update = function() {
 
           this.healthBar.setPercent(plane.health / plane.fullHealth * 100);
 
-          if(plane.health < 5){
-            plane.frameName = "Airplanes/Fokker/Skin 1/PNG/Fokker_default_damaged";
-          } else if (plane.health < 4) {
-            plane.frameName = "Airplanes/Fokker/Skin 1/PNG/Fokker_attack_damaged_1";
-          } else if (plane.health < 3) {
-            plane.frameName = "Airplanes/Fokker/Skin 1/PNG/Fokker_attack_damaged_2";
+          if(plane.health < 15){
+            this.emitter.start(false, 3000, 5);
+            plane.frameName = "Airplanes/AEG_C_IV/Skin_1/default_damaged";
+          } else if (plane.health < 10) {
+            // var particleBaseName = 'sprites/particles/black_smoke/blackSmoke';
+            // this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
+            plane.frameName = "Airplanes/AEG_C_IV/Skin_1/attack_damaged_1";
+          } else if (plane.health < 5) {
+            plane.frameName = "Airplanes/AEG_C_IV/Skin_1/attack_damaged_2";
           }
 
           if(plane.health < 1){

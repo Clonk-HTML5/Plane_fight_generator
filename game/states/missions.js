@@ -157,7 +157,7 @@
 			GlobalGame.level = button.levelNumber;
             var fadeMenuOut = this.game.add.tween(this.levelThumbsGroup).to({ x: this.game.width }, 800, Phaser.Easing.Cubic.None, true);
             fadeMenuOut.onComplete.add(function() {
-                this.game.state.start('play');
+                this.game.state.start('selectPlane');
             }, this);
 		}
 		else{

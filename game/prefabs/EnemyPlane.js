@@ -9,17 +9,26 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
 
     this.player = player;
 
-    if (this.game.device.desktop){
-        this.emitter = this.game.add.emitter(x, y, 400);
+    // if (this.game.device.desktop){
+    //     this.emitter = this.game.add.emitter(x, y, 400);
+    //
+    //     this.emitter.makeParticles('sprites', 'sprites/particles/smoke');
+    //
+    //     this.emitter.gravity = 50;
+    //     this.emitter.setAlpha(1, 0, 1000);
+    //     this.emitter.setScale(0.1, 0, 0.05, 0, 1000);
+    //
+    //     this.emitter.start(false, 3000, 5);
+    // }
+    this.emitter = this.game.add.emitter(x, y, 400);
+    // this.emitter.makeParticles('sprites', 'sprites/particles/smoke' );
+    var particleBaseName = 'sprites/particles/white_puff/whitePuff';
+    this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
 
-        this.emitter.makeParticles('sprites', 'sprites/particles/smoke');
-
-        this.emitter.gravity = 50;
-        this.emitter.setAlpha(1, 0, 1000);
-        this.emitter.setScale(0.1, 0, 0.05, 0, 1000);
-
-        this.emitter.start(false, 3000, 5);
-    }
+    this.emitter.gravity = 50;
+    this.emitter.setAlpha(1, 0, 3000);
+    this.emitter.setScale(0.08, 0, 0.08, 0, 3000);
+    this.emitter.particleAnchor = new Phaser.Point(0.2, 0.5);
 
         this.bullets = this.game.add.group();
         this.bullets.enableBody = true;
@@ -33,7 +42,7 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
         this.bullets.setAll('scale.y', 0.5);
         this.bulletTime = 0;
 
-        this.bringToTop();
+        // this.bringToTop();
         this.health = 20;
         this.kills = 0;
         this.angle = 0;
@@ -43,6 +52,9 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
         this.TURN_RATE = 3; // turn rate in degrees/frame
 //        this.scale.setTo(0.6, 0.6);
 //        this.scale.x *= -1;
+        this.scaleFactor = new Phaser.Point(0.5, 0.5);
+
+        this.scale.setTo(this.scaleFactor.x, this.scaleFactor.y);
         this.anchor.setTo(0.5, 0.5);
 //        this.scale.setTo(0.23, 0.23);
         this.game.physics.enable(this, Phaser.Physics.ARCADE);
@@ -52,6 +64,22 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
         this.body.gravity.y = 50;
         this.body.velocity.setTo(300, 0)
         this.body.maxVelocity.setTo(300, 300);
+
+
+      var playerHitString = GlobalGame.enemy.replace('default', 'hit_');
+      this.hitAnimation = this.animations.add('hit', [
+          playerHitString+'1',
+          playerHitString+'2',
+          playerHitString+'3'
+      ], 10, false, false);
+
+      var playerDeathString = GlobalGame.enemy.replace('default', 'death_');
+      this.deadAnimation = this.animations.add('explode', [
+          playerDeathString+'1',
+          playerDeathString+'2',
+          playerDeathString+'3',
+          playerDeathString+'4'
+      ], 10, false, false);
 
 
     /*******************
@@ -177,28 +205,39 @@ EnemyPlane.prototype.fireBullet = function() {
      * enemyLoseHealth collides with enemy
      * @param enemy collides
      */
-    EnemyPlane.prototype.enemyLoseHealth = function (enemy) {
-//        gameInitializer.socket.emit("bullet hit player", {playerId: plane.name});
-        if(this.socket)
-            this.socket.socket.emit("bullet hit player", {playerId: this.name});
-        enemy.health -= 1
-        if(enemy.health < 1){
+    EnemyPlane.prototype.enemyLoseHealth = function (plane) {
+      if(plane.health >= 0) {
+        this.hitAnimation.play('hit', 10, false);
+
+        plane.health -= 1;
+
+        if(plane.health < 15){
+          this.emitter.start(false, 3000, 5);
+          plane.frameName = "Airplanes/AEG_C_IV/Skin_1/default_damaged";
+        } else if (plane.health < 10) {
+          // var particleBaseName = 'sprites/particles/black_smoke/blackSmoke';
+          // this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
+          plane.frameName = "Airplanes/AEG_C_IV/Skin_1/attack_damaged_1";
+        } else if (plane.health < 5) {
+          plane.frameName = "Airplanes/AEG_C_IV/Skin_1/attack_damaged_2";
+        }
+
+        if(plane.health < 1){
+            plane.body.velocity.x = 0;
+            plane.body.velocity.y = 0;
+            plane.body.gravity.y = 700;
+            this.deadAnimation.play('explode', 10, false, true);
 
             if(this.player) this.player.kills += 1;
 
-            //explode animation
-            var explosion = this.game.add.sprite(enemy.x - enemy.width/2, enemy.y - enemy.height/2, 'airplaneexplode');
-            explosion.animations.add('explode');
-            explosion.animations.play('explode', 10, false, true);
-//            explosion.animations.destroy('explode');
-
-            enemy.kill();
-            if (this.game.device.desktop) enemy.emitter.kill();
-            enemy.bullets.removeAll();
-            enemy.arrow.kill();
+            plane.kill();
+            if (this.game.device.desktop) plane.emitter.kill();
+            plane.bullets.removeAll();
+            plane.arrow.kill();
             this.parent.currentWaveCountEnemiesLeft -= 1;
             this.parent.addEnemy();
         }
+      }
     };
 
 module.exports = EnemyPlane;
