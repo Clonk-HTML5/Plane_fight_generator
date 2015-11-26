@@ -25,6 +25,10 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 
+canvas {
+  margin: auto;
+}
+
 .fontLoader {
     position: absolute;
     left: -1000px;

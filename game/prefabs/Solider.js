@@ -9,13 +9,13 @@ var Solider = function(game, x, y, frame, player, options) {
     this.bullets = this.game.add.group();
     this.bullets.enableBody = true;
     this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-    this.bullets.createMultiple(500, 'sprites', 'sprites/bullet2');
+    this.bullets.createMultiple(500, 'sprites', 'sprites/bullets/bullet_4');
     this.bullets.setAll('anchor.x', 0.5);
     this.bullets.setAll('anchor.y', 1);
     this.bullets.setAll('checkWorldBounds', true);
     this.bullets.setAll('outOfBoundsKill', true);
-    this.bullets.setAll('scale.x', 0.5);
-    this.bullets.setAll('scale.y', 0.5);
+    // this.bullets.setAll('scale.x', 0.5);
+    // this.bullets.setAll('scale.y', 0.5);
     this.bulletTime = 0;
 
 
@@ -69,7 +69,8 @@ var Solider = function(game, x, y, frame, player, options) {
                 }
                 bullet.reset(this.x, this.y);
                 bullet.lifespan = 2000;
-                 bullet.rotation = rotation + this.game.math.degToRad(90);
+                //  bullet.rotation = rotation + this.game.math.degToRad(90);
+                 bullet.rotation = rotation;
                 this.game.physics.arcade.velocityFromRotation(rotation, 1000, bullet.body.velocity);
                 this.bulletTime = this.game.time.now + 250;
                 if(this.socket)

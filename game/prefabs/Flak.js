@@ -10,13 +10,13 @@ var Flak = function(game, x, y, frame, player, options) {
   this.bullets = this.game.add.group();
   this.bullets.enableBody = true;
   this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-  this.bullets.createMultiple(500, 'sprites', 'sprites/bullet2');
+  this.bullets.createMultiple(500, 'sprites', 'sprites/bullets/bullet_3');
   this.bullets.setAll('anchor.x', 0.5);
   this.bullets.setAll('anchor.y', 1);
   this.bullets.setAll('checkWorldBounds', true);
   this.bullets.setAll('outOfBoundsKill', true);
-  this.bullets.setAll('scale.x', 0.5);
-  this.bullets.setAll('scale.y', 0.5);
+  // this.bullets.setAll('scale.x', 0.5);
+  // this.bullets.setAll('scale.y', 0.5);
   this.bulletTime = 0;
 
   this.shotAnimation = this.animations.add('shot', [
@@ -38,7 +38,8 @@ var Flak = function(game, x, y, frame, player, options) {
             if (bullet) {
                 bullet.reset(this.x, this.y);
                 bullet.lifespan = 2000;
-                bullet.rotation = this.rotation + this.game.math.degToRad(90);
+                // bullet.rotation = this.rotation + this.game.math.degToRad(90);
+                bullet.rotation = this.rotation;
                 this.game.physics.arcade.velocityFromRotation(this.rotation, 1000, bullet.body.velocity);
                 this.bulletTime = this.game.time.now + 250;
                 if(this.socket)

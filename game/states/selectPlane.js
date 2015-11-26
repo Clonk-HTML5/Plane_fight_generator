@@ -15,13 +15,13 @@ var phaseSlider = require('../plugins/phase-slide.js');
       this.sliderWidth2 = this.sliderWidth / 2;
       this.sliderHeight2 = this.sliderHeight / 2;
 
-      this.AEG_C_IV_Skin_1 = this.game.add.image(this.sliderWidth2,this.sliderHeight2,"airplanes","Airplanes/AEG_C_IV/Skin_1/default");
+      this.AEG_C_IV_Skin_1 = this.game.add.image(this.sliderWidth2,this.sliderHeight2,"airplanes","Airplanes/AEG_C_IV/Skin_1/default_big");
       this.AEG_C_IV_Skin_1.anchor.setTo(-0.5, 0.5);
-      this.AEG_C_IV_Skin_2 = this.game.add.image(this.sliderWidth2,this.sliderHeight2,"airplanes","Airplanes/AEG_C_IV/Skin_2/default");
+      this.AEG_C_IV_Skin_2 = this.game.add.image(this.sliderWidth2,this.sliderHeight2,"airplanes","Airplanes/AEG_C_IV/Skin_2/default_big");
       this.AEG_C_IV_Skin_2.anchor.setTo(-0.5, 0.5);
-      this.Fokker_Skin_1 = this.game.add.image(this.sliderWidth2,this.sliderHeight2,"airplanes","Airplanes/Fokker/Skin_1/default");
+      this.Fokker_Skin_1 = this.game.add.image(this.sliderWidth2,this.sliderHeight2,"airplanes","Airplanes/Fokker/Skin_1/default_big");
       this.Fokker_Skin_1.anchor.setTo(-0.5, 0.5);
-      this.Fokker_Skin_2 = this.game.add.image(this.sliderWidth2,this.sliderHeight2,"airplanes","Airplanes/Fokker/Skin_2/default");
+      this.Fokker_Skin_2 = this.game.add.image(this.sliderWidth2,this.sliderHeight2,"airplanes","Airplanes/Fokker/Skin_2/default_big");
       this.Fokker_Skin_2.anchor.setTo(-0.5, 0.5);
 
       this.planeArray = [this.AEG_C_IV_Skin_1, this.AEG_C_IV_Skin_2, this.Fokker_Skin_1, this.Fokker_Skin_2];
@@ -47,7 +47,7 @@ var phaseSlider = require('../plugins/phase-slide.js');
       this.acceptButton.inputEnabled = true;
       this.acceptButton.events.onInputDown.add(function (e, pointer) {
         var index = this.slider.getCurrentIndex();
-        GlobalGame.player = this.planeArray[index].frameName;
+        GlobalGame.player = this.planeArray[index].frameName.replace("_big", "");
         this.game.state.start('play');
       },this);
 

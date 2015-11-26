@@ -37,22 +37,12 @@ Preload.prototype = {
     //BIRD
     this.load.spritesheet('birdie', 'assets/img/sprites/bird.png', 189, 169, 3);
 
-    //PLAYER
-    this.load.spritesheet('airplaneexplode', 'assets/img/sprites/effects/airplaneexplosion.png', 128, 115, 8);
-
     //PLAYER Buttons
-    this.load.spritesheet('buttonvertical', 'assets/img/buttons/button-vertical.png',64,64);
-    this.load.spritesheet('buttonhorizontal', 'assets/img/buttons/button-horizontal.png',96,64);
-    this.load.spritesheet('buttondiagonal', 'assets/img/buttons/button-diagonal.png',64,64);
-    this.load.spritesheet('buttonfire', 'assets/img/buttons/button-round-a.png',96,96);
-    this.load.spritesheet('buttonjump', 'assets/img/buttons/button-round-b.png',96,96);
-
-    //LEVEL
-//    this.load.image('bg1', 'assets/backgrounds/bg1.png');
-//    this.load.image('bg2', 'assets/backgrounds/bg2.png');
-    this.load.image('bg1', 'assets/backgrounds/cloudsBackground.png');
-    this.load.image('ground', 'assets/backgrounds/ground.png');
-    this.load.image('treesMountain1', 'assets/backgrounds/treesMountain.png');
+    // this.load.spritesheet('buttonvertical', 'assets/img/buttons/button-vertical.png',64,64);
+    // this.load.spritesheet('buttonhorizontal', 'assets/img/buttons/button-horizontal.png',96,64);
+    // this.load.spritesheet('buttondiagonal', 'assets/img/buttons/button-diagonal.png',64,64);
+    // this.load.spritesheet('buttonfire', 'assets/img/buttons/button-round-a.png',96,96);
+    // this.load.spritesheet('buttonjump', 'assets/img/buttons/button-round-b.png',96,96);
 
   },
   create: function() {

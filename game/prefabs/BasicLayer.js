@@ -5,7 +5,7 @@ var BasicLayer = function(game, parent, layerText) {
 
   // initialize your prefab here
 
-    this.y = -1000;
+    // this.y = -1000;
 
     this.layerText = layerText ? layerText : "Click to play";
 
@@ -23,21 +23,22 @@ var BasicLayer = function(game, parent, layerText) {
 //    this.add(this.scoreText);
 
     this.defeatWindow = this.game.add.image(this.game.width / 2 , this.game.height / 2, 'sprites', 'menu/defeat_window');
-    this.defeatWindow.x = this.game.width / 2 - this.defeatWindow.width/2;
-    this.defeatWindow.y = this.game.height / 2 - (this.defeatWindow.height - 100);
+    // this.defeatWindow.x = this.game.width / 2 - this.defeatWindow.width/2;
+    // this.defeatWindow.y = this.game.height / 2 - (this.defeatWindow.height - 100);
     this.defeatWindow.anchor.setTo(0.5, 0.5);
     this.defeatWindow.fixedToCamera = true;
     this.add(this.defeatWindow);
 
-    this.restartButton = this.game.add.button(-50, this.defeatWindow.height -250, 'sprites', this.restartClick, this, 'buttons/button_restart_act', 'buttons/button_restart_no', 'buttons/button_restart_act', 'buttons/button_restart_no');
+    this.restartButton = this.game.add.button(-70, 100, 'sprites', this.restartClick, this, 'buttons/button_restart_act', 'buttons/button_restart_no', 'buttons/button_restart_act', 'buttons/button_restart_no');
 //    this.restartButton.anchor.setTo(0.5,0.5);
     this.defeatWindow.addChild(this.restartButton);
 
-    this.menuButton = this.game.add.button(50, this.defeatWindow.height -250, 'sprites', this.menuClick, this, 'buttons/button_menu_act', 'buttons/button_menu_no', 'buttons/button_menu_act', 'buttons/button_menu_no');
+    this.menuButton = this.game.add.button(50, 100, 'sprites', this.menuClick, this, 'buttons/button_menu_act', 'buttons/button_menu_no', 'buttons/button_menu_act', 'buttons/button_menu_no');
 //    this.menuButton.anchor.setTo(0.5,0.5);
     this.defeatWindow.addChild(this.menuButton);
 
-     this.game.add.tween(this).to({x:this.game.width / 2 ,y:this.game.width / 2}, 550, Phaser.Easing.Back.Out, true);
+    //  this.game.add.tween(this).to({x:this.game.width / 2 ,y:this.game.width / 2}, 550, Phaser.Easing.Back.Out, true);
+
     //  this.game.add.tween(this.defeatWindow).to({x:this.game.width / 2 ,y: this.game.height / 2}, 550, Phaser.Easing.Back.Out, true);
     // console.log(this.game.camera.width)
     // console.log(this.game.camera.width / 2)

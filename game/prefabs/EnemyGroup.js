@@ -34,7 +34,7 @@ EnemyGroup.prototype.addEnemy = function () {
 
       if(this.currentLevel.waves[this.currentWave].flaks) {
         for (var i = 0; i < this.currentLevel.waves[this.currentWave].flaks.count; i++){
-          this.flak = new Flak(this.game, Math.random() * this.game.world.width, this.game.cache.getImage('bg1').height ,"flak/flak1/turret_1_default", this.player, this.options);
+          this.flak = new Flak(this.game, Math.random() * this.game.world.width, (this.game.world.height + 330) ,"flak/flak1/turret_1_default", this.player, this.options);
           this.add(this.flak);
         }
       }

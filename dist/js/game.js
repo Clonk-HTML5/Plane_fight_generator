@@ -20,13 +20,13 @@ window.onload = function () {
   game.state.add('preload', require('./states/preload'));
   game.state.add('selectPlane', require('./states/selectPlane'));
   game.state.add('settings', require('./states/settings'));
-
+  
 
   game.state.start('boot');
 };
 },{"./states/Level2":22,"./states/boot":23,"./states/gameover":24,"./states/help":25,"./states/menu":26,"./states/missions":27,"./states/multiplayerRoomDetailView":28,"./states/multiplayerRoomSelect":29,"./states/multiplayerUserSignIn":30,"./states/play":31,"./states/playMultiplayer":32,"./states/preload":33,"./states/selectPlane":34,"./states/settings":35}],2:[function(require,module,exports){
 /**
- * Helpers
+ * Helpers 
  */
 ( function(exports) {
 	var __slice = [].slice;
@@ -39,7 +39,7 @@ window.onload = function () {
 			i = 1,
 			length = 2,
 			deep = true;
-
+	
 		// Handle a deep copy situation
 		if( typeof target === "boolean" )
 		{
@@ -47,7 +47,7 @@ window.onload = function () {
 			// skip the boolean and the target
 			i = 2;
 		}
-
+	
 		// Handle case when target is a string or something( possible in deep copy )
 		if( typeof target !== "object" && !typeof target === 'function' )
 		{
@@ -61,31 +61,31 @@ window.onload = function () {
 			{
 				src = target[name];
 				copy = options[name];
-
+	
 				// Prevent never-ending loop
 				if( target === copy )
 				{
 					continue;
 				}
 				// Recurse if we're merging plain objects or arrays
-				if( deep &&( typeof copy == 'object' ||( copyIsArray = Object.prototype.toString.call(  copy  ) === '[object Array]' ) ) )
+				if( deep &&( typeof copy == 'object' ||( copyIsArray = Object.prototype.toString.call(  copy  ) === '[object Array]' ) ) ) 
 				{
-					if( copyIsArray )
+					if( copyIsArray ) 
 					{
 						copyIsArray = false;
 						clone = src && Object.prototype.toString.call(  src  ) === '[object Array]' ? src : [];
-
-					}
-					else
+	
+					} 
+					else 
 					{
 						clone = src && typeof src == 'object' ? src : {};
 					}
 					// Never move original objects, clone them
 					target[name] = extend( clone, copy );
-
+	
 					// Don't bring in undefined values
-				}
-				else if( typeof copy !== 'undefined' )
+				} 
+				else if( typeof copy !== 'undefined' ) 
 				{
 					target[name] = copy;
 				}
@@ -93,14 +93,14 @@ window.onload = function () {
 		}
 		return target;
 	}
-
+	
 	// Make available to window
 	exports.GameController = {
-
+		
 		// Default options,
 		options: {
-			left: {
-				type: 'dpad',
+			left: { 
+				type: 'dpad', 
 				position: { left: '13%', bottom: '22%' },
 				dpad: {
 					up: {
@@ -159,34 +159,34 @@ window.onload = function () {
 					}
 				}
 			},
-			right: {
-				type: 'buttons',
-				position: { right: '17%', bottom: '28%' },
+			right: { 
+				type: 'buttons', 
+				position: { right: '17%', bottom: '28%' }, 
 				buttons: [
 					{ offset: { x: '-13%', y: 0 }, label: 'X', radius: '7%', stroke: 2, backgroundColor: 'blue', fontColor: '#fff', touchStart: function() {
 						// Blue is currently mapped to up button
 						GameController.simulateKeyEvent( 'press', 88 ); // x key
 						GameController.simulateKeyEvent( 'down', 88 );
 					}, touchEnd: function() {
-						GameController.simulateKeyEvent( 'up', 88 );
+						GameController.simulateKeyEvent( 'up', 88 );	
 					} },
 					{ offset: { x: 0, y: '-11%' }, label: 'Y', radius: '7%', stroke: 2, backgroundColor: 'yellow', fontColor: '#fff', touchStart: function() {
 						GameController.simulateKeyEvent( 'press', 70 ); // f key
 						GameController.simulateKeyEvent( 'down', 70 );
 					}, touchEnd: function() {
-						GameController.simulateKeyEvent( 'up', 70 );
+						GameController.simulateKeyEvent( 'up', 70 );						
 					}  },
 					{ offset: { x: '13%', y: 0 }, label: 'B', radius: '7%', stroke: 2, backgroundColor: 'red', fontColor: '#fff', touchStart: function() {
 						GameController.simulateKeyEvent( 'press', 90 ); // z key
 						GameController.simulateKeyEvent( 'down', 90 );
 					}, touchEnd: function() {
-						GameController.simulateKeyEvent( 'up', 90 );
+						GameController.simulateKeyEvent( 'up', 90 );						
 					} },
 					{ offset: { x: 0, y: '11%' }, label: 'A', radius: '7%', stroke: 2, backgroundColor: 'green', fontColor: '#fff', touchStart: function() {
 						GameController.simulateKeyEvent( 'press', 67 ); // a key
 						GameController.simulateKeyEvent( 'down', 67 );
 					}, touchEnd: function() {
-						GameController.simulateKeyEvent( 'up', 67 );
+						GameController.simulateKeyEvent( 'up', 67 );	
 					}  }
 				],
 				dpad: {
@@ -220,18 +220,18 @@ window.onload = function () {
 			},
 			touchRadius: 45
 		},
-
+		
 		// Areas (objects) on the screen that can be touched
 		touchableAreas: [],
 		touchableAreasCount: 0,
-
+		
 		// Multi-touch
 		touches: [],
-
+		
 		// Canvas offset on page (for coverting touch coordinates)
 		offsetX: 0,
 		offsetY: 0,
-
+		
 		// Bounding box - used for clearRect - first we determine which areas of the canvas are actually drawn to
 		bound: {
 			left: false,
@@ -239,27 +239,27 @@ window.onload = function () {
 			top: false,
 			bottom: false
 		},
-
+		
 		// Heavy sprites (with gradients) are cached as a canvas to improve performance
 		cachedSprites: {},
-
+		
 		paused: false,
-
+		
 		init: function( options ) {
-
+			
 			// Don't do anything if there's no touch support
 			if( ! 'ontouchstart' in document.documentElement )
 				return;
-
-
+				
+	
 			// Merge default options and specified options
 			options = options || {};
-			extend( this.options, options );
-
+			extend( this.options, options );	
+			
 			var userAgent = navigator.userAgent.toLowerCase();
 			// See if we should run the performanceFriendly version (for slower CPUs)
 			this.performanceFriendly = ( userAgent.indexOf( 'iphone' ) !== -1 || userAgent.indexOf( 'android' ) !== -1 || this.options.forcePerformanceFriendly );
-
+			
 			// Grab the canvas if one wasn't passed
 			var ele;
 			if( !this.options.canvas || !( ele = document.getElementById( this.options.canvas ) ) )
@@ -270,21 +270,21 @@ window.onload = function () {
 			{
 				this.options.canvas = ele;
 			}
-
+			
 			this.options.ctx = this.options.canvas.getContext( '2d' );
-
+			
 			// Create a canvas that goes directly on top of the game canvas
 			this.createOverlayCanvas();
 		},
-
+		
 		/**
-		 * Finds the actual 4 corners of canvas that are being used (so we don't have to clear the entire canvas each render)
+		 * Finds the actual 4 corners of canvas that are being used (so we don't have to clear the entire canvas each render) 
 		 * Called when each new touchableArea is added in
 		 * @param {object} options - x, y, width, height
 		 */
 		boundingSet: function( options ) {
 			var directions = ['left', 'right'];
-
+			
 			// Square - pivot is top left
 			if( options.width )
 			{
@@ -306,7 +306,7 @@ window.onload = function () {
 			}
 			var right = left + width;
 			var bottom = top + height;
-
+			
 			if( this.bound.left === false || left < this.bound.left )
 				this.bound.left = left;
 			if( this.bound.right === false || right > this.bound.right )
@@ -316,63 +316,63 @@ window.onload = function () {
 			if( this.bound.bottom === false || bottom > this.bound.bottom )
 				this.bound.bottom = bottom;
 		},
-
+		
 		/**
-		 * Creates the canvas that sits on top of the game's canvas and holds game controls
+		 * Creates the canvas that sits on top of the game's canvas and holds game controls 
 		 */
 		createOverlayCanvas: function() {
 			this.canvas = document.createElement( 'canvas' );
-
+			
 			// Scale to same size as original canvas
 			this.resize( true );
-
+			
 			document.getElementsByTagName( 'body' )[0].appendChild( this.canvas );
 			this.ctx = this.canvas.getContext( '2d' );
-
+			
 			var _this = this;
 			window.addEventListener( 'resize', function() {
 				// Wait for any other events to finish
 				setTimeout( function() { GameController.resize.call( _this ); }, 1 );
 			} );
-
-
+			
+			
 			// Set the touch events for this new canvas
 			this.setTouchEvents();
-
+			
 			// Load in the initial UI elements
 			this.loadSide( 'left' );
 			this.loadSide( 'right' );
-
+			
 			// Starts up the rendering / drawing
 			this.render();
-
+			
 			if( ! this.touches || this.touches.length == 0 )
 				this.paused = true; // pause until a touch event
 		},
-
+		
 		pixelRatio: 1,
 		resize: function( firstTime ) {
 			// Scale to same size as original canvas
 			this.canvas.width = this.options.canvas.width;
 			this.canvas.height = this.options.canvas.height;
-
+			
 			this.offsetX = GameController.options.canvas.offsetLeft + document.body.scrollLeft;
 			this.offsetY = GameController.options.canvas.offsetTop + document.body.scrollTop;
-
+			
 			// Get in on this retina action
-			if( this.options.canvas.style.width && this.options.canvas.style.height && this.options.canvas.style.height.indexOf( 'px' ) !== -1 )
+			if( this.options.canvas.style.width && this.options.canvas.style.height && this.options.canvas.style.height.indexOf( 'px' ) !== -1 ) 
 			{
 				this.canvas.style.width = this.options.canvas.style.width;
 				this.canvas.style.height = this.options.canvas.style.height;
 				this.pixelRatio = this.canvas.width / parseInt( this.canvas.style.width );
 			}
-
+			
 			this.canvas.style.position = 'absolute';
 			this.canvas.style.zIndex = '5';
 			this.canvas.style.left = this.options.canvas.offsetLeft + 'px';
 			this.canvas.style.top = this.options.canvas.offsetTop + 'px';
 			this.canvas.setAttribute( 'style', this.canvas.getAttribute( 'style' ) +' -ms-touch-action: none;' );
-
+			
 			if( !firstTime )
 			{
 				// Remove all current buttons
@@ -384,7 +384,7 @@ window.onload = function () {
 				this.reloadSide( 'right' );
 			}
 		},
-
+		
 		/**
 		 * Returns the scaled pixels. Given the value passed
 		 * @param {int/string} value - either an integer for # of pixels, or 'x%' for relative
@@ -404,7 +404,7 @@ window.onload = function () {
 					return ( parseInt( value ) / 100 ) * this.canvas.height;
 			}
 		},
-
+		
 		/**
 		 * Simulates a key press
 		 * @param {string} eventName - 'down', 'up'
@@ -413,7 +413,7 @@ window.onload = function () {
 		simulateKeyEvent: function( eventName, keyCode ) {
 			if( typeof window.onkeydown === 'undefined' ) // No keyboard, can't simulate...
 				return false;
-
+				
 			/* If they have jQuery, use it because it works better for mobile safari */
 			if( typeof jQuery !== 'undefined' )
 			{
@@ -425,9 +425,9 @@ window.onload = function () {
 				$( this.options.canvas ).trigger( press );
 				return;
 			}
-
+	
 			var oEvent = document.createEvent( 'KeyboardEvent' );
-
+			
 			// Chromium Hack
 			if( navigator.userAgent.toLowerCase().indexOf( 'chrome' ) !== -1 )
 			{
@@ -435,14 +435,14 @@ window.onload = function () {
 					get : function() {
 						return this.keyCodeVal;
 					}
-				} );
+				} );	 
 				Object.defineProperty( oEvent, 'which', {
 					get : function() {
 						return this.keyCodeVal;
 					}
 				} );
 			}
-
+				
 			if( oEvent.initKeyboardEvent )
 			{
 				oEvent.initKeyboardEvent( 'key' + eventName, true, true, document.defaultView, false, false, false, false, keyCode, keyCode );
@@ -451,11 +451,11 @@ window.onload = function () {
 			{
 				oEvent.initKeyEvent( 'key' + eventName, true, true, document.defaultView, false, false, false, false, keyCode, keyCode );
 			}
-
+		
 			oEvent.keyCodeVal = keyCode;
-
+		
 		},
-
+		
 		setTouchEvents: function() {
 			var _this = this;
 			var touchStart = function( e ) {
@@ -463,9 +463,9 @@ window.onload = function () {
 				{
 					_this.paused = false;
 				}
-
+					
 				e.preventDefault();
-
+	
 				// Microsoft always has to have their own stuff...
 				if( window.navigator.msPointerEnabled && e.clientX && e.pointerType == e.MSPOINTER_TYPE_TOUCH )
 				{
@@ -476,21 +476,21 @@ window.onload = function () {
 					_this.touches = e.touches || [];
 				}
 			};
-
+	
 			this.canvas.addEventListener( 'touchstart', touchStart, false );
-
-			var touchEnd = function( e ) {
+			
+			var touchEnd = function( e ) {			
 				e.preventDefault();
-
+			
 				if( window.navigator.msPointerEnabled && e.pointerType == e.MSPOINTER_TYPE_TOUCH )
 				{
 					delete _this.touches[ e.pointerId ];
 				}
 				else
-				{
+				{	
 					_this.touches = e.touches || [];
 				}
-
+				
 				if( !e.touches || e.touches.length == 0 )
 				{
 					// Draw once more to remove the touch area
@@ -499,13 +499,13 @@ window.onload = function () {
 				}
 			};
 			this.canvas.addEventListener( 'touchend', touchEnd );
-
+	
 			var touchMove = function( e ) {
 				e.preventDefault();
-
+				
 				if( window.navigator.msPointerEnabled && e.clientX && e.pointerType == e.MSPOINTER_TYPE_TOUCH )
 				{
-					_this.touches[ e.pointerId ] = { clientX: e.clientX, clientY: e.clientY };
+					_this.touches[ e.pointerId ] = { clientX: e.clientX, clientY: e.clientY };				
 				}
 				else
 				{
@@ -513,7 +513,7 @@ window.onload = function () {
 				}
 			};
 			this.canvas.addEventListener( 'touchmove', touchMove );
-
+			
 			if( window.navigator.msPointerEnabled )
 			{
 				this.canvas.addEventListener( 'MSPointerDown', touchStart );
@@ -521,52 +521,52 @@ window.onload = function () {
 				this.canvas.addEventListener( 'MSPointerMove', touchMove );
 			}
 		},
-
+		
 		/**
 		 * Adds the area to a list of touchable areas, draws
 		 * @param {object} options with properties: x, y, width, height, touchStart, touchEnd, touchMove
 		 */
 		addTouchableDirection: function( options ) {
-
+			
 			var direction = new TouchableDirection( options );
-
+			
 			direction.id = this.touchableAreas.push( direction );
 			this.touchableAreasCount++;
-
+			
 			this.boundingSet( options );
 		},
-
+		
 		/**
-		 * Adds the circular area to a list of touchable areas, draws
+		 * Adds the circular area to a list of touchable areas, draws	
 		 * @param {object} options with properties: x, y, width, height, touchStart, touchEnd, touchMove
 		 */
 		addJoystick: function( options ) { //x, y, radius, backgroundColor, touchStart, touchEnd ) {
-
+			
 			var joystick = new TouchableJoystick( options );
-
+			
 			joystick.id = this.touchableAreas.push( joystick );
 			this.touchableAreasCount++;
-
+			
 			this.boundingSet( options );
 		},
-
+		
 		/**
-		 * Adds the circular area to a list of touchable areas, draws
+		 * Adds the circular area to a list of touchable areas, draws	 
 		 * @param {object} options with properties: x, y, width, height, touchStart, touchEnd, touchMove
 		 */
 		addButton: function( options ) { //x, y, radius, backgroundColor, touchStart, touchEnd ) {
-
+			
 			var button = new TouchableButton( options );
-
+			
 			button.id = this.touchableAreas.push( button );
 			this.touchableAreasCount++;
-
+			
 			this.boundingSet( options );
 		},
-
+		
 		addTouchableArea: function( check, callback ) {
 		},
-
+		
 		loadButtons: function( side ) {
 			var buttons = this.options[ side ].buttons;
 			var _this = this;
@@ -574,28 +574,28 @@ window.onload = function () {
 			{
 				if( typeof buttons[i] === 'undefined' || typeof buttons[i].offset === 'undefined' )
 					continue;
-
+					
 				var posX = this.getPositionX( side );
 				var posY = this.getPositionY( side );
-
+							
 				buttons[i].x = posX + this.getPixels( buttons[i].offset.x, 'y' );
 				buttons[i].y = posY + this.getPixels( buttons[i].offset.y, 'y' );
-
+	
 				this.addButton( buttons[i] );
 			}
 		},
-
+		
 		loadDPad: function( side ) {
 			var dpad = this.options[ side ].dpad || {};
-
+			
 			// Centered value is at this.options[ side ].position
-
+			
 			var _this = this;
-
+			
 			var posX = this.getPositionX( side );
 			var posY = this.getPositionY( side );
-
-
+			
+			
 			// If they have all 4 directions, add a circle to the center for looks
 			if( dpad.up && dpad.left && dpad.down && dpad.right )
 			{
@@ -604,11 +604,11 @@ window.onload = function () {
 					y: posY,
 					radius: dpad.right.height
 				}
-				var center = new TouchableCircle( options );
+				var center = new TouchableCircle( options ); 
 				this.touchableAreas.push( center );
 				this.touchableAreasCount++;
 			}
-
+	
 			// Up arrow
 			if( dpad.up !== false )
 			{
@@ -617,7 +617,7 @@ window.onload = function () {
 				dpad.up.direction = 'up';
 				this.addTouchableDirection( dpad.up );
 			}
-
+	
 			// Left arrow
 			if( dpad.left !== false )
 			{
@@ -626,7 +626,7 @@ window.onload = function () {
 				dpad.left.direction = 'left';
 				this.addTouchableDirection( dpad.left );
 			}
-
+	
 			// Down arrow
 			if( dpad.down !== false )
 			{
@@ -635,7 +635,7 @@ window.onload = function () {
 				dpad.down.direction = 'down';
 				this.addTouchableDirection( dpad.down );
 			}
-
+			
 			// Right arrow
 			if( dpad.right !== false )
 			{
@@ -644,17 +644,17 @@ window.onload = function () {
 				dpad.right.direction = 'right';
 				this.addTouchableDirection( dpad.right );
 			}
-
+			
 		},
-
+		
 		loadJoystick: function( side ) {
 			var joystick = this.options[ side ].joystick;
 			joystick.x = this.getPositionX( side );
 			joystick.y = this.getPositionY( side );
-
+	
 			this.addJoystick( joystick );
 		},
-
+		
 		/**
 		 * Used for resizing. Currently is just an alias for loadSide
 		 */
@@ -662,7 +662,7 @@ window.onload = function () {
 			// Load in new ones
 			this.loadSide( side );
 		},
-
+		
 		loadSide: function( side ) {
 			if( this.options[ side ].type === 'dpad' )
 			{
@@ -677,7 +677,7 @@ window.onload = function () {
 				this.loadButtons( side );
 			}
 		},
-
+		
 		/**
 		 * Normalize touch positions by the left and top offsets
 		 * @param {int} x
@@ -686,7 +686,7 @@ window.onload = function () {
 		{
 			return ( x - this.offsetX ) * ( this.pixelRatio );
 		},
-
+		
 		/**
 		 * Normalize touch positions by the left and top offsets
 		 * @param {int} y
@@ -695,27 +695,27 @@ window.onload = function () {
 		{
 			return ( y - this.offsetY ) * ( this.pixelRatio );
 		},
-
+		
 		/**
 		 * Returns the x position when given # of pixels from right (based on canvas size)
-		 * @param {int} right
+		 * @param {int} right 
 		 */
 		getXFromRight: function( right ) {
 			return this.canvas.width - right;
 		},
-
-
+		
+		
 		/**
 		 * Returns the y position when given # of pixels from bottom (based on canvas size)
-		 * @param {int} right
+		 * @param {int} right 
 		 */
 		getYFromBottom: function( bottom ) {
 			return this.canvas.height - bottom;
 		},
-
+		
 		/**
 		 * Grabs the x position of either the left or right side/controls
-		 * @param {string} side - 'left', 'right'
+		 * @param {string} side - 'left', 'right' 
 		 */
 		getPositionX: function( side ) {
 			if( typeof this.options[ side ].position.left !== 'undefined' )
@@ -723,10 +723,10 @@ window.onload = function () {
 			else
 				return this.getXFromRight( this.getPixels( this.options[ side ].position.right, 'x' ) );
 		},
-
+		
 		/**
 		 * Grabs the y position of either the left or right side/controls
-		 * @param {string} side - 'left', 'right'
+		 * @param {string} side - 'left', 'right' 
 		 */
 		getPositionY: function( side ) {
 			if( typeof this.options[ side ].position.top !== 'undefined' )
@@ -736,18 +736,18 @@ window.onload = function () {
 		},
 
 		/**
-		 * Processes the info for each touchableArea
+		 * Processes the info for each touchableArea 
 		 */
 		renderAreas: function() {
 			for( var i = 0, j = this.touchableAreasCount; i < j; i++ )
 			{
-				var area = this.touchableAreas[ i ];
-
+				var area = this.touchableAreas[ i ];				
+				
 				if( typeof area === 'undefined' )
 					continue;
 
 				area.draw();
-
+					
 				// Go through all touches to see if any hit this area
 				var touched = false;
 				for( var k = 0, l = this.touches.length; k < l; k++ )
@@ -755,9 +755,9 @@ window.onload = function () {
 					var touch = this.touches[ k ];
 					if( typeof touch === 'undefined' )
 						continue;
-
+	
 					var x = this.normalizeTouchPositionX( touch.clientX ), y = this.normalizeTouchPositionY( touch.clientY );
-
+													
 					// Check that it's in the bounding box/circle
 					if( ( area.check( x, y ) ) !== false )
 					{
@@ -778,11 +778,11 @@ window.onload = function () {
 				}
 			}
 		},
-
+		
 		render: function() {
 			if( ! this.paused || ! this.performanceFriendly )
 				this.ctx.clearRect( this.bound.left, this.bound.top, this.bound.right - this.bound.left, this.bound.bottom - this.bound.top );
-
+	
 			// Draw feedback for when screen is being touched
 			// When no touch events are happening, this enables 'paused' mode, which skips running this
 			// This isn't run at all in performanceFriendly mode
@@ -790,14 +790,14 @@ window.onload = function () {
 			{
 				var cacheId = 'touch-circle';
 				var cached = this.cachedSprites[ cacheId ];
-
+				
 				if( ! cached && this.options.touchRadius )
 				{
 					var subCanvas = document.createElement( 'canvas' );
 					var ctx = subCanvas.getContext( '2d' );
 					subCanvas.width = 2 * this.options.touchRadius;
 					subCanvas.height = 2 * this.options.touchRadius;
-
+		
 					var center = this.options.touchRadius;
 					var gradient = ctx.createRadialGradient( center, center, 1, center, center, this.options.touchRadius ); // 10 = end radius
 					gradient.addColorStop( 0, 'rgba( 200, 200, 200, 1 )' );
@@ -806,7 +806,7 @@ window.onload = function () {
 					ctx.fillStyle = gradient;
 					ctx.arc( center, center, this.options.touchRadius, 0 , 2 * Math.PI, false );
 					ctx.fill();
-
+				
 					cached = GameController.cachedSprites[ cacheId ] = subCanvas;
 				}
 				// Draw the current touch positions if any
@@ -816,12 +816,12 @@ window.onload = function () {
 					if( typeof touch === 'undefined' )
 						continue;
 					var x = this.normalizeTouchPositionX( touch.clientX ), y = this.normalizeTouchPositionY( touch.clientY );
-					if( x - this.options.touchRadius > this.bound.left && x + this.options.touchRadius < this.bound.right &&
+					if( x - this.options.touchRadius > this.bound.left && x + this.options.touchRadius < this.bound.right &&  
 						y - this.options.touchRadius > this.bound.top && y + this.options.touchRadius < this.bound.bottom )
 					this.ctx.drawImage( cached, x - this.options.touchRadius, y - this.options.touchRadius );
 				}
 			}
-
+			
 			// Render if the game isn't paused, or we're not in performanceFriendly mode (running when not paused keeps the semi-transparent gradients looking better for some reason)
 			if( ! this.paused || ! this.performanceFriendly )
 			{
@@ -832,63 +832,63 @@ window.onload = function () {
 			window.requestAnimationFrame( this.renderWrapper );
 		},
 		/**
-		 * So we can keep scope, and don't have to create a new obj every requestAnimationFrame (bad for garbage collection)
+		 * So we can keep scope, and don't have to create a new obj every requestAnimationFrame (bad for garbage collection) 
 		 */
 		renderWrapper: function() {
 			GameController.render();
-		},
+		},	
 	}
-
+	
 	/**
-	 * Superclass for touchable stuff
+	 * Superclass for touchable stuff 
 	 */
 	var TouchableArea = ( function() {
-
-		function TouchableArea()
+		
+		function TouchableArea() 
 		{
 		}
-
+		
 		// Called when this direction is being touched
 		TouchableArea.prototype.touchStart = null;
-
+		
 		// Called when this direction is being moved
 		TouchableArea.prototype.touchMove = null;
-
+		
 		// Called when this direction is no longer being touched
 		TouchableArea.prototype.touchEnd = null;
-
+		
 		TouchableArea.prototype.type = 'area';
 		TouchableArea.prototype.id = false;
 		TouchableArea.prototype.active = false;
-
+		
 		/**
 		 * Sets the user-specified callback for this direction being touched
-		 * @param {function} callback
+		 * @param {function} callback 
 		 */
 		TouchableArea.prototype.setTouchStart = function( callback ) {
 			this.touchStart = callback;
 		};
-
+		
 		/**
-		 * Called when this direction is no longer touched
+		 * Called when this direction is no longer touched 
 		 */
 		TouchableArea.prototype.touchStartWrapper = function( e ) {
 			// Fire the user specified callback
 			if( this.touchStart )
 				this.touchStart();
-
+			
 			// Mark this direction as active
 			this.active = true;
 		};
-
+		
 		/**
 		 * Sets the user-specified callback for this direction no longer being touched
-		 * @param {function} callback
+		 * @param {function} callback 
 		 */
 		TouchableArea.prototype.setTouchMove = function( callback ) {
 			this.touchMove = callback;
 		};
-
+		
 		/**
 		 * Called when this direction is moved. Make sure it's actually changed before passing to developer
 		 */
@@ -905,37 +905,37 @@ window.onload = function () {
 			// Mark this direction as active
 			this.active = true;
 		};
-
+		
 		/**
 		 * Sets the user-specified callback for this direction no longer being touched
-		 * @param {function} callback
+		 * @param {function} callback 
 		 */
 		TouchableArea.prototype.setTouchEnd = function( callback ) {
 			this.touchEnd = callback;
 		};
-
+		
 		/**
-		 * Called when this direction is first touched
+		 * Called when this direction is first touched 
 		 */
 		TouchableArea.prototype.touchEndWrapper = function( e ) {
 			// Fire the user specified callback
 			if( this.touchEnd )
 				this.touchEnd();
-
+			
 			// Mark this direction as inactive
 			this.active = false;
-
+			
 			GameController.render();
 		};
-
+		
 		return TouchableArea;
-
+		
 	} )();
-
+	
 	var TouchableDirection = ( function( __super ) {
 		__extends( TouchableDirection, __super );
-
-		function TouchableDirection( options )
+		
+		function TouchableDirection( options ) 
 		{
 			for( var i in options )
 			{
@@ -946,14 +946,14 @@ window.onload = function () {
 				else
 					this[i] = options[i];
 			}
-
+			
 			this.draw();
 		}
-
+	
 		TouchableDirection.prototype.type = 'direction';
-
+		
 		/**
-		 * Checks if the touch is within the bounds of this direction
+		 * Checks if the touch is within the bounds of this direction 
 		 */
 		TouchableDirection.prototype.check = function( touchX, touchY ) {
 			var distanceX, distanceY;
@@ -963,10 +963,10 @@ window.onload = function () {
 				( Math.abs( touchY - ( this.y + this.height ) ) < ( GameController.options.touchRadius / 2 ) || ( touchY < this.y + this.height ) ) // bottom
 			)
 				return true;
-
+				
 			return false;
 		};
-
+		
 		TouchableDirection.prototype.draw = function() {
 			var cacheId = this.type + '' + this.id + '' + this.active;
 			var cached = GameController.cachedSprites[ cacheId ];
@@ -976,56 +976,56 @@ window.onload = function () {
 				var ctx = subCanvas.getContext( '2d' );
 				subCanvas.width = this.width + 2 * this.stroke;
 				subCanvas.height = this.height + 2 * this.stroke;
-
+	
 				var opacity = this.opacity || 0.9;
-
+				
 				if( ! this.active ) // Direction currently being touched
 					opacity *= 0.5;
-
+					
 				switch( this.direction )
 				{
 					case 'up':
 						var gradient = ctx.createLinearGradient( 0, 0, 0, this.height );
 						gradient.addColorStop( 0, 'rgba( 0, 0, 0, ' + ( opacity * 0.5 ) + ' )' );
-						gradient.addColorStop( 1, 'rgba( 0, 0, 0, ' + opacity + ' )' );
+						gradient.addColorStop( 1, 'rgba( 0, 0, 0, ' + opacity + ' )' );   
 						break;
 					case 'left':
 						var gradient = ctx.createLinearGradient( 0, 0, this.width, 0 );
 						gradient.addColorStop( 0, 'rgba( 0, 0, 0, ' + ( opacity * 0.5 ) + ' )' );
-						gradient.addColorStop( 1, 'rgba( 0, 0, 0, ' + opacity + ' )' );
+						gradient.addColorStop( 1, 'rgba( 0, 0, 0, ' + opacity + ' )' );   
 						break;
 					case 'right':
 						var gradient = ctx.createLinearGradient( 0, 0, this.width, 0 );
 						gradient.addColorStop( 0, 'rgba( 0, 0, 0, ' + opacity + ' )' );
-						gradient.addColorStop( 1, 'rgba( 0, 0, 0, ' + ( opacity * 0.5 ) + ' )' );
+						gradient.addColorStop( 1, 'rgba( 0, 0, 0, ' + ( opacity * 0.5 ) + ' )' );  
 						break;
 					case 'down':
 					default:
 						var gradient = ctx.createLinearGradient( 0, 0, 0, this.height );
 						gradient.addColorStop( 0, 'rgba( 0, 0, 0, ' + opacity + ' )' );
-						gradient.addColorStop( 1, 'rgba( 0, 0, 0, ' + ( opacity * 0.5 ) + ' )' );
+						gradient.addColorStop( 1, 'rgba( 0, 0, 0, ' + ( opacity * 0.5 ) + ' )' );   
 				}
 				ctx.fillStyle = gradient;
-
+		
 				ctx.fillRect( 0, 0, this.width, this.height );
 				ctx.lineWidth = this.stroke;
 				ctx.strokeStyle = 'rgba( 255, 255, 255, 0.1 )';
 				ctx.strokeRect( 0, 0, this.width, this.height );
-
+				
 				cached = GameController.cachedSprites[ cacheId ] = subCanvas;
 			}
-
+			
 			GameController.ctx.drawImage( cached, this.x, this.y );
-
-
+				
+	
 		};
-
+		
 		return TouchableDirection;
 	} )( TouchableArea );
-
+	
 	var TouchableButton = ( function( __super ) {
 		__extends( TouchableButton, __super );
-
+		
 		function TouchableButton( options ) //x, y, radius, backgroundColor )
 		{
 			for( var i in options )
@@ -1037,25 +1037,25 @@ window.onload = function () {
 				else
 					this[i] = options[i];
 			}
-
+			
 			this.draw();
 		}
-
+		
 		TouchableButton.prototype.type = 'button';
-
+		
 		/**
-		 * Checks if the touch is within the bounds of this direction
+		 * Checks if the touch is within the bounds of this direction 
 		 */
 		TouchableButton.prototype.check = function( touchX, touchY ) {
-			if(
+			if( 
 				( Math.abs( touchX - this.x ) < this.radius + ( GameController.options.touchRadius / 2 ) ) &&
 				( Math.abs( touchY - this.y ) < this.radius + ( GameController.options.touchRadius / 2 ) )
 			)
 				return true;
-
+				
 			return false;
 		};
-
+		
 		TouchableButton.prototype.draw = function() {
 			var cacheId = this.type + '' + this.id + '' + this.active;
 			var cached = GameController.cachedSprites[ cacheId ];
@@ -1065,8 +1065,8 @@ window.onload = function () {
 				var ctx = subCanvas.getContext( '2d' );
 				ctx.lineWidth = this.stroke;
 				subCanvas.width = subCanvas.height = 2 * ( this.radius + ctx.lineWidth );
-
-
+				
+				
 				var gradient = ctx.createRadialGradient( this.radius, this.radius, 1, this.radius, this.radius, this.radius );
 				var textShadowColor;
 				switch( this.backgroundColor )
@@ -1097,20 +1097,20 @@ window.onload = function () {
 						gradient.addColorStop( 1, '#eee' );
 						break;
 				}
-
-				if( this.active )
+					
+				if( this.active )			
 					ctx.fillStyle = textShadowColor;
-				else
+				else	
 					ctx.fillStyle = gradient;
-
-				ctx.strokeStyle = textShadowColor;
-
+	
+				ctx.strokeStyle = textShadowColor;			
+		
 				ctx.beginPath();
 				//ctx.arc( this.x, this.y, this.radius, 0 , 2 * Math.PI, false );
 				ctx.arc( subCanvas.width / 2, subCanvas.width / 2, this.radius, 0 , 2 * Math.PI, false );
 				ctx.fill();
 				ctx.stroke();
-
+				
 				if( this.label )
 				{
 					// Text Shadow
@@ -1119,53 +1119,53 @@ window.onload = function () {
 					ctx.textAlign = 'center';
 					ctx.textBaseline = 'middle';
 					ctx.fillText( this.label, subCanvas.height / 2 + 2, subCanvas.height / 2 + 2 );
-
-
+		
+		
 					ctx.fillStyle = this.fontColor;
 					ctx.font = 'bold ' + ( this.fontSize || subCanvas.height * 0.35 ) + 'px Verdana';
 					ctx.textAlign = 'center';
 					ctx.textBaseline = 'middle';
 					ctx.fillText( this.label, subCanvas.height / 2, subCanvas.height / 2 );
 				}
-
+				
 				cached = GameController.cachedSprites[ cacheId ] = subCanvas;
 			}
 
 			GameController.ctx.drawImage( cached, this.x, this.y );
-
-
+			
+			
 		};
-
+		
 		return TouchableButton;
 	} )( TouchableArea );
-
+	
 	var TouchableJoystick = ( function( __super ) {
 		__extends( TouchableJoystick, __super );
-
+		
 		function TouchableJoystick( options ) //x, y, radius, backgroundColor )
 		{
 			for( var i in options )
 				this[i] = options[i];
-
+				
 			this.currentX = this.currentX || this.x;
 			this.currentY = this.currentY || this.y;
 		}
-
+		
 		TouchableJoystick.prototype.type = 'joystick';
-
+		
 		/**
-		 * Checks if the touch is within the bounds of this direction
+		 * Checks if the touch is within the bounds of this direction 
 		 */
 		TouchableJoystick.prototype.check = function( touchX, touchY ) {
-			if(
+			if( 
 				( Math.abs( touchX - this.x ) < this.radius + ( GameController.getPixels( GameController.options.touchRadius ) / 2 ) ) &&
 				( Math.abs( touchY - this.y ) < this.radius + ( GameController.getPixels( GameController.options.touchRadius ) / 2 ) )
 			)
 				return true;
-
+				
 			return false;
 		};
-
+		
 		/**
 		 * details for the joystick move event, stored here so we're not constantly creating new objs for garbage. The object has params:
 		 * dx - the number of pixels the current joystick center is from the base center in x direction
@@ -1175,14 +1175,14 @@ window.onload = function () {
 		 * normalizedY - a number between -1 and 1 relating to how far up or down the joystick is
 		 */
 		TouchableJoystick.prototype.moveDetails = {};
-
+		
 		/**
 		 * Called when this joystick is moved
 		 */
 		TouchableJoystick.prototype.touchMoveWrapper = function( e ) {
-			this.currentX = GameController.normalizeTouchPositionX( e.clientX );
+			this.currentX = GameController.normalizeTouchPositionX( e.clientX );	
 			this.currentY = GameController.normalizeTouchPositionY( e.clientY );
-
+			
 			// Fire the user specified callback
 			if( this.touchMove )
 			{
@@ -1193,20 +1193,20 @@ window.onload = function () {
 					this.moveDetails.max = this.radius + ( GameController.options.touchRadius / 2 );
 					this.moveDetails.normalizedX = this.moveDetails.dx / this.moveDetails.max;
 					this.moveDetails.normalizedY = this.moveDetails.dy / this.moveDetails.max;
-
+						
 					this.touchMove( this.moveDetails );
 				}
 			}
-
-
+				
+			
 			// Mark this direction as inactive
 			this.active = true;
 		};
-
+		
 		TouchableJoystick.prototype.draw = function() {
 			if( ! this.id ) // wait until id is set
 				return false;
-
+				
 			var cacheId = this.type + '' + this.id + '' + this.active;
 			var cached = GameController.cachedSprites[ cacheId ];
 			if( ! cached )
@@ -1214,7 +1214,7 @@ window.onload = function () {
 				var subCanvas = document.createElement( 'canvas' );
 				this.stroke = this.stroke || 2;
 				subCanvas.width = subCanvas.height = 2 * ( this.radius + ( GameController.options.touchRadius ) + this.stroke );
-
+				
 				var ctx = subCanvas.getContext( '2d' );
 				ctx.lineWidth = this.stroke;
 				if( this.active ) // Direction currently being touched
@@ -1223,7 +1223,7 @@ window.onload = function () {
 					gradient.addColorStop( 0, 'rgba( 200,200,200,.5 )' );
 					gradient.addColorStop( 1, 'rgba( 200,200,200,.9 )' );
 					ctx.strokeStyle = '#000';
-				}
+				}	
 				else
 				{
 					// STYLING FOR BUTTONS
@@ -1238,29 +1238,29 @@ window.onload = function () {
 				ctx.arc( this.radius, this.radius, this.radius, 0 , 2 * Math.PI, false );
 				ctx.fill();
 				ctx.stroke();
-
+				
 				cached = GameController.cachedSprites[ cacheId ] = subCanvas;
 			}
-
+			
 			// Draw the base that stays static
 			GameController.ctx.fillStyle = '#444';
 			GameController.ctx.beginPath();
 			GameController.ctx.arc( this.x, this.y, this.radius * 0.7, 0 , 2 * Math.PI, false );
 			GameController.ctx.fill();
 			GameController.ctx.stroke();
-
+			
 			GameController.ctx.drawImage( cached, this.currentX - this.radius, this.currentY - this.radius );
-
-
+			
+			
 		};
-
+		
 		return TouchableJoystick;
 	} )( TouchableArea );
-
-
+	
+	
 	var TouchableCircle = ( function( __super ) {
 		__extends( TouchableCircle, __super );
-
+		
 		function TouchableCircle( options )
 		{
 			for( var i in options )
@@ -1272,34 +1272,34 @@ window.onload = function () {
 				else
 					this[i] = options[i];
 			}
-
+	
 			this.draw();
 		}
-
+		
 		/**
-		 * No touch for this fella
+		 * No touch for this fella 
 		 */
 		TouchableCircle.prototype.check = function( touchX, touchY ) {
 			return false;
 		};
-
+		
 		TouchableCircle.prototype.draw = function() {
-
+	
 			// STYLING FOR BUTTONS
 			GameController.ctx.fillStyle = 'rgba( 0, 0, 0, 0.5 )';
-
+			
 			// Actual joystick part that is being moved
 			GameController.ctx.beginPath();
 			GameController.ctx.arc( this.x, this.y, this.radius, 0 , 2 * Math.PI, false );
 			GameController.ctx.fill();
-
+	
 		};
-
+		
 		return TouchableCircle;
 	} )( TouchableArea );
-
+	
 	/**
-	 * Shim for requestAnimationFrame
+	 * Shim for requestAnimationFrame 
 	 */
 	( function() {
 	  if (typeof module !== "undefined") return
@@ -1308,20 +1308,20 @@ window.onload = function () {
 		for( var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x )
 		{
 			window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-			window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame']
+			window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] 
 										 || window[vendors[x]+'CancelRequestAnimationFrame'];
 		}
-
+	 
 		if ( !window.requestAnimationFrame )
 			window.requestAnimationFrame = function( callback, element ) {
 				var currTime = new Date().getTime();
 				var timeToCall = Math.max( 0, 16 - ( currTime - lastTime ) );
-				var id = window.setTimeout( function() { callback(currTime + timeToCall); },
+				var id = window.setTimeout( function() { callback(currTime + timeToCall); }, 
 					timeToCall );
 				lastTime = currTime + timeToCall;
 				return id;
 			};
-
+	 
 		if ( !window.cancelAnimationFrame )
 			window.cancelAnimationFrame = function( id ) {
 				clearTimeout( id );
@@ -2204,7 +2204,7 @@ module.exports = phaseSlider;
 	Contact: https://github.com/cristianbote, @cristianbote_
 
   */
-
+  
 !function(t,e){function i(){this._cover&&this._cover.bringToTop()}function s(t){if(this.game.paused=!0,this._cover&&this._cover.destroy(),this._texture||(this._texture=new e.RenderTexture(this.game,this.game.width,this.game.height,"cover")),this._texture.renderXY(this.game.stage,-this.game.camera.x,-this.game.camera.y),t){var i=this.game.state.states[t].create,s=this;this._cover=new e.Sprite(this.game,0,0,this._texture),this._cover.fixedToCamera=!0,this._cover.anchor.setTo(.5,.5),this._cover.cameraOffset.x=this.game.width/2,this._cover.cameraOffset.y=this.game.height/2,this.game.state.states[t].create=function(){i.call(s.game.state.states[t]),s.game.add.existing(s._cover),r.call(s)},this.game.state.start(t)}this.game.paused=!1}function r(){if(o&&o.properties){for(var t in o.properties)if("object"!=typeof o.properties[t]){var e={};e[t]=o.properties[t],this._tween=this.game.add.tween(this._cover).to(e,o.duration,o.ease,!0)}else this._tween=this.game.add.tween(this._cover[t]).to(o.properties[t],o.duration,o.ease,!0);this._tween.onComplete.addOnce(a,this)}}function a(){this._cover&&this._cover.destroy(),this._cover=null,this._texture&&this._texture.destroy(),this._texture=null}e.Plugin.StateTransition=function(t,i){e.Plugin.call(this,t,i)},e.Plugin.StateTransition.prototype=Object.create(e.Plugin.prototype),e.Plugin.StateTransition.prototype.constructor=e.Plugin.StateTransition,e.Plugin.StateTransition.prototype.to=function(t){s.call(this,t)},e.Plugin.StateTransition.prototype.bringToTop=function(){i.call(this)},e.Plugin.StateTransition.prototype.settings=function(t){if(!t)return Object.create(o);for(var e in t)o[e]&&(o[e]=t[e])};var o={duration:300,ease:e.Easing.Exponential.InOut,properties:{alpha:0}}}(window,Phaser);
 },{}],7:[function(require,module,exports){
 /*! Socket.IO.js build:0.9.16, development. Copyright(c) 2011 LearnBoost <dev@learnboost.com> MIT Licensed */
@@ -4605,7 +4605,7 @@ var io = ('undefined' === typeof module ? {} : module.exports);
          * @api public
          */
 
-        // Do to a bug in the current IDevices browser, we need to wrap the send in a
+        // Do to a bug in the current IDevices browser, we need to wrap the send in a 
         // setTimeout, when they resume _id sleeping the browser will crash if
         // we don't allow the browser time to detect the socket has been closed
         if (io.util.ua.iDevice) {
@@ -4897,8 +4897,8 @@ var io = ('undefined' === typeof module ? {} : module.exports);
             'undefined' != typeof io ? io.Transport : module.exports
             , 'undefined' != typeof io ? io : module.parent.exports
         );
-    /*	SWFObject v2.2 <http://code.google.com/p/swfobject/>
-     is released under the MIT License <http://www.opensource.org/licenses/mit-license.php>
+    /*	SWFObject v2.2 <http://code.google.com/p/swfobject/> 
+     is released under the MIT License <http://www.opensource.org/licenses/mit-license.php> 
      */
     if ('undefined' != typeof window) {
         var swfobject=function(){var D="undefined",r="object",S="Shockwave Flash",W="ShockwaveFlash.ShockwaveFlash",q="application/x-shockwave-flash",R="SWFObjectExprInst",x="onreadystatechange",O=window,j=document,t=navigator,T=false,U=[h],o=[],N=[],I=[],l,Q,E,B,J=false,a=false,n,G,m=true,M=function(){var aa=typeof j.getElementById!=D&&typeof j.getElementsByTagName!=D&&typeof j.createElement!=D,ah=t.userAgent.toLowerCase(),Y=t.platform.toLowerCase(),ae=Y?/win/.test(Y):/win/.test(ah),ac=Y?/mac/.test(Y):/mac/.test(ah),af=/webkit/.test(ah)?parseFloat(ah.replace(/^.*webkit\/(\d+(\.\d+)?).*$/,"$1")):false,X=!+"\v1",ag=[0,0,0],ab=null;if(typeof t.plugins!=D&&typeof t.plugins[S]==r){ab=t.plugins[S].description;if(ab&&!(typeof t.mimeTypes!=D&&t.mimeTypes[q]&&!t.mimeTypes[q].enabledPlugin)){T=true;X=false;ab=ab.replace(/^.*\s+(\S+\s+\S+$)/,"$1");ag[0]=parseInt(ab.replace(/^(.*)\..*$/,"$1"),10);ag[1]=parseInt(ab.replace(/^.*\.(.*)\s.*$/,"$1"),10);ag[2]=/[a-zA-Z]/.test(ab)?parseInt(ab.replace(/^.*[a-zA-Z]+(.*)$/,"$1"),10):0}}else{if(typeof O[(['Active'].concat('Object').join('X'))]!=D){try{var ad=new window[(['Active'].concat('Object').join('X'))](W);if(ad){ab=ad.GetVariable("$version");if(ab){X=true;ab=ab.split(" ")[1].split(",");ag=[parseInt(ab[0],10),parseInt(ab[1],10),parseInt(ab[2],10)]}}}catch(Z){}}}return{w3:aa,pv:ag,wk:af,ie:X,win:ae,mac:ac}}(),k=function(){if(!M.w3){return}if((typeof j.readyState!=D&&j.readyState=="complete")||(typeof j.readyState==D&&(j.getElementsByTagName("body")[0]||j.body))){f()}if(!J){if(typeof j.addEventListener!=D){j.addEventListener("DOMContentLoaded",f,false)}if(M.ie&&M.win){j.attachEvent(x,function(){if(j.readyState=="complete"){j.detachEvent(x,arguments.callee);f()}});if(O==top){(function(){if(J){return}try{j.documentElement.doScroll("left")}catch(X){setTimeout(arguments.callee,0);return}f()})()}}if(M.wk){(function(){if(J){return}if(!/loaded|complete/.test(j.readyState)){setTimeout(arguments.callee,0);return}f()})()}s(f)}}();function f(){if(J){return}try{var Z=j.getElementsByTagName("body")[0].appendChild(C("span"));Z.parentNode.removeChild(Z)}catch(aa){return}J=true;var X=U.length;for(var Y=0;Y<X;Y++){U[Y]()}}function K(X){if(J){X()}else{U[U.length]=X}}function s(Y){if(typeof O.addEventListener!=D){O.addEventListener("load",Y,false)}else{if(typeof j.addEventListener!=D){j.addEventListener("load",Y,false)}else{if(typeof O.attachEvent!=D){i(O,"onload",Y)}else{if(typeof O.onload=="function"){var X=O.onload;O.onload=function(){X();Y()}}else{O.onload=Y}}}}}function h(){if(T){V()}else{H()}}function V(){var X=j.getElementsByTagName("body")[0];var aa=C(r);aa.setAttribute("type",q);var Z=X.appendChild(aa);if(Z){var Y=0;(function(){if(typeof Z.GetVariable!=D){var ab=Z.GetVariable("$version");if(ab){ab=ab.split(" ")[1].split(",");M.pv=[parseInt(ab[0],10),parseInt(ab[1],10),parseInt(ab[2],10)]}}else{if(Y<10){Y++;setTimeout(arguments.callee,10);return}}X.removeChild(aa);Z=null;H()})()}else{H()}}function H(){var ag=o.length;if(ag>0){for(var af=0;af<ag;af++){var Y=o[af].id;var ab=o[af].callbackFn;var aa={success:false,id:Y};if(M.pv[0]>0){var ae=c(Y);if(ae){if(F(o[af].swfVersion)&&!(M.wk&&M.wk<312)){w(Y,true);if(ab){aa.success=true;aa.ref=z(Y);ab(aa)}}else{if(o[af].expressInstall&&A()){var ai={};ai.data=o[af].expressInstall;ai.width=ae.getAttribute("width")||"0";ai.height=ae.getAttribute("height")||"0";if(ae.getAttribute("class")){ai.styleclass=ae.getAttribute("class")}if(ae.getAttribute("align")){ai.align=ae.getAttribute("align")}var ah={};var X=ae.getElementsByTagName("param");var ac=X.length;for(var ad=0;ad<ac;ad++){if(X[ad].getAttribute("name").toLowerCase()!="movie"){ah[X[ad].getAttribute("name")]=X[ad].getAttribute("value")}}P(ai,ah,Y,ab)}else{p(ae);if(ab){ab(aa)}}}}}else{w(Y,true);if(ab){var Z=z(Y);if(Z&&typeof Z.SetVariable!=D){aa.success=true;aa.ref=Z}ab(aa)}}}}}function z(aa){var X=null;var Y=c(aa);if(Y&&Y.nodeName=="OBJECT"){if(typeof Y.SetVariable!=D){X=Y}else{var Z=Y.getElementsByTagName(r)[0];if(Z){X=Z}}}return X}function A(){return !a&&F("6.0.65")&&(M.win||M.mac)&&!(M.wk&&M.wk<312)}function P(aa,ab,X,Z){a=true;E=Z||null;B={success:false,id:X};var ae=c(X);if(ae){if(ae.nodeName=="OBJECT"){l=g(ae);Q=null}else{l=ae;Q=X}aa.id=R;if(typeof aa.width==D||(!/%$/.test(aa.width)&&parseInt(aa.width,10)<310)){aa.width="310"}if(typeof aa.height==D||(!/%$/.test(aa.height)&&parseInt(aa.height,10)<137)){aa.height="137"}j.title=j.title.slice(0,47)+" - Flash Player Installation";var ad=M.ie&&M.win?(['Active'].concat('').join('X')):"PlugIn",ac="MMredirectURL="+O.location.toString().replace(/&/g,"%26")+"&MMplayerType="+ad+"&MMdoctitle="+j.title;if(typeof ab.flashvars!=D){ab.flashvars+="&"+ac}else{ab.flashvars=ac}if(M.ie&&M.win&&ae.readyState!=4){var Y=C("div");X+="SWFObjectNew";Y.setAttribute("id",X);ae.parentNode.insertBefore(Y,ae);ae.style.display="none";(function(){if(ae.readyState==4){ae.parentNode.removeChild(ae)}else{setTimeout(arguments.callee,10)}})()}u(aa,ab,X)}}function p(Y){if(M.ie&&M.win&&Y.readyState!=4){var X=C("div");Y.parentNode.insertBefore(X,Y);X.parentNode.replaceChild(g(Y),X);Y.style.display="none";(function(){if(Y.readyState==4){Y.parentNode.removeChild(Y)}else{setTimeout(arguments.callee,10)}})()}else{Y.parentNode.replaceChild(g(Y),Y)}}function g(ab){var aa=C("div");if(M.win&&M.ie){aa.innerHTML=ab.innerHTML}else{var Y=ab.getElementsByTagName(r)[0];if(Y){var ad=Y.childNodes;if(ad){var X=ad.length;for(var Z=0;Z<X;Z++){if(!(ad[Z].nodeType==1&&ad[Z].nodeName=="PARAM")&&!(ad[Z].nodeType==8)){aa.appendChild(ad[Z].cloneNode(true))}}}}}return aa}function u(ai,ag,Y){var X,aa=c(Y);if(M.wk&&M.wk<312){return X}if(aa){if(typeof ai.id==D){ai.id=Y}if(M.ie&&M.win){var ah="";for(var ae in ai){if(ai[ae]!=Object.prototype[ae]){if(ae.toLowerCase()=="data"){ag.movie=ai[ae]}else{if(ae.toLowerCase()=="styleclass"){ah+=' class="'+ai[ae]+'"'}else{if(ae.toLowerCase()!="classid"){ah+=" "+ae+'="'+ai[ae]+'"'}}}}}var af="";for(var ad in ag){if(ag[ad]!=Object.prototype[ad]){af+='<param name="'+ad+'" value="'+ag[ad]+'" />'}}aa.outerHTML='<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"'+ah+">"+af+"</object>";N[N.length]=ai.id;X=c(ai.id)}else{var Z=C(r);Z.setAttribute("type",q);for(var ac in ai){if(ai[ac]!=Object.prototype[ac]){if(ac.toLowerCase()=="styleclass"){Z.setAttribute("class",ai[ac])}else{if(ac.toLowerCase()!="classid"){Z.setAttribute(ac,ai[ac])}}}}for(var ab in ag){if(ag[ab]!=Object.prototype[ab]&&ab.toLowerCase()!="movie"){e(Z,ab,ag[ab])}}aa.parentNode.replaceChild(Z,aa);X=Z}}return X}function e(Z,X,Y){var aa=C("param");aa.setAttribute("name",X);aa.setAttribute("value",Y);Z.appendChild(aa)}function y(Y){var X=c(Y);if(X&&X.nodeName=="OBJECT"){if(M.ie&&M.win){X.style.display="none";(function(){if(X.readyState==4){b(Y)}else{setTimeout(arguments.callee,10)}})()}else{X.parentNode.removeChild(X)}}}function b(Z){var Y=c(Z);if(Y){for(var X in Y){if(typeof Y[X]=="function"){Y[X]=null}}Y.parentNode.removeChild(Y)}}function c(Z){var X=null;try{X=j.getElementById(Z)}catch(Y){}return X}function C(X){return j.createElement(X)}function i(Z,X,Y){Z.attachEvent(X,Y);I[I.length]=[Z,X,Y]}function F(Z){var Y=M.pv,X=Z.split(".");X[0]=parseInt(X[0],10);X[1]=parseInt(X[1],10)||0;X[2]=parseInt(X[2],10)||0;return(Y[0]>X[0]||(Y[0]==X[0]&&Y[1]>X[1])||(Y[0]==X[0]&&Y[1]==X[1]&&Y[2]>=X[2]))?true:false}function v(ac,Y,ad,ab){if(M.ie&&M.mac){return}var aa=j.getElementsByTagName("head")[0];if(!aa){return}var X=(ad&&typeof ad=="string")?ad:"screen";if(ab){n=null;G=null}if(!n||G!=X){var Z=C("style");Z.setAttribute("type","text/css");Z.setAttribute("media",X);n=aa.appendChild(Z);if(M.ie&&M.win&&typeof j.styleSheets!=D&&j.styleSheets.length>0){n=j.styleSheets[j.styleSheets.length-1]}G=X}if(M.ie&&M.win){if(n&&typeof n.addRule==r){n.addRule(ac,Y)}}else{if(n&&typeof j.createTextNode!=D){n.appendChild(j.createTextNode(ac+" {"+Y+"}"))}}}function w(Z,X){if(!m){return}var Y=X?"visible":"hidden";if(J&&c(Z)){c(Z).style.visibility=Y}else{v("#"+Z,"visibility:"+Y)}}function L(Y){var Z=/[\\\"<>\.;]/;var X=Z.exec(Y)!=null;return X&&typeof encodeURIComponent!=D?encodeURIComponent(Y):Y}var d=function(){if(M.ie&&M.win){window.attachEvent("onunload",function(){var ac=I.length;for(var ab=0;ab<ac;ab++){I[ab][0].detachEvent(I[ab][1],I[ab][2])}var Z=N.length;for(var aa=0;aa<Z;aa++){y(N[aa])}for(var Y in M){M[Y]=null}M=null;for(var X in swfobject){swfobject[X]=null}swfobject=null})}}();return{registerObject:function(ab,X,aa,Z){if(M.w3&&ab&&X){var Y={};Y.id=ab;Y.swfVersion=X;Y.expressInstall=aa;Y.callbackFn=Z;o[o.length]=Y;w(ab,false)}else{if(Z){Z({success:false,id:ab})}}},getObjectById:function(X){if(M.w3){return z(X)}},embedSWF:function(ab,ah,ae,ag,Y,aa,Z,ad,af,ac){var X={success:false,id:ah};if(M.w3&&!(M.wk&&M.wk<312)&&ab&&ah&&ae&&ag&&Y){w(ah,false);K(function(){ae+="";ag+="";var aj={};if(af&&typeof af===r){for(var al in af){aj[al]=af[al]}}aj.data=ab;aj.width=ae;aj.height=ag;var am={};if(ad&&typeof ad===r){for(var ak in ad){am[ak]=ad[ak]}}if(Z&&typeof Z===r){for(var ai in Z){if(typeof am.flashvars!=D){am.flashvars+="&"+ai+"="+Z[ai]}else{am.flashvars=ai+"="+Z[ai]}}}if(F(Y)){var an=u(aj,am,ah);if(aj.id==ah){w(ah,true)}X.success=true;X.ref=an}else{if(aa&&A()){aj.data=aa;P(aj,am,ah,ac);return}else{w(ah,true)}}if(ac){ac(X)}})}else{if(ac){ac(X)}}},switchOffAutoHideShow:function(){m=false},ua:M,getFlashPlayerVersion:function(){return{major:M.pv[0],minor:M.pv[1],release:M.pv[2]}},hasFlashPlayerVersion:F,createSWF:function(Z,Y,X){if(M.w3){return u(Z,Y,X)}else{return undefined}},showExpressInstall:function(Z,aa,X,Y){if(M.w3&&A()){P(Z,aa,X,Y)}},removeSWF:function(X){if(M.w3){y(X)}},createCSS:function(aa,Z,Y,X){if(M.w3){v(aa,Z,Y,X)}},addDomLoadEvent:K,addLoadEvent:s,getQueryParamValue:function(aa){var Z=j.location.search||j.location.hash;if(Z){if(/\?/.test(Z)){Z=Z.split("?")[1]}if(aa==null){return L(Z)}var Y=Z.split("&");for(var X=0;X<Y.length;X++){if(Y[X].substring(0,Y[X].indexOf("="))==aa){return L(Y[X].substring((Y[X].indexOf("=")+1)))}}}return""},expressInstallCallback:function(){if(a){var X=c(R);if(X&&l){X.parentNode.replaceChild(l,X);if(Q){w(Q,true);if(M.ie&&M.win){l.style.display="block"}}if(E){E(B)}}a=false}}}}();
@@ -6088,7 +6088,7 @@ var BasicLayer = function(game, parent, layerText) {
 
   // initialize your prefab here
 
-    this.y = -1000;
+    // this.y = -1000;
 
     this.layerText = layerText ? layerText : "Click to play";
 
@@ -6106,21 +6106,22 @@ var BasicLayer = function(game, parent, layerText) {
 //    this.add(this.scoreText);
 
     this.defeatWindow = this.game.add.image(this.game.width / 2 , this.game.height / 2, 'sprites', 'menu/defeat_window');
-    this.defeatWindow.x = this.game.width / 2 - this.defeatWindow.width/2;
-    this.defeatWindow.y = this.game.height / 2 - (this.defeatWindow.height - 100);
+    // this.defeatWindow.x = this.game.width / 2 - this.defeatWindow.width/2;
+    // this.defeatWindow.y = this.game.height / 2 - (this.defeatWindow.height - 100);
     this.defeatWindow.anchor.setTo(0.5, 0.5);
     this.defeatWindow.fixedToCamera = true;
     this.add(this.defeatWindow);
 
-    this.restartButton = this.game.add.button(-50, this.defeatWindow.height -250, 'sprites', this.restartClick, this, 'buttons/button_restart_act', 'buttons/button_restart_no', 'buttons/button_restart_act', 'buttons/button_restart_no');
+    this.restartButton = this.game.add.button(-70, 100, 'sprites', this.restartClick, this, 'buttons/button_restart_act', 'buttons/button_restart_no', 'buttons/button_restart_act', 'buttons/button_restart_no');
 //    this.restartButton.anchor.setTo(0.5,0.5);
     this.defeatWindow.addChild(this.restartButton);
 
-    this.menuButton = this.game.add.button(50, this.defeatWindow.height -250, 'sprites', this.menuClick, this, 'buttons/button_menu_act', 'buttons/button_menu_no', 'buttons/button_menu_act', 'buttons/button_menu_no');
+    this.menuButton = this.game.add.button(50, 100, 'sprites', this.menuClick, this, 'buttons/button_menu_act', 'buttons/button_menu_no', 'buttons/button_menu_act', 'buttons/button_menu_no');
 //    this.menuButton.anchor.setTo(0.5,0.5);
     this.defeatWindow.addChild(this.menuButton);
 
-     this.game.add.tween(this).to({x:this.game.width / 2 ,y:this.game.width / 2}, 550, Phaser.Easing.Back.Out, true);
+    //  this.game.add.tween(this).to({x:this.game.width / 2 ,y:this.game.width / 2}, 550, Phaser.Easing.Back.Out, true);
+
     //  this.game.add.tween(this.defeatWindow).to({x:this.game.width / 2 ,y: this.game.height / 2}, 550, Phaser.Easing.Back.Out, true);
     // console.log(this.game.camera.width)
     // console.log(this.game.camera.width / 2)
@@ -6202,7 +6203,7 @@ EnemyGroup.prototype.addEnemy = function () {
 
       if(this.currentLevel.waves[this.currentWave].flaks) {
         for (var i = 0; i < this.currentLevel.waves[this.currentWave].flaks.count; i++){
-          this.flak = new Flak(this.game, Math.random() * this.game.world.width, this.game.cache.getImage('bg1').height ,"flak/flak1/turret_1_default", this.player, this.options);
+          this.flak = new Flak(this.game, Math.random() * this.game.world.width, (this.game.world.height + 330) ,"flak/flak1/turret_1_default", this.player, this.options);
           this.add(this.flak);
         }
       }
@@ -6279,19 +6280,19 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
 
     this.emitter.gravity = 50;
     this.emitter.setAlpha(1, 0, 3000);
-    this.emitter.setScale(0.08, 0, 0.08, 0, 3000);
+    // this.emitter.setScale(0.08, 0, 0.08, 0, 3000);
     this.emitter.particleAnchor = new Phaser.Point(0.2, 0.5);
 
         this.bullets = this.game.add.group();
         this.bullets.enableBody = true;
         this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-        this.bullets.createMultiple(500, 'sprites', 'sprites/bullet2');
+        this.bullets.createMultiple(500, 'sprites', 'sprites/bullets/bullet_2');
         this.bullets.setAll('anchor.x', 0.5);
         this.bullets.setAll('anchor.y', 1);
         this.bullets.setAll('checkWorldBounds', true);
         this.bullets.setAll('outOfBoundsKill', true);
-        this.bullets.setAll('scale.x', 0.5);
-        this.bullets.setAll('scale.y', 0.5);
+        // this.bullets.setAll('scale.x', 0.5);
+        // this.bullets.setAll('scale.y', 0.5);
         this.bulletTime = 0;
 
         // this.bringToTop();
@@ -6304,7 +6305,8 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
         this.TURN_RATE = 3; // turn rate in degrees/frame
 //        this.scale.setTo(0.6, 0.6);
 //        this.scale.x *= -1;
-        this.scaleFactor = new Phaser.Point(0.5, 0.5);
+        // this.scaleFactor = new Phaser.Point(0.5, 0.5);
+        this.scaleFactor = new Phaser.Point(1, 1);
 
         this.scale.setTo(this.scaleFactor.x, this.scaleFactor.y);
         this.anchor.setTo(0.5, 0.5);
@@ -6442,7 +6444,8 @@ EnemyPlane.prototype.fireBullet = function() {
 //                bullet.body.velocity.copyFrom(this.game.physics.arcade.velocityFromAngle(this.plane.angle, 1000))
 //                bullet.rotation = this.plane.rotation + this.game.math.degToRad(90);
             bullet.lifespan = 2000;
-             bullet.rotation = this.rotation + this.game.math.degToRad(90);
+            //  bullet.rotation = this.rotation + this.game.math.degToRad(90);
+             bullet.rotation = this.rotation;
             this.game.physics.arcade.velocityFromRotation(this.rotation, 1000, bullet.body.velocity);
             this.bulletTime = this.game.time.now + 250;
 //                gameInitializer.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.plane.angle});
@@ -6465,13 +6468,13 @@ EnemyPlane.prototype.fireBullet = function() {
 
         if(plane.health < 15){
           this.emitter.start(false, 3000, 5);
-          plane.frameName = "Airplanes/AEG_C_IV/Skin_1/default_damaged";
+          plane.frameName = GlobalGame.enemy.replace('default', 'default_damaged');
         } else if (plane.health < 10) {
           // var particleBaseName = 'sprites/particles/black_smoke/blackSmoke';
           // this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
-          plane.frameName = "Airplanes/AEG_C_IV/Skin_1/attack_damaged_1";
+          plane.frameName = GlobalGame.enemy.replace('default', 'attack_damaged_1');
         } else if (plane.health < 5) {
-          plane.frameName = "Airplanes/AEG_C_IV/Skin_1/attack_damaged_2";
+          plane.frameName = GlobalGame.enemy.replace('default', 'attack_damaged_2');
         }
 
         if(plane.health < 1){
@@ -6507,13 +6510,13 @@ var Flak = function(game, x, y, frame, player, options) {
   this.bullets = this.game.add.group();
   this.bullets.enableBody = true;
   this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-  this.bullets.createMultiple(500, 'sprites', 'sprites/bullet2');
+  this.bullets.createMultiple(500, 'sprites', 'sprites/bullets/bullet_3');
   this.bullets.setAll('anchor.x', 0.5);
   this.bullets.setAll('anchor.y', 1);
   this.bullets.setAll('checkWorldBounds', true);
   this.bullets.setAll('outOfBoundsKill', true);
-  this.bullets.setAll('scale.x', 0.5);
-  this.bullets.setAll('scale.y', 0.5);
+  // this.bullets.setAll('scale.x', 0.5);
+  // this.bullets.setAll('scale.y', 0.5);
   this.bulletTime = 0;
 
   this.shotAnimation = this.animations.add('shot', [
@@ -6535,7 +6538,8 @@ var Flak = function(game, x, y, frame, player, options) {
             if (bullet) {
                 bullet.reset(this.x, this.y);
                 bullet.lifespan = 2000;
-                bullet.rotation = this.rotation + this.game.math.degToRad(90);
+                // bullet.rotation = this.rotation + this.game.math.degToRad(90);
+                bullet.rotation = this.rotation;
                 this.game.physics.arcade.velocityFromRotation(this.rotation, 1000, bullet.body.velocity);
                 this.bulletTime = this.game.time.now + 250;
                 if(this.socket)
@@ -6648,18 +6652,21 @@ var Level = function(game, options) {
   Phaser.Group.call(this, game);
 
   this.options = options ? options : false;
-  this.worldHeight = this.game.cache.getImage('bg1').height;
+
+  this.spriteSheet = this.game.cache.getFrameData("sprites");
+  this.worldHeight = this.spriteSheet.getFrameByName("level/level_1/cloudsBackground").height;
   this.game.world.setBounds(0 , 0, 4000, this.worldHeight);
 
-  this.bgtile = this.game.add.tileSprite(0, 0, this.game.world.width, this.worldHeight, 'bg1');
+  this.bgtile = this.game.add.tileSprite(0, 0, this.game.world.width, this.worldHeight, 'sprites', 'level/level_1/cloudsBackground');
 //  this.bgtile.fixedToCamera = true;
   this.bgtile.autoScroll(50, 0);
   this.add(this.bgtile);
-
-  this.mountaintile = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.cache.getImage('treesMountain1').height, 'treesMountain1');
+  
+  // this.mountaintile = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.cache.getImage('treesMountain1').height, 'treesMountain1');
+  this.mountaintile = this.game.add.tileSprite(0, 0, this.game.world.width, this.worldHeight, 'sprites', 'level/level_1/treesMountain');
 //  this.mountaintile.fixedToCamera = true;
-
   this.add(this.mountaintile);
+
   var maxElements = 20;
 
   for (var i = 0; i < maxElements; i++) {
@@ -6694,7 +6701,8 @@ var Level = function(game, options) {
 
     this.platforms = this.game.add.group();
 //    this.groundtile = this.game.add.tileSprite(0, this.game.world.height - 132, this.game.world.width, this.game.cache.getImage('bg1').height, 'sprites', 'level/crosssection_long_new');
-    this.groundtile = this.game.add.tileSprite(0, this.game.world.height - this.game.cache.getImage('ground').height, this.game.world.width, this.game.cache.getImage('ground').height, 'ground');
+    var groundHeight = this.spriteSheet.getFrameByName("level/level_1/ground").height;
+    this.groundtile = this.game.add.tileSprite(0, this.game.world.height - groundHeight, this.game.world.width, groundHeight, 'sprites', 'level/level_1/ground');
     this.groundtile.name = 'ground';
     this.game.physics.enable(this.groundtile, Phaser.Physics.ARCADE);
     this.groundtile.body.immovable = true;
@@ -6717,7 +6725,7 @@ var Level = function(game, options) {
   Phaser.Group.call(this, game);
 
     this.options = options ? options : false;
-
+    
   // initialize your prefab here
     if(!this.options.menu){
 //        this.game.world.setBounds(0, 0, 4000, 1000);
@@ -6735,7 +6743,7 @@ var Level = function(game, options) {
     if(!this.options.menu){
         this.mountains2 = this.game.add.image(2560, 482, 'sprites', 'level/mountains');
     }
-
+  
   //  The platforms group contains the ground and the 2 ledges we can jump on
     this.platforms = this.game.add.group();
 
@@ -6747,7 +6755,7 @@ var Level = function(game, options) {
 
     if(this.options.menu)
         maxElements = 5;
-
+        
     for(var i = 0; i < maxElements; i++){
 
         treeName = 'tree_'+Math.round(Math.random() * 3);
@@ -6765,9 +6773,9 @@ var Level = function(game, options) {
             // Move clouds
             this.game.physics.arcade.enableBody(this.clouds);
             this.clouds.body.allowGravity = false;
-            this.clouds.body.velocity.x = -this.game.rnd.integerInRange(15, 30);
+            this.clouds.body.velocity.x = -this.game.rnd.integerInRange(15, 30); 
          }
-
+        
         this.clouds2 = this.game.add.sprite(this.game.rnd.integerInRange(0, this.game.world.width), this.game.rnd.integerInRange(0, this.game.world.height - 400), 'sprites', 'level/cloud_fluffy_2');
          if(this.game.device.desktop){
             this.clouds2.anchor.setTo(0.5, 0);
@@ -6789,11 +6797,11 @@ var Level = function(game, options) {
         ground.name = 'ground';
         this.game.physics.enable(ground, Phaser.Physics.ARCADE);
         //  This stops it from falling away when you jump on it
-        ground.body.immovable = true;
+        ground.body.immovable = true; 
 
         lastGroundYPos += ground.width;
     }
-
+    
 };
 
 Level.prototype = Object.create(Phaser.Group.prototype);
@@ -6880,7 +6888,7 @@ var Player = function(game, x, y,frame) {
 
         this.emitter.gravity = 50;
         this.emitter.setAlpha(1, 0, 3000);
-        this.emitter.setScale(0.08, 0, 0.08, 0, 3000);
+        // this.emitter.setScale(0.08, 0, 0.08, 0, 3000);
         this.emitter.particleAnchor = new Phaser.Point(0.2, 0.5);
 
         // this.emitter.start(false, 3000, 5);
@@ -6890,7 +6898,7 @@ var Player = function(game, x, y,frame) {
         this.bullets = this.game.add.group();
         this.bullets.enableBody = true;
         this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-        this.bullets.createMultiple(500, 'sprites', 'sprites/bullet2');
+        this.bullets.createMultiple(500, 'sprites', 'sprites/bullets/bullet_2');
         this.bullets.setAll('anchor.x', 0.5);
         this.bullets.setAll('anchor.y', 1);
         this.bullets.setAll('checkWorldBounds', true);
@@ -6914,7 +6922,8 @@ var Player = function(game, x, y,frame) {
         this.flyLoop = false;
         this.directionX,
         this.directionY;
-        this.scaleFactor = new Phaser.Point(0.5, 0.5);
+        // this.scaleFactor = new Phaser.Point(0.5, 0.5);
+        this.scaleFactor = new Phaser.Point(1, 1);
 
        this.scale.setTo(this.scaleFactor.x, this.scaleFactor.y);
         this.anchor.setTo(0.5, 0.5);
@@ -7249,7 +7258,8 @@ Player.prototype.update = function() {
 //                bullet.body.velocity.copyFrom(this.game.physics.arcade.velocityFromAngle(this.plane.angle, 1000))
 //                bullet.rotation = this.plane.rotation + this.game.math.degToRad(90);
                 bullet.lifespan = 2000;
-                 bullet.rotation = this.rotation + this.game.math.degToRad(90);
+                //  bullet.rotation = this.rotation + this.game.math.degToRad(90);
+                 bullet.rotation = this.rotation;
                 this.game.physics.arcade.velocityFromRotation(this.rotation, 1000, bullet.body.velocity);
                 this.bulletTime = this.game.time.now + 125;
 //                gameInitializer.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.plane.angle});
@@ -7358,13 +7368,13 @@ Player.prototype.update = function() {
 
           if(plane.health < 15){
             this.emitter.start(false, 3000, 5);
-            plane.frameName = "Airplanes/AEG_C_IV/Skin_1/default_damaged";
+            plane.frameName = GlobalGame.player.replace('default', 'default_damaged');
           } else if (plane.health < 10) {
             // var particleBaseName = 'sprites/particles/black_smoke/blackSmoke';
             // this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
-            plane.frameName = "Airplanes/AEG_C_IV/Skin_1/attack_damaged_1";
+            plane.frameName = GlobalGame.player.replace('default', 'attack_damaged_1');
           } else if (plane.health < 5) {
-            plane.frameName = "Airplanes/AEG_C_IV/Skin_1/attack_damaged_2";
+            plane.frameName = GlobalGame.player.replace('default', 'attack_damaged_2');
           }
 
           if(plane.health < 1){
@@ -7391,13 +7401,13 @@ var Solider = function(game, x, y, frame, player, options) {
     this.bullets = this.game.add.group();
     this.bullets.enableBody = true;
     this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-    this.bullets.createMultiple(500, 'sprites', 'sprites/bullet2');
+    this.bullets.createMultiple(500, 'sprites', 'sprites/bullets/bullet_4');
     this.bullets.setAll('anchor.x', 0.5);
     this.bullets.setAll('anchor.y', 1);
     this.bullets.setAll('checkWorldBounds', true);
     this.bullets.setAll('outOfBoundsKill', true);
-    this.bullets.setAll('scale.x', 0.5);
-    this.bullets.setAll('scale.y', 0.5);
+    // this.bullets.setAll('scale.x', 0.5);
+    // this.bullets.setAll('scale.y', 0.5);
     this.bulletTime = 0;
 
 
@@ -7451,7 +7461,8 @@ var Solider = function(game, x, y, frame, player, options) {
                 }
                 bullet.reset(this.x, this.y);
                 bullet.lifespan = 2000;
-                 bullet.rotation = rotation + this.game.math.degToRad(90);
+                //  bullet.rotation = rotation + this.game.math.degToRad(90);
+                 bullet.rotation = rotation;
                 this.game.physics.arcade.velocityFromRotation(rotation, 1000, bullet.body.velocity);
                 this.bulletTime = this.game.time.now + 250;
                 if(this.socket)
@@ -7588,8 +7599,8 @@ var Bird = function(game, x, y, frame) {
   Phaser.Sprite.call(this, game, x, y, 'birdie', frame);
 
   // initialize your prefab here
-
-    //  Here we'll create 12 of them evenly spaced apart
+    
+    //  Here we'll create 12 of them evenly spaced apart  
 //        this = this.create(Math.random() * game.world.width, Math.random() * (game.world.height - 250), 'birdie');
         game.physics.enable(this, Phaser.Physics.ARCADE);
         this.scale.setTo(0.15, 0.15);
@@ -7602,21 +7613,21 @@ var Bird = function(game, x, y, frame) {
         this.scale.x *= -1;
         this.animations.add('fly');
         this.events.onOutOfBounds.add(this.birdLeft, this);
-
+  
 };
 
 Bird.prototype = Object.create(Phaser.Sprite.prototype);
 Bird.prototype.constructor = Bird;
 
 Bird.prototype.update = function() {
-
+  
   // write your prefab's specific update code here
     		//  Collide the Bird and the stars with the platforms
 //    	this.game.physics.arcade.collide(this.birds, level.platforms);
-//
+//        
                 this.body.velocity.x = Math.random() * 100;
                 this.animations.play('fly', 8, true);
-
+  
 };
 
 Bird.prototype.birdLeft = function() {
@@ -7688,7 +7699,7 @@ module.exports = BirdGroup;
 
 var LabelButton = function(game, x, y, key, label, callback, callbackContext, overFrame, outFrame, downFrame, upFrame) {
     Phaser.Button.call(this, game, x, y, key, callback, callbackContext, overFrame, outFrame, downFrame, upFrame);
-
+ 
     //Style how you wish...
     this.style = {
         'font': '30px Arial',
@@ -7700,18 +7711,18 @@ var LabelButton = function(game, x, y, key, label, callback, callbackContext, ov
 //    this.label.anchor.setTo( 0, 0.5 );
 //    this.addChild(this.label);
 //    this.setLabel( label );
+ 
 
-
-
+  
 };
 
 LabelButton.prototype = Object.create(Phaser.Button.prototype);
 LabelButton.prototype.constructor = LabelButton;
 
 LabelButton.prototype.setLabel = function( label ) {
-
+    
    this.label.setText(label);
-
+ 
 };
 
 module.exports = LabelButton;
@@ -7721,7 +7732,7 @@ module.exports = LabelButton;
 var socketPlayer,
     socketGame,
     SocketObject,
-    SocketRemotePlayer = require('../prefabs/socketRemotePlayer');
+    SocketRemotePlayer = require('../prefabs/socketRemotePlayer');  
 
 var SocketEventHandlers = function(game, io) {
         // Start listening for events
@@ -7741,9 +7752,9 @@ var SocketEventHandlers = function(game, io) {
 //        this.socket = io.connect("http://neumic-asnort.codio.io:8120");
 //        this.socket = io.connect("http://christian-dev.no-ip.biz:8120");
         GlobalGame.Multiplayer.socket = this.socket;
-
+    
         this.setEventHandlers();
-
+  
 };
 
 SocketEventHandlers.prototype.constructor = SocketEventHandlers;
@@ -7751,7 +7762,7 @@ SocketEventHandlers.prototype.constructor = SocketEventHandlers;
 SocketEventHandlers.prototype = {
 
     setEventHandlers: function() {
-
+        
         // Socket connection successful
         GlobalGame.Multiplayer.socket.on("connect", this.onSocketConnected);
 
@@ -7778,7 +7789,7 @@ SocketEventHandlers.prototype = {
     // Socket connected
     onSocketConnected: function(socket) {
         console.log("Connected to socket server ");
-
+        
         GlobalGame.Multiplayer.connected = true;
         // Send local player data to the game server
 //        GlobalGame.Multiplayer.socket.emit("new player", {x: socketPlayer.x, y:socketPlayer.y, angle: socketPlayer.angle});
@@ -7791,7 +7802,7 @@ SocketEventHandlers.prototype = {
         GlobalGame.Multiplayer.connected = false;
     },
 
-
+    
     // New player
     onNewPlayer: function(data) {
         console.log("New player connected: "+data.id + " players " + SocketObject.enemies.length);
@@ -7799,16 +7810,16 @@ SocketEventHandlers.prototype = {
         // Add new player to the remote players array data.x, data.y
         if(!SocketObject.playerById(data.id))
             SocketObject.enemies.push(new SocketRemotePlayer(data.id, socketGame, GlobalGame.player, data.x, data.y, data.angle, data.name));
-
+        
         if(SocketObject.enemies[SocketObject.enemies.length-1])
             socketGame.add.existing(SocketObject.enemies[SocketObject.enemies.length-1]);
     },
 
     // Move player
     onMovePlayer: function(data) {
-
+        
         var movePlayer = SocketObject.playerById(data.id);
-
+        
         // Player not found
         if (!movePlayer) {
             console.log("Player not found: "+data.id);
@@ -7818,7 +7829,7 @@ SocketEventHandlers.prototype = {
         movePlayer.x = data.x;
         movePlayer.y = data.y;
         movePlayer.angle = data.angle;
-
+        
         if(!socketGame.device.desktop){
             var px = data.x;
             var py = data.y;
@@ -7845,13 +7856,13 @@ SocketEventHandlers.prototype = {
             console.log("Player not found: "+data.id);
             return;
         };
-
+        
        if (socketGame.time.now > bulletTime)
         {
             var bullet = playerHowFired.bullets.getFirstExists(false);
-
+            
 //                               console.log(game.time.now, bullet)
-
+            
             if (bullet)
             {
                 bullet.reset(data.bulletX, data.bulletY);
@@ -7864,7 +7875,7 @@ SocketEventHandlers.prototype = {
                 bulletTime = socketGame.time.now + 250;
             }
         }
-
+        
         // Update player position
 //        playerHowFired.bullet.x = data.bulletX;
 //        playerHowFired.bullet.y = data.bulletY;
@@ -7876,7 +7887,7 @@ SocketEventHandlers.prototype = {
     onBulletHitPlayer: function(data) {
 
         var playerGetsHit = SocketObject.playerById(data.playerId);
-
+        
         if(playerGetsHit){
             // an other player was shooted
             playerGetsHit.health -= 1;
@@ -7890,7 +7901,7 @@ SocketEventHandlers.prototype = {
                GlobalGame.player.kill();
             }
         }
-
+        
 //        console.log(data)
 //        console.log(bullet.x, data.bulletX, bullet.rotation, data.bulletAngle)
         // Update player position
@@ -8007,12 +8018,12 @@ module.exports = SocketRemotePlayer;
   function Level2() {}
   Level2.prototype = {
     preload: function() {
-      // Override this method to add some load operations.
+      // Override this method to add some load operations. 
       // If you need to use the loader, you may need to use them here.
     },
     create: function() {
-      // This method is called after the game engine successfully switches states.
-
+      // This method is called after the game engine successfully switches states. 
+        
         this.game.world.setBounds(0, 0, 8000, 2000);
         //fix background to camera
         this.background = this.game.add.sprite(0, 0, 'sky_new');
@@ -8030,7 +8041,7 @@ module.exports = SocketRemotePlayer;
       // Put render operations here.
     },
     shutdown: function() {
-      // This method will be called when the state is shut down
+      // This method will be called when the state is shut down 
       // (i.e. you switch to another state from this one).
     }
   };
@@ -8055,7 +8066,8 @@ GlobalGame = {
     /* Current Level */
     level: 1,
 
-    scale: 0.7,
+    // scale: 0.7,
+    scale: 1,
 
     /*
     * Controller of the Ship:
@@ -8147,11 +8159,11 @@ GameOver.prototype = {
   },
   create: function () {
     this.stage.backgroundColor = '#3498db';
-
+      
     var style = { font: '65px Arial', fill: '#ffffff', align: 'center'};
     this.titleText = this.game.add.text(this.game.width/2,100, 'Game Over!', style);
     this.titleText.anchor.setTo(0.5, 0.5);
-
+      
     this.congratsText = this.game.add.text(this.game.width/2, 200, 'You Win! (Or Maybe not)', { font: '32px Arial', fill: '#ffffff', align: 'center'});
     this.congratsText.anchor.setTo(0.5, 0.5);
 
@@ -8190,7 +8202,7 @@ module.exports = GameOver;
       // Put render operations here.
     },
     shutdown: function() {
-      // This method will be called when the state is shut down
+      // This method will be called when the state is shut down 
       // (i.e. you switch to another state from this one).
     }
   };
@@ -8473,7 +8485,7 @@ module.exports = Missions;
   function MultiplayerRoomDetailView() {}
   MultiplayerRoomDetailView.prototype = {
     create: function() {
-      // This method is called after the game engine successfully switches states.
+      // This method is called after the game engine successfully switches states. 
       // Feel free to add any setup code here (do not load anything here, override preload() instead).
         this.stage.backgroundColor = '#3498db';
 //        // Access the value with:
@@ -8482,12 +8494,12 @@ module.exports = Missions;
             var f = document.createElement("form");
             f.id = "createRoomForm";
             f.className = "create-room sign-up";
-
+            
             //create h element
             var h = document.createElement("h2");
-            h.className = "sign-up-title";
+            h.className = "sign-up-title"; 
             h.textContent = "Create Room";
-
+            
             //create input element
             var i = document.createElement("input");
             i.type = "text";
@@ -8506,20 +8518,20 @@ module.exports = Missions;
             f.appendChild(h);
             f.appendChild(i);
             f.appendChild(s);
-
+            
             //create a form
             var rooms = document.createElement("div");
             rooms.className = "room-overview sign-up";
-
+            
             //create h element
             var h2 = document.createElement("h2");
-            h2.className = "sign-up-title";
+            h2.className = "sign-up-title"; 
             h2.textContent = "Room-Overview";
-
+            
             //create ul element
             var ul = document.createElement("ul");
             ul.className = "room-list-ul";
-
+            
             // array of rooms
             var listData = [ 'Room1' , 'Room2' , 'Room3' , 'CustomRoom' , 'Quickplay'];
 
@@ -8527,13 +8539,13 @@ module.exports = Missions;
                 var li = document.createElement("li");
                 li.className = "room-list-li";
                 li.innerHTML = listData[i];
-
+                
                 ul.appendChild(li);
             }
-
+            
             rooms.appendChild(h2);
             rooms.appendChild(ul);
-
+            
             var wrapper = document.createElement("div");
             wrapper.className = "room-wrapper";
             wrapper.appendChild(f);
@@ -8541,7 +8553,7 @@ module.exports = Missions;
 
             // add the form inside the body
             document.getElementsByTagName('body')[0].appendChild(wrapper); //pure javascript
-
+            
             f.addEventListener("submit", this.userSubmited.bind(this), false);
         }
     },
@@ -8549,15 +8561,15 @@ module.exports = Missions;
         if (evt && evt.preventDefault) {
             evt.preventDefault();
         }
-
+        
         if(document.getElementById('room_name').value != ''){
             GlobalGame.Multiplayer.room = document.getElementById('room_name').value;
-
+            
 //           var elem=document.getElementById('createRoomForm')
 //            elem.parentNode.removeChild(elem);
             this.game.transitions.to('playMultiplayer');
         }
-
+        
     },
     update: function() {
       // state update code
@@ -8569,7 +8581,7 @@ module.exports = Missions;
       // Put render operations here.
     },
     shutdown: function() {
-      // This method will be called when the state is shut down
+      // This method will be called when the state is shut down 
       // (i.e. you switch to another state from this one).
     }
   };
@@ -8581,11 +8593,11 @@ module.exports = MultiplayerRoomDetailView;
   function MultiplayerRoomSelect() {}
   MultiplayerRoomSelect.prototype = {
     preload: function() {
-      // Override this method to add some load operations.
+      // Override this method to add some load operations. 
       // If you need to use the loader, you may need to use them here.
     },
     create: function() {
-      // This method is called after the game engine successfully switches states.
+      // This method is called after the game engine successfully switches states. 
       // Feel free to add any setup code here (do not load anything here, override preload() instead).
         this.stage.backgroundColor = '#3498db';
 //        // Access the value with:
@@ -8594,12 +8606,12 @@ module.exports = MultiplayerRoomDetailView;
             var f = document.createElement("form");
             f.id = "createRoomForm";
             f.className = "create-room sign-up";
-
+            
             //create h element
             var h = document.createElement("h2");
-            h.className = "sign-up-title";
+            h.className = "sign-up-title"; 
             h.textContent = "Create Room";
-
+            
             //create input element
             var i = document.createElement("input");
             i.type = "text";
@@ -8618,22 +8630,22 @@ module.exports = MultiplayerRoomDetailView;
             f.appendChild(h);
             f.appendChild(i);
             f.appendChild(s);
-
+            
             //create a form
             var rooms = document.createElement("div");
             rooms.className = "room-overview sign-up";
-
+            
             //create h element
             var h2 = document.createElement("h2");
-            h2.className = "sign-up-title";
+            h2.className = "sign-up-title"; 
             h2.textContent = "Room-Overview";
-
+            
             //create ul element
             var ul = document.createElement("ul");
             ul.className = "room-list-ul";
-
+            
             GlobalGame.Multiplayer.socket.emit("get room list");
-
+            
             // after the initialize, the server sends a list of
               // all the active rooms
               GlobalGame.Multiplayer.socket.on('roomslist', function(data){
@@ -8648,10 +8660,10 @@ module.exports = MultiplayerRoomDetailView;
                        }
                   }
               });
-
+            
             rooms.appendChild(h2);
             rooms.appendChild(ul);
-
+            
             var wrapper = document.createElement("div");
             wrapper.className = "room-wrapper";
             wrapper.appendChild(f);
@@ -8659,7 +8671,7 @@ module.exports = MultiplayerRoomDetailView;
 
             // add the form inside the body
             document.getElementsByTagName('body')[0].appendChild(wrapper); //pure javascript
-
+            
             f.addEventListener("submit", this.userSubmited.bind(this), false);
         }
     },
@@ -8667,17 +8679,17 @@ module.exports = MultiplayerRoomDetailView;
         if (evt && evt.preventDefault) {
             evt.preventDefault();
         }
-
+        
         if(document.getElementById('room_name').value != ''){
             GlobalGame.Multiplayer.room = document.getElementById('room_name').value;
             GlobalGame.Multiplayer.socket.emit('new room', GlobalGame.Multiplayer.room);
-
+            
            var elem=document.getElementsByClassName('room-wrapper')
             elem[0].parentNode.removeChild(elem[0]);
 //            this.game.transitions.to('multiplayerRoomDetailView');
             this.game.transitions.to('playMultiplayer');
         }
-
+        
     },
     update: function() {
       // state update code
@@ -8689,7 +8701,7 @@ module.exports = MultiplayerRoomDetailView;
       // Put render operations here.
     },
     shutdown: function() {
-      // This method will be called when the state is shut down
+      // This method will be called when the state is shut down 
       // (i.e. you switch to another state from this one).
     }
   };
@@ -8698,17 +8710,17 @@ module.exports = MultiplayerRoomSelect;
 },{}],30:[function(require,module,exports){
 'use strict';
 
-  var io = require('../plugins/socket.io');
-  var SocketEventHandlers = require('../prefabs/socketEventHandlers');
+  var io = require('../plugins/socket.io');  
+  var SocketEventHandlers = require('../prefabs/socketEventHandlers');  
 
   function MultiplayerUserSignIn() {}
   MultiplayerUserSignIn.prototype = {
     preload: function() {
-      // Override this method to add some load operations.
+      // Override this method to add some load operations. 
       // If you need to use the loader, you may need to use them here.
     },
     create: function() {
-      // This method is called after the game engine successfully switches states.
+      // This method is called after the game engine successfully switches states. 
       // Feel free to add any setup code here (do not load anything here, override preload() instead).
         this.stage.backgroundColor = '#3498db';
 //        // Access the value with:
@@ -8721,9 +8733,9 @@ module.exports = MultiplayerRoomSelect;
 
             //create input element
             var h = document.createElement("h1");
-            h.className = "sign-up-title";
+            h.className = "sign-up-title"; 
             h.textContent = "Playername";
-
+            
             //create input element
             var i = document.createElement("input");
             i.type = "text";
@@ -8745,7 +8757,7 @@ module.exports = MultiplayerRoomSelect;
 
             // add the form inside the body
             document.getElementsByTagName('body')[0].appendChild(f); //pure javascript
-
+            
             f.addEventListener("submit", this.userSubmited.bind(this), false);
         }
     },
@@ -8756,16 +8768,16 @@ module.exports = MultiplayerRoomSelect;
 
         if(document.getElementById('user_name').value != ''){
             GlobalGame.Multiplayer.userName = document.getElementById('user_name').value;
-
+            
             var socketEventHandlers = new SocketEventHandlers(this.game, io, null);
-
+            
             var localGame = this.game;
-
+            
             GlobalGame.Multiplayer.socket.on("connect",function(socket){
                 var elem=document.getElementById('userNameForm');
                 if(elem)
                     elem.parentNode.removeChild(elem);
-
+                
 //                localGame.transitions.to('multiplayerRoomSelect');
                   localGame.transitions.to('playMultiplayer');
             });
@@ -8781,7 +8793,7 @@ module.exports = MultiplayerRoomSelect;
       // Put render operations here.
     },
     shutdown: function() {
-      // This method will be called when the state is shut down
+      // This method will be called when the state is shut down 
       // (i.e. you switch to another state from this one).
     }
   };
@@ -8826,7 +8838,7 @@ module.exports = MultiplayerUserSignIn;
         console.log(this.currentLevel)
 
         this.level = new Level(this.game, {currentLevel: this.currentLevel});
-        this.level.scale.setTo(GlobalGame.scale+GlobalGame.scale+0.1);
+        // this.level.scale.setTo(GlobalGame.scale+GlobalGame.scale+0.1);
 
         // Create a new bird object
         this.birdGroup = new BirdGroup(this.game);
@@ -8967,8 +8979,10 @@ module.exports = MultiplayerUserSignIn;
       } else {
         // this.game.add.tween(cameraBounds)
         // .to({x, y, width, height}, duration).start();
-        this.game.add.tween(cameraBounds).to({width: width, height: height}, duration).start();
-        return this.game.add.tween(this.game.camera.scale).to({x: scale, y: scale}, duration).start();
+        this.game.add.tween(cameraBounds)
+        .to({width, height}, duration).start();
+        return this.game.add.tween(this.game.camera.scale)
+        .to({x: scale, y: scale}, duration).start();
       }
     },
 
@@ -9027,7 +9041,7 @@ module.exports = MultiplayerUserSignIn;
 },{"../plugins/GameController":2,"../prefabs/BasicLayer":8,"../prefabs/EnemyGroup":9,"../prefabs/Level":12,"../prefabs/Level_old":13,"../prefabs/PausePanel":14,"../prefabs/Player":15,"../prefabs/birdGroup":18}],32:[function(require,module,exports){
 'use strict';
   var GameController = require('../plugins/GameController');
-  // var HUDManager = require('../plugins/HUDManager');
+  // var HUDManager = require('../plugins/HUDManager');  
   var io = require('../plugins/socket.io');
   var BirdGroup = require('../prefabs/birdGroup');
   var Player = require('../prefabs/Player');
@@ -9193,22 +9207,12 @@ Preload.prototype = {
     //BIRD
     this.load.spritesheet('birdie', 'assets/img/sprites/bird.png', 189, 169, 3);
 
-    //PLAYER
-    this.load.spritesheet('airplaneexplode', 'assets/img/sprites/effects/airplaneexplosion.png', 128, 115, 8);
-
     //PLAYER Buttons
-    this.load.spritesheet('buttonvertical', 'assets/img/buttons/button-vertical.png',64,64);
-    this.load.spritesheet('buttonhorizontal', 'assets/img/buttons/button-horizontal.png',96,64);
-    this.load.spritesheet('buttondiagonal', 'assets/img/buttons/button-diagonal.png',64,64);
-    this.load.spritesheet('buttonfire', 'assets/img/buttons/button-round-a.png',96,96);
-    this.load.spritesheet('buttonjump', 'assets/img/buttons/button-round-b.png',96,96);
-
-    //LEVEL
-//    this.load.image('bg1', 'assets/backgrounds/bg1.png');
-//    this.load.image('bg2', 'assets/backgrounds/bg2.png');
-    this.load.image('bg1', 'assets/backgrounds/cloudsBackground.png');
-    this.load.image('ground', 'assets/backgrounds/ground.png');
-    this.load.image('treesMountain1', 'assets/backgrounds/treesMountain.png');
+    // this.load.spritesheet('buttonvertical', 'assets/img/buttons/button-vertical.png',64,64);
+    // this.load.spritesheet('buttonhorizontal', 'assets/img/buttons/button-horizontal.png',96,64);
+    // this.load.spritesheet('buttondiagonal', 'assets/img/buttons/button-diagonal.png',64,64);
+    // this.load.spritesheet('buttonfire', 'assets/img/buttons/button-round-a.png',96,96);
+    // this.load.spritesheet('buttonjump', 'assets/img/buttons/button-round-b.png',96,96);
 
   },
   create: function() {
@@ -9279,13 +9283,13 @@ var phaseSlider = require('../plugins/phase-slide.js');
       this.sliderWidth2 = this.sliderWidth / 2;
       this.sliderHeight2 = this.sliderHeight / 2;
 
-      this.AEG_C_IV_Skin_1 = this.game.add.image(this.sliderWidth2,this.sliderHeight2,"airplanes","Airplanes/AEG_C_IV/Skin_1/default");
+      this.AEG_C_IV_Skin_1 = this.game.add.image(this.sliderWidth2,this.sliderHeight2,"airplanes","Airplanes/AEG_C_IV/Skin_1/default_big");
       this.AEG_C_IV_Skin_1.anchor.setTo(-0.5, 0.5);
-      this.AEG_C_IV_Skin_2 = this.game.add.image(this.sliderWidth2,this.sliderHeight2,"airplanes","Airplanes/AEG_C_IV/Skin_2/default");
+      this.AEG_C_IV_Skin_2 = this.game.add.image(this.sliderWidth2,this.sliderHeight2,"airplanes","Airplanes/AEG_C_IV/Skin_2/default_big");
       this.AEG_C_IV_Skin_2.anchor.setTo(-0.5, 0.5);
-      this.Fokker_Skin_1 = this.game.add.image(this.sliderWidth2,this.sliderHeight2,"airplanes","Airplanes/Fokker/Skin_1/default");
+      this.Fokker_Skin_1 = this.game.add.image(this.sliderWidth2,this.sliderHeight2,"airplanes","Airplanes/Fokker/Skin_1/default_big");
       this.Fokker_Skin_1.anchor.setTo(-0.5, 0.5);
-      this.Fokker_Skin_2 = this.game.add.image(this.sliderWidth2,this.sliderHeight2,"airplanes","Airplanes/Fokker/Skin_2/default");
+      this.Fokker_Skin_2 = this.game.add.image(this.sliderWidth2,this.sliderHeight2,"airplanes","Airplanes/Fokker/Skin_2/default_big");
       this.Fokker_Skin_2.anchor.setTo(-0.5, 0.5);
 
       this.planeArray = [this.AEG_C_IV_Skin_1, this.AEG_C_IV_Skin_2, this.Fokker_Skin_1, this.Fokker_Skin_2];
@@ -9311,7 +9315,7 @@ var phaseSlider = require('../plugins/phase-slide.js');
       this.acceptButton.inputEnabled = true;
       this.acceptButton.events.onInputDown.add(function (e, pointer) {
         var index = this.slider.getCurrentIndex();
-        GlobalGame.player = this.planeArray[index].frameName;
+        GlobalGame.player = this.planeArray[index].frameName.replace("_big", "");
         this.game.state.start('play');
       },this);
 
@@ -9347,7 +9351,7 @@ module.exports = SelectPlane;
   function Settings() {}
   Settings.prototype = {
     preload: function() {
-      // Override this method to add some load operations.
+      // Override this method to add some load operations. 
       // If you need to use the loader, you may need to use them here.
     },
     create: function() {
@@ -9370,7 +9374,7 @@ module.exports = SelectPlane;
       // Put render operations here.
     },
     shutdown: function() {
-      // This method will be called when the state is shut down
+      // This method will be called when the state is shut down 
       // (i.e. you switch to another state from this one).
     }
   };

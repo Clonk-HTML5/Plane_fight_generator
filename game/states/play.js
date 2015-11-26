@@ -36,7 +36,7 @@
         console.log(this.currentLevel)
 
         this.level = new Level(this.game, {currentLevel: this.currentLevel});
-        this.level.scale.setTo(GlobalGame.scale+GlobalGame.scale+0.1);
+        // this.level.scale.setTo(GlobalGame.scale+GlobalGame.scale+0.1);
 
         // Create a new bird object
         this.birdGroup = new BirdGroup(this.game);

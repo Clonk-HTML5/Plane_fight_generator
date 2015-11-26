@@ -27,19 +27,19 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
 
     this.emitter.gravity = 50;
     this.emitter.setAlpha(1, 0, 3000);
-    this.emitter.setScale(0.08, 0, 0.08, 0, 3000);
+    // this.emitter.setScale(0.08, 0, 0.08, 0, 3000);
     this.emitter.particleAnchor = new Phaser.Point(0.2, 0.5);
 
         this.bullets = this.game.add.group();
         this.bullets.enableBody = true;
         this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
-        this.bullets.createMultiple(500, 'sprites', 'sprites/bullet2');
+        this.bullets.createMultiple(500, 'sprites', 'sprites/bullets/bullet_2');
         this.bullets.setAll('anchor.x', 0.5);
         this.bullets.setAll('anchor.y', 1);
         this.bullets.setAll('checkWorldBounds', true);
         this.bullets.setAll('outOfBoundsKill', true);
-        this.bullets.setAll('scale.x', 0.5);
-        this.bullets.setAll('scale.y', 0.5);
+        // this.bullets.setAll('scale.x', 0.5);
+        // this.bullets.setAll('scale.y', 0.5);
         this.bulletTime = 0;
 
         // this.bringToTop();
@@ -52,7 +52,8 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
         this.TURN_RATE = 3; // turn rate in degrees/frame
 //        this.scale.setTo(0.6, 0.6);
 //        this.scale.x *= -1;
-        this.scaleFactor = new Phaser.Point(0.5, 0.5);
+        // this.scaleFactor = new Phaser.Point(0.5, 0.5);
+        this.scaleFactor = new Phaser.Point(1, 1);
 
         this.scale.setTo(this.scaleFactor.x, this.scaleFactor.y);
         this.anchor.setTo(0.5, 0.5);
@@ -190,7 +191,8 @@ EnemyPlane.prototype.fireBullet = function() {
 //                bullet.body.velocity.copyFrom(this.game.physics.arcade.velocityFromAngle(this.plane.angle, 1000))
 //                bullet.rotation = this.plane.rotation + this.game.math.degToRad(90);
             bullet.lifespan = 2000;
-             bullet.rotation = this.rotation + this.game.math.degToRad(90);
+            //  bullet.rotation = this.rotation + this.game.math.degToRad(90);
+             bullet.rotation = this.rotation;
             this.game.physics.arcade.velocityFromRotation(this.rotation, 1000, bullet.body.velocity);
             this.bulletTime = this.game.time.now + 250;
 //                gameInitializer.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.plane.angle});
@@ -213,13 +215,13 @@ EnemyPlane.prototype.fireBullet = function() {
 
         if(plane.health < 15){
           this.emitter.start(false, 3000, 5);
-          plane.frameName = "Airplanes/AEG_C_IV/Skin_1/default_damaged";
+          plane.frameName = GlobalGame.enemy.replace('default', 'default_damaged');
         } else if (plane.health < 10) {
           // var particleBaseName = 'sprites/particles/black_smoke/blackSmoke';
           // this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
-          plane.frameName = "Airplanes/AEG_C_IV/Skin_1/attack_damaged_1";
+          plane.frameName = GlobalGame.enemy.replace('default', 'attack_damaged_1');
         } else if (plane.health < 5) {
-          plane.frameName = "Airplanes/AEG_C_IV/Skin_1/attack_damaged_2";
+          plane.frameName = GlobalGame.enemy.replace('default', 'attack_damaged_2');
         }
 
         if(plane.health < 1){
