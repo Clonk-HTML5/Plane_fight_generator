@@ -1605,7 +1605,7 @@ HealthBar.prototype.drawHealthBar = function() {
   bmd.ctx.rect(0, 0, this.config.width, this.config.height);
   bmd.ctx.fill();
 
-  this.barSprite = this.game.add.sprite(this.x - this.bgSprite.width/2 + 17, this.y, bmd);
+  this.barSprite = this.game.add.sprite(this.x - this.bgSprite.width/2, this.y, bmd);
   this.barSprite.anchor.y = 0.5;
 
   if(this.flipped){
@@ -6661,43 +6661,43 @@ var Level = function(game, options) {
 //  this.bgtile.fixedToCamera = true;
   this.bgtile.autoScroll(50, 0);
   this.add(this.bgtile);
-  
+
   // this.mountaintile = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.cache.getImage('treesMountain1').height, 'treesMountain1');
   this.mountaintile = this.game.add.tileSprite(0, 0, this.game.world.width, this.worldHeight, 'sprites', 'level/level_1/treesMountain');
 //  this.mountaintile.fixedToCamera = true;
   this.add(this.mountaintile);
 
-  var maxElements = 20;
-
-  for (var i = 0; i < maxElements; i++) {
-    this.clouds = this.game.add.sprite(this.game.rnd.integerInRange(0, this.game.world.width), this.game.rnd.integerInRange(0, this.game.world.height - 400), 'sprites', 'level/cloud_fluffy_1');
-    if (this.game.device.desktop) {
-      this.clouds.anchor.setTo(0.5, 0);
-      // Kill the cloud when out of bounds
-      this.clouds.checkWorldBounds = true;
-      this.clouds.outOfBoundsKill = true;
-
-      // Move clouds
-      this.game.physics.arcade.enableBody(this.clouds);
-      this.clouds.body.allowGravity = false;
-      this.clouds.body.velocity.x = -this.game.rnd.integerInRange(15, 30);
-    }
-
-    this.clouds2 = this.game.add.sprite(this.game.rnd.integerInRange(0, this.game.world.width), this.game.rnd.integerInRange(0, this.game.world.height - 400), 'sprites', 'level/cloud_fluffy_2');
-    if (this.game.device.desktop) {
-      this.clouds2.anchor.setTo(0.5, 0);
-      // Kill the cloud when out of bounds
-      this.clouds2.checkWorldBounds = true;
-      this.clouds2.outOfBoundsKill = true;
-
-      // Move clouds
-      this.game.physics.arcade.enableBody(this.clouds2);
-      this.clouds2.body.allowGravity = false;
-      this.clouds2.body.velocity.x = -this.game.rnd.integerInRange(15, 30);
-    }
-  }
-  this.add(this.clouds);
-  this.add(this.clouds2);
+  // var maxElements = 20;
+  //
+  // for (var i = 0; i < maxElements; i++) {
+  //   this.clouds = this.game.add.sprite(this.game.rnd.integerInRange(0, this.game.world.width), this.game.rnd.integerInRange(0, this.game.world.height - 400), 'sprites', 'level/cloud_fluffy_1');
+  //   if (this.game.device.desktop) {
+  //     this.clouds.anchor.setTo(0.5, 0);
+  //     // Kill the cloud when out of bounds
+  //     this.clouds.checkWorldBounds = true;
+  //     this.clouds.outOfBoundsKill = true;
+  //
+  //     // Move clouds
+  //     this.game.physics.arcade.enableBody(this.clouds);
+  //     this.clouds.body.allowGravity = false;
+  //     this.clouds.body.velocity.x = -this.game.rnd.integerInRange(15, 30);
+  //   }
+  //
+  //   this.clouds2 = this.game.add.sprite(this.game.rnd.integerInRange(0, this.game.world.width), this.game.rnd.integerInRange(0, this.game.world.height - 400), 'sprites', 'level/cloud_fluffy_2');
+  //   if (this.game.device.desktop) {
+  //     this.clouds2.anchor.setTo(0.5, 0);
+  //     // Kill the cloud when out of bounds
+  //     this.clouds2.checkWorldBounds = true;
+  //     this.clouds2.outOfBoundsKill = true;
+  //
+  //     // Move clouds
+  //     this.game.physics.arcade.enableBody(this.clouds2);
+  //     this.clouds2.body.allowGravity = false;
+  //     this.clouds2.body.velocity.x = -this.game.rnd.integerInRange(15, 30);
+  //   }
+  // }
+  // this.add(this.clouds);
+  // this.add(this.clouds2);
 
     this.platforms = this.game.add.group();
 //    this.groundtile = this.game.add.tileSprite(0, this.game.world.height - 132, this.game.world.width, this.game.cache.getImage('bg1').height, 'sprites', 'level/crosssection_long_new');
@@ -6822,7 +6822,7 @@ var PausePanel = function(game, parent){
 
 		// Add the panel
 		this.panel = this.create(this.game.width/2, 10, 'sprites', 'menu/paused');
-		this.panel.anchor.setTo(0.5, 0);
+		this.panel.anchor.setTo(0.5, 0,5);
         this.panel.fixedToCamera = true;
 
 		// Add text
@@ -6993,7 +6993,7 @@ var Player = function(game, x, y,frame) {
     //   this.healthHUD.bar.anchor.setTo(0.5, 0.5);
 
     this.healthBarGroup = this.game.add.group();
-    this.healthBar = new HealthBar(this.game, {x: 151, y: 74, width: 143, height:34, bg: {color: '#A87436'}, bar:{color: '#EB3B3B'}});
+    this.healthBar = new HealthBar(this.game, {x: 151, y: 70, width: 99, height:17, bg: {color: '#A87436'}, bar:{color: '#EB3B3B'}});
     this.healthBarOverlay = this.game.add.sprite(50, 50, "sprites", "HUD/healthBar");
     this.healthBar.bgSprite.fixedToCamera = true;
     this.healthBar.barSprite.fixedToCamera = true;
@@ -7108,26 +7108,13 @@ Player.prototype.update = function() {
 
             this.body.angularVelocity = 0;
 
-            /**
-             * Cursor functions starts
-             */
             if (this.cursors.left.isDown || this.cursors.up.isDown || this.planeUpEventStarted) {
-    //            this.body.rotateLeft(100);
                 this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed, this.body.velocity);
-    //            this.game.physics.arcade.accelerationFromRotation(this.rotation, this.angleSpeed, this.body.acceleration);
                 this.body.angularVelocity -= this.angularVeloctitySpeed;
 
-                // Invert scale.y to flip up/down
-    //            if(this.scale.y > 0)
-    //                this.scale.y *= -1;
             } else if (this.cursors.right.isDown || this.cursors.down.isDown || this.planeDownEventStarted) {
                 this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed, this.body.velocity);
-    //            this.game.physics.arcade.accelerationFromRotation(this.rotation, this.angleSpeed, this.body.acceleration);
                 this.body.angularVelocity += this.angularVeloctitySpeed;
-
-    //            this.body.rotateRight(100);
-    //            if(this.scale.y < 0)
-    //                this.scale.y *= 1;
             }
             if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) || this.fireBulletEventStarted){
                 this.fireBullet();
@@ -7136,13 +7123,6 @@ Player.prototype.update = function() {
 
         }
         else if(GlobalGame.controller === 'touch'){
-//            console.log(this.game.input.activePointer.isDown)
-//            if (this.game.input.activePointer.isDown){
-//                this.flap();
-//            }
-            // if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
-            //   this.animations.play('hit', 5, false);
-            // }
 
             if(this.flyLoop){
                 this.fireBullet();
@@ -7163,22 +7143,17 @@ Player.prototype.update = function() {
 
                 if (this.rotation !== targetAngle) {
                     this.game.input.onDown.remove(this.flap, this);
-                            // Calculate difference between the current angle and targetAngle
                         var delta = targetAngle - this.rotation;
 
-                        // Keep it in range from -180 to 180 to make the most efficient turns.
                         if (delta > Math.PI) delta -= this.PI2;
                         if (delta < -Math.PI) delta += this.PI2;
 
                         if (delta > 0) {
-                            // Turn clockwise
                             this.angle += this.TURN_RATE;
                         } else {
-                            // Turn counter-clockwise
                             this.angle -= this.TURN_RATE;
                         }
 
-                        // Just set angle to target angle if they are close
                         if (Math.abs(delta) < this.game.math.degToRad(this.TURN_RATE)) {
                             this.rotation = targetAngle;
                             this.scaleTween = this.game.add.tween(this.scale).to({x: this.tweenScaleFactor.x, y: this.tweenScaleFactor.y}, 500, Phaser.Easing.Back.Out, true).start();
@@ -7192,25 +7167,8 @@ Player.prototype.update = function() {
             }
         }
 
-
-        //if plane falls rotatet right
         this.rotation = Math.atan2(this.body.velocity.y, this.body.velocity.x);
-//        this.rotation = this.body.angle;
 
-//        this.game.physics.arcade.accelerationFromRotation(this.rotation, 200, this.body.acceleration);
-
-//        if(this.body.rotation > -130 && this.body.rotation < -80){
-////            this.body.gravity.y = 300;
-////            this.body.velocity.setTo(this.body.velocity.x, 100);
-//            this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed-100, this.body.velocity);
-//        }
-//        if(this.body.rotation > 80 && this.body.rotation < 130){
-////            this.body.gravity.y = 50;
-////            this.body.velocity.setTo(this.body.velocity.x, 300);
-//             this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed+100, this.body.velocity);
-//        }
-
-    // if(this.game.device.desktop){
         var px = this.body.velocity.x;
         var py = this.body.velocity.y;
 
@@ -7222,7 +7180,6 @@ Player.prototype.update = function() {
 
         this.emitter.emitX = this.x;
         this.emitter.emitY = this.y;
-    // }
 
         if(GlobalGame.Multiplayer.socket)
             GlobalGame.Multiplayer.socket.emit("move player", {x: this.x, y:this.y, angle: this.angle});
@@ -7235,7 +7192,6 @@ Player.prototype.update = function() {
      * @param player player collides
      */
     Player.prototype.shootPlayer = function (plane, bullet) {
-        // Removes the star from the screen
         bullet.kill();
 
         plane.playerLoseHealth(plane);
@@ -7253,16 +7209,11 @@ Player.prototype.update = function() {
 
             if (bullet)
             {
-                // bullet.reset(this.body.x + this.body.width2, this.body.y + this.body.height/2);
                 bullet.reset(this.x, this.y);
-//                bullet.body.velocity.copyFrom(this.game.physics.arcade.velocityFromAngle(this.plane.angle, 1000))
-//                bullet.rotation = this.plane.rotation + this.game.math.degToRad(90);
                 bullet.lifespan = 2000;
-                //  bullet.rotation = this.rotation + this.game.math.degToRad(90);
                  bullet.rotation = this.rotation;
                 this.game.physics.arcade.velocityFromRotation(this.rotation, 1000, bullet.body.velocity);
                 this.bulletTime = this.game.time.now + 125;
-//                gameInitializer.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.plane.angle});
                 if(GlobalGame.Multiplayer.socket)
                     GlobalGame.Multiplayer.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
             }
@@ -7355,13 +7306,10 @@ Player.prototype.update = function() {
     Player.prototype.playerLoseHealth = function (plane) {
         if(plane.health >= 0) {
           this.hitAnimation.play('hit', 10, false);
-          // plane.tint = Math.random() * 0xffffff;
-          // var lightningTween = this.game.add.tween(plane).to({tint: 0xCCFFFF}, 1000, Phaser.Easing.Exponential.Out, true, 0, 0, true);
-          // lightningTween.onComplete.add(function(){plane.tint = 0xffffff}, this);
 
-  //        gameInitializer.socket.emit("bullet hit player", {playerId: plane.name});
           if(GlobalGame.Multiplayer.socket)
-              GlobalGame.Multiplayer.socket.emit("bullet hit player", {playerId: this.name});
+              GlobalGame.Multiplayer.socket.emit("bullet hit player", {playerId: plane.name});
+
           plane.health -= 1;
 
           this.healthBar.setPercent(plane.health / plane.fullHealth * 100);
@@ -7596,53 +7544,44 @@ module.exports = Solider;
 'use strict';
 
 var Bird = function(game, x, y, frame) {
-  Phaser.Sprite.call(this, game, x, y, 'birdie', frame);
+  Phaser.Sprite.call(this, game, x, y, 'sprites', 'sprites/birds/bird_1');
 
-  // initialize your prefab here
-    
-    //  Here we'll create 12 of them evenly spaced apart  
-//        this = this.create(Math.random() * game.world.width, Math.random() * (game.world.height - 250), 'birdie');
         game.physics.enable(this, Phaser.Physics.ARCADE);
-        this.scale.setTo(0.15, 0.15);
-        //  Bird physics properties.
         this.body.bounce.y = 0.2;
-    //            bird.body.collideWorldBounds = true;
+//      bird.body.collideWorldBounds = true;
 
         this.angle = 0
         this.anchor.setTo(0.5,0.5);
-        this.scale.x *= -1;
-        this.animations.add('fly');
+        // this.scale.x *= -1;
+
+        this.flyAnimation = this.animations.add('fly', [
+            'sprites/birds/bird_1',
+            'sprites/birds/bird_2'
+        ], 10);
+        this.flyAnimation.play(10, true);
         this.events.onOutOfBounds.add(this.birdLeft, this);
-  
+
 };
 
 Bird.prototype = Object.create(Phaser.Sprite.prototype);
 Bird.prototype.constructor = Bird;
 
 Bird.prototype.update = function() {
-  
-  // write your prefab's specific update code here
-    		//  Collide the Bird and the stars with the platforms
-//    	this.game.physics.arcade.collide(this.birds, level.platforms);
-//        
-                this.body.velocity.x = Math.random() * 100;
-                this.animations.play('fly', 8, true);
-  
+    this.body.velocity.x = Math.random() * 100;
 };
 
 Bird.prototype.birdLeft = function() {
-            console.log(this)
             this.speed += 1;
             this.y += 4;
 
             if (this.body.facing === Phaser.LEFT)
             {
-                this.scale.x *= 1;
+                this.scale.x *= -1;
                 this.body.velocity.x = this.speed;
             }
             else
             {
-                this.scale.x *= -1;
+                this.scale.x *= 1;
                 this.body.velocity.x = -this.speed;
             }
 

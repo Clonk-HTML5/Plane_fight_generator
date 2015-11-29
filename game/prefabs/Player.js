@@ -121,7 +121,7 @@ var Player = function(game, x, y,frame) {
     //   this.healthHUD.bar.anchor.setTo(0.5, 0.5);
 
     this.healthBarGroup = this.game.add.group();
-    this.healthBar = new HealthBar(this.game, {x: 151, y: 74, width: 143, height:34, bg: {color: '#A87436'}, bar:{color: '#EB3B3B'}});
+    this.healthBar = new HealthBar(this.game, {x: 151, y: 70, width: 99, height:17, bg: {color: '#A87436'}, bar:{color: '#EB3B3B'}});
     this.healthBarOverlay = this.game.add.sprite(50, 50, "sprites", "HUD/healthBar");
     this.healthBar.bgSprite.fixedToCamera = true;
     this.healthBar.barSprite.fixedToCamera = true;
@@ -236,26 +236,13 @@ Player.prototype.update = function() {
 
             this.body.angularVelocity = 0;
 
-            /**
-             * Cursor functions starts
-             */
             if (this.cursors.left.isDown || this.cursors.up.isDown || this.planeUpEventStarted) {
-    //            this.body.rotateLeft(100);
                 this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed, this.body.velocity);
-    //            this.game.physics.arcade.accelerationFromRotation(this.rotation, this.angleSpeed, this.body.acceleration);
                 this.body.angularVelocity -= this.angularVeloctitySpeed;
 
-                // Invert scale.y to flip up/down
-    //            if(this.scale.y > 0)
-    //                this.scale.y *= -1;
             } else if (this.cursors.right.isDown || this.cursors.down.isDown || this.planeDownEventStarted) {
                 this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed, this.body.velocity);
-    //            this.game.physics.arcade.accelerationFromRotation(this.rotation, this.angleSpeed, this.body.acceleration);
                 this.body.angularVelocity += this.angularVeloctitySpeed;
-
-    //            this.body.rotateRight(100);
-    //            if(this.scale.y < 0)
-    //                this.scale.y *= 1;
             }
             if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) || this.fireBulletEventStarted){
                 this.fireBullet();
@@ -264,13 +251,6 @@ Player.prototype.update = function() {
 
         }
         else if(GlobalGame.controller === 'touch'){
-//            console.log(this.game.input.activePointer.isDown)
-//            if (this.game.input.activePointer.isDown){
-//                this.flap();
-//            }
-            // if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
-            //   this.animations.play('hit', 5, false);
-            // }
 
             if(this.flyLoop){
                 this.fireBullet();
@@ -291,22 +271,17 @@ Player.prototype.update = function() {
 
                 if (this.rotation !== targetAngle) {
                     this.game.input.onDown.remove(this.flap, this);
-                            // Calculate difference between the current angle and targetAngle
                         var delta = targetAngle - this.rotation;
 
-                        // Keep it in range from -180 to 180 to make the most efficient turns.
                         if (delta > Math.PI) delta -= this.PI2;
                         if (delta < -Math.PI) delta += this.PI2;
 
                         if (delta > 0) {
-                            // Turn clockwise
                             this.angle += this.TURN_RATE;
                         } else {
-                            // Turn counter-clockwise
                             this.angle -= this.TURN_RATE;
                         }
 
-                        // Just set angle to target angle if they are close
                         if (Math.abs(delta) < this.game.math.degToRad(this.TURN_RATE)) {
                             this.rotation = targetAngle;
                             this.scaleTween = this.game.add.tween(this.scale).to({x: this.tweenScaleFactor.x, y: this.tweenScaleFactor.y}, 500, Phaser.Easing.Back.Out, true).start();
@@ -320,25 +295,8 @@ Player.prototype.update = function() {
             }
         }
 
-
-        //if plane falls rotatet right
         this.rotation = Math.atan2(this.body.velocity.y, this.body.velocity.x);
-//        this.rotation = this.body.angle;
 
-//        this.game.physics.arcade.accelerationFromRotation(this.rotation, 200, this.body.acceleration);
-
-//        if(this.body.rotation > -130 && this.body.rotation < -80){
-////            this.body.gravity.y = 300;
-////            this.body.velocity.setTo(this.body.velocity.x, 100);
-//            this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed-100, this.body.velocity);
-//        }
-//        if(this.body.rotation > 80 && this.body.rotation < 130){
-////            this.body.gravity.y = 50;
-////            this.body.velocity.setTo(this.body.velocity.x, 300);
-//             this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed+100, this.body.velocity);
-//        }
-
-    // if(this.game.device.desktop){
         var px = this.body.velocity.x;
         var py = this.body.velocity.y;
 
@@ -350,7 +308,6 @@ Player.prototype.update = function() {
 
         this.emitter.emitX = this.x;
         this.emitter.emitY = this.y;
-    // }
 
         if(GlobalGame.Multiplayer.socket)
             GlobalGame.Multiplayer.socket.emit("move player", {x: this.x, y:this.y, angle: this.angle});
@@ -363,7 +320,6 @@ Player.prototype.update = function() {
      * @param player player collides
      */
     Player.prototype.shootPlayer = function (plane, bullet) {
-        // Removes the star from the screen
         bullet.kill();
 
         plane.playerLoseHealth(plane);
@@ -381,16 +337,11 @@ Player.prototype.update = function() {
 
             if (bullet)
             {
-                // bullet.reset(this.body.x + this.body.width2, this.body.y + this.body.height/2);
                 bullet.reset(this.x, this.y);
-//                bullet.body.velocity.copyFrom(this.game.physics.arcade.velocityFromAngle(this.plane.angle, 1000))
-//                bullet.rotation = this.plane.rotation + this.game.math.degToRad(90);
                 bullet.lifespan = 2000;
-                //  bullet.rotation = this.rotation + this.game.math.degToRad(90);
                  bullet.rotation = this.rotation;
                 this.game.physics.arcade.velocityFromRotation(this.rotation, 1000, bullet.body.velocity);
                 this.bulletTime = this.game.time.now + 125;
-//                gameInitializer.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.plane.angle});
                 if(GlobalGame.Multiplayer.socket)
                     GlobalGame.Multiplayer.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
             }
@@ -483,13 +434,10 @@ Player.prototype.update = function() {
     Player.prototype.playerLoseHealth = function (plane) {
         if(plane.health >= 0) {
           this.hitAnimation.play('hit', 10, false);
-          // plane.tint = Math.random() * 0xffffff;
-          // var lightningTween = this.game.add.tween(plane).to({tint: 0xCCFFFF}, 1000, Phaser.Easing.Exponential.Out, true, 0, 0, true);
-          // lightningTween.onComplete.add(function(){plane.tint = 0xffffff}, this);
 
-  //        gameInitializer.socket.emit("bullet hit player", {playerId: plane.name});
           if(GlobalGame.Multiplayer.socket)
-              GlobalGame.Multiplayer.socket.emit("bullet hit player", {playerId: this.name});
+              GlobalGame.Multiplayer.socket.emit("bullet hit player", {playerId: plane.name});
+
           plane.health -= 1;
 
           this.healthBar.setPercent(plane.health / plane.fullHealth * 100);

@@ -7,7 +7,7 @@ var PausePanel = function(game, parent){
 
 		// Add the panel
 		this.panel = this.create(this.game.width/2, 10, 'sprites', 'menu/paused');
-		this.panel.anchor.setTo(0.5, 0);
+		this.panel.anchor.setTo(0.5, 0,5);
         this.panel.fixedToCamera = true;
 
 		// Add text

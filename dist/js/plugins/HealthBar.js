@@ -88,7 +88,7 @@ HealthBar.prototype.drawHealthBar = function() {
   bmd.ctx.rect(0, 0, this.config.width, this.config.height);
   bmd.ctx.fill();
 
-  this.barSprite = this.game.add.sprite(this.x - this.bgSprite.width/2 + 17, this.y, bmd);
+  this.barSprite = this.game.add.sprite(this.x - this.bgSprite.width/2, this.y, bmd);
   this.barSprite.anchor.y = 0.5;
 
   if(this.flipped){
