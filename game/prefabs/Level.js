@@ -8,7 +8,7 @@ var Level = function(game, options) {
 
   this.spriteSheet = this.game.cache.getFrameData("sprites");
   this.worldHeight = this.spriteSheet.getFrameByName("level/level_1/cloudsBackground").height;
-  this.game.world.setBounds(0 , 0, 4000, this.worldHeight);
+  this.game.world.setBounds(0 , 0, 3000, this.worldHeight);
 
   this.bgtile = this.game.add.tileSprite(0, 0, this.game.world.width, this.worldHeight, 'sprites', 'level/level_1/cloudsBackground');
 //  this.bgtile.fixedToCamera = true;

@@ -4,10 +4,10 @@
   var Player = require('../prefabs/Player');
   var EnemyGroup = require('../prefabs/EnemyGroup');
   var Level = require('../prefabs/Level');
-  var Level_old = require('../prefabs/Level_old');
   var PausePanel = require('../prefabs/PausePanel');
   var BasicLayer = require('../prefabs/BasicLayer');
-  var GameController = require('../plugins/GameController');
+  // var Level_old = require('../prefabs/Level_old');
+  // var GameController = require('../plugins/GameController');
   // var HUDManager = require('../plugins/HUDManager');
 
   function Play() {}
@@ -119,8 +119,8 @@
 
         this.game.add.existing(this.player);
         if(!this.player.alive){
-            this.player.x = 400;
-            this.player.y = 400;
+            this.player.x = this.currentLevel.playerStart.x
+            this.player.y = this.currentLevel.playerStart.y;
             this.player.body.velocity.setTo(300, 0);
             this.player.revive(5);
 //            this.player.bullets.reverse();
@@ -184,11 +184,8 @@
       }
     },
 
-    // And finally the method that handels the pause menu
     unpause: function(event){
-        // Only act if paused
         if(this.game.paused){
-            // Calculate the corners of the menu
             var w = this.game.width,
                 h = this.game.height,
                 x1 = w/2 - 260/2, x2 = w/2 + 245/2,
@@ -229,7 +226,7 @@
      */
     shutdown: function() {
         this.currentTimer.remove();
-        this.zoomTo(1);
+        // this.zoomTo(1);
     }
 
   };

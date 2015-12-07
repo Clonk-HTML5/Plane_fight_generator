@@ -1,8 +1,9 @@
 'use strict';
 
 //  var Hammer = require('../plugins/Hammer');
-  var BasicLayer = require('../prefabs/BasicLayer');
-  var Gesture = require('../plugins/Gesture');
+  // var BasicLayer = require('../prefabs/BasicLayer');
+  var DefeatWindow = require('../prefabs/DefeatWindow');
+  // var Gesture = require('../plugins/Gesture');
   var HealthBar = require('../plugins/HealthBar.js');
 
 var Player = function(game, x, y,frame) {
@@ -101,7 +102,7 @@ var Player = function(game, x, y,frame) {
 //            if(this.name == GlobalGame.Multiplayer.socket.socket.sessionid)
 
           if(!this.name){
-              this.basicLayer = new BasicLayer(this.game, undefined, "Click to play again")
+              this.defeatWindow = new DefeatWindow(this.game, undefined)
           }
         }, this);
 
@@ -186,24 +187,6 @@ Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
 
 Player.prototype.update = function() {
-
-  if (this.cursors.up.isDown)
-  {
-      this.game.camera.y -= 4;
-  }
-  else if (this.cursors.down.isDown)
-  {
-      this.game.camera.y += 4;
-  }
-
-  if (this.cursors.left.isDown)
-  {
-      this.game.camera.x -= 4;
-  }
-  else if (this.cursors.right.isDown)
-  {
-      this.game.camera.x += 4;
-  }
 
   // this.gestures.update();
 

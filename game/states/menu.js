@@ -40,8 +40,13 @@ Menu.prototype = {
   startClick: function() {
     var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ x: this.game.width }, 1000, Phaser.Easing.Bounce.In, true);
     fadeMenuOut.onComplete.add(function() {
-//        this.game.state.start('play');
-        this.game.state.start('missions');
+        if(!localStorage.getItem('tutorial_played')){
+          // localStorage.setItem('tutorial_played', 1);
+          this.game.state.start('tutorial');
+        } else {
+          this.game.state.start('missions');
+        }
+
     }, this);
   },
   multiplayerStartClick: function() {

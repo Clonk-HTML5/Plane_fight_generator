@@ -25,17 +25,12 @@ Preload.prototype = {
     this.load.setPreloadSprite(this.asset);
 
     //all Sprites
-    this.load.atlasJSONHash('sprites', 'assets/sprites.png', 'assets/sprites.json');
-    this.load.atlasJSONHash('airplanes', 'assets/airplanes.png', 'assets/airplanes.json');
-    this.load.atlasJSONHash('soliders', 'assets/soliders.png', 'assets/soliders.json');
-    this.load.atlasJSONHash('flak', 'assets/flak.png', 'assets/flak.json');
-    // this.load.atlasJSONHash('sprites1', 'assets/sprites1.png', 'assets/sprites1.json');
-    // this.load.atlasJSONHash('sprites2', 'assets/sprites2.png', 'assets/sprites2.json');
+    this.load.atlasJSONHash('sprites', 'assets/spritesheets/sprites.png', 'assets/spritesheets/sprites.json');
+    this.load.atlasJSONHash('airplanes', 'assets/spritesheets/airplanes.png', 'assets/spritesheets/airplanes.json');
+    this.load.atlasJSONHash('soliders', 'assets/spritesheets/soliders.png', 'assets/spritesheets/soliders.json');
+    this.load.atlasJSONHash('flak', 'assets/spritesheets/flak.png', 'assets/spritesheets/flak.json');
 
     this.load.json('levelJson', 'assets/levels/levels.json');
-
-    //BIRD
-    this.load.spritesheet('birdie', 'assets/img/sprites/bird.png', 189, 169, 3);
 
     //PLAYER Buttons
     // this.load.spritesheet('buttonvertical', 'assets/img/buttons/button-vertical.png',64,64);

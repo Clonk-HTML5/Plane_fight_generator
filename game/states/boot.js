@@ -9,7 +9,7 @@ GlobalGame = {
     /* Your game can check BasicGame.orientated in internal loops to know if it should pause or not */
     orientated: false,
 
-    player: null,
+    player: 'Airplanes/Fokker/Skin_1/default',
 
     enemy: 'Airplanes/Fokker/Skin_1/default',
 
@@ -56,8 +56,8 @@ function Boot() {
 
 Boot.prototype = {
   preload: function() {
-    this.load.image('preloader', 'assets/preloader.gif');
-    this.load.image('menu_bg', 'assets/backgrounds/menu.png');
+    this.load.image('preloader', 'assets/img/preloader.gif');
+    this.load.image('menu_bg', 'assets/img/menu.png');
   },
   create: function() {
     this.stage.backgroundColor = '#3498db';

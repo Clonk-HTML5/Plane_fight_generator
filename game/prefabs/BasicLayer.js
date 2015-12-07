@@ -1,84 +1,46 @@
 'use strict';
 
-var BasicLayer = function(game, parent, layerText) {
+var BasicLayer = function(game, parent, options) {
   Phaser.Group.call(this, game, parent);
 
-  // initialize your prefab here
+    var layerText = options.layerText ? options.layerText : "Welcome to the Tutorial!";
+    var subLayerText = options.subLayerText ? options.subLayerText : "Here you will learn how to play this game.";
 
-    // this.y = -1000;
+    this.b = this.game.add.bitmapData(this.game.width, this.game.height),
+    this.b.ctx.fillStyle = "#000",
+    this.b.ctx.fillRect(0, 0,  this.game.width, this.game.height);
 
-    this.layerText = layerText ? layerText : "Click to play";
+    this.c = this.create(0, 0, this.b);
+    this.c.fixedToCamera = true;
+    this.c.alpha = 0.5;
 
-   // Alpha Layer
-    // this.b = this.game.add.bitmapData(this.game.world.width, this.game.world.height),
-    // this.b.ctx.fillStyle = "#000",
-    // this.b.ctx.fillRect(0, 0,  this.game.world.width, this.game.world.height);
-    //
-    // this.c = this.game.add.sprite(0, 0, this.b);
-    // this.c.alpha = 0.5;
-    // this.add(this.c);
+    this.fontStyle = { font: "35px loudy_With_a_Chance_of_Love", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
+    this.smallerfontStyle = { font: "25px loudy_With_a_Chance_of_Love", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
+    this.layerText = this.game.add.text(this.game.width/2-200, this.game.height/2 - 100, layerText, this.fontStyle);
+    this.layerText.fixedToCamera = true;;
+    this.add(this.layerText);
+    this.subLayerText = this.game.add.text(this.game.width/2-230, this.game.height/2, subLayerText, this.smallerfontStyle);
+    this.subLayerText.fixedToCamera = true;;
+    this.add(this.subLayerText);
 
-    this.fontStyle = { font: "40px loudy_With_a_Chance_of_Love", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
-//    this.scoreText = this.game.add.text(this.game.width/2-200, this.game.height/2, this.layerText, this.fontStyle);
-//    this.add(this.scoreText);
-
-    this.defeatWindow = this.game.add.image(this.game.width / 2 , this.game.height / 2, 'sprites', 'menu/defeat_window');
-    // this.defeatWindow.x = this.game.width / 2 - this.defeatWindow.width/2;
-    // this.defeatWindow.y = this.game.height / 2 - (this.defeatWindow.height - 100);
-    this.defeatWindow.anchor.setTo(0.5, 0.5);
-    this.defeatWindow.fixedToCamera = true;
-    this.add(this.defeatWindow);
-
-    this.restartButton = this.game.add.button(-70, 100, 'sprites', this.restartClick, this, 'buttons/button_restart_act', 'buttons/button_restart_no', 'buttons/button_restart_act', 'buttons/button_restart_no');
-//    this.restartButton.anchor.setTo(0.5,0.5);
-    this.defeatWindow.addChild(this.restartButton);
-
-    this.menuButton = this.game.add.button(50, 100, 'sprites', this.menuClick, this, 'buttons/button_menu_act', 'buttons/button_menu_no', 'buttons/button_menu_act', 'buttons/button_menu_no');
-//    this.menuButton.anchor.setTo(0.5,0.5);
-    this.defeatWindow.addChild(this.menuButton);
-
-    //  this.game.add.tween(this).to({x:this.game.width / 2 ,y:this.game.width / 2}, 550, Phaser.Easing.Back.Out, true);
-
-    //  this.game.add.tween(this.defeatWindow).to({x:this.game.width / 2 ,y: this.game.height / 2}, 550, Phaser.Easing.Back.Out, true);
-    // console.log(this.game.camera.width)
-    // console.log(this.game.camera.width / 2)
-    //  this.game.add.tween(this).to({x:this.game.camera.width / 2 - this.defeatWindow.width ,y:this.game.camera.height / 2}, 550, Phaser.Easing.Back.Out, true);
-//            basicLayerTween._lastChild.onComplete.add(function(){this.game.paused = true;}, this.game.state.getCurrentState());
-
-    // set event listener for the user's click/tap the screen
-//		this.game.input.onDown.add(function(){
-//            console.log(this)
-//            this.game.state.getCurrentState().createPlayers();
-//            this.destroy();
-//		}, this);
+		this.game.input.onDown.addOnce(function(){
+      this.hide(true);
+		}, this);
 
 };
 
 BasicLayer.prototype = Object.create(Phaser.Group.prototype);
 BasicLayer.prototype.constructor = BasicLayer;
 
-BasicLayer.prototype.update = function() {
-
-//    if(this.game.input.activePointer.justPressed()) {
-//      this.game.state.getCurrentState().createPlayers();
-//      this.destroy();
-//      this.removeAll();
-//    }
-
-  // write your prefab's specific update code here
-
+BasicLayer.prototype.show = function () {
+  this.y = 0;
 };
 
-BasicLayer.prototype.restartClick = function () {
-      // this.game.state.getCurrentState().createPlayers();
-      // this.destroy();
-      this.game.state.restart();
-//      this.removeAll();
-};
-BasicLayer.prototype.menuClick = function () {
-//    this.destroy();
-//    this.removeAll();
-    this.game.state.start('menu',true,false);
+BasicLayer.prototype.hide = function (createPlayers) {
+  if(createPlayers) {
+    this.game.state.getCurrentState().createPlayers();
+  }
+  this.y = -this.game.world.height;
 };
 
 module.exports = BasicLayer;

@@ -19,6 +19,7 @@ window.onload = function () {
   game.state.add('preload', require('./states/preload'));
   game.state.add('selectPlane', require('./states/selectPlane'));
   game.state.add('settings', require('./states/settings'));
+  game.state.add('tutorial', require('./states/tutorial'));
   
 
   game.state.start('boot');
