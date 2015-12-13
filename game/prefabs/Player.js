@@ -94,16 +94,18 @@ var Player = function(game, x, y,frame) {
         this.deadAnimation.onComplete.add(function() {
 
           this.deadAnimation.stop('explode');
-          this.kill();
-          if (this.game.device.desktop) this.emitter.kill();
-          this.frameName = "Airplanes/AEG_C_IV/Skin_1/default";
-          this.bullets.removeAll();
+          this.killPlayerAndAllProperties();
 
 //            if(this.name == GlobalGame.Multiplayer.socket.socket.sessionid)
 
-          if(!this.name){
-              this.defeatWindow = new DefeatWindow(this.game, undefined)
+          // if(!this.name){
+          if(this.game.state.getCurrentState().key === "tutorial") {
+            GlobalGame.tutorialPlayed = 1;
+            this.game.state.getCurrentState().restart(true, false);
+          } else {
+            this.defeatWindow = new DefeatWindow(this.game, undefined);
           }
+          // }
         }, this);
 
     /*******************
@@ -204,7 +206,7 @@ Player.prototype.update = function() {
         if (this.x > this.game.world.width) this.x = 0;
         if (this.x < 0) this.x = this.game.world.width;
 
-         this.game.physics.arcade.overlap(this, this.game.state.getCurrentState().level.platforms, this.playerLoseHealth, null, this);
+         this.game.physics.arcade.overlap(this, this.game.state.getCurrentState().level.platforms, this.runDeadAnimation, null, this);
 
         if(GlobalGame.Multiplayer.socketEventHandlers !== null){
             for(var i = 0; i < GlobalGame.Multiplayer.socketEventHandlers.enemies.length; i++){
@@ -351,7 +353,7 @@ Player.prototype.update = function() {
     Player.prototype.playerHitsSomething = function (plane, something) {
         something.kill();
         if(typeof something.parent.addBird === 'function') something.parent.addBird();
-        this.playerLoseHealth(plane);
+        this.playerLoseHealth(plane, something);
     };
 
     /**
@@ -415,35 +417,52 @@ Player.prototype.update = function() {
      * @param player player collides
      */
     Player.prototype.playerLoseHealth = function (plane) {
-        if(plane.health >= 0) {
-          this.hitAnimation.play('hit', 10, false);
+      if(plane.health >= 0) {
+        this.hitAnimation.play('hit', 10, false);
 
-          if(GlobalGame.Multiplayer.socket)
-              GlobalGame.Multiplayer.socket.emit("bullet hit player", {playerId: plane.name});
-
-          plane.health -= 1;
-
-          this.healthBar.setPercent(plane.health / plane.fullHealth * 100);
-
-          if(plane.health < 15){
-            this.emitter.start(false, 3000, 5);
-            plane.frameName = GlobalGame.player.replace('default', 'default_damaged');
-          } else if (plane.health < 10) {
-            // var particleBaseName = 'sprites/particles/black_smoke/blackSmoke';
-            // this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
-            plane.frameName = GlobalGame.player.replace('default', 'attack_damaged_1');
-          } else if (plane.health < 5) {
-            plane.frameName = GlobalGame.player.replace('default', 'attack_damaged_2');
-          }
-
-          if(plane.health < 1){
-              this.game.input.onDown.remove(this.flap, this);
-              plane.body.velocity.x = 0;
-              plane.body.velocity.y = 0;
-              plane.body.gravity.y = 700;
-              this.deadAnimation.play('explode', 10, false, true);
-          }
+        if(GlobalGame.Multiplayer.socket) {
+          GlobalGame.Multiplayer.socket.emit("bullet hit player", {playerId: plane.name});
         }
+
+        plane.health -= 1;
+
+        this.healthBar.setPercent(plane.health / plane.fullHealth * 100);
+
+        if(plane.health < 15){
+          this.emitter.start(false, 3000, 5);
+          plane.frameName = GlobalGame.player.replace('default', 'default_damaged');
+        } else if (plane.health < 10) {
+          // var particleBaseName = 'sprites/particles/black_smoke/blackSmoke';
+          // this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
+          plane.frameName = GlobalGame.player.replace('default', 'attack_damaged_1');
+        } else if (plane.health < 5) {
+          plane.frameName = GlobalGame.player.replace('default', 'attack_damaged_2');
+        }
+
+        if(plane.health < 1){
+          this.runDeadAnimation(plane);
+        }
+      }
+    };
+    /**
+    * player collides with enemy
+    * @param player player collides
+    */
+   Player.prototype.runDeadAnimation = function (plane) {
+     this.game.input.onDown.remove(this.flap, this);
+     this.deadAnimation.play('explode', 10, false, true);
+   };
+   
+    /**
+     * player collides with enemy
+     * @param enemy enemy collides
+     * @param player player collides
+     */
+    Player.prototype.killPlayerAndAllProperties = function () {
+        this.kill();
+        this.emitter.kill();
+        this.frameName = "Airplanes/AEG_C_IV/Skin_1/default";
+        this.bullets.removeAll();
     };
 
 module.exports = Player;

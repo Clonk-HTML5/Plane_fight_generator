@@ -81,6 +81,24 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
           playerDeathString+'3',
           playerDeathString+'4'
       ], 10, false, false);
+      
+    this.hitAnimation.onComplete.add(function() {
+        this.frameName = GlobalGame.enemy;
+    }, this);
+
+    this.deadAnimation.onComplete.add(function() {
+        this.deadAnimation.stop('explode');
+        this.kill();
+        this.emitter.kill();
+        this.frameName = "Airplanes/AEG_C_IV/Skin_1/default";
+        this.bullets.removeAll();
+        this.arrow.kill();
+        this.parent.currentWaveCountEnemiesLeft -= 1;
+        this.parent.addEnemy();
+    
+            if(this.player) this.player.kills += 1;
+
+    }, this);
 
 
     /*******************
@@ -115,7 +133,7 @@ EnemyPlane.prototype.update = function() {
 
     if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
         this.randomXPointInWorld = this.game.world.randomX;
-        this.randomYPointInWorld = this.game.world.randomY - 300;
+        this.randomYPointInWorld = this.game.world.randomY;
     }
 
     // Calculate the angle from the missile to the mouse cursor game.input.x
@@ -229,15 +247,6 @@ EnemyPlane.prototype.fireBullet = function() {
             plane.body.velocity.y = 0;
             plane.body.gravity.y = 700;
             this.deadAnimation.play('explode', 10, false, true);
-
-            if(this.player) this.player.kills += 1;
-
-            plane.kill();
-            if (this.game.device.desktop) plane.emitter.kill();
-            plane.bullets.removeAll();
-            plane.arrow.kill();
-            this.parent.currentWaveCountEnemiesLeft -= 1;
-            this.parent.addEnemy();
         }
       }
     };

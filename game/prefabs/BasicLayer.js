@@ -4,7 +4,7 @@ var BasicLayer = function(game, parent, options) {
   Phaser.Group.call(this, game, parent);
 
     var layerText = options.layerText ? options.layerText : "Welcome to the Tutorial!";
-    var subLayerText = options.subLayerText ? options.subLayerText : "Here you will learn how to play this game.";
+    var subLayerText = options.subLayerText ? options.subLayerText : "Here you will learn how to play this game. No Enemies !!! Just flying.";
 
     this.b = this.game.add.bitmapData(this.game.width, this.game.height),
     this.b.ctx.fillStyle = "#000",
@@ -16,11 +16,15 @@ var BasicLayer = function(game, parent, options) {
 
     this.fontStyle = { font: "35px loudy_With_a_Chance_of_Love", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
     this.smallerfontStyle = { font: "25px loudy_With_a_Chance_of_Love", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
-    this.layerText = this.game.add.text(this.game.width/2-200, this.game.height/2 - 100, layerText, this.fontStyle);
-    this.layerText.fixedToCamera = true;;
+    this.layerText = this.game.add.text(this.game.width/2, this.game.height/2 - 100, layerText, this.fontStyle);
+    this.layerText.anchor.set(0.5);
+    this.layerText.fixedToCamera = true;
     this.add(this.layerText);
-    this.subLayerText = this.game.add.text(this.game.width/2-230, this.game.height/2, subLayerText, this.smallerfontStyle);
-    this.subLayerText.fixedToCamera = true;;
+    this.subLayerText = this.game.add.text(this.game.width/2, this.game.height/2, subLayerText, this.smallerfontStyle);
+    this.subLayerText.fixedToCamera = true;
+    this.subLayerText.anchor.set(0.5);
+    this.subLayerText.wordWrap = true;
+    this.subLayerText.wordWrapWidth = this.game.width/2;
     this.add(this.subLayerText);
 
 		this.game.input.onDown.addOnce(function(){
@@ -34,6 +38,11 @@ BasicLayer.prototype.constructor = BasicLayer;
 
 BasicLayer.prototype.show = function () {
   this.y = 0;
+};
+
+BasicLayer.prototype.setOptions = function (options) {
+  this.layerText.setText(options.layerText);
+  this.subLayerText.setText(options.subLayerText);
 };
 
 BasicLayer.prototype.hide = function (createPlayers) {

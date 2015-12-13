@@ -41,8 +41,8 @@ Menu.prototype = {
     var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ x: this.game.width }, 1000, Phaser.Easing.Bounce.In, true);
     fadeMenuOut.onComplete.add(function() {
         if(!localStorage.getItem('tutorial_played')){
-          // localStorage.setItem('tutorial_played', 1);
-          this.game.state.start('tutorial');
+          localStorage.setItem('tutorial_played', 1);
+          this.game.state.start('help');
         } else {
           this.game.state.start('missions');
         }

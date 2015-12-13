@@ -19,6 +19,8 @@ GlobalGame = {
     // scale: 0.7,
     scale: 1,
 
+    tutorialPlayed: 0,
+
     /*
     * Controller of the Ship:
     *  **keyboardButtons (Keyboard on Desktop Buttons on Mobile)

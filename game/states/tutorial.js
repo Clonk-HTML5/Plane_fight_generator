@@ -21,16 +21,20 @@
       this.enemyGroup = new EnemyGroup(this.game, this.player, {currentLevel: this.currentLevel});
       this.enemyGroup.addEnemy();
 
-      this.basicLayer = new BasicLayer(this.game, undefined, {layerText:'Welcome to the Tutorial',subLayerText:'Here you will learn how to play this game.'})
-      // this.createPlayers();
+      if(!GlobalGame.tutorialPlayed) {
+        this.basicLayer = new BasicLayer(this.game, undefined, {layerText:'Welcome to the Tutorial',subLayerText:'Here you can practice how to play this game. Click on the right Side of the Screen to start.'})
+      } else {
+        this.createPlayers();
+      }
 
       this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'sprites', this.pauseGame, this, 'buttons/button_pause_act', 'buttons/button_pause_no', 'buttons/button_pause_act', 'buttons/button_pause_no');
       this.pauseButton.fixedToCamera = true;
       this.pauseButton.inputEnabled = true;
 
       this.pausePanel = new PausePanel(this.game);
-
-      this.game.input.onDown.add(this.unpause, this);
+      if(!GlobalGame.tutorialPlayed) {
+        this.game.input.onDown.add(this.unpause, this);
+      }
     },
     update: function() {
       this.enemyGroup.forEachAlive(function(enemy){

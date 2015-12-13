@@ -25,7 +25,7 @@ window.onload = function () {
 
   game.state.start('boot');
 };
-},{"./states/Level2":21,"./states/boot":22,"./states/gameover":23,"./states/help":24,"./states/menu":25,"./states/missions":26,"./states/multiplayerRoomDetailView":27,"./states/multiplayerRoomSelect":28,"./states/multiplayerUserSignIn":29,"./states/play":30,"./states/playMultiplayer":31,"./states/preload":32,"./states/selectPlane":33,"./states/settings":34,"./states/tutorial":35}],2:[function(require,module,exports){
+},{"./states/Level2":22,"./states/boot":23,"./states/gameover":24,"./states/help":25,"./states/menu":26,"./states/missions":27,"./states/multiplayerRoomDetailView":28,"./states/multiplayerRoomSelect":29,"./states/multiplayerUserSignIn":30,"./states/play":31,"./states/playMultiplayer":32,"./states/preload":33,"./states/selectPlane":34,"./states/settings":35,"./states/tutorial":36}],2:[function(require,module,exports){
 /**
  * Helpers 
  */
@@ -5902,7 +5902,7 @@ var BasicLayer = function(game, parent, options) {
   Phaser.Group.call(this, game, parent);
 
     var layerText = options.layerText ? options.layerText : "Welcome to the Tutorial!";
-    var subLayerText = options.subLayerText ? options.subLayerText : "Here you will learn how to play this game.";
+    var subLayerText = options.subLayerText ? options.subLayerText : "Here you will learn how to play this game. No Enemies !!! Just flying.";
 
     this.b = this.game.add.bitmapData(this.game.width, this.game.height),
     this.b.ctx.fillStyle = "#000",
@@ -5914,11 +5914,15 @@ var BasicLayer = function(game, parent, options) {
 
     this.fontStyle = { font: "35px loudy_With_a_Chance_of_Love", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
     this.smallerfontStyle = { font: "25px loudy_With_a_Chance_of_Love", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
-    this.layerText = this.game.add.text(this.game.width/2-200, this.game.height/2 - 100, layerText, this.fontStyle);
-    this.layerText.fixedToCamera = true;;
+    this.layerText = this.game.add.text(this.game.width/2, this.game.height/2 - 100, layerText, this.fontStyle);
+    this.layerText.anchor.set(0.5);
+    this.layerText.fixedToCamera = true;
     this.add(this.layerText);
-    this.subLayerText = this.game.add.text(this.game.width/2-230, this.game.height/2, subLayerText, this.smallerfontStyle);
-    this.subLayerText.fixedToCamera = true;;
+    this.subLayerText = this.game.add.text(this.game.width/2, this.game.height/2, subLayerText, this.smallerfontStyle);
+    this.subLayerText.fixedToCamera = true;
+    this.subLayerText.anchor.set(0.5);
+    this.subLayerText.wordWrap = true;
+    this.subLayerText.wordWrapWidth = this.game.width/2;
     this.add(this.subLayerText);
 
 		this.game.input.onDown.addOnce(function(){
@@ -5932,6 +5936,11 @@ BasicLayer.prototype.constructor = BasicLayer;
 
 BasicLayer.prototype.show = function () {
   this.y = 0;
+};
+
+BasicLayer.prototype.setOptions = function (options) {
+  this.layerText.setText(options.layerText);
+  this.subLayerText.setText(options.subLayerText);
 };
 
 BasicLayer.prototype.hide = function (createPlayers) {
@@ -5986,6 +5995,7 @@ module.exports = DefeatWindow;
 var EnemyPlane = require('./EnemyPlane');
 var Flak = require('./Flak');
 var Solider = require('./Solider');
+var VictoryWindow = require('../prefabs/VictoryWindow');
 
 var EnemyGroup = function(game, player, options) {
   Phaser.Group.call(this, game);
@@ -6042,9 +6052,10 @@ EnemyGroup.prototype.addEnemy = function () {
 */
 EnemyGroup.prototype.finishedLevel = function () {
     var levelsLocalStorageObject = JSON.parse(localStorage.getItem('levels'));
-    if(this.game.state.getCurrentState().currentTimer.seconds < this.currentLevel.stars[1] ){
-      if(this.game.state.getCurrentState().currentTimer.seconds < this.currentLevel.stars[2] ){
-        if (this.game.state.getCurrentState().currentTimer.seconds < this.currentLevel.stars[3]) {
+    var secondsToFinishLevel = this.game.state.getCurrentState().currentTimer.seconds;
+    if(secondsToFinishLevel < this.currentLevel.stars[1] ){
+      if(secondsToFinishLevel < this.currentLevel.stars[2] ){
+        if (secondsToFinishLevel < this.currentLevel.stars[3]) {
            levelsLocalStorageObject[GlobalGame.level] = 3;
         } else {
           levelsLocalStorageObject[GlobalGame.level] = 2;
@@ -6059,12 +6070,14 @@ EnemyGroup.prototype.finishedLevel = function () {
     }
     this.game.state.getCurrentState().currentTimer.remove();
     localStorage.setItem('levels', JSON.stringify(levelsLocalStorageObject));
-    this.game.state.start('missions');
+    // this.game.state.start('missions');
+    this.player.killPlayerAndAllProperties();
+    this.defeatWindow = new VictoryWindow(this.game, undefined, {secondsToFinishLevel: secondsToFinishLevel,currentLevel: this.currentLevel});
 }
 
 module.exports = EnemyGroup;
 
-},{"./EnemyPlane":10,"./Flak":11,"./Solider":15}],10:[function(require,module,exports){
+},{"../prefabs/VictoryWindow":16,"./EnemyPlane":10,"./Flak":11,"./Solider":15}],10:[function(require,module,exports){
 'use strict';
 
 var EnemyPlane = function(game, x, y, frame, player, options) {
@@ -6148,6 +6161,24 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
           playerDeathString+'3',
           playerDeathString+'4'
       ], 10, false, false);
+      
+    this.hitAnimation.onComplete.add(function() {
+        this.frameName = GlobalGame.enemy;
+    }, this);
+
+    this.deadAnimation.onComplete.add(function() {
+        this.deadAnimation.stop('explode');
+        this.kill();
+        this.emitter.kill();
+        this.frameName = "Airplanes/AEG_C_IV/Skin_1/default";
+        this.bullets.removeAll();
+        this.arrow.kill();
+        this.parent.currentWaveCountEnemiesLeft -= 1;
+        this.parent.addEnemy();
+    
+            if(this.player) this.player.kills += 1;
+
+    }, this);
 
 
     /*******************
@@ -6182,7 +6213,7 @@ EnemyPlane.prototype.update = function() {
 
     if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
         this.randomXPointInWorld = this.game.world.randomX;
-        this.randomYPointInWorld = this.game.world.randomY - 300;
+        this.randomYPointInWorld = this.game.world.randomY;
     }
 
     // Calculate the angle from the missile to the mouse cursor game.input.x
@@ -6296,15 +6327,6 @@ EnemyPlane.prototype.fireBullet = function() {
             plane.body.velocity.y = 0;
             plane.body.gravity.y = 700;
             this.deadAnimation.play('explode', 10, false, true);
-
-            if(this.player) this.player.kills += 1;
-
-            plane.kill();
-            if (this.game.device.desktop) plane.emitter.kill();
-            plane.bullets.removeAll();
-            plane.arrow.kill();
-            this.parent.currentWaveCountEnemiesLeft -= 1;
-            this.parent.addEnemy();
         }
       }
     };
@@ -6678,16 +6700,18 @@ var Player = function(game, x, y,frame) {
         this.deadAnimation.onComplete.add(function() {
 
           this.deadAnimation.stop('explode');
-          this.kill();
-          if (this.game.device.desktop) this.emitter.kill();
-          this.frameName = "Airplanes/AEG_C_IV/Skin_1/default";
-          this.bullets.removeAll();
+          this.killPlayerAndAllProperties();
 
 //            if(this.name == GlobalGame.Multiplayer.socket.socket.sessionid)
 
-          if(!this.name){
-              this.defeatWindow = new DefeatWindow(this.game, undefined)
+          // if(!this.name){
+          if(this.game.state.getCurrentState().key === "tutorial") {
+            GlobalGame.tutorialPlayed = 1;
+            this.game.state.getCurrentState().restart(true, false);
+          } else {
+            this.defeatWindow = new DefeatWindow(this.game, undefined);
           }
+          // }
         }, this);
 
     /*******************
@@ -6788,7 +6812,7 @@ Player.prototype.update = function() {
         if (this.x > this.game.world.width) this.x = 0;
         if (this.x < 0) this.x = this.game.world.width;
 
-         this.game.physics.arcade.overlap(this, this.game.state.getCurrentState().level.platforms, this.playerLoseHealth, null, this);
+         this.game.physics.arcade.overlap(this, this.game.state.getCurrentState().level.platforms, this.runDeadAnimation, null, this);
 
         if(GlobalGame.Multiplayer.socketEventHandlers !== null){
             for(var i = 0; i < GlobalGame.Multiplayer.socketEventHandlers.enemies.length; i++){
@@ -6935,7 +6959,7 @@ Player.prototype.update = function() {
     Player.prototype.playerHitsSomething = function (plane, something) {
         something.kill();
         if(typeof something.parent.addBird === 'function') something.parent.addBird();
-        this.playerLoseHealth(plane);
+        this.playerLoseHealth(plane, something);
     };
 
     /**
@@ -6999,35 +7023,52 @@ Player.prototype.update = function() {
      * @param player player collides
      */
     Player.prototype.playerLoseHealth = function (plane) {
-        if(plane.health >= 0) {
-          this.hitAnimation.play('hit', 10, false);
+      if(plane.health >= 0) {
+        this.hitAnimation.play('hit', 10, false);
 
-          if(GlobalGame.Multiplayer.socket)
-              GlobalGame.Multiplayer.socket.emit("bullet hit player", {playerId: plane.name});
-
-          plane.health -= 1;
-
-          this.healthBar.setPercent(plane.health / plane.fullHealth * 100);
-
-          if(plane.health < 15){
-            this.emitter.start(false, 3000, 5);
-            plane.frameName = GlobalGame.player.replace('default', 'default_damaged');
-          } else if (plane.health < 10) {
-            // var particleBaseName = 'sprites/particles/black_smoke/blackSmoke';
-            // this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
-            plane.frameName = GlobalGame.player.replace('default', 'attack_damaged_1');
-          } else if (plane.health < 5) {
-            plane.frameName = GlobalGame.player.replace('default', 'attack_damaged_2');
-          }
-
-          if(plane.health < 1){
-              this.game.input.onDown.remove(this.flap, this);
-              plane.body.velocity.x = 0;
-              plane.body.velocity.y = 0;
-              plane.body.gravity.y = 700;
-              this.deadAnimation.play('explode', 10, false, true);
-          }
+        if(GlobalGame.Multiplayer.socket) {
+          GlobalGame.Multiplayer.socket.emit("bullet hit player", {playerId: plane.name});
         }
+
+        plane.health -= 1;
+
+        this.healthBar.setPercent(plane.health / plane.fullHealth * 100);
+
+        if(plane.health < 15){
+          this.emitter.start(false, 3000, 5);
+          plane.frameName = GlobalGame.player.replace('default', 'default_damaged');
+        } else if (plane.health < 10) {
+          // var particleBaseName = 'sprites/particles/black_smoke/blackSmoke';
+          // this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
+          plane.frameName = GlobalGame.player.replace('default', 'attack_damaged_1');
+        } else if (plane.health < 5) {
+          plane.frameName = GlobalGame.player.replace('default', 'attack_damaged_2');
+        }
+
+        if(plane.health < 1){
+          this.runDeadAnimation(plane);
+        }
+      }
+    };
+    /**
+    * player collides with enemy
+    * @param player player collides
+    */
+   Player.prototype.runDeadAnimation = function (plane) {
+     this.game.input.onDown.remove(this.flap, this);
+     this.deadAnimation.play('explode', 10, false, true);
+   };
+   
+    /**
+     * player collides with enemy
+     * @param enemy enemy collides
+     * @param player player collides
+     */
+    Player.prototype.killPlayerAndAllProperties = function () {
+        this.kill();
+        this.emitter.kill();
+        this.frameName = "Airplanes/AEG_C_IV/Skin_1/default";
+        this.bullets.removeAll();
     };
 
 module.exports = Player;
@@ -7238,6 +7279,41 @@ module.exports = Solider;
 },{}],16:[function(require,module,exports){
 'use strict';
 
+var VictoryWindow = function(game, parent, options) {
+  Phaser.Group.call(this, game, parent);
+
+  this.fontStyle = { font: "40px loudy_With_a_Chance_of_Love", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
+
+  this.defeatWindow = this.game.add.image(this.game.width / 2 , this.game.height / 2, 'sprites', 'menu/victory_window');
+  this.defeatWindow.anchor.setTo(0.5, 0.5);
+  this.defeatWindow.fixedToCamera = true;
+  this.add(this.defeatWindow);
+  console.log(options)
+  this.secondsToFinishLevel = this.game.add.text()
+  this.defeatWindow.addChild(this.secondsToFinishLevel);
+
+  this.restartButton = this.game.add.button(-70, 100, 'sprites', this.restartClick, this, 'buttons/button_restart_act', 'buttons/button_restart_no', 'buttons/button_restart_act', 'buttons/button_restart_no');
+  this.defeatWindow.addChild(this.restartButton);
+
+  this.menuButton = this.game.add.button(50, 100, 'sprites', this.menuClick, this, 'buttons/button_menu_act', 'buttons/button_menu_no', 'buttons/button_menu_act', 'buttons/button_menu_no');
+  this.defeatWindow.addChild(this.menuButton);
+};
+
+VictoryWindow.prototype = Object.create(Phaser.Group.prototype);
+VictoryWindow.prototype.constructor = VictoryWindow;
+
+VictoryWindow.prototype.restartClick = function () {
+    this.game.state.restart();
+};
+VictoryWindow.prototype.menuClick = function () {
+    this.game.state.start('menu',true,false);
+};
+
+module.exports = VictoryWindow;
+
+},{}],17:[function(require,module,exports){
+'use strict';
+
 var Bird = function(game, x, y, frame) {
   Phaser.Sprite.call(this, game, x, y, 'sprites', 'sprites/birds/bird_1');
 
@@ -7284,7 +7360,7 @@ Bird.prototype.birdLeft = function() {
 
 module.exports = Bird;
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 
 var Bird = require('./bird');
@@ -7328,7 +7404,7 @@ BirdGroup.prototype.addBird = function () {
 
 module.exports = BirdGroup;
 
-},{"./bird":16}],18:[function(require,module,exports){
+},{"./bird":17}],19:[function(require,module,exports){
 'use strict';
 
 var LabelButton = function(game, x, y, key, label, callback, callbackContext, overFrame, outFrame, downFrame, upFrame) {
@@ -7361,7 +7437,7 @@ LabelButton.prototype.setLabel = function( label ) {
 
 module.exports = LabelButton;
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 var socketPlayer,
     socketGame,
@@ -7577,7 +7653,7 @@ SocketEventHandlers.prototype = {
 
 module.exports = SocketEventHandlers;
 
-},{"../prefabs/socketRemotePlayer":20}],20:[function(require,module,exports){
+},{"../prefabs/socketRemotePlayer":21}],21:[function(require,module,exports){
 'use strict';
 
 var SocketRemotePlayer = function(index, game, player, xStart, yStart, angle, name) {
@@ -7647,7 +7723,7 @@ SocketRemotePlayer.prototype.update = function() {
 
 module.exports = SocketRemotePlayer;
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 'use strict';
   function Level2() {}
   Level2.prototype = {
@@ -7681,7 +7757,7 @@ module.exports = SocketRemotePlayer;
   };
 module.exports = Level2;
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 GlobalGame = {
 
     /* Here we've just got some global level vars that persist regardless of State swaps */
@@ -7702,6 +7778,8 @@ GlobalGame = {
 
     // scale: 0.7,
     scale: 1,
+
+    tutorialPlayed: 0,
 
     /*
     * Controller of the Ship:
@@ -7782,7 +7860,7 @@ Boot.prototype = {
 
 module.exports = Boot;
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 
 'use strict';
 function GameOver() {}
@@ -7812,37 +7890,36 @@ GameOver.prototype = {
 };
 module.exports = GameOver;
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 'use strict';
   function Help() {}
   Help.prototype = {
     create: function() {
       this.backButton = this.game.add.button(50, this.game.height - 50, 'sprites', this.backClick, this, 'buttons/button_back_act', 'buttons/button_back_no', 'buttons/button_back_act', 'buttons/button_back_no');
       this.backButton.anchor.setTo(0.5);
+
+      this.howToPlayImage = this.game.add.image(this.game.width/2,this.game.height/2,"sprites","menu/helpScreen");
+      this.howToPlayImage.anchor.setTo(0.5);
+
+      this.playTutorialButton = this.game.add.button(this.game.width - 50, this.game.height - 50, 'sprites', this.playTutorialClick, this, 'buttons/button_play_act', 'buttons/button_play_no', 'buttons/button_play_act', 'buttons/button_play_no');
+      this.playTutorialButton.anchor.setTo(0.5);
     },
     backClick: function() {
 //        var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ x: this.game.width }, 1000, Phaser.Easing.Bounce.In, true);
 //        fadeMenuOut.onComplete.add(function() {
-            this.game.state.start('menu',true,false);
+      this.game.state.start('menu',true,false);
 //        }, this);
     },
-    update: function() {
-      // state update code
+    playTutorialClick: function() {
+//        var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ x: this.game.width }, 1000, Phaser.Easing.Bounce.In, true);
+//        fadeMenuOut.onComplete.add(function() {
+      this.game.state.start('tutorial',true,false);
+//        }, this);
     },
-    paused: function() {
-      // This method will be called when game paused.
-    },
-    render: function() {
-      // Put render operations here.
-    },
-    shutdown: function() {
-      // This method will be called when the state is shut down 
-      // (i.e. you switch to another state from this one).
-    }
   };
 module.exports = Help;
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 
 'use strict';
 
@@ -7886,8 +7963,8 @@ Menu.prototype = {
     var fadeMenuOut = this.game.add.tween(this.buttonGroup).to({ x: this.game.width }, 1000, Phaser.Easing.Bounce.In, true);
     fadeMenuOut.onComplete.add(function() {
         if(!localStorage.getItem('tutorial_played')){
-          // localStorage.setItem('tutorial_played', 1);
-          this.game.state.start('tutorial');
+          localStorage.setItem('tutorial_played', 1);
+          this.game.state.start('help');
         } else {
           this.game.state.start('missions');
         }
@@ -7916,7 +7993,7 @@ Menu.prototype = {
 
 module.exports = Menu;
 
-},{"../prefabs/Level":12,"../prefabs/labelButton":18}],26:[function(require,module,exports){
+},{"../prefabs/Level":12,"../prefabs/labelButton":19}],27:[function(require,module,exports){
 'use strict';
   function Missions() {}
   Missions.prototype = {
@@ -8119,7 +8196,7 @@ module.exports = Menu;
   };
 module.exports = Missions;
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 'use strict';
   function MultiplayerRoomDetailView() {}
   MultiplayerRoomDetailView.prototype = {
@@ -8226,7 +8303,7 @@ module.exports = Missions;
   };
 module.exports = MultiplayerRoomDetailView;
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 'use strict';
 
   function MultiplayerRoomSelect() {}
@@ -8346,7 +8423,7 @@ module.exports = MultiplayerRoomDetailView;
   };
 module.exports = MultiplayerRoomSelect;
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
 
   var io = require('../plugins/socket.io');  
@@ -8438,7 +8515,7 @@ module.exports = MultiplayerRoomSelect;
   };
 module.exports = MultiplayerUserSignIn;
 
-},{"../plugins/socket.io":6,"../prefabs/socketEventHandlers":19}],30:[function(require,module,exports){
+},{"../plugins/socket.io":6,"../prefabs/socketEventHandlers":20}],31:[function(require,module,exports){
 
   'use strict';
   var BirdGroup = require('../prefabs/birdGroup');
@@ -8454,63 +8531,33 @@ module.exports = MultiplayerUserSignIn;
   function Play() {}
   Play.prototype = {
     create: function() {
-//        this.worldScale = 0.8
-//
-//        // set a minimum and maximum scale value
-//        this.worldScale = Phaser.Math.clamp(this.worldScale, 0.25, 2);
-//
-//        // set our world scale as needed
-//        this.game.world.scale.set(this.worldScale);
-//
-//        // set our world size to be bigger than the window so we can move the camera
-//        this.game.world.setBounds(0, -200, 4000, 1000);
-//
-//        // move our camera half the size of the viewport back so the pivot point is in the center of our view
-//        this.game.camera.x = (this.game.width * -0.5);
-//        this.game.camera.y = (this.game.height * -0.5);
 
-//        this.pauseState = false;
-
-        // new Level Object
         this.levelJson = this.game.cache.getJSON('levelJson');
         this.currentLevel = this.levelJson.Levels[GlobalGame.level];
         console.log(this.currentLevel)
 
         this.level = new Level(this.game, {currentLevel: this.currentLevel});
-        // this.level.scale.setTo(GlobalGame.scale+GlobalGame.scale+0.1);
 
-        // Create a new bird object
         this.birdGroup = new BirdGroup(this.game);
 
-        // new Player Object
-        // this.player = new Player(this.game, parseInt(this.currentLevel.playerStart.x), parseInt(this.currentLevel.playerStart.y), "sprites/plane3");
         this.player = new Player(this.game, parseInt(this.currentLevel.playerStart.x), parseInt(this.currentLevel.playerStart.y), GlobalGame.player);
 
         this.enemyGroup = new EnemyGroup(this.game, this.player, {currentLevel: this.currentLevel});
         this.enemyGroup.addEnemy();
 
-        // add our pause button with a callback
         this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'sprites', this.pauseGame, this, 'buttons/button_pause_act', 'buttons/button_pause_no', 'buttons/button_pause_act', 'buttons/button_pause_no');
         this.pauseButton.fixedToCamera = true;
         this.pauseButton.inputEnabled = true;
-//        this.pauseButton.anchor.setTo(0.5,0.5);
-        // this.pauseButton.scale.setTo(0.75,0.75);
 
-        //GameStart Layer
-//        this.basicLayer = new BasicLayer(this.game)
         this.createPlayers();
 
-        // Let's build a pause panel
         this.pausePanel = new PausePanel(this.game);
 
-        // this.bounds = Phaser.Rectangle.clone(this.game.camera.bounds);
-        this.zoomTo(GlobalGame.scale);
+        // this.zoomTo(GlobalGame.scale);
 
-        // Add a input listener that can help us return from being paused
         this.game.input.onDown.add(this.unpause, this);
 
-        this.currentTimer = this.game.time.create(false);
-        // this.currentTimer.loop(Phaser.Timer.SECOND, updateTimer, this);
+        this.currentTimer = this.game.time.create(false); 
         this.currentTimer.start();
     },
 
@@ -8518,31 +8565,17 @@ module.exports = MultiplayerUserSignIn;
       this.enemyGroup.forEachAlive(function(enemy){
          this.game.physics.arcade.overlap(enemy, this.player.bullets, enemy.enemyLoseHealth, null, enemy);
          this.game.physics.arcade.overlap(this.player, enemy.bullets, this.player.playerHitsSomething, null, this.player);
-          if(!enemy.inCamera){
-              enemy.arrow.visible = true;
-//              enemyPlane.arrow.position.setTo(this.game.camera.view.x,this.game.camera.view.y)
-              // var arrowPositionX = 0;
-              // var arrowPositionY = 0;
-              // if(enemy.x > this.game.camera.width){
-              //   arrowPositionX = this.game.camera.width;
-              // } else if(enemy.x < this.game.camera.x) {
-              //   arrowPositionX = 0;
-              // } else {
-              //   arrowPositionX = enemy.x;
-              // }
-              // if(enemy.y > this.game.camera.height){
-              //   arrowPositionY = this.game.camera.height;
-              // } else if(enemy.y < this.game.camera.y){
-              //   arrowPositionY = 0;
-              // } else {
-              //   arrowPositionY = enemy.y;
-              // }
-              // this.arrowTween = this.game.add.tween(enemy.arrow.cameraOffset).to({x: arrowPositionX, y: arrowPositionY}, 1000, Phaser.Easing.Linear.None).start();
-              enemy.arrow.rotation = this.game.physics.arcade.angleBetween(enemy.arrow, enemy);
-          }else {
-              enemy.arrow.visible = false;
-          }
-      }, this)
+      }, this);
+     
+      var firstAliveEnemy = this.enemyGroup.getFirstAlive();
+      if(firstAliveEnemy) {
+        if(!firstAliveEnemy.inCamera){
+            firstAliveEnemy.arrow.visible = true;
+            firstAliveEnemy.arrow.rotation = this.game.physics.arcade.angleBetween(firstAliveEnemy.arrow, firstAliveEnemy);
+        }else {
+            firstAliveEnemy.arrow.visible = false;
+        }
+      }
     },
 
     render: function(){
@@ -8618,10 +8651,8 @@ module.exports = MultiplayerUserSignIn;
       } else {
         // this.game.add.tween(cameraBounds)
         // .to({x, y, width, height}, duration).start();
-        this.game.add.tween(cameraBounds)
-        .to({width, height}, duration).start();
-        return this.game.add.tween(this.game.camera.scale)
-        .to({x: scale, y: scale}, duration).start();
+        this.game.add.tween(cameraBounds).to({width, height}, duration).start();
+        return this.game.add.tween(this.game.camera.scale).to({x: scale, y: scale}, duration).start();
       }
     },
 
@@ -8674,7 +8705,7 @@ module.exports = MultiplayerUserSignIn;
 
   module.exports = Play;
 
-},{"../prefabs/BasicLayer":7,"../prefabs/EnemyGroup":9,"../prefabs/Level":12,"../prefabs/PausePanel":13,"../prefabs/Player":14,"../prefabs/birdGroup":17}],31:[function(require,module,exports){
+},{"../prefabs/BasicLayer":7,"../prefabs/EnemyGroup":9,"../prefabs/Level":12,"../prefabs/PausePanel":13,"../prefabs/Player":14,"../prefabs/birdGroup":18}],32:[function(require,module,exports){
 'use strict';
   var GameController = require('../plugins/GameController');
   // var HUDManager = require('../plugins/HUDManager');  
@@ -8803,7 +8834,7 @@ module.exports = MultiplayerUserSignIn;
   };
 module.exports = PlayMultiplayer;
 
-},{"../plugins/GameController":2,"../plugins/socket.io":6,"../prefabs/BasicLayer":7,"../prefabs/Level":12,"../prefabs/PausePanel":13,"../prefabs/Player":14,"../prefabs/birdGroup":17,"../prefabs/socketEventHandlers":19}],32:[function(require,module,exports){
+},{"../plugins/GameController":2,"../plugins/socket.io":6,"../prefabs/BasicLayer":7,"../prefabs/Level":12,"../prefabs/PausePanel":13,"../prefabs/Player":14,"../prefabs/birdGroup":18,"../prefabs/socketEventHandlers":20}],33:[function(require,module,exports){
 
 'use strict';
 
@@ -8896,7 +8927,7 @@ Preload.prototype = {
 
 module.exports = Preload;
 
-},{"../plugins/phaser-state-transition.min.js":5}],33:[function(require,module,exports){
+},{"../plugins/phaser-state-transition.min.js":5}],34:[function(require,module,exports){
 'use strict';
 
 var phaseSlider = require('../plugins/phase-slide.js');
@@ -8977,7 +9008,7 @@ var phaseSlider = require('../plugins/phase-slide.js');
   };
 module.exports = SelectPlane;
 
-},{"../plugins/phase-slide.js":4}],34:[function(require,module,exports){
+},{"../plugins/phase-slide.js":4}],35:[function(require,module,exports){
 'use strict';
   function Settings() {}
   Settings.prototype = {
@@ -9011,7 +9042,7 @@ module.exports = SelectPlane;
   };
 module.exports = Settings;
 
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 'use strict';
   var BirdGroup = require('../prefabs/birdGroup');
   var Player = require('../prefabs/Player');
@@ -9035,16 +9066,20 @@ module.exports = Settings;
       this.enemyGroup = new EnemyGroup(this.game, this.player, {currentLevel: this.currentLevel});
       this.enemyGroup.addEnemy();
 
-      this.basicLayer = new BasicLayer(this.game, undefined, {layerText:'Welcome to the Tutorial',subLayerText:'Here you will learn how to play this game.'})
-      // this.createPlayers();
+      if(!GlobalGame.tutorialPlayed) {
+        this.basicLayer = new BasicLayer(this.game, undefined, {layerText:'Welcome to the Tutorial',subLayerText:'Here you can practice how to play this game. Click on the right Side of the Screen to start.'})
+      } else {
+        this.createPlayers();
+      }
 
       this.pauseButton = this.game.add.button(this.game.width - 100, 20, 'sprites', this.pauseGame, this, 'buttons/button_pause_act', 'buttons/button_pause_no', 'buttons/button_pause_act', 'buttons/button_pause_no');
       this.pauseButton.fixedToCamera = true;
       this.pauseButton.inputEnabled = true;
 
       this.pausePanel = new PausePanel(this.game);
-
-      this.game.input.onDown.add(this.unpause, this);
+      if(!GlobalGame.tutorialPlayed) {
+        this.game.input.onDown.add(this.unpause, this);
+      }
     },
     update: function() {
       this.enemyGroup.forEachAlive(function(enemy){
@@ -9140,4 +9175,4 @@ module.exports = Settings;
   };
 module.exports = Tutorial;
 
-},{"../prefabs/BasicLayer":7,"../prefabs/EnemyGroup":9,"../prefabs/Level":12,"../prefabs/PausePanel":13,"../prefabs/Player":14,"../prefabs/birdGroup":17}]},{},[1])
+},{"../prefabs/BasicLayer":7,"../prefabs/EnemyGroup":9,"../prefabs/Level":12,"../prefabs/PausePanel":13,"../prefabs/Player":14,"../prefabs/birdGroup":18}]},{},[1])

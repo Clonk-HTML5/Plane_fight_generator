@@ -3,6 +3,7 @@
 var EnemyPlane = require('./EnemyPlane');
 var Flak = require('./Flak');
 var Solider = require('./Solider');
+var VictoryWindow = require('../prefabs/VictoryWindow');
 
 var EnemyGroup = function(game, player, options) {
   Phaser.Group.call(this, game);
@@ -59,9 +60,10 @@ EnemyGroup.prototype.addEnemy = function () {
 */
 EnemyGroup.prototype.finishedLevel = function () {
     var levelsLocalStorageObject = JSON.parse(localStorage.getItem('levels'));
-    if(this.game.state.getCurrentState().currentTimer.seconds < this.currentLevel.stars[1] ){
-      if(this.game.state.getCurrentState().currentTimer.seconds < this.currentLevel.stars[2] ){
-        if (this.game.state.getCurrentState().currentTimer.seconds < this.currentLevel.stars[3]) {
+    var secondsToFinishLevel = this.game.state.getCurrentState().currentTimer.seconds;
+    if(secondsToFinishLevel < this.currentLevel.stars[1] ){
+      if(secondsToFinishLevel < this.currentLevel.stars[2] ){
+        if (secondsToFinishLevel < this.currentLevel.stars[3]) {
            levelsLocalStorageObject[GlobalGame.level] = 3;
         } else {
           levelsLocalStorageObject[GlobalGame.level] = 2;
@@ -76,7 +78,9 @@ EnemyGroup.prototype.finishedLevel = function () {
     }
     this.game.state.getCurrentState().currentTimer.remove();
     localStorage.setItem('levels', JSON.stringify(levelsLocalStorageObject));
-    this.game.state.start('missions');
+    // this.game.state.start('missions');
+    this.player.killPlayerAndAllProperties();
+    this.defeatWindow = new VictoryWindow(this.game, undefined, {secondsToFinishLevel: secondsToFinishLevel,currentLevel: this.currentLevel});
 }
 
 module.exports = EnemyGroup;
