@@ -33,6 +33,7 @@
             i.id = "user_name";
             i.className = "sign-up-input";
             i.placeholder = "What's your username?";
+            i.defaultValue = localStorage.getItem('plane_fight_multiplayer_user_name');
 
             //create a button
             var s = document.createElement("input");
@@ -57,19 +58,21 @@
         }
 
         if(document.getElementById('user_name').value != ''){
-            GlobalGame.Multiplayer.userName = document.getElementById('user_name').value;
+            GlobalGame.multiplayer.userName = document.getElementById('user_name').value;
+            localStorage.setItem('plane_fight_multiplayer_user_name', GlobalGame.multiplayer.userName);
             
             var socketEventHandlers = new SocketEventHandlers(this.game, io, null);
             
             var localGame = this.game;
             
-            GlobalGame.Multiplayer.socket.on("connect",function(socket){
+            GlobalGame.multiplayer.socket.on("connect",function(socket){
                 var elem=document.getElementById('userNameForm');
                 if(elem)
                     elem.parentNode.removeChild(elem);
                 
 //                localGame.transitions.to('multiplayerRoomSelect');
-                  localGame.transitions.to('playMultiplayer');
+//                  localGame.state.start('playMultiplayer');
+                  localGame.state.start('selectPlane', true, false, true);
             });
         }
     },

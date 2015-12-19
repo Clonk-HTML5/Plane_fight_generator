@@ -28,7 +28,11 @@ GlobalGame = {
     */
     controller: 'touch',
 
-    Multiplayer: {
+    multiplayer: {
+        
+        player: null,
+        
+        enemySprite: 'Airplanes/Fokker/Skin_1/default',
 
         socket: null,
 

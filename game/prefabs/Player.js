@@ -96,7 +96,7 @@ var Player = function(game, x, y,frame) {
           this.deadAnimation.stop('explode');
           this.killPlayerAndAllProperties();
 
-//            if(this.name == GlobalGame.Multiplayer.socket.socket.sessionid)
+//            if(this.name == GlobalGame.multiplayer.socket.socket.sessionid)
 
           // if(!this.name){
           if(this.game.state.getCurrentState().key === "tutorial") {
@@ -133,8 +133,8 @@ var Player = function(game, x, y,frame) {
     this.healthBarGroup.addChild(this.healthBar.barSprite);
     this.healthBarGroup.addChild(this.healthBarOverlay);
 
-    if(GlobalGame.Multiplayer.userName){
-        this.username = this.game.add.text(0, -100, GlobalGame.Multiplayer.userName, { fontSize: '22px', fill: '#000' });
+    if(GlobalGame.multiplayer.userName){
+        this.username = this.game.add.text(0, -100, GlobalGame.multiplayer.userName, { fontSize: '22px', fill: '#000' });
         // this.addChild(this.username);
     }
 
@@ -208,9 +208,9 @@ Player.prototype.update = function() {
 
          this.game.physics.arcade.overlap(this, this.game.state.getCurrentState().level.platforms, this.runDeadAnimation, null, this);
 
-        if(GlobalGame.Multiplayer.socketEventHandlers !== null){
-            for(var i = 0; i < GlobalGame.Multiplayer.socketEventHandlers.enemies.length; i++){
-                this.game.physics.arcade.overlap(GlobalGame.Multiplayer.socketEventHandlers.enemies[i], this.bullets, this.shootPlayer, null, this);
+        if(GlobalGame.multiplayer.socketEventHandlers !== null){
+            for(var i = 0; i < GlobalGame.multiplayer.socketEventHandlers.enemies.length; i++){
+                this.game.physics.arcade.overlap(GlobalGame.multiplayer.socketEventHandlers.enemies[i], this.bullets, this.shootPlayer, null, this);
             }
         }else{
             this.game.physics.arcade.overlap(this.bullets, this.game.state.getCurrentState().birdGroup, this.bulletHitsBird, null, this);
@@ -294,8 +294,8 @@ Player.prototype.update = function() {
         this.emitter.emitX = this.x;
         this.emitter.emitY = this.y;
 
-        if(GlobalGame.Multiplayer.socket)
-            GlobalGame.Multiplayer.socket.emit("move player", {x: this.x, y:this.y, angle: this.angle});
+        if(GlobalGame.multiplayer.socket)
+            GlobalGame.multiplayer.socket.emit("move player", {x: this.x, y:this.y, angle: this.angle});
 
 };
 
@@ -327,8 +327,8 @@ Player.prototype.update = function() {
                  bullet.rotation = this.rotation;
                 this.game.physics.arcade.velocityFromRotation(this.rotation, 1000, bullet.body.velocity);
                 this.bulletTime = this.game.time.now + 125;
-                if(GlobalGame.Multiplayer.socket)
-                    GlobalGame.Multiplayer.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
+                if(GlobalGame.multiplayer.socket)
+                    GlobalGame.multiplayer.socket.emit("fire bullet", {bulletX: bullet.x,bulletY: bullet.y, bulletAngle: bullet.rotation, angle: this.angle});
             }
         }
 
@@ -420,8 +420,8 @@ Player.prototype.update = function() {
       if(plane.health >= 0) {
         this.hitAnimation.play('hit', 10, false);
 
-        if(GlobalGame.Multiplayer.socket) {
-          GlobalGame.Multiplayer.socket.emit("bullet hit player", {playerId: plane.name});
+        if(GlobalGame.multiplayer.socket) {
+          GlobalGame.multiplayer.socket.emit("bullet hit player", {playerId: plane.name});
         }
 
         plane.health -= 1;

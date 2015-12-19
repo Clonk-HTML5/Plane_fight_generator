@@ -80,7 +80,7 @@ EnemyGroup.prototype.finishedLevel = function () {
     localStorage.setItem('levels', JSON.stringify(levelsLocalStorageObject));
     // this.game.state.start('missions');
     this.player.killPlayerAndAllProperties();
-    this.defeatWindow = new VictoryWindow(this.game, undefined, {secondsToFinishLevel: secondsToFinishLevel,currentLevel: this.currentLevel});
+    this.victoryWindow = new VictoryWindow(this.game, undefined, {secondsToFinishLevel: secondsToFinishLevel,currentLevel: this.currentLevel});
 }
 
 module.exports = EnemyGroup;

@@ -21,7 +21,7 @@ var SocketEventHandlers = function(game, io) {
 //        this.socket = io.connect("http://server-planefight.rhcloud.com:8000");
 //        this.socket = io.connect("http://neumic-asnort.codio.io:8120");
 //        this.socket = io.connect("http://christian-dev.no-ip.biz:8120");
-        GlobalGame.Multiplayer.socket = this.socket;
+        GlobalGame.multiplayer.socket = this.socket;
     
         this.setEventHandlers();
   
@@ -34,25 +34,25 @@ SocketEventHandlers.prototype = {
     setEventHandlers: function() {
         
         // Socket connection successful
-        GlobalGame.Multiplayer.socket.on("connect", this.onSocketConnected);
+        GlobalGame.multiplayer.socket.on("connect", this.onSocketConnected);
 
         // Socket disconnection
-        GlobalGame.Multiplayer.socket.on("disconnect", this.onSocketDisconnect);
+        GlobalGame.multiplayer.socket.on("disconnect", this.onSocketDisconnect);
 
         // New player message received
-        GlobalGame.Multiplayer.socket.on("new player", this.onNewPlayer);
+        GlobalGame.multiplayer.socket.on("new player", this.onNewPlayer);
 
         // Player move message received
-        GlobalGame.Multiplayer.socket.on("move player", this.onMovePlayer);
+        GlobalGame.multiplayer.socket.on("move player", this.onMovePlayer);
 
         // Player fires bullet message received
-        GlobalGame.Multiplayer.socket.on("fire bullet", this.onFireBullet);
+        GlobalGame.multiplayer.socket.on("fire bullet", this.onFireBullet);
 
         // Bullet hits Player message received
-        GlobalGame.Multiplayer.socket.on("bullet hit player", this.onBulletHitPlayer);
+        GlobalGame.multiplayer.socket.on("bullet hit player", this.onBulletHitPlayer);
 
         // Player removed message received
-        GlobalGame.Multiplayer.socket.on("remove player", this.onRemovePlayer);
+        GlobalGame.multiplayer.socket.on("remove player", this.onRemovePlayer);
 
     },
 
@@ -60,16 +60,16 @@ SocketEventHandlers.prototype = {
     onSocketConnected: function(socket) {
         console.log("Connected to socket server ");
         
-        GlobalGame.Multiplayer.connected = true;
+        GlobalGame.multiplayer.connected = true;
         // Send local player data to the game server
-//        GlobalGame.Multiplayer.socket.emit("new player", {x: socketPlayer.x, y:socketPlayer.y, angle: socketPlayer.angle});
+//        GlobalGame.multiplayer.socket.emit("new player", {x: socketPlayer.x, y:socketPlayer.y, angle: socketPlayer.angle});
 //        this.socket.emit("new player");
     },
 
     // Socket disconnected
     onSocketDisconnect: function() {
         console.log("Disconnected from socket server");
-        GlobalGame.Multiplayer.connected = false;
+        GlobalGame.multiplayer.connected = false;
     },
 
     
@@ -79,7 +79,7 @@ SocketEventHandlers.prototype = {
 
         // Add new player to the remote players array data.x, data.y
         if(!SocketObject.playerById(data.id))
-            SocketObject.enemies.push(new SocketRemotePlayer(data.id, socketGame, GlobalGame.player, data.x, data.y, data.angle, data.name));
+            SocketObject.enemies.push(new SocketRemotePlayer(data.id, socketGame, GlobalGame.multiplayer.player, data.x, data.y, data.angle, data.name));
         
         if(SocketObject.enemies[SocketObject.enemies.length-1])
             socketGame.add.existing(SocketObject.enemies[SocketObject.enemies.length-1]);

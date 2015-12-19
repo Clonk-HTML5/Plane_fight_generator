@@ -4,6 +4,9 @@ var phaseSlider = require('../plugins/phase-slide.js');
 
   function SelectPlane() {}
   SelectPlane.prototype = {
+    init: function(isMultiplayer) {
+      this.isMultiplayer = isMultiplayer ? true : false;
+    },
     preload: function() {
       this.slider = new phaseSlider(this.game); //make sure to have slider publicly available
     },
@@ -48,7 +51,15 @@ var phaseSlider = require('../plugins/phase-slide.js');
       this.acceptButton.events.onInputDown.add(function (e, pointer) {
         var index = this.slider.getCurrentIndex();
         GlobalGame.player = this.planeArray[index].frameName.replace("_big", "");
-        this.game.state.start('play');
+        if(GlobalGame.multiplayer.socket) {
+          GlobalGame.multiplayer.enemySprite = GlobalGame.player;
+        }
+          
+        if(this.isMultiplayer) {
+          this.game.state.start('playMultiplayer');
+        } else {
+          this.game.state.start('play');
+        }
       },this);
 
 
