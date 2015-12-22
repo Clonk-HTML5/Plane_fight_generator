@@ -28,7 +28,7 @@ EnemyGroup.prototype.addEnemy = function () {
 
       if(this.currentLevel.waves[this.currentWave].planes) {
         for (var i = 0; i < this.currentLevel.waves[this.currentWave].planes.count; i++){
-          this.enemyPlane = new EnemyPlane(this.game, Math.random() * this.game.world.width, Math.random() * (this.game.world.height - 250),"Airplanes/Fokker/Skin_1/default", this.player, this.options);
+          this.enemyPlane = new EnemyPlane(this.game, Math.random() * this.game.world.width, Math.random() * (this.game.world.height - 250),GlobalGame.enemy, this.player, this.options);
           this.add(this.enemyPlane);
         }
       }

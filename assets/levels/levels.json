@@ -15,6 +15,7 @@
                }
             },
             "2":{
+               "countEnemies":2,
                "planes":{
                   "type":1,
                   "count":2
@@ -35,12 +36,14 @@
          "waves":{
             "count":2,
             "1":{
+               "countEnemies":1,
                "flaks":{
                   "type":1,
                   "count":1
                }
             },
             "2":{
+               "countEnemies":1,
                "flaks":{
                   "type":1,
                   "count":1
@@ -61,12 +64,14 @@
          "waves":{
             "count":2,
             "1":{
+               "countEnemies":1,
                "soliders":{
                   "type":1,
                   "count":1
                }
             },
             "2":{
+               "countEnemies":1,
                "soliders":{
                   "type":2,
                   "count":1
@@ -87,12 +92,14 @@
          "waves":{
             "count":2,
             "1":{
+               "countEnemies":1,
                "soliders":{
                   "type":1,
                   "count":1
                }
             },
             "2":{
+               "countEnemies":1,
                "soliders":{
                   "type":2,
                   "count":1
@@ -113,12 +120,14 @@
          "waves":{
             "count":2,
             "1":{
+               "countEnemies":1,
                "soliders":{
                   "type":1,
                   "count":1
                }
             },
             "2":{
+               "countEnemies":1,
                "soliders":{
                   "type":2,
                   "count":1
@@ -139,12 +148,14 @@
          "waves":{
             "count":2,
             "1":{
+               "countEnemies":1,
                "soliders":{
                   "type":1,
                   "count":1
                }
             },
             "2":{
+               "countEnemies":1,
                "soliders":{
                   "type":2,
                   "count":1
@@ -165,12 +176,14 @@
          "waves":{
             "count":2,
             "1":{
+               "countEnemies":1,
                "soliders":{
                   "type":1,
                   "count":1
                }
             },
             "2":{
+               "countEnemies":1,
                "soliders":{
                   "type":2,
                   "count":1

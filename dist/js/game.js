@@ -2046,19 +2046,57 @@ var BasicLayer = function(game, parent, options) {
 
     this.fontStyle = { font: "35px loudy_With_a_Chance_of_Love", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
     this.smallerfontStyle = { font: "25px loudy_With_a_Chance_of_Love", fill: "#FFCC00", stroke: "#333", strokeThickness: 5, align: "center" };
-    this.layerText = this.game.add.text(this.game.width/2, this.game.height/2 - 100, layerText, this.fontStyle);
+    this.layerText = this.game.add.text(this.game.width/2, this.game.height/2 - 180, layerText, this.fontStyle);
     this.layerText.anchor.set(0.5);
     this.layerText.fixedToCamera = true;
     this.add(this.layerText);
-    this.subLayerText = this.game.add.text(this.game.width/2, this.game.height/2, subLayerText, this.smallerfontStyle);
+    this.subLayerText = this.game.add.text(this.game.width/2, this.game.height/2 - 120, subLayerText, this.smallerfontStyle);
     this.subLayerText.fixedToCamera = true;
     this.subLayerText.anchor.set(0.5);
     this.subLayerText.wordWrap = true;
     this.subLayerText.wordWrapWidth = this.game.width/2;
     this.add(this.subLayerText);
-
+    
+    if(options.currentLevel) {
+      var waveText = this.game.add.text(this.game.width/2, this.game.height/2 - 50, 'Waves: ' + options.currentLevel.waves.count, this.smallerfontStyle);
+          waveText.anchor.set(0.5);
+      this.add(waveText);
+      
+      for (var i = 1; i <= options.currentLevel.waves; i++){
+        var currentWave = options.currentLevel.waves[i];
+          
+        var currentWaveText = this.game.add.text(this.game.width/2, this.game.height/2, 'Wave: ' + i, this.smallerfontStyle);
+            currentWaveText.anchor.set(0.5);
+        this.add(currentWaveText);
+        
+        if(currentWave.planes) {
+          var enemyImageText = this.game.add.text(this.game.width/2 - 170 , this.game.height/2 +100, currentWave.planes.count + ':', this.smallerfontStyle);
+          var enemyImage = this.game.add.image(this.game.width/2 - 110 , this.game.height/2 +100,"airplanes",GlobalGame.enemy);
+          this.add(enemyImageText);
+          this.add(enemyImage);
+        }
+    
+        if(currentWave.flaks) {
+          var enemyFlakImageText = this.game.add.text(this.game.width/2 , this.game.height/2 +100, currentWave.planes.count + ':', this.smallerfontStyle);
+          var enemyFlakImage = this.game.add.image(this.game.width/2 + 70 , this.game.height/2 +100,"flak","flak/flak1/turret_1_default");
+          this.add(enemyFlakImageText);
+          this.add(enemyFlakImage);
+        }
+    
+        if(currentWave.soliders) {
+          var enemySoliderImageText = this.game.add.text(this.game.width/2 + 30 , this.game.height/2 +100, currentWave.planes.count + ':', this.smallerfontStyle);
+          var soliderId = currentWave.soliders.type;
+          var enemySoliderImage = this.game.add.image(this.game.width/2 + 100 , this.game.height/2 +100,"soliders","soliders/solider"+soliderId+"/Soldier"+soliderId+"_shot_up_6");
+          this.add(enemySoliderImageText);
+          this.add(enemySoliderImage);
+        }
+      }
+    }
 		this.game.input.onDown.addOnce(function(){
-      this.hide(true);
+      var direction = this.game.input.activePointer.x <= this.game.width / 2 ? 0 : 1;
+      if(direction) {
+        this.hide(true);
+      }
 		}, this);
 
 };
@@ -2152,7 +2190,7 @@ EnemyGroup.prototype.addEnemy = function () {
 
       if(this.currentLevel.waves[this.currentWave].planes) {
         for (var i = 0; i < this.currentLevel.waves[this.currentWave].planes.count; i++){
-          this.enemyPlane = new EnemyPlane(this.game, Math.random() * this.game.world.width, Math.random() * (this.game.world.height - 250),"Airplanes/Fokker/Skin_1/default", this.player, this.options);
+          this.enemyPlane = new EnemyPlane(this.game, Math.random() * this.game.world.width, Math.random() * (this.game.world.height - 250),GlobalGame.enemy, this.player, this.options);
           this.add(this.enemyPlane);
         }
       }
@@ -4771,12 +4809,12 @@ var BasicLayer = require('../prefabs/BasicLayer');
 
 function Play() { }
 Play.prototype = {
-    create: function () {
-
+    preload: function () {
         this.levelJson = this.game.cache.getJSON('levelJson');
         this.currentLevel = this.levelJson.Levels[GlobalGame.level];
-        console.log(this.currentLevel)
-
+        // console.log(this.currentLevel)
+    },
+    create: function () {
         this.level = new Level(this.game, { currentLevel: this.currentLevel });
 
         this.birdGroup = new BirdGroup(this.game);
@@ -4790,7 +4828,9 @@ Play.prototype = {
         this.pauseButton.fixedToCamera = true;
         this.pauseButton.inputEnabled = true;
 
-        this.createPlayers();
+        // this.createPlayers();
+        var basicLayerOptions = {layerText:'Level ' + GlobalGame.level,subLayerText:'Click on the right Side of the Screen to start.', currentLevel: this.currentLevel, currentWave: this.enemyGroup.currentWave};
+        this.basicLayer = new BasicLayer(this.game, undefined, basicLayerOptions);
 
         this.pausePanel = new PausePanel(this.game);
 

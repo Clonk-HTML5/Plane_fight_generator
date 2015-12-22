@@ -12,12 +12,12 @@ var BasicLayer = require('../prefabs/BasicLayer');
 
 function Play() { }
 Play.prototype = {
-    create: function () {
-
+    preload: function () {
         this.levelJson = this.game.cache.getJSON('levelJson');
         this.currentLevel = this.levelJson.Levels[GlobalGame.level];
-        console.log(this.currentLevel)
-
+        // console.log(this.currentLevel)
+    },
+    create: function () {
         this.level = new Level(this.game, { currentLevel: this.currentLevel });
 
         this.birdGroup = new BirdGroup(this.game);
@@ -31,7 +31,9 @@ Play.prototype = {
         this.pauseButton.fixedToCamera = true;
         this.pauseButton.inputEnabled = true;
 
-        this.createPlayers();
+        // this.createPlayers();
+        var basicLayerOptions = {layerText:'Level ' + GlobalGame.level,subLayerText:'Click on the right Side of the Screen to start.', currentLevel: this.currentLevel, currentWave: this.enemyGroup.currentWave};
+        this.basicLayer = new BasicLayer(this.game, undefined, basicLayerOptions);
 
         this.pausePanel = new PausePanel(this.game);
 
