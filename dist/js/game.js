@@ -2062,7 +2062,7 @@ var BasicLayer = function(game, parent, options) {
           waveText.anchor.set(0.5);
       this.add(waveText);
       
-      for (var i = 1; i <= options.currentLevel.waves; i++){
+      for (var i = 1; i <= options.currentLevel.waves.count; i++){
         var currentWave = options.currentLevel.waves[i];
           
         var currentWaveText = this.game.add.text(this.game.width/2, this.game.height/2, 'Wave: ' + i, this.smallerfontStyle);
@@ -2092,12 +2092,7 @@ var BasicLayer = function(game, parent, options) {
         }
       }
     }
-		this.game.input.onDown.addOnce(function(){
-      var direction = this.game.input.activePointer.x <= this.game.width / 2 ? 0 : 1;
-      if(direction) {
-        this.hide(true);
-      }
-		}, this);
+		this.game.input.onDown.add(this.hideLayer, this);
 
 };
 
@@ -2106,6 +2101,13 @@ BasicLayer.prototype.constructor = BasicLayer;
 
 BasicLayer.prototype.show = function () {
   this.y = 0;
+};
+BasicLayer.prototype.hideLayer = function () {
+  var direction = this.game.input.activePointer.x <= this.game.width / 2 ? 0 : 1;
+  if(direction) {
+    this.game.input.onDown.remove(this.hideLayer, this);
+    this.hide(true);
+  }
 };
 
 BasicLayer.prototype.setOptions = function (options) {
