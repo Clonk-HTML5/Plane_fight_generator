@@ -28,35 +28,37 @@ var BasicLayer = function(game, parent, options) {
     this.add(this.subLayerText);
     
     if(options.currentLevel) {
-      var waveText = this.game.add.text(this.game.width/2, this.game.height/2 - 50, 'Waves: ' + options.currentLevel.waves.count, this.smallerfontStyle);
+      var waveText = this.game.add.text(this.game.width/2, this.game.height/2 - 80, options.currentLevel.waves.count + ' Waves', this.smallerfontStyle);
           waveText.anchor.set(0.5);
       this.add(waveText);
       
       for (var i = 1; i <= options.currentLevel.waves.count; i++){
         var currentWave = options.currentLevel.waves[i];
           
-        var currentWaveText = this.game.add.text(this.game.width/2, this.game.height/2, 'Wave: ' + i, this.smallerfontStyle);
+        var currentWaveText = this.game.add.text(this.game.width/2, i > 1 ? this.game.height/2 + i * 30 : this.game.height/2 - 20, 'Wave ' + i, this.smallerfontStyle);
             currentWaveText.anchor.set(0.5);
         this.add(currentWaveText);
         
+        var enemyImagesXPosition = i > 1 ? this.game.height/2 + i * 35 : this.game.height/2 - 10;
+        
         if(currentWave.planes) {
-          var enemyImageText = this.game.add.text(this.game.width/2 - 170 , this.game.height/2 +100, currentWave.planes.count + ':', this.smallerfontStyle);
-          var enemyImage = this.game.add.image(this.game.width/2 - 110 , this.game.height/2 +100,"airplanes",GlobalGame.enemy);
+          var enemyImageText = this.game.add.text(this.game.width/2 - 170 , enemyImagesXPosition, currentWave.planes.count + 'x', this.smallerfontStyle);
+          var enemyImage = this.game.add.image(this.game.width/2 - 110 , enemyImagesXPosition,"airplanes",GlobalGame.enemy);
           this.add(enemyImageText);
           this.add(enemyImage);
         }
     
         if(currentWave.flaks) {
-          var enemyFlakImageText = this.game.add.text(this.game.width/2 , this.game.height/2 +100, currentWave.planes.count + ':', this.smallerfontStyle);
-          var enemyFlakImage = this.game.add.image(this.game.width/2 + 70 , this.game.height/2 +100,"flak","flak/flak1/turret_1_default");
+          var enemyFlakImageText = this.game.add.text(this.game.width/2 , enemyImagesXPosition, currentWave.planes.count + 'x', this.smallerfontStyle);
+          var enemyFlakImage = this.game.add.image(this.game.width/2 + 70 , enemyImagesXPosition,"flak","flak/flak1/turret_1_default");
           this.add(enemyFlakImageText);
           this.add(enemyFlakImage);
         }
     
         if(currentWave.soliders) {
-          var enemySoliderImageText = this.game.add.text(this.game.width/2 + 30 , this.game.height/2 +100, currentWave.planes.count + ':', this.smallerfontStyle);
+          var enemySoliderImageText = this.game.add.text(this.game.width/2 + 30 , enemyImagesXPosition, currentWave.planes.count + 'x', this.smallerfontStyle);
           var soliderId = currentWave.soliders.type;
-          var enemySoliderImage = this.game.add.image(this.game.width/2 + 100 , this.game.height/2 +100,"soliders","soliders/solider"+soliderId+"/Soldier"+soliderId+"_shot_up_6");
+          var enemySoliderImage = this.game.add.image(this.game.width/2 + 100 , enemyImagesXPosition,"soliders","soliders/solider"+soliderId+"/Soldier"+soliderId+"_shot_up_6");
           this.add(enemySoliderImageText);
           this.add(enemySoliderImage);
         }

@@ -3,7 +3,6 @@
 //  var Hammer = require('../plugins/Hammer');
   // var BasicLayer = require('../prefabs/BasicLayer');
   var DefeatWindow = require('../prefabs/DefeatWindow');
-  // var Gesture = require('../plugins/Gesture');
   var HealthBar = require('../plugins/HealthBar.js');
 
 var Player = function(game, x, y,frame) {
@@ -18,9 +17,10 @@ var Player = function(game, x, y,frame) {
         this.emitter.gravity = 50;
         this.emitter.setAlpha(1, 0, 3000);
         // this.emitter.setScale(0.08, 0, 0.08, 0, 3000);
+        // this.emitter.particleAnchor = new Phaser.Point(0.2, 0.5);
         this.emitter.particleAnchor = new Phaser.Point(0.2, 0.5);
-
-        // this.emitter.start(false, 3000, 5);
+        
+        this.emitter.start(false, 2000, 15);
     // }
 
         //  Our bullet group
@@ -35,8 +35,7 @@ var Player = function(game, x, y,frame) {
         // this.bullets.setAll('scale.x', 0.5);
         // this.bullets.setAll('scale.y', 0.5);
         this.bulletTime = 0;
-
-//        this.addChild(this.emitter);
+        
         this.fullHealth = 20;
         this.health = this.fullHealth;
         this.kills = 0;
@@ -190,8 +189,6 @@ Player.prototype.constructor = Player;
 
 Player.prototype.update = function() {
 
-  // this.gestures.update();
-
       // if (this.game.input.activePointer.isDown) {
           // var duration = this.game.input.activePointer.duration;
           // if (duration < 450) {
@@ -237,6 +234,51 @@ Player.prototype.update = function() {
         }
         else if(GlobalGame.controller === 'touch'){
 
+            this.whilePlayerFlysALoop();
+        }
+
+        this.rotation = Math.atan2(this.body.velocity.y, this.body.velocity.x);
+
+        this.setParticleToPlayerPosition();
+
+        if(GlobalGame.multiplayer.socket)
+            GlobalGame.multiplayer.socket.emit("move player", {x: this.x, y:this.y, angle: this.angle});
+
+};
+
+     /**
+     * player collides with enemy
+     * @param enemy enemy collides
+     * @param player player collides
+     */
+    Player.prototype.shootPlayer = function (plane, bullet) {
+        bullet.kill();
+
+        plane.playerLoseHealth(plane);
+    };
+    
+     /**
+      * Set Particle to Player Position
+     */
+    Player.prototype.setParticleToPlayerPosition = function () {
+         var px = this.body.velocity.x;
+         var py = this.body.velocity.y;
+ 
+         px *= -1;
+         py *= -1;
+ 
+         this.emitter.minParticleSpeed.set(px, py);
+         this.emitter.maxParticleSpeed.set(px, py);
+ 
+         this.emitter.emitX = this.x;
+         this.emitter.emitY = this.y;
+    };
+    
+    
+     /**
+      * While Player flys a loop
+     */
+    Player.prototype.whilePlayerFlysALoop = function () {
             if(this.flyLoop){
                 this.fireBullet();
 
@@ -278,36 +320,6 @@ Player.prototype.update = function() {
                 this.body.velocity.x = Math.cos(this.rotation) * this.SPEED;
                 this.body.velocity.y = Math.sin(this.rotation) * this.SPEED;
             }
-        }
-
-        this.rotation = Math.atan2(this.body.velocity.y, this.body.velocity.x);
-
-        var px = this.body.velocity.x;
-        var py = this.body.velocity.y;
-
-        px *= -1;
-        py *= -1;
-
-        this.emitter.minParticleSpeed.set(px, py);
-        this.emitter.maxParticleSpeed.set(px, py);
-
-        this.emitter.emitX = this.x;
-        this.emitter.emitY = this.y;
-
-        if(GlobalGame.multiplayer.socket)
-            GlobalGame.multiplayer.socket.emit("move player", {x: this.x, y:this.y, angle: this.angle});
-
-};
-
-     /**
-     * player collides with enemy
-     * @param enemy enemy collides
-     * @param player player collides
-     */
-    Player.prototype.shootPlayer = function (plane, bullet) {
-        bullet.kill();
-
-        plane.playerLoseHealth(plane);
     };
 
   /**
@@ -429,7 +441,7 @@ Player.prototype.update = function() {
         this.healthBar.setPercent(plane.health / plane.fullHealth * 100);
 
         if(plane.health < 15){
-          this.emitter.start(false, 3000, 5);
+        //   this.emitter.start(false, 3000, 5);
           plane.frameName = GlobalGame.player.replace('default', 'default_damaged');
         } else if (plane.health < 10) {
           // var particleBaseName = 'sprites/particles/black_smoke/blackSmoke';
