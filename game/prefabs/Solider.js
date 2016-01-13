@@ -121,6 +121,10 @@ Solider.prototype.constructor = Solider;
 
 Solider.prototype.update = function() {
 
+    this.game.physics.arcade.overlap(this, this.player.bullets, this.enemyLoseHealth, null, this);
+    this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
+
+
   this.game.physics.arcade.collide(this, this.game.state.getCurrentState().level.platforms);
 
   if(!this.options.menu && this.player){

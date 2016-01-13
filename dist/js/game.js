@@ -3,7 +3,7 @@
 
 //global variables
 window.onload = function () {
-  var game = new Phaser.Game(Math.ceil(480*window.innerWidth/500) , 500, Phaser.CANVAS, 'plane_fight');
+  var game = new Phaser.Game(Math.ceil(480*640/480) , 480, Phaser.CANVAS, 'plane_fight');
 
   // Game States
   game.state.add('Level2', require('./states/Level2'));
@@ -2263,27 +2263,6 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
 
     this.player = player;
 
-    // if (this.game.device.desktop){
-    //     this.emitter = this.game.add.emitter(x, y, 400);
-    //
-    //     this.emitter.makeParticles('sprites', 'sprites/particles/smoke');
-    //
-    //     this.emitter.gravity = 50;
-    //     this.emitter.setAlpha(1, 0, 1000);
-    //     this.emitter.setScale(0.1, 0, 0.05, 0, 1000);
-    //
-    //     this.emitter.start(false, 3000, 5);
-    // }
-    this.emitter = this.game.add.emitter(x, y, 400);
-    // this.emitter.makeParticles('sprites', 'sprites/particles/smoke' );
-    var particleBaseName = 'sprites/particles/white_puff/whitePuff';
-    this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
-
-    this.emitter.gravity = 50;
-    this.emitter.setAlpha(1, 0, 3000);
-    // this.emitter.setScale(0.08, 0, 0.08, 0, 3000);
-    this.emitter.particleAnchor = new Phaser.Point(0.2, 0.5);
-
         this.bullets = this.game.add.group();
         this.bullets.enableBody = true;
         this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
@@ -2372,6 +2351,8 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
     this.arrow.fixedToCamera = true;
     this.arrow.anchor.setTo(0.5, 0.5);
     this.arrow.visible = false;
+    
+    this.game.time.events.loop(Phaser.Timer.SECOND, this.flyToRandomPointInWorld, this);
 
 };
 
@@ -2380,51 +2361,14 @@ EnemyPlane.prototype.constructor = EnemyPlane;
 
 EnemyPlane.prototype.update = function() {
 
-    // if(!this.options.menu && this.player){
-    //     this.game.physics.arcade.overlap(this, this.player.bullets, this.enemyLoseHealth, null, this);
-    //     this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
-    // }
-
-    if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
-        this.randomXPointInWorld = this.game.world.randomX;
-        this.randomYPointInWorld = this.game.world.randomY;
-    }
-
-    // Calculate the angle from the missile to the mouse cursor game.input.x
-    // and game.input.y are the mouse position; substitute with whatever
-    // target coordinates you need.
-    var targetAngle = this.game.math.angleBetween(
-        this.x, this.y,
-        this.randomXPointInWorld, this.randomYPointInWorld
-    );
-
-    if (this.rotation !== targetAngle) {
-        // Calculate difference between the current angle and targetAngle
-        var delta = targetAngle - this.rotation;
-
-        // Keep it in range from -180 to 180 to make the most efficient turns.
-        if (delta > Math.PI) delta -= this.PI2;
-        if (delta < -Math.PI) delta += this.PI2;
-
-        if (delta > 0) {
-            // Turn clockwise
-            this.angle += this.TURN_RATE;
-        } else {
-            // Turn counter-clockwise
-            this.angle -= this.TURN_RATE;
-        }
-
-        // Just set angle to target angle if they are close
-        if (Math.abs(delta) < this.game.math.degToRad(this.TURN_RATE)) {
-            this.rotation = targetAngle;
-        }
-    }
+    this.game.physics.arcade.overlap(this, this.player.bullets, this.enemyLoseHealth, null, this);
+    this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
 
     // Calculate velocity vector based on this.rotation and this.SPEED
     this.body.velocity.x = Math.cos(this.rotation) * this.SPEED;
     this.body.velocity.y = Math.sin(this.rotation) * this.SPEED;
 
-    if(!this.options.menu && this.player){
+    if(this.player){
          if (this.game.physics.arcade.distanceBetween(this, this.player) < 300){
              this.fireBullet();
 
@@ -2433,21 +2377,88 @@ EnemyPlane.prototype.update = function() {
          }
     }
 
-    if(this.game.device.desktop){
-        var px = this.body.velocity.x;
-        var py = this.body.velocity.y;
-
-        px *= -1;
-        py *= -1;
-
-        this.emitter.minParticleSpeed.set(px, py);
-        this.emitter.maxParticleSpeed.set(px, py);
-
-        this.emitter.emitX = this.x;
-        this.emitter.emitY = this.y;
-    }
+    this.setParticleToPlayerPosition();
 
 };
+
+     /**
+      * Enemy flys to random Point in World
+     */
+    EnemyPlane.prototype.flyToRandomPointInWorld = function () {
+        if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
+            this.randomXPointInWorld = this.game.world.randomX;
+            this.randomYPointInWorld = this.game.world.randomY;
+        }
+
+        // Calculate the angle from the missile to the mouse cursor game.input.x
+        // and game.input.y are the mouse position; substitute with whatever
+        // target coordinates you need.
+        var targetAngle = this.game.math.angleBetween(
+            this.x, this.y,
+            this.randomXPointInWorld, this.randomYPointInWorld
+        );
+
+        if (this.rotation !== targetAngle) {
+            var delta = targetAngle - this.rotation;
+
+            if (delta > Math.PI) delta -= this.PI2;
+            if (delta < -Math.PI) delta += this.PI2;
+
+            if (delta > 0) {
+                this.angle += this.TURN_RATE;
+            } else {
+                this.angle -= this.TURN_RATE;
+            }
+
+            if (Math.abs(delta) < this.game.math.degToRad(this.TURN_RATE)) {
+                this.rotation = targetAngle;
+            }
+        }
+    };
+    
+     /**
+      * create Particles for Enemy
+     */
+    EnemyPlane.prototype.createParticles = function () {
+       // if (this.game.device.desktop){
+        this.emitter = this.game.add.emitter(0,0,500);
+        // this.emitter.makeParticles('sprites', 'sprites/particles/smoke' );
+        var particleBaseName = 'sprites/particles/white_puff/whitePuff';
+        this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
+
+        this.emitter.gravity = 50;
+        this.emitter.setAlpha(1, 0, 500);
+        // this.emitter.setScale(0.08, 0, 0.08, 0, 3000);
+        // this.emitter.particleAnchor = new Phaser.Point(0.2, 0.5);
+        // this.emitter.particleAnchor = new Phaser.Point(0.2, 0.5);
+        
+        this.addChild(this.emitter);
+        this.emitter.y = 0;
+        this.emitter.x = -16;
+        this.emitter.lifespan = 500;
+        this.emitter.maxParticleSpeed = new Phaser.Point(-100,50);
+        this.emitter.minParticleSpeed = new Phaser.Point(-200,-50);
+    };
+
+     /**
+      * Set Particle to Enemy Position
+     */
+    EnemyPlane.prototype.setParticleToPlayerPosition = function () {
+        if(this.emitter) {
+//          var px = this.body.velocity.x;
+//          var py = this.body.velocity.y;
+//  
+//          px *= -1;
+//          py *= -1;
+//  
+//          this.emitter.minParticleSpeed.set(px, py);
+//          this.emitter.maxParticleSpeed.set(px, py);
+//  
+//          this.emitter.emitX = this.x;
+//          this.emitter.emitY = this.y;
+            this.emitter.emitParticle();
+        }
+    };
 
 EnemyPlane.prototype.fireBullet = function() {
 
@@ -2485,14 +2496,15 @@ EnemyPlane.prototype.fireBullet = function() {
 
         plane.health -= 1;
 
-        if(plane.health < 15){
-          this.emitter.start(false, 3000, 5);
+        if(plane.health === 15){
+            this.createParticles();
+        //   this.emitter.start(false, 2000, 50);
           plane.frameName = GlobalGame.enemy.replace('default', 'default_damaged');
-        } else if (plane.health < 10) {
+        } else if (plane.health === 10) {
           // var particleBaseName = 'sprites/particles/black_smoke/blackSmoke';
           // this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
           plane.frameName = GlobalGame.enemy.replace('default', 'attack_damaged_1');
-        } else if (plane.health < 5) {
+        } else if (plane.health === 5) {
           plane.frameName = GlobalGame.enemy.replace('default', 'attack_damaged_2');
         }
 
@@ -2582,6 +2594,10 @@ Flak.prototype = Object.create(Phaser.Sprite.prototype);
 Flak.prototype.constructor = Flak;
 
 Flak.prototype.update = function() {
+    
+    this.game.physics.arcade.overlap(this, this.player.bullets, this.enemyLoseHealth, null, this);
+    this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
+
       // console.log(this.game.physics.arcade.angleBetween(this, this.player))
 
     // var currentAngleBetween = this.game.physics.arcade.angleBetween(this, this.player);
@@ -2780,28 +2796,11 @@ module.exports = PausePanel;
 },{}],14:[function(require,module,exports){
 'use strict';
 
-//  var Hammer = require('../plugins/Hammer');
-  // var BasicLayer = require('../prefabs/BasicLayer');
   var DefeatWindow = require('../prefabs/DefeatWindow');
   var HealthBar = require('../plugins/HealthBar.js');
 
 var Player = function(game, x, y,frame) {
   Phaser.Sprite.call(this, game, x, y, "airplanes", frame);
-
-    // if (this.game.device.desktop){
-        this.emitter = this.game.add.emitter(x, y, 400);
-        // this.emitter.makeParticles('sprites', 'sprites/particles/smoke' );
-        var particleBaseName = 'sprites/particles/white_puff/whitePuff';
-        this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
-
-        this.emitter.gravity = 50;
-        this.emitter.setAlpha(1, 0, 3000);
-        // this.emitter.setScale(0.08, 0, 0.08, 0, 3000);
-        // this.emitter.particleAnchor = new Phaser.Point(0.2, 0.5);
-        this.emitter.particleAnchor = new Phaser.Point(0.2, 0.5);
-        
-        this.emitter.start(false, 2000, 15);
-    // }
 
         //  Our bullet group
         this.bullets = this.game.add.group();
@@ -2828,9 +2827,6 @@ var Player = function(game, x, y,frame) {
         this.planeDirection = 1;
         this.direction = 1;
         this.flyLoop = false;
-        this.directionX,
-        this.directionY;
-        // this.scaleFactor = new Phaser.Point(0.5, 0.5);
         this.scaleFactor = new Phaser.Point(1, 1);
 
        this.scale.setTo(this.scaleFactor.x, this.scaleFactor.y);
@@ -2842,14 +2838,6 @@ var Player = function(game, x, y,frame) {
         this.body.gravity.y = 300;
         this.body.velocity.setTo(200, 0);
         this.body.maxVelocity.setTo(300, 300);
-
-        if(GlobalGame.controller === 'keyboardButtons'){
-            this.body.gravity.y = 50;
-            this.body.velocity.setTo(300, 0);
-            this.angleSpeed = 250;
-            this.angularVeloctitySpeed = 150;
-            this.body.maxVelocity.setTo(400, 400);
-        }
 
         var playerHitString = GlobalGame.player.replace('default', 'hit_');
         this.hitAnimation = this.animations.add('hit', [
@@ -2890,17 +2878,6 @@ var Player = function(game, x, y,frame) {
     /*******************
     * HUD'S
     *******************/
-    // this.killsText = this.game.add.text(0, 0, '', { fontSize: '32px', fill: '#000' });
-    // this.killsText.fixedToCamera = true;
-    // this.killsText.cameraOffset.setTo(16, 16);
-
-    // var style = { font: '18px Arial', fill: '#ffffff', align: 'center'};
-    //   this.hud = Phaser.Plugin.HUDManager.create(this.game, this, 'gamehud');
-    //   this.killsHUD = this.hud.addText(10, 10, 'Kills: ', style, 'kills', this);
-    //   this.killsText.addChild(this.killsHUD.text);
-    //
-    //   this.healthHUD = this.hud.addBar(0,-50, this.width, 10, this.health, 'health', this, '#ffbd55', false);
-    //   this.healthHUD.bar.anchor.setTo(0.5, 0.5);
 
     this.healthBarGroup = this.game.add.group();
     this.healthBar = new HealthBar(this.game, {x: 151, y: 70, width: 99, height:17, bg: {color: '#A87436'}, bar:{color: '#EB3B3B'}});
@@ -2917,50 +2894,17 @@ var Player = function(game, x, y,frame) {
         // this.addChild(this.username);
     }
 
-        //Camera
         this.game.camera.follow(this);
 
-        //Controlls initialize
         this.cursors = this.game.input.keyboard.createCursorKeys();
         this.pointer = this.game.input.addPointer();
 
-        // this.gestures = new Gesture(this.game);
-
-        // this.gestures.onTap.add(this.flap, this);
-        // this.gestures.onHold.add(this.holded, this);
-        // this.gestures.onSwipe.add(this.swiped, this);
-
         this.game.input.onDown.add(this.flap, this);
-
-    /*******************
-    * PLAYER Controll Buttons If Device not Desktop
-    *******************/
-    if (!this.game.device.desktop && GlobalGame.controller === 'keyboardButtons'){
-        // create our virtual game controller buttons
-
-        this.buttonfire = this.game.add.button(this.game.width-194, this.game.height-94-50, 'buttonfire', null, this, 0, 1, 0, 1);
-        this.buttonfire.fixedToCamera = true;
-        this.buttonfire.events.onInputOver.add(function(){this.fireBulletEventStarted=true;}, this);
-        this.buttonfire.events.onInputOut.add(function(){this.fireBulletEventStarted=false;}, this);
-        this.buttonfire.events.onInputDown.add(function(){this.fireBulletEventStarted=true;}, this);
-        this.buttonfire.events.onInputUp.add(function(){this.fireBulletEventStarted=false;}, this);
-
-        this.buttonup = this.game.add.button(96, this.game.height-94-128, 'buttonvertical', null, this, 0, 1, 0, 1);
-        this.buttonup.fixedToCamera = true;
-        this.buttonup.events.onInputOver.add(function(){this.planeUpEventStarted=true;}, this);
-        this.buttonup.events.onInputOut.add(function(){this.planeUpEventStarted=false;}, this);
-        this.buttonup.events.onInputDown.add(function(){this.planeUpEventStarted=true;}, this);
-        this.buttonup.events.onInputUp.add(function(){this.planeUpEventStarted=false;}, this);
-
-        this.buttondown = this.game.add.button(96, this.game.height-94, 'buttonvertical', null, this, 0, 1, 0, 1);
-        this.buttondown.fixedToCamera = true;
-        this.buttondown.events.onInputOver.add(function(){this.planeDownEventStarted=true;}, this);
-        this.buttondown.events.onInputOut.add(function(){this.planeDownEventStarted=false;}, this);
-        this.buttondown.events.onInputDown.add(function(){this.planeDownEventStarted=true;}, this);
-        this.buttondown.events.onInputUp.add(function(){this.planeDownEventStarted=false;}, this);
-
-    }
-
+        
+        this.cursors.left.onDown.add(function(){this.flap(0)}, this);
+        this.cursors.up.onDown.add(function(){this.flap(0)}, this);
+        this.cursors.right.onDown.add(function(){this.flap(1)}, this);
+        this.cursors.down.onDown.add(function(){this.flap(1)}, this);
 
 };
 
@@ -2968,17 +2912,6 @@ Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
 
 Player.prototype.update = function() {
-
-      // if (this.game.input.activePointer.isDown) {
-          // var duration = this.game.input.activePointer.duration;
-          // if (duration < 450) {
-            // this.flap();
-          // } else {
-          //   this.flap();
-          //   // this.holdFlap();
-          // }
-      // }
-
         // Keep the plane on the screen
         if (this.x > this.game.world.width) this.x = 0;
         if (this.x < 0) this.x = this.game.world.width;
@@ -2993,29 +2926,8 @@ Player.prototype.update = function() {
             this.game.physics.arcade.overlap(this.bullets, this.game.state.getCurrentState().birdGroup, this.bulletHitsBird, null, this);
             this.game.physics.arcade.overlap(this, this.game.state.getCurrentState().birdGroup, this.playerHitsSomething, null, this);
         }
-
-        if(GlobalGame.controller === 'keyboardButtons'){
-
-            this.body.angularVelocity = 0;
-
-            if (this.cursors.left.isDown || this.cursors.up.isDown || this.planeUpEventStarted) {
-                this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed, this.body.velocity);
-                this.body.angularVelocity -= this.angularVeloctitySpeed;
-
-            } else if (this.cursors.right.isDown || this.cursors.down.isDown || this.planeDownEventStarted) {
-                this.game.physics.arcade.velocityFromAngle(this.angle, this.angleSpeed, this.body.velocity);
-                this.body.angularVelocity += this.angularVeloctitySpeed;
-            }
-            if (this.game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR) || this.fireBulletEventStarted){
-                this.fireBullet();
-            }
-
-
-        }
-        else if(GlobalGame.controller === 'touch'){
-
-            this.whilePlayerFlysALoop();
-        }
+        
+        this.whilePlayerFlysALoop();
 
         this.rotation = Math.atan2(this.body.velocity.y, this.body.velocity.x);
 
@@ -3038,22 +2950,48 @@ Player.prototype.update = function() {
     };
     
      /**
+      * create Particles for Player
+     */
+    Player.prototype.createParticles = function () {
+    // if (this.game.device.desktop){
+        this.emitter = this.game.add.emitter(0,0,500);
+        // this.emitter.makeParticles('sprites', 'sprites/particles/smoke' );
+        var particleBaseName = 'sprites/particles/white_puff/whitePuff';
+        this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
+
+        this.emitter.gravity = 50;
+        this.emitter.setAlpha(1, 0, 500);
+        // this.emitter.setScale(0.08, 0, 0.08, 0, 3000);
+        // this.emitter.particleAnchor = new Phaser.Point(0.2, 0.5);
+        // this.emitter.particleAnchor = new Phaser.Point(0.2, 0.5);
+        
+        this.addChild(this.emitter);
+        this.emitter.y = 0;
+        this.emitter.x = -16;
+        this.emitter.lifespan = 500;
+        this.emitter.maxParticleSpeed = new Phaser.Point(-100,50);
+        this.emitter.minParticleSpeed = new Phaser.Point(-200,-50);
+    };
+    
+     /**
       * Set Particle to Player Position
      */
     Player.prototype.setParticleToPlayerPosition = function () {
-         var px = this.body.velocity.x;
-         var py = this.body.velocity.y;
- 
-         px *= -1;
-         py *= -1;
- 
-         this.emitter.minParticleSpeed.set(px, py);
-         this.emitter.maxParticleSpeed.set(px, py);
- 
-         this.emitter.emitX = this.x;
-         this.emitter.emitY = this.y;
+        if(this.emitter) {
+//          var px = this.body.velocity.x;
+//          var py = this.body.velocity.y;
+//  
+//          px *= -1;
+//          py *= -1;
+//  
+//          this.emitter.minParticleSpeed.set(px, py);
+//          this.emitter.maxParticleSpeed.set(px, py);
+//  
+//          this.emitter.emitX = this.x;
+//          this.emitter.emitY = this.y;
+            this.emitter.emitParticle();
+        }
     };
-    
     
      /**
       * While Player flys a loop
@@ -3063,17 +3001,17 @@ Player.prototype.update = function() {
                 this.fireBullet();
 
                   if(this.direction) {
-                    this.directionX = this.x+150;
-                    this.directionY = this.y-100;
-                    this.tweenScaleFactor = new Phaser.Point(this.scaleFactor.x, this.scaleFactor.y);
+                    var directionX = this.x+150;
+                    var directionY = this.y-100;
+                    var tweenScaleFactor = new Phaser.Point(this.scaleFactor.x, this.scaleFactor.y);
                   } else {
-                    this.directionX = this.x-200;
-                    this.directionY = this.y-100;
-                    this.tweenScaleFactor = new Phaser.Point(this.scaleFactor.x, -this.scaleFactor.y);
+                    var directionX = this.x-200;
+                    var directionY = this.y-100;
+                    var tweenScaleFactor = new Phaser.Point(this.scaleFactor.x, -this.scaleFactor.y);
                   }
                  var targetAngle = this.game.math.angleBetween(
                     this.x, this.y,
-                    this.directionX, this.directionY
+                    directionX, directionY
                 );
 
                 if (this.rotation !== targetAngle) {
@@ -3091,7 +3029,7 @@ Player.prototype.update = function() {
 
                         if (Math.abs(delta) < this.game.math.degToRad(this.TURN_RATE)) {
                             this.rotation = targetAngle;
-                            this.scaleTween = this.game.add.tween(this.scale).to({x: this.tweenScaleFactor.x, y: this.tweenScaleFactor.y}, 500, Phaser.Easing.Back.Out, true).start();
+                            this.game.add.tween(this.scale).to({x: tweenScaleFactor.x, y: tweenScaleFactor.y}, 500, Phaser.Easing.Back.Out, true).start();
                             this.game.input.onDown.add(this.flap, this);
                             this.planeDirection = this.direction;
                             this.flyLoop = false;
@@ -3151,12 +3089,15 @@ Player.prototype.update = function() {
     /**
     * player flaps
      */
-    Player.prototype.flap = function() {
+    Player.prototype.flap = function(direction) {
       if(!!this.alive) {
         var velocityX,
             velocityY;
-
-          this.direction = this.game.input.activePointer.x <= this.game.width / 2 ? 0 : 1;
+          if(direction === 0 || direction === 1) {
+            this.direction = direction;
+          } else {
+            this.direction = this.game.input.activePointer.x <= this.game.width / 2 ? 0 : 1;
+          }
 
           if(this.direction !== this.planeDirection){
               this.flyLoop = true;
@@ -3170,36 +3111,7 @@ Player.prototype.update = function() {
               }
               this.flapVelocityTween = this.game.add.tween(this.body.velocity).to({x: velocityX, y: velocityY}, 200, Phaser.Easing.Linear.None, true).start();
             this.fireBullet();
-          }
-      }
-    };
-
-    /**
-    * player hold touch flaps
-     */
-    Player.prototype.holdFlap = function() {
-      if(!!this.alive) {
-        var velocityX,
-            velocityY;
-
-          this.direction = this.game.input.activePointer.x <= this.game.width / 2 ? 0 : 1;
-
-          if(this.direction !== this.planeDirection){
-              this.flyLoop = true;
-          } else {
-              if(this.direction) {
-                // velocityX = this.body.velocity.x+150;
-                // velocityY = this.body.velocity.y-100;
-                this.body.velocity.x += 35;
-                this.body.velocity.y -= 30;
-              } else {
-                // velocityX = this.body.velocity.x-200;
-                // velocityY = this.body.velocity.y-100;
-                this.body.velocity.x -= 40;
-                this.body.velocity.y -= 30;
-              }
-              // this.flapVelocityTween = this.game.add.tween(this.body.velocity).to({x: velocityX, y: velocityY}, 200, Phaser.Easing.Linear.None, true).start();
-            this.fireBullet();
+            // this.emitter.emitParticle();
           }
       }
     };
@@ -3220,14 +3132,14 @@ Player.prototype.update = function() {
 
         this.healthBar.setPercent(plane.health / plane.fullHealth * 100);
 
-        if(plane.health < 15){
-        //   this.emitter.start(false, 3000, 5);
+        if(plane.health === 15){
+          this.createParticles();
           plane.frameName = GlobalGame.player.replace('default', 'default_damaged');
-        } else if (plane.health < 10) {
+        } else if (plane.health === 10) {
           // var particleBaseName = 'sprites/particles/black_smoke/blackSmoke';
           // this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
           plane.frameName = GlobalGame.player.replace('default', 'attack_damaged_1');
-        } else if (plane.health < 5) {
+        } else if (plane.health === 5) {
           plane.frameName = GlobalGame.player.replace('default', 'attack_damaged_2');
         }
 
@@ -3252,7 +3164,9 @@ Player.prototype.update = function() {
      */
     Player.prototype.killPlayerAndAllProperties = function () {
         this.kill();
-        this.emitter.kill();
+        if(this.emitter) {
+            this.emitter.kill();
+        }
         this.frameName = "Airplanes/AEG_C_IV/Skin_1/default";
         this.bullets.removeAll();
     };
@@ -3382,6 +3296,10 @@ Solider.prototype = Object.create(Phaser.Sprite.prototype);
 Solider.prototype.constructor = Solider;
 
 Solider.prototype.update = function() {
+
+    this.game.physics.arcade.overlap(this, this.player.bullets, this.enemyLoseHealth, null, this);
+    this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
+
 
   this.game.physics.arcade.collide(this, this.game.state.getCurrentState().level.platforms);
 
@@ -4225,6 +4143,7 @@ Menu.prototype = {
 
   },
   create: function() {
+      this.game.add.plugin(Phaser.Plugin.Debug);
 //      this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.height, 'menu_bg');
 
     this.buttonGroup = this.game.add.group();
@@ -4819,9 +4738,6 @@ var EnemyGroup = require('../prefabs/EnemyGroup');
 var Level = require('../prefabs/Level');
 var PausePanel = require('../prefabs/PausePanel');
 var BasicLayer = require('../prefabs/BasicLayer');
-// var Level_old = require('../prefabs/Level_old');
-// var GameController = require('../plugins/GameController');
-// var HUDManager = require('../plugins/HUDManager');
 
 function Play() { }
 Play.prototype = {
@@ -4831,6 +4747,7 @@ Play.prototype = {
         // console.log(this.currentLevel)
     },
     create: function () {
+        
         this.level = new Level(this.game, { currentLevel: this.currentLevel });
 
         this.birdGroup = new BirdGroup(this.game);
@@ -4846,7 +4763,7 @@ Play.prototype = {
 
         // this.createPlayers();
         var basicLayerOptions = {layerText:'Level ' + GlobalGame.level,subLayerText:'Click on the right Side of the Screen to start.', currentLevel: this.currentLevel, currentWave: this.enemyGroup.currentWave};
-        this.basicLayer = new BasicLayer(this.game, undefined, basicLayerOptions);
+        var startLayer = new BasicLayer(this.game, undefined, basicLayerOptions);
 
         this.pausePanel = new PausePanel(this.game);
 
@@ -4859,11 +4776,6 @@ Play.prototype = {
     },
 
     update: function () {
-        this.enemyGroup.forEachAlive(function (enemy) {
-            this.game.physics.arcade.overlap(enemy, this.player.bullets, enemy.enemyLoseHealth, null, enemy);
-            this.game.physics.arcade.overlap(this.player, enemy.bullets, this.player.playerHitsSomething, null, this.player);
-        }, this);
-
         var firstAliveEnemy = this.enemyGroup.getFirstAlive();
         if (firstAliveEnemy) {
             if (!firstAliveEnemy.inCamera) {

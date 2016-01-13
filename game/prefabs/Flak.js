@@ -72,6 +72,10 @@ Flak.prototype = Object.create(Phaser.Sprite.prototype);
 Flak.prototype.constructor = Flak;
 
 Flak.prototype.update = function() {
+    
+    this.game.physics.arcade.overlap(this, this.player.bullets, this.enemyLoseHealth, null, this);
+    this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
+
       // console.log(this.game.physics.arcade.angleBetween(this, this.player))
 
     // var currentAngleBetween = this.game.physics.arcade.angleBetween(this, this.player);

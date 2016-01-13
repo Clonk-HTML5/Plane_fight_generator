@@ -9,27 +9,6 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
 
     this.player = player;
 
-    // if (this.game.device.desktop){
-    //     this.emitter = this.game.add.emitter(x, y, 400);
-    //
-    //     this.emitter.makeParticles('sprites', 'sprites/particles/smoke');
-    //
-    //     this.emitter.gravity = 50;
-    //     this.emitter.setAlpha(1, 0, 1000);
-    //     this.emitter.setScale(0.1, 0, 0.05, 0, 1000);
-    //
-    //     this.emitter.start(false, 3000, 5);
-    // }
-    this.emitter = this.game.add.emitter(x, y, 400);
-    // this.emitter.makeParticles('sprites', 'sprites/particles/smoke' );
-    var particleBaseName = 'sprites/particles/white_puff/whitePuff';
-    this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
-
-    this.emitter.gravity = 50;
-    this.emitter.setAlpha(1, 0, 3000);
-    // this.emitter.setScale(0.08, 0, 0.08, 0, 3000);
-    this.emitter.particleAnchor = new Phaser.Point(0.2, 0.5);
-
         this.bullets = this.game.add.group();
         this.bullets.enableBody = true;
         this.bullets.physicsBodyType = Phaser.Physics.ARCADE;
@@ -118,6 +97,8 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
     this.arrow.fixedToCamera = true;
     this.arrow.anchor.setTo(0.5, 0.5);
     this.arrow.visible = false;
+    
+    this.game.time.events.loop(Phaser.Timer.SECOND, this.flyToRandomPointInWorld, this);
 
 };
 
@@ -126,51 +107,14 @@ EnemyPlane.prototype.constructor = EnemyPlane;
 
 EnemyPlane.prototype.update = function() {
 
-    // if(!this.options.menu && this.player){
-    //     this.game.physics.arcade.overlap(this, this.player.bullets, this.enemyLoseHealth, null, this);
-    //     this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
-    // }
-
-    if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
-        this.randomXPointInWorld = this.game.world.randomX;
-        this.randomYPointInWorld = this.game.world.randomY;
-    }
-
-    // Calculate the angle from the missile to the mouse cursor game.input.x
-    // and game.input.y are the mouse position; substitute with whatever
-    // target coordinates you need.
-    var targetAngle = this.game.math.angleBetween(
-        this.x, this.y,
-        this.randomXPointInWorld, this.randomYPointInWorld
-    );
-
-    if (this.rotation !== targetAngle) {
-        // Calculate difference between the current angle and targetAngle
-        var delta = targetAngle - this.rotation;
-
-        // Keep it in range from -180 to 180 to make the most efficient turns.
-        if (delta > Math.PI) delta -= this.PI2;
-        if (delta < -Math.PI) delta += this.PI2;
-
-        if (delta > 0) {
-            // Turn clockwise
-            this.angle += this.TURN_RATE;
-        } else {
-            // Turn counter-clockwise
-            this.angle -= this.TURN_RATE;
-        }
-
-        // Just set angle to target angle if they are close
-        if (Math.abs(delta) < this.game.math.degToRad(this.TURN_RATE)) {
-            this.rotation = targetAngle;
-        }
-    }
+    this.game.physics.arcade.overlap(this, this.player.bullets, this.enemyLoseHealth, null, this);
+    this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
 
     // Calculate velocity vector based on this.rotation and this.SPEED
     this.body.velocity.x = Math.cos(this.rotation) * this.SPEED;
     this.body.velocity.y = Math.sin(this.rotation) * this.SPEED;
 
-    if(!this.options.menu && this.player){
+    if(this.player){
          if (this.game.physics.arcade.distanceBetween(this, this.player) < 300){
              this.fireBullet();
 
@@ -179,21 +123,88 @@ EnemyPlane.prototype.update = function() {
          }
     }
 
-    if(this.game.device.desktop){
-        var px = this.body.velocity.x;
-        var py = this.body.velocity.y;
-
-        px *= -1;
-        py *= -1;
-
-        this.emitter.minParticleSpeed.set(px, py);
-        this.emitter.maxParticleSpeed.set(px, py);
-
-        this.emitter.emitX = this.x;
-        this.emitter.emitY = this.y;
-    }
+    this.setParticleToPlayerPosition();
 
 };
+
+     /**
+      * Enemy flys to random Point in World
+     */
+    EnemyPlane.prototype.flyToRandomPointInWorld = function () {
+        if(this.game.physics.arcade.distanceToXY(this, this.randomXPointInWorld, this.randomYPointInWorld) < 50){
+            this.randomXPointInWorld = this.game.world.randomX;
+            this.randomYPointInWorld = this.game.world.randomY;
+        }
+
+        // Calculate the angle from the missile to the mouse cursor game.input.x
+        // and game.input.y are the mouse position; substitute with whatever
+        // target coordinates you need.
+        var targetAngle = this.game.math.angleBetween(
+            this.x, this.y,
+            this.randomXPointInWorld, this.randomYPointInWorld
+        );
+
+        if (this.rotation !== targetAngle) {
+            var delta = targetAngle - this.rotation;
+
+            if (delta > Math.PI) delta -= this.PI2;
+            if (delta < -Math.PI) delta += this.PI2;
+
+            if (delta > 0) {
+                this.angle += this.TURN_RATE;
+            } else {
+                this.angle -= this.TURN_RATE;
+            }
+
+            if (Math.abs(delta) < this.game.math.degToRad(this.TURN_RATE)) {
+                this.rotation = targetAngle;
+            }
+        }
+    };
+    
+     /**
+      * create Particles for Enemy
+     */
+    EnemyPlane.prototype.createParticles = function () {
+       // if (this.game.device.desktop){
+        this.emitter = this.game.add.emitter(0,0,500);
+        // this.emitter.makeParticles('sprites', 'sprites/particles/smoke' );
+        var particleBaseName = 'sprites/particles/white_puff/whitePuff';
+        this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
+
+        this.emitter.gravity = 50;
+        this.emitter.setAlpha(1, 0, 500);
+        // this.emitter.setScale(0.08, 0, 0.08, 0, 3000);
+        // this.emitter.particleAnchor = new Phaser.Point(0.2, 0.5);
+        // this.emitter.particleAnchor = new Phaser.Point(0.2, 0.5);
+        
+        this.addChild(this.emitter);
+        this.emitter.y = 0;
+        this.emitter.x = -16;
+        this.emitter.lifespan = 500;
+        this.emitter.maxParticleSpeed = new Phaser.Point(-100,50);
+        this.emitter.minParticleSpeed = new Phaser.Point(-200,-50);
+    };
+
+     /**
+      * Set Particle to Enemy Position
+     */
+    EnemyPlane.prototype.setParticleToPlayerPosition = function () {
+        if(this.emitter) {
+//          var px = this.body.velocity.x;
+//          var py = this.body.velocity.y;
+//  
+//          px *= -1;
+//          py *= -1;
+//  
+//          this.emitter.minParticleSpeed.set(px, py);
+//          this.emitter.maxParticleSpeed.set(px, py);
+//  
+//          this.emitter.emitX = this.x;
+//          this.emitter.emitY = this.y;
+            this.emitter.emitParticle();
+        }
+    };
 
 EnemyPlane.prototype.fireBullet = function() {
 
@@ -231,14 +242,15 @@ EnemyPlane.prototype.fireBullet = function() {
 
         plane.health -= 1;
 
-        if(plane.health < 15){
-          this.emitter.start(false, 3000, 5);
+        if(plane.health === 15){
+            this.createParticles();
+        //   this.emitter.start(false, 2000, 50);
           plane.frameName = GlobalGame.enemy.replace('default', 'default_damaged');
-        } else if (plane.health < 10) {
+        } else if (plane.health === 10) {
           // var particleBaseName = 'sprites/particles/black_smoke/blackSmoke';
           // this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
           plane.frameName = GlobalGame.enemy.replace('default', 'attack_damaged_1');
-        } else if (plane.health < 5) {
+        } else if (plane.health === 5) {
           plane.frameName = GlobalGame.enemy.replace('default', 'attack_damaged_2');
         }
 

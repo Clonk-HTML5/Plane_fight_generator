@@ -6,9 +6,6 @@ var EnemyGroup = require('../prefabs/EnemyGroup');
 var Level = require('../prefabs/Level');
 var PausePanel = require('../prefabs/PausePanel');
 var BasicLayer = require('../prefabs/BasicLayer');
-// var Level_old = require('../prefabs/Level_old');
-// var GameController = require('../plugins/GameController');
-// var HUDManager = require('../plugins/HUDManager');
 
 function Play() { }
 Play.prototype = {
@@ -18,6 +15,7 @@ Play.prototype = {
         // console.log(this.currentLevel)
     },
     create: function () {
+        
         this.level = new Level(this.game, { currentLevel: this.currentLevel });
 
         this.birdGroup = new BirdGroup(this.game);
@@ -33,7 +31,7 @@ Play.prototype = {
 
         // this.createPlayers();
         var basicLayerOptions = {layerText:'Level ' + GlobalGame.level,subLayerText:'Click on the right Side of the Screen to start.', currentLevel: this.currentLevel, currentWave: this.enemyGroup.currentWave};
-        this.basicLayer = new BasicLayer(this.game, undefined, basicLayerOptions);
+        var startLayer = new BasicLayer(this.game, undefined, basicLayerOptions);
 
         this.pausePanel = new PausePanel(this.game);
 
@@ -46,11 +44,6 @@ Play.prototype = {
     },
 
     update: function () {
-        this.enemyGroup.forEachAlive(function (enemy) {
-            this.game.physics.arcade.overlap(enemy, this.player.bullets, enemy.enemyLoseHealth, null, enemy);
-            this.game.physics.arcade.overlap(this.player, enemy.bullets, this.player.playerHitsSomething, null, this.player);
-        }, this);
-
         var firstAliveEnemy = this.enemyGroup.getFirstAlive();
         if (firstAliveEnemy) {
             if (!firstAliveEnemy.inCamera) {
