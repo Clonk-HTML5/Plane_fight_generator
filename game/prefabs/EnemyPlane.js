@@ -98,7 +98,7 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
     this.arrow.anchor.setTo(0.5, 0.5);
     this.arrow.visible = false;
     
-    this.game.time.events.loop(Phaser.Timer.SECOND, this.flyToRandomPointInWorld, this);
+    // this.game.time.events.loop(Phaser.Timer.QUARTER, this.flyToRandomPointInWorld, this);
 
 };
 
@@ -106,6 +106,8 @@ EnemyPlane.prototype = Object.create(Phaser.Sprite.prototype);
 EnemyPlane.prototype.constructor = EnemyPlane;
 
 EnemyPlane.prototype.update = function() {
+    
+    this.flyToRandomPointInWorld();
 
     this.game.physics.arcade.overlap(this, this.player.bullets, this.enemyLoseHealth, null, this);
     this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
@@ -246,12 +248,6 @@ EnemyPlane.prototype.fireBullet = function() {
             this.createParticles();
         //   this.emitter.start(false, 2000, 50);
           plane.frameName = GlobalGame.enemy.replace('default', 'default_damaged');
-        } else if (plane.health === 10) {
-          // var particleBaseName = 'sprites/particles/black_smoke/blackSmoke';
-          // this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
-          plane.frameName = GlobalGame.enemy.replace('default', 'attack_damaged_1');
-        } else if (plane.health === 5) {
-          plane.frameName = GlobalGame.enemy.replace('default', 'attack_damaged_2');
         }
 
         if(plane.health < 1){

@@ -1,40 +1,8 @@
 {"frames": {
 
-"Airplanes/AEG_C_IV/Skin_1/attack_1":
-{
-	"frame": {"x":846,"y":147,"w":64,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":64,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_1/attack_2":
-{
-	"frame": {"x":911,"y":148,"w":64,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":64,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_1/attack_damaged_1":
-{
-	"frame": {"x":846,"y":181,"w":64,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":64,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_1/attack_damaged_2":
-{
-	"frame": {"x":716,"y":182,"w":64,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":64,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
 "Airplanes/AEG_C_IV/Skin_1/death_1":
 {
-	"frame": {"x":716,"y":147,"w":64,"h":34},
+	"frame": {"x":684,"y":188,"w":64,"h":34},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":15,"w":64,"h":34},
@@ -42,7 +10,7 @@
 },
 "Airplanes/AEG_C_IV/Skin_1/death_2":
 {
-	"frame": {"x":1067,"y":59,"w":64,"h":44},
+	"frame": {"x":229,"y":191,"w":64,"h":44},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":9,"w":64,"h":44},
@@ -50,7 +18,7 @@
 },
 "Airplanes/AEG_C_IV/Skin_1/death_3":
 {
-	"frame": {"x":937,"y":1,"w":64,"h":61},
+	"frame": {"x":229,"y":129,"w":64,"h":61},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":61},
@@ -58,7 +26,7 @@
 },
 "Airplanes/AEG_C_IV/Skin_1/death_4":
 {
-	"frame": {"x":1067,"y":1,"w":64,"h":57},
+	"frame": {"x":294,"y":129,"w":64,"h":57},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":2,"w":64,"h":57},
@@ -66,7 +34,7 @@
 },
 "Airplanes/AEG_C_IV/Skin_1/default":
 {
-	"frame": {"x":911,"y":182,"w":62,"h":33},
+	"frame": {"x":839,"y":1,"w":62,"h":33},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
@@ -74,7 +42,7 @@
 },
 "Airplanes/AEG_C_IV/Skin_1/default_big":
 {
-	"frame": {"x":481,"y":1,"w":227,"h":105},
+	"frame": {"x":1,"y":129,"w":227,"h":105},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":10,"y":78,"w":227,"h":105},
@@ -82,39 +50,7 @@
 },
 "Airplanes/AEG_C_IV/Skin_1/default_damaged":
 {
-	"frame": {"x":846,"y":215,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_1/down":
-{
-	"frame": {"x":974,"y":182,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_1/down_damaged_1":
-{
-	"frame": {"x":1037,"y":183,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_1/down_damaged_2":
-{
-	"frame": {"x":1100,"y":216,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_1/down_damaged_3":
-{
-	"frame": {"x":909,"y":216,"w":62,"h":33},
+	"frame": {"x":839,"y":35,"w":62,"h":33},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
@@ -122,7 +58,7 @@
 },
 "Airplanes/AEG_C_IV/Skin_1/hit_1":
 {
-	"frame": {"x":972,"y":216,"w":62,"h":33},
+	"frame": {"x":839,"y":69,"w":62,"h":33},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
@@ -130,7 +66,7 @@
 },
 "Airplanes/AEG_C_IV/Skin_1/hit_2":
 {
-	"frame": {"x":1035,"y":217,"w":62,"h":33},
+	"frame": {"x":839,"y":103,"w":62,"h":33},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
@@ -138,103 +74,15 @@
 },
 "Airplanes/AEG_C_IV/Skin_1/hit_3":
 {
-	"frame": {"x":1,"y":169,"w":62,"h":33},
+	"frame": {"x":749,"y":134,"w":62,"h":33},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_1/hit_damaged_1":
-{
-	"frame": {"x":64,"y":169,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_1/hit_damaged_2":
-{
-	"frame": {"x":127,"y":169,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_1/hit_damaged_3":
-{
-	"frame": {"x":190,"y":169,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_1/up":
-{
-	"frame": {"x":253,"y":169,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_1/up_damaged_1":
-{
-	"frame": {"x":316,"y":169,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_1/up_damaged_2":
-{
-	"frame": {"x":379,"y":169,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_1/up_damaged_3":
-{
-	"frame": {"x":442,"y":187,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_2/attack_1":
-{
-	"frame": {"x":781,"y":182,"w":64,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":64,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_2/attack_2":
-{
-	"frame": {"x":976,"y":148,"w":64,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":64,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_2/attack_damaged_1":
-{
-	"frame": {"x":1041,"y":149,"w":64,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":64,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_2/attack_damaged_2":
-{
-	"frame": {"x":1106,"y":182,"w":64,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":64,"h":33},
 	"sourceSize": {"w":64,"h":64}
 },
 "Airplanes/AEG_C_IV/Skin_2/death_1":
 {
-	"frame": {"x":781,"y":147,"w":64,"h":34},
+	"frame": {"x":774,"y":99,"w":64,"h":34},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":15,"w":64,"h":34},
@@ -242,7 +90,7 @@
 },
 "Airplanes/AEG_C_IV/Skin_2/death_2":
 {
-	"frame": {"x":937,"y":63,"w":64,"h":44},
+	"frame": {"x":359,"y":186,"w":64,"h":44},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":9,"w":64,"h":44},
@@ -250,7 +98,7 @@
 },
 "Airplanes/AEG_C_IV/Skin_2/death_3":
 {
-	"frame": {"x":1002,"y":1,"w":64,"h":61},
+	"frame": {"x":709,"y":1,"w":64,"h":61},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":61},
@@ -258,7 +106,7 @@
 },
 "Airplanes/AEG_C_IV/Skin_2/death_4":
 {
-	"frame": {"x":1132,"y":1,"w":64,"h":57},
+	"frame": {"x":774,"y":1,"w":64,"h":57},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":2,"w":64,"h":57},
@@ -266,7 +114,7 @@
 },
 "Airplanes/AEG_C_IV/Skin_2/default":
 {
-	"frame": {"x":505,"y":187,"w":62,"h":33},
+	"frame": {"x":749,"y":168,"w":62,"h":33},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
@@ -274,7 +122,7 @@
 },
 "Airplanes/AEG_C_IV/Skin_2/default_big":
 {
-	"frame": {"x":709,"y":1,"w":227,"h":105},
+	"frame": {"x":481,"y":1,"w":227,"h":105},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":10,"y":78,"w":227,"h":105},
@@ -282,39 +130,7 @@
 },
 "Airplanes/AEG_C_IV/Skin_2/default_damaged":
 {
-	"frame": {"x":568,"y":187,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_2/down":
-{
-	"frame": {"x":631,"y":187,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_2/down_damaged_1":
-{
-	"frame": {"x":694,"y":216,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_2/down_damaged_2":
-{
-	"frame": {"x":757,"y":216,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_2/down_damaged_3":
-{
-	"frame": {"x":1,"y":203,"w":62,"h":33},
+	"frame": {"x":749,"y":202,"w":62,"h":33},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
@@ -322,7 +138,7 @@
 },
 "Airplanes/AEG_C_IV/Skin_2/hit_1":
 {
-	"frame": {"x":64,"y":203,"w":62,"h":33},
+	"frame": {"x":812,"y":137,"w":62,"h":33},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
@@ -330,7 +146,7 @@
 },
 "Airplanes/AEG_C_IV/Skin_2/hit_2":
 {
-	"frame": {"x":127,"y":203,"w":62,"h":33},
+	"frame": {"x":812,"y":171,"w":62,"h":33},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
@@ -338,103 +154,15 @@
 },
 "Airplanes/AEG_C_IV/Skin_2/hit_3":
 {
-	"frame": {"x":190,"y":203,"w":62,"h":33},
+	"frame": {"x":812,"y":205,"w":62,"h":33},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_2/hit_damaged_1":
-{
-	"frame": {"x":253,"y":203,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_2/hit_damaged_2":
-{
-	"frame": {"x":316,"y":203,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_2/hit_damaged_3":
-{
-	"frame": {"x":379,"y":203,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_2/up":
-{
-	"frame": {"x":442,"y":221,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_2/up_damaged_1":
-{
-	"frame": {"x":505,"y":221,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_2/up_damaged_2":
-{
-	"frame": {"x":568,"y":221,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/AEG_C_IV/Skin_2/up_damaged_3":
-{
-	"frame": {"x":631,"y":221,"w":62,"h":33},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":16,"w":62,"h":33},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_1/attack_1":
-{
-	"frame": {"x":1392,"y":1,"w":64,"h":39},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_1/attack_2":
-{
-	"frame": {"x":1392,"y":41,"w":64,"h":39},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_1/attack_damaged_1":
-{
-	"frame": {"x":1392,"y":81,"w":64,"h":39},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_1/attack_damaged_2":
-{
-	"frame": {"x":1392,"y":121,"w":64,"h":39},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
 	"sourceSize": {"w":64,"h":64}
 },
 "Airplanes/Fokker/Skin_1/death_1":
 {
-	"frame": {"x":1392,"y":161,"w":64,"h":39},
+	"frame": {"x":774,"y":59,"w":64,"h":39},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
@@ -442,7 +170,7 @@
 },
 "Airplanes/Fokker/Skin_1/death_2":
 {
-	"frame": {"x":1002,"y":63,"w":64,"h":44},
+	"frame": {"x":424,"y":183,"w":64,"h":44},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":11,"w":64,"h":44},
@@ -450,7 +178,7 @@
 },
 "Airplanes/Fokker/Skin_1/death_3":
 {
-	"frame": {"x":1262,"y":1,"w":64,"h":53},
+	"frame": {"x":424,"y":129,"w":64,"h":53},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":6,"w":64,"h":53},
@@ -458,7 +186,7 @@
 },
 "Airplanes/Fokker/Skin_1/death_4":
 {
-	"frame": {"x":1197,"y":1,"w":64,"h":56},
+	"frame": {"x":359,"y":129,"w":64,"h":56},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":5,"w":64,"h":56},
@@ -466,7 +194,7 @@
 },
 "Airplanes/Fokker/Skin_1/default":
 {
-	"frame": {"x":1392,"y":201,"w":64,"h":39},
+	"frame": {"x":489,"y":107,"w":64,"h":39},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
@@ -482,47 +210,15 @@
 },
 "Airplanes/Fokker/Skin_1/default_damaged":
 {
-	"frame": {"x":481,"y":107,"w":64,"h":39},
+	"frame": {"x":489,"y":147,"w":64,"h":39},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
 	"sourceSize": {"w":64,"h":64}
 },
-"Airplanes/Fokker/Skin_1/down":
-{
-	"frame": {"x":1132,"y":59,"w":64,"h":40},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":13,"w":64,"h":40},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_1/down_damaged_1":
-{
-	"frame": {"x":1132,"y":100,"w":64,"h":40},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":13,"w":64,"h":40},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_1/down_damaged_2":
-{
-	"frame": {"x":1197,"y":58,"w":64,"h":40},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":13,"w":64,"h":40},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_1/down_damaged_3":
-{
-	"frame": {"x":1197,"y":99,"w":64,"h":40},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":13,"w":64,"h":40},
-	"sourceSize": {"w":64,"h":64}
-},
 "Airplanes/Fokker/Skin_1/hit_1":
 {
-	"frame": {"x":546,"y":107,"w":64,"h":39},
+	"frame": {"x":554,"y":107,"w":64,"h":39},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
@@ -530,7 +226,7 @@
 },
 "Airplanes/Fokker/Skin_1/hit_2":
 {
-	"frame": {"x":611,"y":107,"w":64,"h":39},
+	"frame": {"x":489,"y":187,"w":64,"h":39},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
@@ -538,95 +234,7 @@
 },
 "Airplanes/Fokker/Skin_1/hit_3":
 {
-	"frame": {"x":676,"y":107,"w":64,"h":39},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_1/hit_damaged_1":
-{
-	"frame": {"x":741,"y":107,"w":64,"h":39},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_1/hit_damaged_2":
-{
-	"frame": {"x":806,"y":107,"w":64,"h":39},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_1/hit_damaged_3":
-{
-	"frame": {"x":871,"y":107,"w":64,"h":39},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_1/up":
-{
-	"frame": {"x":1262,"y":106,"w":64,"h":40},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":13,"w":64,"h":40},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_1/up_damaged_1":
-{
-	"frame": {"x":1132,"y":141,"w":64,"h":40},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":13,"w":64,"h":40},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_1/up_damaged_2":
-{
-	"frame": {"x":1197,"y":140,"w":64,"h":40},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":13,"w":64,"h":40},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_1/up_damaged_3":
-{
-	"frame": {"x":1262,"y":147,"w":64,"h":40},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":13,"w":64,"h":40},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_2/attack_1":
-{
-	"frame": {"x":936,"y":108,"w":64,"h":39},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_2/attack_2":
-{
-	"frame": {"x":1001,"y":108,"w":64,"h":39},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_2/attack_damaged_1":
-{
-	"frame": {"x":1,"y":129,"w":64,"h":39},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_2/attack_damaged_2":
-{
-	"frame": {"x":66,"y":129,"w":64,"h":39},
+	"frame": {"x":554,"y":147,"w":64,"h":39},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
@@ -634,7 +242,7 @@
 },
 "Airplanes/Fokker/Skin_2/death_1":
 {
-	"frame": {"x":131,"y":129,"w":64,"h":39},
+	"frame": {"x":619,"y":107,"w":64,"h":39},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
@@ -642,7 +250,7 @@
 },
 "Airplanes/Fokker/Skin_2/death_2":
 {
-	"frame": {"x":1067,"y":104,"w":64,"h":44},
+	"frame": {"x":709,"y":63,"w":64,"h":44},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":11,"w":64,"h":44},
@@ -650,7 +258,7 @@
 },
 "Airplanes/Fokker/Skin_2/death_3":
 {
-	"frame": {"x":1262,"y":55,"w":64,"h":50},
+	"frame": {"x":294,"y":187,"w":64,"h":50},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":6,"w":64,"h":50},
@@ -658,7 +266,7 @@
 },
 "Airplanes/Fokker/Skin_2/death_4":
 {
-	"frame": {"x":1197,"y":1,"w":64,"h":56},
+	"frame": {"x":359,"y":129,"w":64,"h":56},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":5,"w":64,"h":56},
@@ -666,7 +274,7 @@
 },
 "Airplanes/Fokker/Skin_2/default":
 {
-	"frame": {"x":196,"y":129,"w":64,"h":39},
+	"frame": {"x":554,"y":187,"w":64,"h":39},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
@@ -682,47 +290,15 @@
 },
 "Airplanes/Fokker/Skin_2/default_damaged":
 {
-	"frame": {"x":261,"y":129,"w":64,"h":39},
+	"frame": {"x":619,"y":147,"w":64,"h":39},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
 	"sourceSize": {"w":64,"h":64}
 },
-"Airplanes/Fokker/Skin_2/down":
-{
-	"frame": {"x":1197,"y":181,"w":64,"h":40},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":13,"w":64,"h":40},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_2/down_damaged_1":
-{
-	"frame": {"x":1262,"y":188,"w":64,"h":40},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":13,"w":64,"h":40},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_2/down_damaged_2":
-{
-	"frame": {"x":1327,"y":1,"w":64,"h":40},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":13,"w":64,"h":40},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_2/down_damaged_3":
-{
-	"frame": {"x":1327,"y":42,"w":64,"h":40},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":13,"w":64,"h":40},
-	"sourceSize": {"w":64,"h":64}
-},
 "Airplanes/Fokker/Skin_2/hit_1":
 {
-	"frame": {"x":326,"y":129,"w":64,"h":39},
+	"frame": {"x":619,"y":187,"w":64,"h":39},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
@@ -730,7 +306,7 @@
 },
 "Airplanes/Fokker/Skin_2/hit_2":
 {
-	"frame": {"x":391,"y":129,"w":64,"h":39},
+	"frame": {"x":684,"y":108,"w":64,"h":39},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
@@ -738,66 +314,10 @@
 },
 "Airplanes/Fokker/Skin_2/hit_3":
 {
-	"frame": {"x":456,"y":147,"w":64,"h":39},
+	"frame": {"x":684,"y":148,"w":64,"h":39},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_2/hit_damaged_1":
-{
-	"frame": {"x":521,"y":147,"w":64,"h":39},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_2/hit_damaged_2":
-{
-	"frame": {"x":586,"y":147,"w":64,"h":39},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_2/hit_damaged_3":
-{
-	"frame": {"x":651,"y":147,"w":64,"h":39},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":14,"w":64,"h":39},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_2/up":
-{
-	"frame": {"x":1327,"y":83,"w":64,"h":40},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":13,"w":64,"h":40},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_2/up_damaged_1":
-{
-	"frame": {"x":1327,"y":124,"w":64,"h":40},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":13,"w":64,"h":40},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_2/up_damaged_2":
-{
-	"frame": {"x":1327,"y":165,"w":64,"h":40},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":13,"w":64,"h":40},
-	"sourceSize": {"w":64,"h":64}
-},
-"Airplanes/Fokker/Skin_2/up_damaged_3":
-{
-	"frame": {"x":1327,"y":206,"w":64,"h":40},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":13,"w":64,"h":40},
 	"sourceSize": {"w":64,"h":64}
 }},
 "meta": {
@@ -805,8 +325,8 @@
 	"version": "1.0",
 	"image": "airplanes.png",
 	"format": "RGBA8888",
-	"size": {"w":1463,"h":255},
+	"size": {"w":902,"h":239},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:3d5679ebe73ec2d3557e03f452e960fc:bca0eff466de7ce81eaab2675d25364c:b8792ed0f3cdbe9dc478b19508a88ff0$"
+	"smartupdate": "$TexturePacker:SmartUpdate:d81175286bd06bf3b45fb5335a04e886:bb81908a97fc5babf9e240afb7af8ec3:b8792ed0f3cdbe9dc478b19508a88ff0$"
 }
 }

@@ -7,16 +7,17 @@ var Level = function(game, options) {
   this.options = options ? options : false;
 
   this.spriteSheet = this.game.cache.getFrameData("sprites");
-  this.worldHeight = this.spriteSheet.getFrameByName("level/level_1/cloudsBackground").height;
+  var backroundLayerNumber = this.options.currentLevel.levelDesign.BackroundLayerNumber ? this.options.currentLevel.levelDesign.BackroundLayerNumber : 1;
+  this.worldHeight = this.spriteSheet.getFrameByName('level/level_'+backroundLayerNumber+'/cloudsBackground').height;
   this.game.world.setBounds(0 , 0, 3000, this.worldHeight);
-
-  this.bgtile = this.game.add.tileSprite(0, 0, this.game.world.width, this.worldHeight, 'sprites', 'level/level_1/cloudsBackground');
+  
+  this.bgtile = this.game.add.tileSprite(0, 0, this.game.world.width, this.worldHeight, 'sprites', 'level/level_'+backroundLayerNumber+'/cloudsBackground');
 //  this.bgtile.fixedToCamera = true;
   this.bgtile.autoScroll(50, 0);
   this.add(this.bgtile);
 
   // this.mountaintile = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.cache.getImage('treesMountain1').height, 'treesMountain1');
-  this.mountaintile = this.game.add.tileSprite(0, 0, this.game.world.width, this.worldHeight, 'sprites', 'level/level_1/treesMountain');
+  this.mountaintile = this.game.add.tileSprite(0, 0, this.game.world.width, this.worldHeight, 'sprites', 'level/level_'+backroundLayerNumber+'/treesMountain');
 //  this.mountaintile.fixedToCamera = true;
   this.add(this.mountaintile);
 
@@ -54,8 +55,8 @@ var Level = function(game, options) {
 
     this.platforms = this.game.add.group();
 //    this.groundtile = this.game.add.tileSprite(0, this.game.world.height - 132, this.game.world.width, this.game.cache.getImage('bg1').height, 'sprites', 'level/crosssection_long_new');
-    var groundHeight = this.spriteSheet.getFrameByName("level/level_1/ground").height;
-    this.groundtile = this.game.add.tileSprite(0, this.game.world.height - groundHeight, this.game.world.width, groundHeight, 'sprites', 'level/level_1/ground');
+    var groundHeight = this.spriteSheet.getFrameByName('level/level_'+backroundLayerNumber+'/ground').height;
+    this.groundtile = this.game.add.tileSprite(0, this.game.world.height - groundHeight, this.game.world.width, groundHeight, 'sprites', 'level/level_'+backroundLayerNumber+'/ground');
     this.groundtile.name = 'ground';
     this.game.physics.enable(this.groundtile, Phaser.Physics.ARCADE);
     this.groundtile.body.immovable = true;

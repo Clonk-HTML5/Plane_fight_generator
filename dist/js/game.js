@@ -2079,14 +2079,14 @@ var BasicLayer = function(game, parent, options) {
         }
     
         if(currentWave.flaks) {
-          var enemyFlakImageText = this.game.add.text(this.game.width/2 , enemyImagesXPosition, currentWave.planes.count + 'x', this.smallerfontStyle);
+          var enemyFlakImageText = this.game.add.text(this.game.width/2 , enemyImagesXPosition, currentWave.flaks.count + 'x', this.smallerfontStyle);
           var enemyFlakImage = this.game.add.image(this.game.width/2 + 70 , enemyImagesXPosition,"flak","flak/flak1/turret_1_default");
           this.add(enemyFlakImageText);
           this.add(enemyFlakImage);
         }
     
         if(currentWave.soliders) {
-          var enemySoliderImageText = this.game.add.text(this.game.width/2 + 30 , enemyImagesXPosition, currentWave.planes.count + 'x', this.smallerfontStyle);
+          var enemySoliderImageText = this.game.add.text(this.game.width/2 + 30 , enemyImagesXPosition, currentWave.soliders.count + 'x', this.smallerfontStyle);
           var soliderId = currentWave.soliders.type;
           var enemySoliderImage = this.game.add.image(this.game.width/2 + 100 , enemyImagesXPosition,"soliders","soliders/solider"+soliderId+"/Soldier"+soliderId+"_shot_up_6");
           this.add(enemySoliderImageText);
@@ -2201,7 +2201,7 @@ EnemyGroup.prototype.addEnemy = function () {
 
       if(this.currentLevel.waves[this.currentWave].flaks) {
         for (var i = 0; i < this.currentLevel.waves[this.currentWave].flaks.count; i++){
-          this.flak = new Flak(this.game, Math.random() * this.game.world.width, (this.game.world.height + 330) ,"flak/flak1/turret_1_default", this.player, this.options);
+          this.flak = new Flak(this.game, Math.random() * this.game.world.width, (this.game.world.height - 50) ,"flak/flak1/turret_1_default", this.player, this.options);
           this.add(this.flak);
         }
       }
@@ -2352,7 +2352,7 @@ var EnemyPlane = function(game, x, y, frame, player, options) {
     this.arrow.anchor.setTo(0.5, 0.5);
     this.arrow.visible = false;
     
-    this.game.time.events.loop(Phaser.Timer.SECOND, this.flyToRandomPointInWorld, this);
+    // this.game.time.events.loop(Phaser.Timer.QUARTER, this.flyToRandomPointInWorld, this);
 
 };
 
@@ -2360,6 +2360,8 @@ EnemyPlane.prototype = Object.create(Phaser.Sprite.prototype);
 EnemyPlane.prototype.constructor = EnemyPlane;
 
 EnemyPlane.prototype.update = function() {
+    
+    this.flyToRandomPointInWorld();
 
     this.game.physics.arcade.overlap(this, this.player.bullets, this.enemyLoseHealth, null, this);
     this.game.physics.arcade.overlap(this.player, this.bullets, this.player.playerHitsSomething, null, this.player);
@@ -2500,12 +2502,6 @@ EnemyPlane.prototype.fireBullet = function() {
             this.createParticles();
         //   this.emitter.start(false, 2000, 50);
           plane.frameName = GlobalGame.enemy.replace('default', 'default_damaged');
-        } else if (plane.health === 10) {
-          // var particleBaseName = 'sprites/particles/black_smoke/blackSmoke';
-          // this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
-          plane.frameName = GlobalGame.enemy.replace('default', 'attack_damaged_1');
-        } else if (plane.health === 5) {
-          plane.frameName = GlobalGame.enemy.replace('default', 'attack_damaged_2');
         }
 
         if(plane.health < 1){
@@ -2680,16 +2676,17 @@ var Level = function(game, options) {
   this.options = options ? options : false;
 
   this.spriteSheet = this.game.cache.getFrameData("sprites");
-  this.worldHeight = this.spriteSheet.getFrameByName("level/level_1/cloudsBackground").height;
+  var backroundLayerNumber = this.options.currentLevel.levelDesign.BackroundLayerNumber ? this.options.currentLevel.levelDesign.BackroundLayerNumber : 1;
+  this.worldHeight = this.spriteSheet.getFrameByName('level/level_'+backroundLayerNumber+'/cloudsBackground').height;
   this.game.world.setBounds(0 , 0, 3000, this.worldHeight);
-
-  this.bgtile = this.game.add.tileSprite(0, 0, this.game.world.width, this.worldHeight, 'sprites', 'level/level_1/cloudsBackground');
+  
+  this.bgtile = this.game.add.tileSprite(0, 0, this.game.world.width, this.worldHeight, 'sprites', 'level/level_'+backroundLayerNumber+'/cloudsBackground');
 //  this.bgtile.fixedToCamera = true;
   this.bgtile.autoScroll(50, 0);
   this.add(this.bgtile);
 
   // this.mountaintile = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.cache.getImage('treesMountain1').height, 'treesMountain1');
-  this.mountaintile = this.game.add.tileSprite(0, 0, this.game.world.width, this.worldHeight, 'sprites', 'level/level_1/treesMountain');
+  this.mountaintile = this.game.add.tileSprite(0, 0, this.game.world.width, this.worldHeight, 'sprites', 'level/level_'+backroundLayerNumber+'/treesMountain');
 //  this.mountaintile.fixedToCamera = true;
   this.add(this.mountaintile);
 
@@ -2727,8 +2724,8 @@ var Level = function(game, options) {
 
     this.platforms = this.game.add.group();
 //    this.groundtile = this.game.add.tileSprite(0, this.game.world.height - 132, this.game.world.width, this.game.cache.getImage('bg1').height, 'sprites', 'level/crosssection_long_new');
-    var groundHeight = this.spriteSheet.getFrameByName("level/level_1/ground").height;
-    this.groundtile = this.game.add.tileSprite(0, this.game.world.height - groundHeight, this.game.world.width, groundHeight, 'sprites', 'level/level_1/ground');
+    var groundHeight = this.spriteSheet.getFrameByName('level/level_'+backroundLayerNumber+'/ground').height;
+    this.groundtile = this.game.add.tileSprite(0, this.game.world.height - groundHeight, this.game.world.width, groundHeight, 'sprites', 'level/level_'+backroundLayerNumber+'/ground');
     this.groundtile.name = 'ground';
     this.game.physics.enable(this.groundtile, Phaser.Physics.ARCADE);
     this.groundtile.body.immovable = true;
@@ -2846,14 +2843,16 @@ var Player = function(game, x, y,frame) {
             playerHitString+'3'
         ], 10, false, false);
 
-        var playerDeathString = GlobalGame.player.replace('default', 'death_');
-        this.deadAnimation = this.animations.add('explode', [
-            playerDeathString+'1',
-            playerDeathString+'2',
-            playerDeathString+'3',
-            playerDeathString+'4'
-        ], 10, false, false);
-
+        // var playerDeathString = GlobalGame.player.replace('default', 'death_');
+        // this.deadAnimation = this.animations.add('explode', [
+        //     playerDeathString+'1',
+        //     playerDeathString+'2',
+        //     playerDeathString+'3',
+        //     playerDeathString+'4'
+        // ], 10, false, false);
+        
+        this.deadAnimation = this.animations.add('explode', Phaser.Animation.generateFrameNames('explosion', 0, 199));
+        
         this.hitAnimation.onComplete.add(function() {
             this.frameName = GlobalGame.player;
         }, this);
@@ -3135,12 +3134,6 @@ Player.prototype.update = function() {
         if(plane.health === 15){
           this.createParticles();
           plane.frameName = GlobalGame.player.replace('default', 'default_damaged');
-        } else if (plane.health === 10) {
-          // var particleBaseName = 'sprites/particles/black_smoke/blackSmoke';
-          // this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
-          plane.frameName = GlobalGame.player.replace('default', 'attack_damaged_1');
-        } else if (plane.health === 5) {
-          plane.frameName = GlobalGame.player.replace('default', 'attack_damaged_2');
         }
 
         if(plane.health < 1){
@@ -4143,7 +4136,6 @@ Menu.prototype = {
 
   },
   create: function() {
-      this.game.add.plugin(Phaser.Plugin.Debug);
 //      this.background = this.game.add.tileSprite(0, 0, this.game.world.width, this.game.height, 'menu_bg');
 
     this.buttonGroup = this.game.add.group();
@@ -5060,6 +5052,7 @@ Preload.prototype = {
     this.load.atlasJSONHash('airplanes', 'assets/spritesheets/airplanes.png', 'assets/spritesheets/airplanes.json');
     this.load.atlasJSONHash('soliders', 'assets/spritesheets/soliders.png', 'assets/spritesheets/soliders.json');
     this.load.atlasJSONHash('flak', 'assets/spritesheets/flak.png', 'assets/spritesheets/flak.json');
+    this.load.atlas('explosion', 'assets/spritesheets/explosion.png', 'assets/spritesheets/explosion.json');
 
     this.load.json('levelJson', 'assets/levels/levels.json');
 

@@ -50,14 +50,16 @@ var Player = function(game, x, y,frame) {
             playerHitString+'3'
         ], 10, false, false);
 
-        var playerDeathString = GlobalGame.player.replace('default', 'death_');
-        this.deadAnimation = this.animations.add('explode', [
-            playerDeathString+'1',
-            playerDeathString+'2',
-            playerDeathString+'3',
-            playerDeathString+'4'
-        ], 10, false, false);
-
+        // var playerDeathString = GlobalGame.player.replace('default', 'death_');
+        // this.deadAnimation = this.animations.add('explode', [
+        //     playerDeathString+'1',
+        //     playerDeathString+'2',
+        //     playerDeathString+'3',
+        //     playerDeathString+'4'
+        // ], 10, false, false);
+        
+        this.deadAnimation = this.animations.add('explode', Phaser.Animation.generateFrameNames('explosion', 0, 199));
+        
         this.hitAnimation.onComplete.add(function() {
             this.frameName = GlobalGame.player;
         }, this);
@@ -339,12 +341,6 @@ Player.prototype.update = function() {
         if(plane.health === 15){
           this.createParticles();
           plane.frameName = GlobalGame.player.replace('default', 'default_damaged');
-        } else if (plane.health === 10) {
-          // var particleBaseName = 'sprites/particles/black_smoke/blackSmoke';
-          // this.emitter.makeParticles('sprites', [particleBaseName+'01',particleBaseName+'02',particleBaseName+'03',particleBaseName+'04',particleBaseName+'05',particleBaseName+'06',particleBaseName+'07',particleBaseName+'08',particleBaseName+'09',particleBaseName+'10'] );
-          plane.frameName = GlobalGame.player.replace('default', 'attack_damaged_1');
-        } else if (plane.health === 5) {
-          plane.frameName = GlobalGame.player.replace('default', 'attack_damaged_2');
         }
 
         if(plane.health < 1){

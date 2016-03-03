@@ -49,14 +49,14 @@ var BasicLayer = function(game, parent, options) {
         }
     
         if(currentWave.flaks) {
-          var enemyFlakImageText = this.game.add.text(this.game.width/2 , enemyImagesXPosition, currentWave.planes.count + 'x', this.smallerfontStyle);
+          var enemyFlakImageText = this.game.add.text(this.game.width/2 , enemyImagesXPosition, currentWave.flaks.count + 'x', this.smallerfontStyle);
           var enemyFlakImage = this.game.add.image(this.game.width/2 + 70 , enemyImagesXPosition,"flak","flak/flak1/turret_1_default");
           this.add(enemyFlakImageText);
           this.add(enemyFlakImage);
         }
     
         if(currentWave.soliders) {
-          var enemySoliderImageText = this.game.add.text(this.game.width/2 + 30 , enemyImagesXPosition, currentWave.planes.count + 'x', this.smallerfontStyle);
+          var enemySoliderImageText = this.game.add.text(this.game.width/2 + 30 , enemyImagesXPosition, currentWave.soliders.count + 'x', this.smallerfontStyle);
           var soliderId = currentWave.soliders.type;
           var enemySoliderImage = this.game.add.image(this.game.width/2 + 100 , enemyImagesXPosition,"soliders","soliders/solider"+soliderId+"/Soldier"+soliderId+"_shot_up_6");
           this.add(enemySoliderImageText);
