@@ -29,7 +29,7 @@ Preload.prototype = {
     this.load.atlasJSONHash('airplanes', 'assets/spritesheets/airplanes.png', 'assets/spritesheets/airplanes.json');
     this.load.atlasJSONHash('soliders', 'assets/spritesheets/soliders.png', 'assets/spritesheets/soliders.json');
     this.load.atlasJSONHash('flak', 'assets/spritesheets/flak.png', 'assets/spritesheets/flak.json');
-    this.load.atlas('explosion', 'assets/spritesheets/explosion.png', 'assets/spritesheets/explosion.json');
+    // this.load.atlas('explosion', 'assets/spritesheets/explosion.png', 'assets/spritesheets/explosion.json');
 
     this.load.json('levelJson', 'assets/levels/levels.json');
 

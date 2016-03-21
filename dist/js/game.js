@@ -2843,15 +2843,15 @@ var Player = function(game, x, y,frame) {
             playerHitString+'3'
         ], 10, false, false);
 
-        // var playerDeathString = GlobalGame.player.replace('default', 'death_');
-        // this.deadAnimation = this.animations.add('explode', [
-        //     playerDeathString+'1',
-        //     playerDeathString+'2',
-        //     playerDeathString+'3',
-        //     playerDeathString+'4'
-        // ], 10, false, false);
+        var playerDeathString = GlobalGame.player.replace('default', 'death_');
+        this.deadAnimation = this.animations.add('explode', [
+             playerDeathString+'1',
+             playerDeathString+'2',
+             playerDeathString+'3',
+             playerDeathString+'4'
+        ], 10, false, false);
         
-        this.deadAnimation = this.animations.add('explode', Phaser.Animation.generateFrameNames('explosion', 0, 199));
+        // this.deadAnimation = this.animations.add('explode', Phaser.Animation.generateFrameNames('explosion', 0, 199));
         
         this.hitAnimation.onComplete.add(function() {
             this.frameName = GlobalGame.player;
@@ -5052,7 +5052,7 @@ Preload.prototype = {
     this.load.atlasJSONHash('airplanes', 'assets/spritesheets/airplanes.png', 'assets/spritesheets/airplanes.json');
     this.load.atlasJSONHash('soliders', 'assets/spritesheets/soliders.png', 'assets/spritesheets/soliders.json');
     this.load.atlasJSONHash('flak', 'assets/spritesheets/flak.png', 'assets/spritesheets/flak.json');
-    this.load.atlas('explosion', 'assets/spritesheets/explosion.png', 'assets/spritesheets/explosion.json');
+    // this.load.atlas('explosion', 'assets/spritesheets/explosion.png', 'assets/spritesheets/explosion.json');
 
     this.load.json('levelJson', 'assets/levels/levels.json');
 

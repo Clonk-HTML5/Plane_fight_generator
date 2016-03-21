@@ -50,15 +50,15 @@ var Player = function(game, x, y,frame) {
             playerHitString+'3'
         ], 10, false, false);
 
-        // var playerDeathString = GlobalGame.player.replace('default', 'death_');
-        // this.deadAnimation = this.animations.add('explode', [
-        //     playerDeathString+'1',
-        //     playerDeathString+'2',
-        //     playerDeathString+'3',
-        //     playerDeathString+'4'
-        // ], 10, false, false);
+        var playerDeathString = GlobalGame.player.replace('default', 'death_');
+        this.deadAnimation = this.animations.add('explode', [
+             playerDeathString+'1',
+             playerDeathString+'2',
+             playerDeathString+'3',
+             playerDeathString+'4'
+        ], 10, false, false);
         
-        this.deadAnimation = this.animations.add('explode', Phaser.Animation.generateFrameNames('explosion', 0, 199));
+        // this.deadAnimation = this.animations.add('explode', Phaser.Animation.generateFrameNames('explosion', 0, 199));
         
         this.hitAnimation.onComplete.add(function() {
             this.frameName = GlobalGame.player;
